@@ -13,4 +13,5 @@ export class CreateProdutoDto {
 
   categoriaId?: number;
   data_criacao: Date;
+  data_alteracao: Date;
 }

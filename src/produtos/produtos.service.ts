@@ -39,6 +39,7 @@ export class ProdutosService {
     throw new HttpException('Produto não encontrado!', HttpStatus.NOT_FOUND);
   }
 
+  //Busca somente por um ID
   async findOne(id: number) {
     const product = await this.prisma.produtos.findFirst({
       where: {
@@ -50,12 +51,72 @@ export class ProdutosService {
     // Caso não encontre o produto
     throw new HttpException('Produto não encontrado!', HttpStatus.NOT_FOUND);
   }
+  /*---------------------Fim--------------------------*/
 
-  update(id: number, updateProdutoDto: UpdateProdutoDto) {
-    return `This action updates a #${id} produto`;
+  /*-------------------Metodo Update--------------------*/
+  async update(id: number, updateProdutoDto: UpdateProdutoDto) {
+    try {
+      // Busca o produto pelo ID
+      const findProduct = await this.prisma.produtos.findUnique({
+        where: {
+          id: id,
+        },
+      });
+      // Se não encontrar, retorna mensagem para o usuário
+      if (!findProduct) {
+        throw new HttpException('O Produto não foi encontrado.', HttpStatus.NOT_FOUND);
+      }
+      // Se encontrou, atualiza o produto com as informações que o usuário passou
+      const product = await this.prisma.produtos.update({
+        where: {
+          id: id,
+        },
+        data: {
+          descricao: updateProdutoDto?.descricao ? updateProdutoDto?.descricao : findProduct.descricao,
+          preco: updateProdutoDto?.preco ? updateProdutoDto?.preco : findProduct.preco,
+          status: updateProdutoDto?.status ? updateProdutoDto.status : findProduct.status,
+          categoriaId: updateProdutoDto.categoriaId ? updateProdutoDto.categoriaId : findProduct.categoriaId,
+          data_alteracao: new Date(),
+        },
+      });
+      // Retorna o produto
+      return product;
+    } catch (err) {
+      // Verifica se o erro é uma HttpException
+      if (err instanceof HttpException) {
+        throw err; // Propaga a HttpException original
+      }
+      throw new HttpException('Erro ao atualizar produto.', HttpStatus.BAD_REQUEST, { cause: err });
+    }
   }
+  /*---------------------Fim--------------------------*/
 
-  remove(id: number) {
-    return `This action removes a #${id} produto`;
+  async remove(id: number) {
+    try {
+      const findProduct = await this.prisma.produtos.findUnique({
+        where: {
+          id: id,
+        },
+      });
+
+      // Se não encontrar o produto, retorna mensagem
+      if (!findProduct) {
+        throw new HttpException('Produto não encontrado.', HttpStatus.NOT_FOUND);
+      }
+      // Deleta o produto
+      await this.prisma.produtos.delete({
+        where: {
+          id: id,
+        },
+      });
+
+      return { message: 'Produto deletado com sucesso.' };
+    } catch (err) {
+      // Verifica se o erro é uma HttpException
+      if (err instanceof HttpException) {
+        throw err; // Propaga a HttpException original
+      }
+      throw new HttpException('Falha ao deletar o produto', HttpStatus.BAD_REQUEST);
+    }
   }
 }

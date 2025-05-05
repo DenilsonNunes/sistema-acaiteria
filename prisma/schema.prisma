@@ -14,12 +14,27 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Usuarios {
+  id      Int     @id @default(autoincrement())
+  nome    String  @db.VarChar(120)
+  usuario String  @unique @db.VarChar(15)
+  senha   String
+  email   String  @unique
+  status  Boolean @default(true)
+
+  data_criacao   DateTime @default(now())
+  data_alteracao DateTime @default(now())
+
+  @@map("usuarios")
+}
+
 model Produtos {
-  id           Int      @id @default(autoincrement())
-  descricao    String
-  preco        Int      @default(0)
-  status       Boolean  @default(true)
-  data_criacao DateTime @default(now())
+  id             Int      @id @default(autoincrement())
+  descricao      String   @db.VarChar(120)
+  preco          Decimal  @default(0) @db.Decimal(10, 4)
+  status         Boolean  @default(true)
+  data_criacao   DateTime @default(now())
+  data_alteracao DateTime @default(now())
 
   categoriaId Int? // Chave estrangeira
   categoria   Categorias? @relation(fields: [categoriaId], references: [id])
