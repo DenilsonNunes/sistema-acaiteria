@@ -28,6 +28,20 @@ model Usuarios {
   @@map("usuarios")
 }
 
+model Clientes {
+  id       Int     @id @default(autoincrement())
+  nome     String  @db.VarChar(120)
+  apelido  String  @db.VarChar(120)
+  endereco String  @db.VarChar(250)
+  fone     String  @db.VarChar(15)
+  status   Boolean @default(true)
+
+  data_criacao   DateTime @default(now())
+  data_alteracao DateTime @default(now())
+
+  @@map("clientes")
+}
+
 model Produtos {
   id             Int      @id @default(autoincrement())
   descricao      String   @db.VarChar(120)
