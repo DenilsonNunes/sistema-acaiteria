@@ -19,6 +19,11 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  */
 export type Usuarios = $Result.DefaultSelection<Prisma.$UsuariosPayload>
 /**
+ * Model Clientes
+ * 
+ */
+export type Clientes = $Result.DefaultSelection<Prisma.$ClientesPayload>
+/**
  * Model Produtos
  * 
  */
@@ -28,6 +33,16 @@ export type Produtos = $Result.DefaultSelection<Prisma.$ProdutosPayload>
  * 
  */
 export type Categorias = $Result.DefaultSelection<Prisma.$CategoriasPayload>
+/**
+ * Model Pedidos
+ * 
+ */
+export type Pedidos = $Result.DefaultSelection<Prisma.$PedidosPayload>
+/**
+ * Model ItensPedido
+ * 
+ */
+export type ItensPedido = $Result.DefaultSelection<Prisma.$ItensPedidoPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -165,6 +180,16 @@ export class PrismaClient<
   get usuarios(): Prisma.UsuariosDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.clientes`: Exposes CRUD operations for the **Clientes** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Clientes
+    * const clientes = await prisma.clientes.findMany()
+    * ```
+    */
+  get clientes(): Prisma.ClientesDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.produtos`: Exposes CRUD operations for the **Produtos** model.
     * Example usage:
     * ```ts
@@ -183,6 +208,26 @@ export class PrismaClient<
     * ```
     */
   get categorias(): Prisma.CategoriasDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.pedidos`: Exposes CRUD operations for the **Pedidos** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Pedidos
+    * const pedidos = await prisma.pedidos.findMany()
+    * ```
+    */
+  get pedidos(): Prisma.PedidosDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.itensPedido`: Exposes CRUD operations for the **ItensPedido** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ItensPedidos
+    * const itensPedidos = await prisma.itensPedido.findMany()
+    * ```
+    */
+  get itensPedido(): Prisma.ItensPedidoDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -624,8 +669,11 @@ export namespace Prisma {
 
   export const ModelName: {
     Usuarios: 'Usuarios',
+    Clientes: 'Clientes',
     Produtos: 'Produtos',
-    Categorias: 'Categorias'
+    Categorias: 'Categorias',
+    Pedidos: 'Pedidos',
+    ItensPedido: 'ItensPedido'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -644,7 +692,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "usuarios" | "produtos" | "categorias"
+      modelProps: "usuarios" | "clientes" | "produtos" | "categorias" | "pedidos" | "itensPedido"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -719,6 +767,80 @@ export namespace Prisma {
           count: {
             args: Prisma.UsuariosCountArgs<ExtArgs>
             result: $Utils.Optional<UsuariosCountAggregateOutputType> | number
+          }
+        }
+      }
+      Clientes: {
+        payload: Prisma.$ClientesPayload<ExtArgs>
+        fields: Prisma.ClientesFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ClientesFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClientesPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ClientesFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClientesPayload>
+          }
+          findFirst: {
+            args: Prisma.ClientesFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClientesPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ClientesFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClientesPayload>
+          }
+          findMany: {
+            args: Prisma.ClientesFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClientesPayload>[]
+          }
+          create: {
+            args: Prisma.ClientesCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClientesPayload>
+          }
+          createMany: {
+            args: Prisma.ClientesCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ClientesCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClientesPayload>[]
+          }
+          delete: {
+            args: Prisma.ClientesDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClientesPayload>
+          }
+          update: {
+            args: Prisma.ClientesUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClientesPayload>
+          }
+          deleteMany: {
+            args: Prisma.ClientesDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ClientesUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ClientesUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClientesPayload>[]
+          }
+          upsert: {
+            args: Prisma.ClientesUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClientesPayload>
+          }
+          aggregate: {
+            args: Prisma.ClientesAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateClientes>
+          }
+          groupBy: {
+            args: Prisma.ClientesGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ClientesGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ClientesCountArgs<ExtArgs>
+            result: $Utils.Optional<ClientesCountAggregateOutputType> | number
           }
         }
       }
@@ -870,6 +992,154 @@ export namespace Prisma {
           }
         }
       }
+      Pedidos: {
+        payload: Prisma.$PedidosPayload<ExtArgs>
+        fields: Prisma.PedidosFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PedidosFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PedidosPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PedidosFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PedidosPayload>
+          }
+          findFirst: {
+            args: Prisma.PedidosFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PedidosPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PedidosFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PedidosPayload>
+          }
+          findMany: {
+            args: Prisma.PedidosFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PedidosPayload>[]
+          }
+          create: {
+            args: Prisma.PedidosCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PedidosPayload>
+          }
+          createMany: {
+            args: Prisma.PedidosCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PedidosCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PedidosPayload>[]
+          }
+          delete: {
+            args: Prisma.PedidosDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PedidosPayload>
+          }
+          update: {
+            args: Prisma.PedidosUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PedidosPayload>
+          }
+          deleteMany: {
+            args: Prisma.PedidosDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PedidosUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.PedidosUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PedidosPayload>[]
+          }
+          upsert: {
+            args: Prisma.PedidosUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PedidosPayload>
+          }
+          aggregate: {
+            args: Prisma.PedidosAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePedidos>
+          }
+          groupBy: {
+            args: Prisma.PedidosGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PedidosGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PedidosCountArgs<ExtArgs>
+            result: $Utils.Optional<PedidosCountAggregateOutputType> | number
+          }
+        }
+      }
+      ItensPedido: {
+        payload: Prisma.$ItensPedidoPayload<ExtArgs>
+        fields: Prisma.ItensPedidoFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ItensPedidoFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ItensPedidoPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ItensPedidoFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ItensPedidoPayload>
+          }
+          findFirst: {
+            args: Prisma.ItensPedidoFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ItensPedidoPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ItensPedidoFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ItensPedidoPayload>
+          }
+          findMany: {
+            args: Prisma.ItensPedidoFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ItensPedidoPayload>[]
+          }
+          create: {
+            args: Prisma.ItensPedidoCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ItensPedidoPayload>
+          }
+          createMany: {
+            args: Prisma.ItensPedidoCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ItensPedidoCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ItensPedidoPayload>[]
+          }
+          delete: {
+            args: Prisma.ItensPedidoDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ItensPedidoPayload>
+          }
+          update: {
+            args: Prisma.ItensPedidoUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ItensPedidoPayload>
+          }
+          deleteMany: {
+            args: Prisma.ItensPedidoDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ItensPedidoUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ItensPedidoUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ItensPedidoPayload>[]
+          }
+          upsert: {
+            args: Prisma.ItensPedidoUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ItensPedidoPayload>
+          }
+          aggregate: {
+            args: Prisma.ItensPedidoAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateItensPedido>
+          }
+          groupBy: {
+            args: Prisma.ItensPedidoGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ItensPedidoGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ItensPedidoCountArgs<ExtArgs>
+            result: $Utils.Optional<ItensPedidoCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -955,8 +1225,11 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     usuarios?: UsuariosOmit
+    clientes?: ClientesOmit
     produtos?: ProdutosOmit
     categorias?: CategoriasOmit
+    pedidos?: PedidosOmit
+    itensPedido?: ItensPedidoOmit
   }
 
   /* Types for Logging */
@@ -1047,6 +1320,99 @@ export namespace Prisma {
 
 
   /**
+   * Count Type UsuariosCountOutputType
+   */
+
+  export type UsuariosCountOutputType = {
+    Pedidos: number
+  }
+
+  export type UsuariosCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    Pedidos?: boolean | UsuariosCountOutputTypeCountPedidosArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * UsuariosCountOutputType without action
+   */
+  export type UsuariosCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UsuariosCountOutputType
+     */
+    select?: UsuariosCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * UsuariosCountOutputType without action
+   */
+  export type UsuariosCountOutputTypeCountPedidosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PedidosWhereInput
+  }
+
+
+  /**
+   * Count Type ClientesCountOutputType
+   */
+
+  export type ClientesCountOutputType = {
+    Pedidos: number
+  }
+
+  export type ClientesCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    Pedidos?: boolean | ClientesCountOutputTypeCountPedidosArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ClientesCountOutputType without action
+   */
+  export type ClientesCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClientesCountOutputType
+     */
+    select?: ClientesCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ClientesCountOutputType without action
+   */
+  export type ClientesCountOutputTypeCountPedidosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PedidosWhereInput
+  }
+
+
+  /**
+   * Count Type ProdutosCountOutputType
+   */
+
+  export type ProdutosCountOutputType = {
+    itensPedidoVenda: number
+  }
+
+  export type ProdutosCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    itensPedidoVenda?: boolean | ProdutosCountOutputTypeCountItensPedidoVendaArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ProdutosCountOutputType without action
+   */
+  export type ProdutosCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProdutosCountOutputType
+     */
+    select?: ProdutosCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ProdutosCountOutputType without action
+   */
+  export type ProdutosCountOutputTypeCountItensPedidoVendaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ItensPedidoWhereInput
+  }
+
+
+  /**
    * Count Type CategoriasCountOutputType
    */
 
@@ -1074,6 +1440,37 @@ export namespace Prisma {
    */
   export type CategoriasCountOutputTypeCountProdutosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ProdutosWhereInput
+  }
+
+
+  /**
+   * Count Type PedidosCountOutputType
+   */
+
+  export type PedidosCountOutputType = {
+    itensPedidoVenda: number
+  }
+
+  export type PedidosCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    itensPedidoVenda?: boolean | PedidosCountOutputTypeCountItensPedidoVendaArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * PedidosCountOutputType without action
+   */
+  export type PedidosCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PedidosCountOutputType
+     */
+    select?: PedidosCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * PedidosCountOutputType without action
+   */
+  export type PedidosCountOutputTypeCountItensPedidoVendaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ItensPedidoWhereInput
   }
 
 
@@ -1303,6 +1700,8 @@ export namespace Prisma {
     status?: boolean
     data_criacao?: boolean
     data_alteracao?: boolean
+    Pedidos?: boolean | Usuarios$PedidosArgs<ExtArgs>
+    _count?: boolean | UsuariosCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["usuarios"]>
 
   export type UsuariosSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1339,10 +1738,18 @@ export namespace Prisma {
   }
 
   export type UsuariosOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nome" | "usuario" | "senha" | "email" | "status" | "data_criacao" | "data_alteracao", ExtArgs["result"]["usuarios"]>
+  export type UsuariosInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    Pedidos?: boolean | Usuarios$PedidosArgs<ExtArgs>
+    _count?: boolean | UsuariosCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type UsuariosIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type UsuariosIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $UsuariosPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Usuarios"
-    objects: {}
+    objects: {
+      Pedidos: Prisma.$PedidosPayload<ExtArgs>[]
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       nome: string
@@ -1746,6 +2153,7 @@ export namespace Prisma {
    */
   export interface Prisma__UsuariosClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    Pedidos<T extends Usuarios$PedidosArgs<ExtArgs> = {}>(args?: Subset<T, Usuarios$PedidosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PedidosPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1800,6 +2208,10 @@ export namespace Prisma {
      */
     omit?: UsuariosOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UsuariosInclude<ExtArgs> | null
+    /**
      * Filter, which Usuarios to fetch.
      */
     where: UsuariosWhereUniqueInput
@@ -1818,6 +2230,10 @@ export namespace Prisma {
      */
     omit?: UsuariosOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UsuariosInclude<ExtArgs> | null
+    /**
      * Filter, which Usuarios to fetch.
      */
     where: UsuariosWhereUniqueInput
@@ -1835,6 +2251,10 @@ export namespace Prisma {
      * Omit specific fields from the Usuarios
      */
     omit?: UsuariosOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UsuariosInclude<ExtArgs> | null
     /**
      * Filter, which Usuarios to fetch.
      */
@@ -1884,6 +2304,10 @@ export namespace Prisma {
      */
     omit?: UsuariosOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UsuariosInclude<ExtArgs> | null
+    /**
      * Filter, which Usuarios to fetch.
      */
     where?: UsuariosWhereInput
@@ -1932,6 +2356,10 @@ export namespace Prisma {
      */
     omit?: UsuariosOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UsuariosInclude<ExtArgs> | null
+    /**
      * Filter, which Usuarios to fetch.
      */
     where?: UsuariosWhereInput
@@ -1974,6 +2402,10 @@ export namespace Prisma {
      * Omit specific fields from the Usuarios
      */
     omit?: UsuariosOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UsuariosInclude<ExtArgs> | null
     /**
      * The data needed to create a Usuarios.
      */
@@ -2022,6 +2454,10 @@ export namespace Prisma {
      * Omit specific fields from the Usuarios
      */
     omit?: UsuariosOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UsuariosInclude<ExtArgs> | null
     /**
      * The data needed to update a Usuarios.
      */
@@ -2089,6 +2525,10 @@ export namespace Prisma {
      */
     omit?: UsuariosOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UsuariosInclude<ExtArgs> | null
+    /**
      * The filter to search for the Usuarios to update in case it exists.
      */
     where: UsuariosWhereUniqueInput
@@ -2115,6 +2555,10 @@ export namespace Prisma {
      */
     omit?: UsuariosOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UsuariosInclude<ExtArgs> | null
+    /**
      * Filter which Usuarios to delete.
      */
     where: UsuariosWhereUniqueInput
@@ -2135,6 +2579,30 @@ export namespace Prisma {
   }
 
   /**
+   * Usuarios.Pedidos
+   */
+  export type Usuarios$PedidosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Pedidos
+     */
+    select?: PedidosSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Pedidos
+     */
+    omit?: PedidosOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PedidosInclude<ExtArgs> | null
+    where?: PedidosWhereInput
+    orderBy?: PedidosOrderByWithRelationInput | PedidosOrderByWithRelationInput[]
+    cursor?: PedidosWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PedidosScalarFieldEnum | PedidosScalarFieldEnum[]
+  }
+
+  /**
    * Usuarios without action
    */
   export type UsuariosDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2146,6 +2614,1153 @@ export namespace Prisma {
      * Omit specific fields from the Usuarios
      */
     omit?: UsuariosOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UsuariosInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Clientes
+   */
+
+  export type AggregateClientes = {
+    _count: ClientesCountAggregateOutputType | null
+    _avg: ClientesAvgAggregateOutputType | null
+    _sum: ClientesSumAggregateOutputType | null
+    _min: ClientesMinAggregateOutputType | null
+    _max: ClientesMaxAggregateOutputType | null
+  }
+
+  export type ClientesAvgAggregateOutputType = {
+    id: number | null
+  }
+
+  export type ClientesSumAggregateOutputType = {
+    id: number | null
+  }
+
+  export type ClientesMinAggregateOutputType = {
+    id: number | null
+    nome: string | null
+    apelido: string | null
+    endereco: string | null
+    fone: string | null
+    status: boolean | null
+    data_criacao: Date | null
+    data_alteracao: Date | null
+  }
+
+  export type ClientesMaxAggregateOutputType = {
+    id: number | null
+    nome: string | null
+    apelido: string | null
+    endereco: string | null
+    fone: string | null
+    status: boolean | null
+    data_criacao: Date | null
+    data_alteracao: Date | null
+  }
+
+  export type ClientesCountAggregateOutputType = {
+    id: number
+    nome: number
+    apelido: number
+    endereco: number
+    fone: number
+    status: number
+    data_criacao: number
+    data_alteracao: number
+    _all: number
+  }
+
+
+  export type ClientesAvgAggregateInputType = {
+    id?: true
+  }
+
+  export type ClientesSumAggregateInputType = {
+    id?: true
+  }
+
+  export type ClientesMinAggregateInputType = {
+    id?: true
+    nome?: true
+    apelido?: true
+    endereco?: true
+    fone?: true
+    status?: true
+    data_criacao?: true
+    data_alteracao?: true
+  }
+
+  export type ClientesMaxAggregateInputType = {
+    id?: true
+    nome?: true
+    apelido?: true
+    endereco?: true
+    fone?: true
+    status?: true
+    data_criacao?: true
+    data_alteracao?: true
+  }
+
+  export type ClientesCountAggregateInputType = {
+    id?: true
+    nome?: true
+    apelido?: true
+    endereco?: true
+    fone?: true
+    status?: true
+    data_criacao?: true
+    data_alteracao?: true
+    _all?: true
+  }
+
+  export type ClientesAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Clientes to aggregate.
+     */
+    where?: ClientesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Clientes to fetch.
+     */
+    orderBy?: ClientesOrderByWithRelationInput | ClientesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ClientesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Clientes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Clientes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Clientes
+    **/
+    _count?: true | ClientesCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ClientesAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ClientesSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ClientesMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ClientesMaxAggregateInputType
+  }
+
+  export type GetClientesAggregateType<T extends ClientesAggregateArgs> = {
+        [P in keyof T & keyof AggregateClientes]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateClientes[P]>
+      : GetScalarType<T[P], AggregateClientes[P]>
+  }
+
+
+
+
+  export type ClientesGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ClientesWhereInput
+    orderBy?: ClientesOrderByWithAggregationInput | ClientesOrderByWithAggregationInput[]
+    by: ClientesScalarFieldEnum[] | ClientesScalarFieldEnum
+    having?: ClientesScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ClientesCountAggregateInputType | true
+    _avg?: ClientesAvgAggregateInputType
+    _sum?: ClientesSumAggregateInputType
+    _min?: ClientesMinAggregateInputType
+    _max?: ClientesMaxAggregateInputType
+  }
+
+  export type ClientesGroupByOutputType = {
+    id: number
+    nome: string
+    apelido: string | null
+    endereco: string | null
+    fone: string | null
+    status: boolean
+    data_criacao: Date
+    data_alteracao: Date
+    _count: ClientesCountAggregateOutputType | null
+    _avg: ClientesAvgAggregateOutputType | null
+    _sum: ClientesSumAggregateOutputType | null
+    _min: ClientesMinAggregateOutputType | null
+    _max: ClientesMaxAggregateOutputType | null
+  }
+
+  type GetClientesGroupByPayload<T extends ClientesGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ClientesGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ClientesGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ClientesGroupByOutputType[P]>
+            : GetScalarType<T[P], ClientesGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ClientesSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    nome?: boolean
+    apelido?: boolean
+    endereco?: boolean
+    fone?: boolean
+    status?: boolean
+    data_criacao?: boolean
+    data_alteracao?: boolean
+    Pedidos?: boolean | Clientes$PedidosArgs<ExtArgs>
+    _count?: boolean | ClientesCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["clientes"]>
+
+  export type ClientesSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    nome?: boolean
+    apelido?: boolean
+    endereco?: boolean
+    fone?: boolean
+    status?: boolean
+    data_criacao?: boolean
+    data_alteracao?: boolean
+  }, ExtArgs["result"]["clientes"]>
+
+  export type ClientesSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    nome?: boolean
+    apelido?: boolean
+    endereco?: boolean
+    fone?: boolean
+    status?: boolean
+    data_criacao?: boolean
+    data_alteracao?: boolean
+  }, ExtArgs["result"]["clientes"]>
+
+  export type ClientesSelectScalar = {
+    id?: boolean
+    nome?: boolean
+    apelido?: boolean
+    endereco?: boolean
+    fone?: boolean
+    status?: boolean
+    data_criacao?: boolean
+    data_alteracao?: boolean
+  }
+
+  export type ClientesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nome" | "apelido" | "endereco" | "fone" | "status" | "data_criacao" | "data_alteracao", ExtArgs["result"]["clientes"]>
+  export type ClientesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    Pedidos?: boolean | Clientes$PedidosArgs<ExtArgs>
+    _count?: boolean | ClientesCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type ClientesIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type ClientesIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $ClientesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Clientes"
+    objects: {
+      Pedidos: Prisma.$PedidosPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      nome: string
+      apelido: string | null
+      endereco: string | null
+      fone: string | null
+      status: boolean
+      data_criacao: Date
+      data_alteracao: Date
+    }, ExtArgs["result"]["clientes"]>
+    composites: {}
+  }
+
+  type ClientesGetPayload<S extends boolean | null | undefined | ClientesDefaultArgs> = $Result.GetResult<Prisma.$ClientesPayload, S>
+
+  type ClientesCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ClientesFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ClientesCountAggregateInputType | true
+    }
+
+  export interface ClientesDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Clientes'], meta: { name: 'Clientes' } }
+    /**
+     * Find zero or one Clientes that matches the filter.
+     * @param {ClientesFindUniqueArgs} args - Arguments to find a Clientes
+     * @example
+     * // Get one Clientes
+     * const clientes = await prisma.clientes.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ClientesFindUniqueArgs>(args: SelectSubset<T, ClientesFindUniqueArgs<ExtArgs>>): Prisma__ClientesClient<$Result.GetResult<Prisma.$ClientesPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Clientes that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ClientesFindUniqueOrThrowArgs} args - Arguments to find a Clientes
+     * @example
+     * // Get one Clientes
+     * const clientes = await prisma.clientes.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ClientesFindUniqueOrThrowArgs>(args: SelectSubset<T, ClientesFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ClientesClient<$Result.GetResult<Prisma.$ClientesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Clientes that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClientesFindFirstArgs} args - Arguments to find a Clientes
+     * @example
+     * // Get one Clientes
+     * const clientes = await prisma.clientes.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ClientesFindFirstArgs>(args?: SelectSubset<T, ClientesFindFirstArgs<ExtArgs>>): Prisma__ClientesClient<$Result.GetResult<Prisma.$ClientesPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Clientes that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClientesFindFirstOrThrowArgs} args - Arguments to find a Clientes
+     * @example
+     * // Get one Clientes
+     * const clientes = await prisma.clientes.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ClientesFindFirstOrThrowArgs>(args?: SelectSubset<T, ClientesFindFirstOrThrowArgs<ExtArgs>>): Prisma__ClientesClient<$Result.GetResult<Prisma.$ClientesPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Clientes that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClientesFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Clientes
+     * const clientes = await prisma.clientes.findMany()
+     * 
+     * // Get first 10 Clientes
+     * const clientes = await prisma.clientes.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const clientesWithIdOnly = await prisma.clientes.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ClientesFindManyArgs>(args?: SelectSubset<T, ClientesFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClientesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Clientes.
+     * @param {ClientesCreateArgs} args - Arguments to create a Clientes.
+     * @example
+     * // Create one Clientes
+     * const Clientes = await prisma.clientes.create({
+     *   data: {
+     *     // ... data to create a Clientes
+     *   }
+     * })
+     * 
+     */
+    create<T extends ClientesCreateArgs>(args: SelectSubset<T, ClientesCreateArgs<ExtArgs>>): Prisma__ClientesClient<$Result.GetResult<Prisma.$ClientesPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Clientes.
+     * @param {ClientesCreateManyArgs} args - Arguments to create many Clientes.
+     * @example
+     * // Create many Clientes
+     * const clientes = await prisma.clientes.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ClientesCreateManyArgs>(args?: SelectSubset<T, ClientesCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Clientes and returns the data saved in the database.
+     * @param {ClientesCreateManyAndReturnArgs} args - Arguments to create many Clientes.
+     * @example
+     * // Create many Clientes
+     * const clientes = await prisma.clientes.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Clientes and only return the `id`
+     * const clientesWithIdOnly = await prisma.clientes.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ClientesCreateManyAndReturnArgs>(args?: SelectSubset<T, ClientesCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClientesPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Clientes.
+     * @param {ClientesDeleteArgs} args - Arguments to delete one Clientes.
+     * @example
+     * // Delete one Clientes
+     * const Clientes = await prisma.clientes.delete({
+     *   where: {
+     *     // ... filter to delete one Clientes
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ClientesDeleteArgs>(args: SelectSubset<T, ClientesDeleteArgs<ExtArgs>>): Prisma__ClientesClient<$Result.GetResult<Prisma.$ClientesPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Clientes.
+     * @param {ClientesUpdateArgs} args - Arguments to update one Clientes.
+     * @example
+     * // Update one Clientes
+     * const clientes = await prisma.clientes.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ClientesUpdateArgs>(args: SelectSubset<T, ClientesUpdateArgs<ExtArgs>>): Prisma__ClientesClient<$Result.GetResult<Prisma.$ClientesPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Clientes.
+     * @param {ClientesDeleteManyArgs} args - Arguments to filter Clientes to delete.
+     * @example
+     * // Delete a few Clientes
+     * const { count } = await prisma.clientes.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ClientesDeleteManyArgs>(args?: SelectSubset<T, ClientesDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Clientes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClientesUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Clientes
+     * const clientes = await prisma.clientes.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ClientesUpdateManyArgs>(args: SelectSubset<T, ClientesUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Clientes and returns the data updated in the database.
+     * @param {ClientesUpdateManyAndReturnArgs} args - Arguments to update many Clientes.
+     * @example
+     * // Update many Clientes
+     * const clientes = await prisma.clientes.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Clientes and only return the `id`
+     * const clientesWithIdOnly = await prisma.clientes.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ClientesUpdateManyAndReturnArgs>(args: SelectSubset<T, ClientesUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClientesPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Clientes.
+     * @param {ClientesUpsertArgs} args - Arguments to update or create a Clientes.
+     * @example
+     * // Update or create a Clientes
+     * const clientes = await prisma.clientes.upsert({
+     *   create: {
+     *     // ... data to create a Clientes
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Clientes we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ClientesUpsertArgs>(args: SelectSubset<T, ClientesUpsertArgs<ExtArgs>>): Prisma__ClientesClient<$Result.GetResult<Prisma.$ClientesPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Clientes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClientesCountArgs} args - Arguments to filter Clientes to count.
+     * @example
+     * // Count the number of Clientes
+     * const count = await prisma.clientes.count({
+     *   where: {
+     *     // ... the filter for the Clientes we want to count
+     *   }
+     * })
+    **/
+    count<T extends ClientesCountArgs>(
+      args?: Subset<T, ClientesCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ClientesCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Clientes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClientesAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ClientesAggregateArgs>(args: Subset<T, ClientesAggregateArgs>): Prisma.PrismaPromise<GetClientesAggregateType<T>>
+
+    /**
+     * Group by Clientes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClientesGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ClientesGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ClientesGroupByArgs['orderBy'] }
+        : { orderBy?: ClientesGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ClientesGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetClientesGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Clientes model
+   */
+  readonly fields: ClientesFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Clientes.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ClientesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    Pedidos<T extends Clientes$PedidosArgs<ExtArgs> = {}>(args?: Subset<T, Clientes$PedidosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PedidosPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Clientes model
+   */
+  interface ClientesFieldRefs {
+    readonly id: FieldRef<"Clientes", 'Int'>
+    readonly nome: FieldRef<"Clientes", 'String'>
+    readonly apelido: FieldRef<"Clientes", 'String'>
+    readonly endereco: FieldRef<"Clientes", 'String'>
+    readonly fone: FieldRef<"Clientes", 'String'>
+    readonly status: FieldRef<"Clientes", 'Boolean'>
+    readonly data_criacao: FieldRef<"Clientes", 'DateTime'>
+    readonly data_alteracao: FieldRef<"Clientes", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Clientes findUnique
+   */
+  export type ClientesFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Clientes
+     */
+    select?: ClientesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Clientes
+     */
+    omit?: ClientesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClientesInclude<ExtArgs> | null
+    /**
+     * Filter, which Clientes to fetch.
+     */
+    where: ClientesWhereUniqueInput
+  }
+
+  /**
+   * Clientes findUniqueOrThrow
+   */
+  export type ClientesFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Clientes
+     */
+    select?: ClientesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Clientes
+     */
+    omit?: ClientesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClientesInclude<ExtArgs> | null
+    /**
+     * Filter, which Clientes to fetch.
+     */
+    where: ClientesWhereUniqueInput
+  }
+
+  /**
+   * Clientes findFirst
+   */
+  export type ClientesFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Clientes
+     */
+    select?: ClientesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Clientes
+     */
+    omit?: ClientesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClientesInclude<ExtArgs> | null
+    /**
+     * Filter, which Clientes to fetch.
+     */
+    where?: ClientesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Clientes to fetch.
+     */
+    orderBy?: ClientesOrderByWithRelationInput | ClientesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Clientes.
+     */
+    cursor?: ClientesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Clientes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Clientes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Clientes.
+     */
+    distinct?: ClientesScalarFieldEnum | ClientesScalarFieldEnum[]
+  }
+
+  /**
+   * Clientes findFirstOrThrow
+   */
+  export type ClientesFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Clientes
+     */
+    select?: ClientesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Clientes
+     */
+    omit?: ClientesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClientesInclude<ExtArgs> | null
+    /**
+     * Filter, which Clientes to fetch.
+     */
+    where?: ClientesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Clientes to fetch.
+     */
+    orderBy?: ClientesOrderByWithRelationInput | ClientesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Clientes.
+     */
+    cursor?: ClientesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Clientes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Clientes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Clientes.
+     */
+    distinct?: ClientesScalarFieldEnum | ClientesScalarFieldEnum[]
+  }
+
+  /**
+   * Clientes findMany
+   */
+  export type ClientesFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Clientes
+     */
+    select?: ClientesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Clientes
+     */
+    omit?: ClientesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClientesInclude<ExtArgs> | null
+    /**
+     * Filter, which Clientes to fetch.
+     */
+    where?: ClientesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Clientes to fetch.
+     */
+    orderBy?: ClientesOrderByWithRelationInput | ClientesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Clientes.
+     */
+    cursor?: ClientesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Clientes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Clientes.
+     */
+    skip?: number
+    distinct?: ClientesScalarFieldEnum | ClientesScalarFieldEnum[]
+  }
+
+  /**
+   * Clientes create
+   */
+  export type ClientesCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Clientes
+     */
+    select?: ClientesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Clientes
+     */
+    omit?: ClientesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClientesInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Clientes.
+     */
+    data: XOR<ClientesCreateInput, ClientesUncheckedCreateInput>
+  }
+
+  /**
+   * Clientes createMany
+   */
+  export type ClientesCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Clientes.
+     */
+    data: ClientesCreateManyInput | ClientesCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Clientes createManyAndReturn
+   */
+  export type ClientesCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Clientes
+     */
+    select?: ClientesSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Clientes
+     */
+    omit?: ClientesOmit<ExtArgs> | null
+    /**
+     * The data used to create many Clientes.
+     */
+    data: ClientesCreateManyInput | ClientesCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Clientes update
+   */
+  export type ClientesUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Clientes
+     */
+    select?: ClientesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Clientes
+     */
+    omit?: ClientesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClientesInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Clientes.
+     */
+    data: XOR<ClientesUpdateInput, ClientesUncheckedUpdateInput>
+    /**
+     * Choose, which Clientes to update.
+     */
+    where: ClientesWhereUniqueInput
+  }
+
+  /**
+   * Clientes updateMany
+   */
+  export type ClientesUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Clientes.
+     */
+    data: XOR<ClientesUpdateManyMutationInput, ClientesUncheckedUpdateManyInput>
+    /**
+     * Filter which Clientes to update
+     */
+    where?: ClientesWhereInput
+    /**
+     * Limit how many Clientes to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Clientes updateManyAndReturn
+   */
+  export type ClientesUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Clientes
+     */
+    select?: ClientesSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Clientes
+     */
+    omit?: ClientesOmit<ExtArgs> | null
+    /**
+     * The data used to update Clientes.
+     */
+    data: XOR<ClientesUpdateManyMutationInput, ClientesUncheckedUpdateManyInput>
+    /**
+     * Filter which Clientes to update
+     */
+    where?: ClientesWhereInput
+    /**
+     * Limit how many Clientes to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Clientes upsert
+   */
+  export type ClientesUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Clientes
+     */
+    select?: ClientesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Clientes
+     */
+    omit?: ClientesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClientesInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Clientes to update in case it exists.
+     */
+    where: ClientesWhereUniqueInput
+    /**
+     * In case the Clientes found by the `where` argument doesn't exist, create a new Clientes with this data.
+     */
+    create: XOR<ClientesCreateInput, ClientesUncheckedCreateInput>
+    /**
+     * In case the Clientes was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ClientesUpdateInput, ClientesUncheckedUpdateInput>
+  }
+
+  /**
+   * Clientes delete
+   */
+  export type ClientesDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Clientes
+     */
+    select?: ClientesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Clientes
+     */
+    omit?: ClientesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClientesInclude<ExtArgs> | null
+    /**
+     * Filter which Clientes to delete.
+     */
+    where: ClientesWhereUniqueInput
+  }
+
+  /**
+   * Clientes deleteMany
+   */
+  export type ClientesDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Clientes to delete
+     */
+    where?: ClientesWhereInput
+    /**
+     * Limit how many Clientes to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Clientes.Pedidos
+   */
+  export type Clientes$PedidosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Pedidos
+     */
+    select?: PedidosSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Pedidos
+     */
+    omit?: PedidosOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PedidosInclude<ExtArgs> | null
+    where?: PedidosWhereInput
+    orderBy?: PedidosOrderByWithRelationInput | PedidosOrderByWithRelationInput[]
+    cursor?: PedidosWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PedidosScalarFieldEnum | PedidosScalarFieldEnum[]
+  }
+
+  /**
+   * Clientes without action
+   */
+  export type ClientesDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Clientes
+     */
+    select?: ClientesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Clientes
+     */
+    omit?: ClientesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClientesInclude<ExtArgs> | null
   }
 
 
@@ -2163,88 +3778,88 @@ export namespace Prisma {
 
   export type ProdutosAvgAggregateOutputType = {
     id: number | null
+    idCategoria: number | null
     preco: Decimal | null
-    categoriaId: number | null
   }
 
   export type ProdutosSumAggregateOutputType = {
     id: number | null
+    idCategoria: number | null
     preco: Decimal | null
-    categoriaId: number | null
   }
 
   export type ProdutosMinAggregateOutputType = {
     id: number | null
+    idCategoria: number | null
     descricao: string | null
     preco: Decimal | null
     status: boolean | null
     data_criacao: Date | null
     data_alteracao: Date | null
-    categoriaId: number | null
   }
 
   export type ProdutosMaxAggregateOutputType = {
     id: number | null
+    idCategoria: number | null
     descricao: string | null
     preco: Decimal | null
     status: boolean | null
     data_criacao: Date | null
     data_alteracao: Date | null
-    categoriaId: number | null
   }
 
   export type ProdutosCountAggregateOutputType = {
     id: number
+    idCategoria: number
     descricao: number
     preco: number
     status: number
     data_criacao: number
     data_alteracao: number
-    categoriaId: number
     _all: number
   }
 
 
   export type ProdutosAvgAggregateInputType = {
     id?: true
+    idCategoria?: true
     preco?: true
-    categoriaId?: true
   }
 
   export type ProdutosSumAggregateInputType = {
     id?: true
+    idCategoria?: true
     preco?: true
-    categoriaId?: true
   }
 
   export type ProdutosMinAggregateInputType = {
     id?: true
+    idCategoria?: true
     descricao?: true
     preco?: true
     status?: true
     data_criacao?: true
     data_alteracao?: true
-    categoriaId?: true
   }
 
   export type ProdutosMaxAggregateInputType = {
     id?: true
+    idCategoria?: true
     descricao?: true
     preco?: true
     status?: true
     data_criacao?: true
     data_alteracao?: true
-    categoriaId?: true
   }
 
   export type ProdutosCountAggregateInputType = {
     id?: true
+    idCategoria?: true
     descricao?: true
     preco?: true
     status?: true
     data_criacao?: true
     data_alteracao?: true
-    categoriaId?: true
     _all?: true
   }
 
@@ -2336,12 +3951,12 @@ export namespace Prisma {
 
   export type ProdutosGroupByOutputType = {
     id: number
+    idCategoria: number | null
     descricao: string
     preco: Decimal
     status: boolean
     data_criacao: Date
     data_alteracao: Date
-    categoriaId: number | null
     _count: ProdutosCountAggregateOutputType | null
     _avg: ProdutosAvgAggregateOutputType | null
     _sum: ProdutosSumAggregateOutputType | null
@@ -2365,50 +3980,54 @@ export namespace Prisma {
 
   export type ProdutosSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    idCategoria?: boolean
     descricao?: boolean
     preco?: boolean
     status?: boolean
     data_criacao?: boolean
     data_alteracao?: boolean
-    categoriaId?: boolean
     categoria?: boolean | Produtos$categoriaArgs<ExtArgs>
+    itensPedidoVenda?: boolean | Produtos$itensPedidoVendaArgs<ExtArgs>
+    _count?: boolean | ProdutosCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["produtos"]>
 
   export type ProdutosSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    idCategoria?: boolean
     descricao?: boolean
     preco?: boolean
     status?: boolean
     data_criacao?: boolean
     data_alteracao?: boolean
-    categoriaId?: boolean
     categoria?: boolean | Produtos$categoriaArgs<ExtArgs>
   }, ExtArgs["result"]["produtos"]>
 
   export type ProdutosSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    idCategoria?: boolean
     descricao?: boolean
     preco?: boolean
     status?: boolean
     data_criacao?: boolean
     data_alteracao?: boolean
-    categoriaId?: boolean
     categoria?: boolean | Produtos$categoriaArgs<ExtArgs>
   }, ExtArgs["result"]["produtos"]>
 
   export type ProdutosSelectScalar = {
     id?: boolean
+    idCategoria?: boolean
     descricao?: boolean
     preco?: boolean
     status?: boolean
     data_criacao?: boolean
     data_alteracao?: boolean
-    categoriaId?: boolean
   }
 
-  export type ProdutosOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "descricao" | "preco" | "status" | "data_criacao" | "data_alteracao" | "categoriaId", ExtArgs["result"]["produtos"]>
+  export type ProdutosOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "idCategoria" | "descricao" | "preco" | "status" | "data_criacao" | "data_alteracao", ExtArgs["result"]["produtos"]>
   export type ProdutosInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     categoria?: boolean | Produtos$categoriaArgs<ExtArgs>
+    itensPedidoVenda?: boolean | Produtos$itensPedidoVendaArgs<ExtArgs>
+    _count?: boolean | ProdutosCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ProdutosIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     categoria?: boolean | Produtos$categoriaArgs<ExtArgs>
@@ -2421,15 +4040,16 @@ export namespace Prisma {
     name: "Produtos"
     objects: {
       categoria: Prisma.$CategoriasPayload<ExtArgs> | null
+      itensPedidoVenda: Prisma.$ItensPedidoPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
+      idCategoria: number | null
       descricao: string
       preco: Prisma.Decimal
       status: boolean
       data_criacao: Date
       data_alteracao: Date
-      categoriaId: number | null
     }, ExtArgs["result"]["produtos"]>
     composites: {}
   }
@@ -2825,6 +4445,7 @@ export namespace Prisma {
   export interface Prisma__ProdutosClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     categoria<T extends Produtos$categoriaArgs<ExtArgs> = {}>(args?: Subset<T, Produtos$categoriaArgs<ExtArgs>>): Prisma__CategoriasClient<$Result.GetResult<Prisma.$CategoriasPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    itensPedidoVenda<T extends Produtos$itensPedidoVendaArgs<ExtArgs> = {}>(args?: Subset<T, Produtos$itensPedidoVendaArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ItensPedidoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2855,12 +4476,12 @@ export namespace Prisma {
    */
   interface ProdutosFieldRefs {
     readonly id: FieldRef<"Produtos", 'Int'>
+    readonly idCategoria: FieldRef<"Produtos", 'Int'>
     readonly descricao: FieldRef<"Produtos", 'String'>
     readonly preco: FieldRef<"Produtos", 'Decimal'>
     readonly status: FieldRef<"Produtos", 'Boolean'>
     readonly data_criacao: FieldRef<"Produtos", 'DateTime'>
     readonly data_alteracao: FieldRef<"Produtos", 'DateTime'>
-    readonly categoriaId: FieldRef<"Produtos", 'Int'>
   }
     
 
@@ -3273,6 +4894,30 @@ export namespace Prisma {
      */
     include?: CategoriasInclude<ExtArgs> | null
     where?: CategoriasWhereInput
+  }
+
+  /**
+   * Produtos.itensPedidoVenda
+   */
+  export type Produtos$itensPedidoVendaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItensPedido
+     */
+    select?: ItensPedidoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ItensPedido
+     */
+    omit?: ItensPedidoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ItensPedidoInclude<ExtArgs> | null
+    where?: ItensPedidoWhereInput
+    orderBy?: ItensPedidoOrderByWithRelationInput | ItensPedidoOrderByWithRelationInput[]
+    cursor?: ItensPedidoWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ItensPedidoScalarFieldEnum | ItensPedidoScalarFieldEnum[]
   }
 
   /**
@@ -4360,6 +6005,2290 @@ export namespace Prisma {
 
 
   /**
+   * Model Pedidos
+   */
+
+  export type AggregatePedidos = {
+    _count: PedidosCountAggregateOutputType | null
+    _avg: PedidosAvgAggregateOutputType | null
+    _sum: PedidosSumAggregateOutputType | null
+    _min: PedidosMinAggregateOutputType | null
+    _max: PedidosMaxAggregateOutputType | null
+  }
+
+  export type PedidosAvgAggregateOutputType = {
+    id: number | null
+    idCliente: number | null
+    idUsuario: number | null
+    valorTotal: Decimal | null
+  }
+
+  export type PedidosSumAggregateOutputType = {
+    id: number | null
+    idCliente: number | null
+    idUsuario: number | null
+    valorTotal: Decimal | null
+  }
+
+  export type PedidosMinAggregateOutputType = {
+    id: number | null
+    idCliente: number | null
+    idUsuario: number | null
+    observacao: string | null
+    valorTotal: Decimal | null
+    data_criacao: Date | null
+    data_alteracao: Date | null
+  }
+
+  export type PedidosMaxAggregateOutputType = {
+    id: number | null
+    idCliente: number | null
+    idUsuario: number | null
+    observacao: string | null
+    valorTotal: Decimal | null
+    data_criacao: Date | null
+    data_alteracao: Date | null
+  }
+
+  export type PedidosCountAggregateOutputType = {
+    id: number
+    idCliente: number
+    idUsuario: number
+    observacao: number
+    valorTotal: number
+    data_criacao: number
+    data_alteracao: number
+    _all: number
+  }
+
+
+  export type PedidosAvgAggregateInputType = {
+    id?: true
+    idCliente?: true
+    idUsuario?: true
+    valorTotal?: true
+  }
+
+  export type PedidosSumAggregateInputType = {
+    id?: true
+    idCliente?: true
+    idUsuario?: true
+    valorTotal?: true
+  }
+
+  export type PedidosMinAggregateInputType = {
+    id?: true
+    idCliente?: true
+    idUsuario?: true
+    observacao?: true
+    valorTotal?: true
+    data_criacao?: true
+    data_alteracao?: true
+  }
+
+  export type PedidosMaxAggregateInputType = {
+    id?: true
+    idCliente?: true
+    idUsuario?: true
+    observacao?: true
+    valorTotal?: true
+    data_criacao?: true
+    data_alteracao?: true
+  }
+
+  export type PedidosCountAggregateInputType = {
+    id?: true
+    idCliente?: true
+    idUsuario?: true
+    observacao?: true
+    valorTotal?: true
+    data_criacao?: true
+    data_alteracao?: true
+    _all?: true
+  }
+
+  export type PedidosAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Pedidos to aggregate.
+     */
+    where?: PedidosWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Pedidos to fetch.
+     */
+    orderBy?: PedidosOrderByWithRelationInput | PedidosOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PedidosWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Pedidos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Pedidos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Pedidos
+    **/
+    _count?: true | PedidosCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: PedidosAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: PedidosSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PedidosMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PedidosMaxAggregateInputType
+  }
+
+  export type GetPedidosAggregateType<T extends PedidosAggregateArgs> = {
+        [P in keyof T & keyof AggregatePedidos]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePedidos[P]>
+      : GetScalarType<T[P], AggregatePedidos[P]>
+  }
+
+
+
+
+  export type PedidosGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PedidosWhereInput
+    orderBy?: PedidosOrderByWithAggregationInput | PedidosOrderByWithAggregationInput[]
+    by: PedidosScalarFieldEnum[] | PedidosScalarFieldEnum
+    having?: PedidosScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PedidosCountAggregateInputType | true
+    _avg?: PedidosAvgAggregateInputType
+    _sum?: PedidosSumAggregateInputType
+    _min?: PedidosMinAggregateInputType
+    _max?: PedidosMaxAggregateInputType
+  }
+
+  export type PedidosGroupByOutputType = {
+    id: number
+    idCliente: number
+    idUsuario: number
+    observacao: string | null
+    valorTotal: Decimal
+    data_criacao: Date
+    data_alteracao: Date
+    _count: PedidosCountAggregateOutputType | null
+    _avg: PedidosAvgAggregateOutputType | null
+    _sum: PedidosSumAggregateOutputType | null
+    _min: PedidosMinAggregateOutputType | null
+    _max: PedidosMaxAggregateOutputType | null
+  }
+
+  type GetPedidosGroupByPayload<T extends PedidosGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PedidosGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PedidosGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PedidosGroupByOutputType[P]>
+            : GetScalarType<T[P], PedidosGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PedidosSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    idCliente?: boolean
+    idUsuario?: boolean
+    observacao?: boolean
+    valorTotal?: boolean
+    data_criacao?: boolean
+    data_alteracao?: boolean
+    cliente?: boolean | ClientesDefaultArgs<ExtArgs>
+    usuario?: boolean | UsuariosDefaultArgs<ExtArgs>
+    itensPedidoVenda?: boolean | Pedidos$itensPedidoVendaArgs<ExtArgs>
+    _count?: boolean | PedidosCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["pedidos"]>
+
+  export type PedidosSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    idCliente?: boolean
+    idUsuario?: boolean
+    observacao?: boolean
+    valorTotal?: boolean
+    data_criacao?: boolean
+    data_alteracao?: boolean
+    cliente?: boolean | ClientesDefaultArgs<ExtArgs>
+    usuario?: boolean | UsuariosDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["pedidos"]>
+
+  export type PedidosSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    idCliente?: boolean
+    idUsuario?: boolean
+    observacao?: boolean
+    valorTotal?: boolean
+    data_criacao?: boolean
+    data_alteracao?: boolean
+    cliente?: boolean | ClientesDefaultArgs<ExtArgs>
+    usuario?: boolean | UsuariosDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["pedidos"]>
+
+  export type PedidosSelectScalar = {
+    id?: boolean
+    idCliente?: boolean
+    idUsuario?: boolean
+    observacao?: boolean
+    valorTotal?: boolean
+    data_criacao?: boolean
+    data_alteracao?: boolean
+  }
+
+  export type PedidosOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "idCliente" | "idUsuario" | "observacao" | "valorTotal" | "data_criacao" | "data_alteracao", ExtArgs["result"]["pedidos"]>
+  export type PedidosInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    cliente?: boolean | ClientesDefaultArgs<ExtArgs>
+    usuario?: boolean | UsuariosDefaultArgs<ExtArgs>
+    itensPedidoVenda?: boolean | Pedidos$itensPedidoVendaArgs<ExtArgs>
+    _count?: boolean | PedidosCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type PedidosIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    cliente?: boolean | ClientesDefaultArgs<ExtArgs>
+    usuario?: boolean | UsuariosDefaultArgs<ExtArgs>
+  }
+  export type PedidosIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    cliente?: boolean | ClientesDefaultArgs<ExtArgs>
+    usuario?: boolean | UsuariosDefaultArgs<ExtArgs>
+  }
+
+  export type $PedidosPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Pedidos"
+    objects: {
+      cliente: Prisma.$ClientesPayload<ExtArgs>
+      usuario: Prisma.$UsuariosPayload<ExtArgs>
+      itensPedidoVenda: Prisma.$ItensPedidoPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      idCliente: number
+      idUsuario: number
+      observacao: string | null
+      valorTotal: Prisma.Decimal
+      data_criacao: Date
+      data_alteracao: Date
+    }, ExtArgs["result"]["pedidos"]>
+    composites: {}
+  }
+
+  type PedidosGetPayload<S extends boolean | null | undefined | PedidosDefaultArgs> = $Result.GetResult<Prisma.$PedidosPayload, S>
+
+  type PedidosCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<PedidosFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: PedidosCountAggregateInputType | true
+    }
+
+  export interface PedidosDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Pedidos'], meta: { name: 'Pedidos' } }
+    /**
+     * Find zero or one Pedidos that matches the filter.
+     * @param {PedidosFindUniqueArgs} args - Arguments to find a Pedidos
+     * @example
+     * // Get one Pedidos
+     * const pedidos = await prisma.pedidos.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PedidosFindUniqueArgs>(args: SelectSubset<T, PedidosFindUniqueArgs<ExtArgs>>): Prisma__PedidosClient<$Result.GetResult<Prisma.$PedidosPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Pedidos that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {PedidosFindUniqueOrThrowArgs} args - Arguments to find a Pedidos
+     * @example
+     * // Get one Pedidos
+     * const pedidos = await prisma.pedidos.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PedidosFindUniqueOrThrowArgs>(args: SelectSubset<T, PedidosFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PedidosClient<$Result.GetResult<Prisma.$PedidosPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Pedidos that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PedidosFindFirstArgs} args - Arguments to find a Pedidos
+     * @example
+     * // Get one Pedidos
+     * const pedidos = await prisma.pedidos.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PedidosFindFirstArgs>(args?: SelectSubset<T, PedidosFindFirstArgs<ExtArgs>>): Prisma__PedidosClient<$Result.GetResult<Prisma.$PedidosPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Pedidos that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PedidosFindFirstOrThrowArgs} args - Arguments to find a Pedidos
+     * @example
+     * // Get one Pedidos
+     * const pedidos = await prisma.pedidos.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PedidosFindFirstOrThrowArgs>(args?: SelectSubset<T, PedidosFindFirstOrThrowArgs<ExtArgs>>): Prisma__PedidosClient<$Result.GetResult<Prisma.$PedidosPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Pedidos that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PedidosFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Pedidos
+     * const pedidos = await prisma.pedidos.findMany()
+     * 
+     * // Get first 10 Pedidos
+     * const pedidos = await prisma.pedidos.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const pedidosWithIdOnly = await prisma.pedidos.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PedidosFindManyArgs>(args?: SelectSubset<T, PedidosFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PedidosPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Pedidos.
+     * @param {PedidosCreateArgs} args - Arguments to create a Pedidos.
+     * @example
+     * // Create one Pedidos
+     * const Pedidos = await prisma.pedidos.create({
+     *   data: {
+     *     // ... data to create a Pedidos
+     *   }
+     * })
+     * 
+     */
+    create<T extends PedidosCreateArgs>(args: SelectSubset<T, PedidosCreateArgs<ExtArgs>>): Prisma__PedidosClient<$Result.GetResult<Prisma.$PedidosPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Pedidos.
+     * @param {PedidosCreateManyArgs} args - Arguments to create many Pedidos.
+     * @example
+     * // Create many Pedidos
+     * const pedidos = await prisma.pedidos.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PedidosCreateManyArgs>(args?: SelectSubset<T, PedidosCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Pedidos and returns the data saved in the database.
+     * @param {PedidosCreateManyAndReturnArgs} args - Arguments to create many Pedidos.
+     * @example
+     * // Create many Pedidos
+     * const pedidos = await prisma.pedidos.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Pedidos and only return the `id`
+     * const pedidosWithIdOnly = await prisma.pedidos.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PedidosCreateManyAndReturnArgs>(args?: SelectSubset<T, PedidosCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PedidosPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Pedidos.
+     * @param {PedidosDeleteArgs} args - Arguments to delete one Pedidos.
+     * @example
+     * // Delete one Pedidos
+     * const Pedidos = await prisma.pedidos.delete({
+     *   where: {
+     *     // ... filter to delete one Pedidos
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PedidosDeleteArgs>(args: SelectSubset<T, PedidosDeleteArgs<ExtArgs>>): Prisma__PedidosClient<$Result.GetResult<Prisma.$PedidosPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Pedidos.
+     * @param {PedidosUpdateArgs} args - Arguments to update one Pedidos.
+     * @example
+     * // Update one Pedidos
+     * const pedidos = await prisma.pedidos.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PedidosUpdateArgs>(args: SelectSubset<T, PedidosUpdateArgs<ExtArgs>>): Prisma__PedidosClient<$Result.GetResult<Prisma.$PedidosPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Pedidos.
+     * @param {PedidosDeleteManyArgs} args - Arguments to filter Pedidos to delete.
+     * @example
+     * // Delete a few Pedidos
+     * const { count } = await prisma.pedidos.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PedidosDeleteManyArgs>(args?: SelectSubset<T, PedidosDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Pedidos.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PedidosUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Pedidos
+     * const pedidos = await prisma.pedidos.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PedidosUpdateManyArgs>(args: SelectSubset<T, PedidosUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Pedidos and returns the data updated in the database.
+     * @param {PedidosUpdateManyAndReturnArgs} args - Arguments to update many Pedidos.
+     * @example
+     * // Update many Pedidos
+     * const pedidos = await prisma.pedidos.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Pedidos and only return the `id`
+     * const pedidosWithIdOnly = await prisma.pedidos.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends PedidosUpdateManyAndReturnArgs>(args: SelectSubset<T, PedidosUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PedidosPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Pedidos.
+     * @param {PedidosUpsertArgs} args - Arguments to update or create a Pedidos.
+     * @example
+     * // Update or create a Pedidos
+     * const pedidos = await prisma.pedidos.upsert({
+     *   create: {
+     *     // ... data to create a Pedidos
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Pedidos we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PedidosUpsertArgs>(args: SelectSubset<T, PedidosUpsertArgs<ExtArgs>>): Prisma__PedidosClient<$Result.GetResult<Prisma.$PedidosPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Pedidos.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PedidosCountArgs} args - Arguments to filter Pedidos to count.
+     * @example
+     * // Count the number of Pedidos
+     * const count = await prisma.pedidos.count({
+     *   where: {
+     *     // ... the filter for the Pedidos we want to count
+     *   }
+     * })
+    **/
+    count<T extends PedidosCountArgs>(
+      args?: Subset<T, PedidosCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PedidosCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Pedidos.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PedidosAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PedidosAggregateArgs>(args: Subset<T, PedidosAggregateArgs>): Prisma.PrismaPromise<GetPedidosAggregateType<T>>
+
+    /**
+     * Group by Pedidos.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PedidosGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PedidosGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PedidosGroupByArgs['orderBy'] }
+        : { orderBy?: PedidosGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PedidosGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPedidosGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Pedidos model
+   */
+  readonly fields: PedidosFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Pedidos.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PedidosClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    cliente<T extends ClientesDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ClientesDefaultArgs<ExtArgs>>): Prisma__ClientesClient<$Result.GetResult<Prisma.$ClientesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    usuario<T extends UsuariosDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UsuariosDefaultArgs<ExtArgs>>): Prisma__UsuariosClient<$Result.GetResult<Prisma.$UsuariosPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    itensPedidoVenda<T extends Pedidos$itensPedidoVendaArgs<ExtArgs> = {}>(args?: Subset<T, Pedidos$itensPedidoVendaArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ItensPedidoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Pedidos model
+   */
+  interface PedidosFieldRefs {
+    readonly id: FieldRef<"Pedidos", 'Int'>
+    readonly idCliente: FieldRef<"Pedidos", 'Int'>
+    readonly idUsuario: FieldRef<"Pedidos", 'Int'>
+    readonly observacao: FieldRef<"Pedidos", 'String'>
+    readonly valorTotal: FieldRef<"Pedidos", 'Decimal'>
+    readonly data_criacao: FieldRef<"Pedidos", 'DateTime'>
+    readonly data_alteracao: FieldRef<"Pedidos", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Pedidos findUnique
+   */
+  export type PedidosFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Pedidos
+     */
+    select?: PedidosSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Pedidos
+     */
+    omit?: PedidosOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PedidosInclude<ExtArgs> | null
+    /**
+     * Filter, which Pedidos to fetch.
+     */
+    where: PedidosWhereUniqueInput
+  }
+
+  /**
+   * Pedidos findUniqueOrThrow
+   */
+  export type PedidosFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Pedidos
+     */
+    select?: PedidosSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Pedidos
+     */
+    omit?: PedidosOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PedidosInclude<ExtArgs> | null
+    /**
+     * Filter, which Pedidos to fetch.
+     */
+    where: PedidosWhereUniqueInput
+  }
+
+  /**
+   * Pedidos findFirst
+   */
+  export type PedidosFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Pedidos
+     */
+    select?: PedidosSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Pedidos
+     */
+    omit?: PedidosOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PedidosInclude<ExtArgs> | null
+    /**
+     * Filter, which Pedidos to fetch.
+     */
+    where?: PedidosWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Pedidos to fetch.
+     */
+    orderBy?: PedidosOrderByWithRelationInput | PedidosOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Pedidos.
+     */
+    cursor?: PedidosWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Pedidos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Pedidos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Pedidos.
+     */
+    distinct?: PedidosScalarFieldEnum | PedidosScalarFieldEnum[]
+  }
+
+  /**
+   * Pedidos findFirstOrThrow
+   */
+  export type PedidosFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Pedidos
+     */
+    select?: PedidosSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Pedidos
+     */
+    omit?: PedidosOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PedidosInclude<ExtArgs> | null
+    /**
+     * Filter, which Pedidos to fetch.
+     */
+    where?: PedidosWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Pedidos to fetch.
+     */
+    orderBy?: PedidosOrderByWithRelationInput | PedidosOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Pedidos.
+     */
+    cursor?: PedidosWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Pedidos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Pedidos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Pedidos.
+     */
+    distinct?: PedidosScalarFieldEnum | PedidosScalarFieldEnum[]
+  }
+
+  /**
+   * Pedidos findMany
+   */
+  export type PedidosFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Pedidos
+     */
+    select?: PedidosSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Pedidos
+     */
+    omit?: PedidosOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PedidosInclude<ExtArgs> | null
+    /**
+     * Filter, which Pedidos to fetch.
+     */
+    where?: PedidosWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Pedidos to fetch.
+     */
+    orderBy?: PedidosOrderByWithRelationInput | PedidosOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Pedidos.
+     */
+    cursor?: PedidosWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Pedidos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Pedidos.
+     */
+    skip?: number
+    distinct?: PedidosScalarFieldEnum | PedidosScalarFieldEnum[]
+  }
+
+  /**
+   * Pedidos create
+   */
+  export type PedidosCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Pedidos
+     */
+    select?: PedidosSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Pedidos
+     */
+    omit?: PedidosOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PedidosInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Pedidos.
+     */
+    data: XOR<PedidosCreateInput, PedidosUncheckedCreateInput>
+  }
+
+  /**
+   * Pedidos createMany
+   */
+  export type PedidosCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Pedidos.
+     */
+    data: PedidosCreateManyInput | PedidosCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Pedidos createManyAndReturn
+   */
+  export type PedidosCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Pedidos
+     */
+    select?: PedidosSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Pedidos
+     */
+    omit?: PedidosOmit<ExtArgs> | null
+    /**
+     * The data used to create many Pedidos.
+     */
+    data: PedidosCreateManyInput | PedidosCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PedidosIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Pedidos update
+   */
+  export type PedidosUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Pedidos
+     */
+    select?: PedidosSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Pedidos
+     */
+    omit?: PedidosOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PedidosInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Pedidos.
+     */
+    data: XOR<PedidosUpdateInput, PedidosUncheckedUpdateInput>
+    /**
+     * Choose, which Pedidos to update.
+     */
+    where: PedidosWhereUniqueInput
+  }
+
+  /**
+   * Pedidos updateMany
+   */
+  export type PedidosUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Pedidos.
+     */
+    data: XOR<PedidosUpdateManyMutationInput, PedidosUncheckedUpdateManyInput>
+    /**
+     * Filter which Pedidos to update
+     */
+    where?: PedidosWhereInput
+    /**
+     * Limit how many Pedidos to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Pedidos updateManyAndReturn
+   */
+  export type PedidosUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Pedidos
+     */
+    select?: PedidosSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Pedidos
+     */
+    omit?: PedidosOmit<ExtArgs> | null
+    /**
+     * The data used to update Pedidos.
+     */
+    data: XOR<PedidosUpdateManyMutationInput, PedidosUncheckedUpdateManyInput>
+    /**
+     * Filter which Pedidos to update
+     */
+    where?: PedidosWhereInput
+    /**
+     * Limit how many Pedidos to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PedidosIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Pedidos upsert
+   */
+  export type PedidosUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Pedidos
+     */
+    select?: PedidosSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Pedidos
+     */
+    omit?: PedidosOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PedidosInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Pedidos to update in case it exists.
+     */
+    where: PedidosWhereUniqueInput
+    /**
+     * In case the Pedidos found by the `where` argument doesn't exist, create a new Pedidos with this data.
+     */
+    create: XOR<PedidosCreateInput, PedidosUncheckedCreateInput>
+    /**
+     * In case the Pedidos was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PedidosUpdateInput, PedidosUncheckedUpdateInput>
+  }
+
+  /**
+   * Pedidos delete
+   */
+  export type PedidosDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Pedidos
+     */
+    select?: PedidosSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Pedidos
+     */
+    omit?: PedidosOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PedidosInclude<ExtArgs> | null
+    /**
+     * Filter which Pedidos to delete.
+     */
+    where: PedidosWhereUniqueInput
+  }
+
+  /**
+   * Pedidos deleteMany
+   */
+  export type PedidosDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Pedidos to delete
+     */
+    where?: PedidosWhereInput
+    /**
+     * Limit how many Pedidos to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Pedidos.itensPedidoVenda
+   */
+  export type Pedidos$itensPedidoVendaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItensPedido
+     */
+    select?: ItensPedidoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ItensPedido
+     */
+    omit?: ItensPedidoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ItensPedidoInclude<ExtArgs> | null
+    where?: ItensPedidoWhereInput
+    orderBy?: ItensPedidoOrderByWithRelationInput | ItensPedidoOrderByWithRelationInput[]
+    cursor?: ItensPedidoWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ItensPedidoScalarFieldEnum | ItensPedidoScalarFieldEnum[]
+  }
+
+  /**
+   * Pedidos without action
+   */
+  export type PedidosDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Pedidos
+     */
+    select?: PedidosSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Pedidos
+     */
+    omit?: PedidosOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PedidosInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model ItensPedido
+   */
+
+  export type AggregateItensPedido = {
+    _count: ItensPedidoCountAggregateOutputType | null
+    _avg: ItensPedidoAvgAggregateOutputType | null
+    _sum: ItensPedidoSumAggregateOutputType | null
+    _min: ItensPedidoMinAggregateOutputType | null
+    _max: ItensPedidoMaxAggregateOutputType | null
+  }
+
+  export type ItensPedidoAvgAggregateOutputType = {
+    id: number | null
+    idProduto: number | null
+    idPedido: number | null
+    precoUnitario: Decimal | null
+    quantidade: number | null
+  }
+
+  export type ItensPedidoSumAggregateOutputType = {
+    id: number | null
+    idProduto: number | null
+    idPedido: number | null
+    precoUnitario: Decimal | null
+    quantidade: number | null
+  }
+
+  export type ItensPedidoMinAggregateOutputType = {
+    id: number | null
+    idProduto: number | null
+    idPedido: number | null
+    precoUnitario: Decimal | null
+    quantidade: number | null
+  }
+
+  export type ItensPedidoMaxAggregateOutputType = {
+    id: number | null
+    idProduto: number | null
+    idPedido: number | null
+    precoUnitario: Decimal | null
+    quantidade: number | null
+  }
+
+  export type ItensPedidoCountAggregateOutputType = {
+    id: number
+    idProduto: number
+    idPedido: number
+    precoUnitario: number
+    quantidade: number
+    _all: number
+  }
+
+
+  export type ItensPedidoAvgAggregateInputType = {
+    id?: true
+    idProduto?: true
+    idPedido?: true
+    precoUnitario?: true
+    quantidade?: true
+  }
+
+  export type ItensPedidoSumAggregateInputType = {
+    id?: true
+    idProduto?: true
+    idPedido?: true
+    precoUnitario?: true
+    quantidade?: true
+  }
+
+  export type ItensPedidoMinAggregateInputType = {
+    id?: true
+    idProduto?: true
+    idPedido?: true
+    precoUnitario?: true
+    quantidade?: true
+  }
+
+  export type ItensPedidoMaxAggregateInputType = {
+    id?: true
+    idProduto?: true
+    idPedido?: true
+    precoUnitario?: true
+    quantidade?: true
+  }
+
+  export type ItensPedidoCountAggregateInputType = {
+    id?: true
+    idProduto?: true
+    idPedido?: true
+    precoUnitario?: true
+    quantidade?: true
+    _all?: true
+  }
+
+  export type ItensPedidoAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ItensPedido to aggregate.
+     */
+    where?: ItensPedidoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ItensPedidos to fetch.
+     */
+    orderBy?: ItensPedidoOrderByWithRelationInput | ItensPedidoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ItensPedidoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ItensPedidos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ItensPedidos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ItensPedidos
+    **/
+    _count?: true | ItensPedidoCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ItensPedidoAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ItensPedidoSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ItensPedidoMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ItensPedidoMaxAggregateInputType
+  }
+
+  export type GetItensPedidoAggregateType<T extends ItensPedidoAggregateArgs> = {
+        [P in keyof T & keyof AggregateItensPedido]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateItensPedido[P]>
+      : GetScalarType<T[P], AggregateItensPedido[P]>
+  }
+
+
+
+
+  export type ItensPedidoGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ItensPedidoWhereInput
+    orderBy?: ItensPedidoOrderByWithAggregationInput | ItensPedidoOrderByWithAggregationInput[]
+    by: ItensPedidoScalarFieldEnum[] | ItensPedidoScalarFieldEnum
+    having?: ItensPedidoScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ItensPedidoCountAggregateInputType | true
+    _avg?: ItensPedidoAvgAggregateInputType
+    _sum?: ItensPedidoSumAggregateInputType
+    _min?: ItensPedidoMinAggregateInputType
+    _max?: ItensPedidoMaxAggregateInputType
+  }
+
+  export type ItensPedidoGroupByOutputType = {
+    id: number
+    idProduto: number
+    idPedido: number
+    precoUnitario: Decimal
+    quantidade: number
+    _count: ItensPedidoCountAggregateOutputType | null
+    _avg: ItensPedidoAvgAggregateOutputType | null
+    _sum: ItensPedidoSumAggregateOutputType | null
+    _min: ItensPedidoMinAggregateOutputType | null
+    _max: ItensPedidoMaxAggregateOutputType | null
+  }
+
+  type GetItensPedidoGroupByPayload<T extends ItensPedidoGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ItensPedidoGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ItensPedidoGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ItensPedidoGroupByOutputType[P]>
+            : GetScalarType<T[P], ItensPedidoGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ItensPedidoSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    idProduto?: boolean
+    idPedido?: boolean
+    precoUnitario?: boolean
+    quantidade?: boolean
+    produtos?: boolean | ProdutosDefaultArgs<ExtArgs>
+    pedidos?: boolean | PedidosDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["itensPedido"]>
+
+  export type ItensPedidoSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    idProduto?: boolean
+    idPedido?: boolean
+    precoUnitario?: boolean
+    quantidade?: boolean
+    produtos?: boolean | ProdutosDefaultArgs<ExtArgs>
+    pedidos?: boolean | PedidosDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["itensPedido"]>
+
+  export type ItensPedidoSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    idProduto?: boolean
+    idPedido?: boolean
+    precoUnitario?: boolean
+    quantidade?: boolean
+    produtos?: boolean | ProdutosDefaultArgs<ExtArgs>
+    pedidos?: boolean | PedidosDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["itensPedido"]>
+
+  export type ItensPedidoSelectScalar = {
+    id?: boolean
+    idProduto?: boolean
+    idPedido?: boolean
+    precoUnitario?: boolean
+    quantidade?: boolean
+  }
+
+  export type ItensPedidoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "idProduto" | "idPedido" | "precoUnitario" | "quantidade", ExtArgs["result"]["itensPedido"]>
+  export type ItensPedidoInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    produtos?: boolean | ProdutosDefaultArgs<ExtArgs>
+    pedidos?: boolean | PedidosDefaultArgs<ExtArgs>
+  }
+  export type ItensPedidoIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    produtos?: boolean | ProdutosDefaultArgs<ExtArgs>
+    pedidos?: boolean | PedidosDefaultArgs<ExtArgs>
+  }
+  export type ItensPedidoIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    produtos?: boolean | ProdutosDefaultArgs<ExtArgs>
+    pedidos?: boolean | PedidosDefaultArgs<ExtArgs>
+  }
+
+  export type $ItensPedidoPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ItensPedido"
+    objects: {
+      produtos: Prisma.$ProdutosPayload<ExtArgs>
+      pedidos: Prisma.$PedidosPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      idProduto: number
+      idPedido: number
+      precoUnitario: Prisma.Decimal
+      quantidade: number
+    }, ExtArgs["result"]["itensPedido"]>
+    composites: {}
+  }
+
+  type ItensPedidoGetPayload<S extends boolean | null | undefined | ItensPedidoDefaultArgs> = $Result.GetResult<Prisma.$ItensPedidoPayload, S>
+
+  type ItensPedidoCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ItensPedidoFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ItensPedidoCountAggregateInputType | true
+    }
+
+  export interface ItensPedidoDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ItensPedido'], meta: { name: 'ItensPedido' } }
+    /**
+     * Find zero or one ItensPedido that matches the filter.
+     * @param {ItensPedidoFindUniqueArgs} args - Arguments to find a ItensPedido
+     * @example
+     * // Get one ItensPedido
+     * const itensPedido = await prisma.itensPedido.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ItensPedidoFindUniqueArgs>(args: SelectSubset<T, ItensPedidoFindUniqueArgs<ExtArgs>>): Prisma__ItensPedidoClient<$Result.GetResult<Prisma.$ItensPedidoPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ItensPedido that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ItensPedidoFindUniqueOrThrowArgs} args - Arguments to find a ItensPedido
+     * @example
+     * // Get one ItensPedido
+     * const itensPedido = await prisma.itensPedido.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ItensPedidoFindUniqueOrThrowArgs>(args: SelectSubset<T, ItensPedidoFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ItensPedidoClient<$Result.GetResult<Prisma.$ItensPedidoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ItensPedido that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ItensPedidoFindFirstArgs} args - Arguments to find a ItensPedido
+     * @example
+     * // Get one ItensPedido
+     * const itensPedido = await prisma.itensPedido.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ItensPedidoFindFirstArgs>(args?: SelectSubset<T, ItensPedidoFindFirstArgs<ExtArgs>>): Prisma__ItensPedidoClient<$Result.GetResult<Prisma.$ItensPedidoPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ItensPedido that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ItensPedidoFindFirstOrThrowArgs} args - Arguments to find a ItensPedido
+     * @example
+     * // Get one ItensPedido
+     * const itensPedido = await prisma.itensPedido.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ItensPedidoFindFirstOrThrowArgs>(args?: SelectSubset<T, ItensPedidoFindFirstOrThrowArgs<ExtArgs>>): Prisma__ItensPedidoClient<$Result.GetResult<Prisma.$ItensPedidoPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ItensPedidos that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ItensPedidoFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ItensPedidos
+     * const itensPedidos = await prisma.itensPedido.findMany()
+     * 
+     * // Get first 10 ItensPedidos
+     * const itensPedidos = await prisma.itensPedido.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const itensPedidoWithIdOnly = await prisma.itensPedido.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ItensPedidoFindManyArgs>(args?: SelectSubset<T, ItensPedidoFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ItensPedidoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ItensPedido.
+     * @param {ItensPedidoCreateArgs} args - Arguments to create a ItensPedido.
+     * @example
+     * // Create one ItensPedido
+     * const ItensPedido = await prisma.itensPedido.create({
+     *   data: {
+     *     // ... data to create a ItensPedido
+     *   }
+     * })
+     * 
+     */
+    create<T extends ItensPedidoCreateArgs>(args: SelectSubset<T, ItensPedidoCreateArgs<ExtArgs>>): Prisma__ItensPedidoClient<$Result.GetResult<Prisma.$ItensPedidoPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ItensPedidos.
+     * @param {ItensPedidoCreateManyArgs} args - Arguments to create many ItensPedidos.
+     * @example
+     * // Create many ItensPedidos
+     * const itensPedido = await prisma.itensPedido.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ItensPedidoCreateManyArgs>(args?: SelectSubset<T, ItensPedidoCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ItensPedidos and returns the data saved in the database.
+     * @param {ItensPedidoCreateManyAndReturnArgs} args - Arguments to create many ItensPedidos.
+     * @example
+     * // Create many ItensPedidos
+     * const itensPedido = await prisma.itensPedido.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ItensPedidos and only return the `id`
+     * const itensPedidoWithIdOnly = await prisma.itensPedido.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ItensPedidoCreateManyAndReturnArgs>(args?: SelectSubset<T, ItensPedidoCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ItensPedidoPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a ItensPedido.
+     * @param {ItensPedidoDeleteArgs} args - Arguments to delete one ItensPedido.
+     * @example
+     * // Delete one ItensPedido
+     * const ItensPedido = await prisma.itensPedido.delete({
+     *   where: {
+     *     // ... filter to delete one ItensPedido
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ItensPedidoDeleteArgs>(args: SelectSubset<T, ItensPedidoDeleteArgs<ExtArgs>>): Prisma__ItensPedidoClient<$Result.GetResult<Prisma.$ItensPedidoPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ItensPedido.
+     * @param {ItensPedidoUpdateArgs} args - Arguments to update one ItensPedido.
+     * @example
+     * // Update one ItensPedido
+     * const itensPedido = await prisma.itensPedido.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ItensPedidoUpdateArgs>(args: SelectSubset<T, ItensPedidoUpdateArgs<ExtArgs>>): Prisma__ItensPedidoClient<$Result.GetResult<Prisma.$ItensPedidoPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ItensPedidos.
+     * @param {ItensPedidoDeleteManyArgs} args - Arguments to filter ItensPedidos to delete.
+     * @example
+     * // Delete a few ItensPedidos
+     * const { count } = await prisma.itensPedido.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ItensPedidoDeleteManyArgs>(args?: SelectSubset<T, ItensPedidoDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ItensPedidos.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ItensPedidoUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ItensPedidos
+     * const itensPedido = await prisma.itensPedido.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ItensPedidoUpdateManyArgs>(args: SelectSubset<T, ItensPedidoUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ItensPedidos and returns the data updated in the database.
+     * @param {ItensPedidoUpdateManyAndReturnArgs} args - Arguments to update many ItensPedidos.
+     * @example
+     * // Update many ItensPedidos
+     * const itensPedido = await prisma.itensPedido.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more ItensPedidos and only return the `id`
+     * const itensPedidoWithIdOnly = await prisma.itensPedido.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ItensPedidoUpdateManyAndReturnArgs>(args: SelectSubset<T, ItensPedidoUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ItensPedidoPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one ItensPedido.
+     * @param {ItensPedidoUpsertArgs} args - Arguments to update or create a ItensPedido.
+     * @example
+     * // Update or create a ItensPedido
+     * const itensPedido = await prisma.itensPedido.upsert({
+     *   create: {
+     *     // ... data to create a ItensPedido
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ItensPedido we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ItensPedidoUpsertArgs>(args: SelectSubset<T, ItensPedidoUpsertArgs<ExtArgs>>): Prisma__ItensPedidoClient<$Result.GetResult<Prisma.$ItensPedidoPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of ItensPedidos.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ItensPedidoCountArgs} args - Arguments to filter ItensPedidos to count.
+     * @example
+     * // Count the number of ItensPedidos
+     * const count = await prisma.itensPedido.count({
+     *   where: {
+     *     // ... the filter for the ItensPedidos we want to count
+     *   }
+     * })
+    **/
+    count<T extends ItensPedidoCountArgs>(
+      args?: Subset<T, ItensPedidoCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ItensPedidoCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ItensPedido.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ItensPedidoAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ItensPedidoAggregateArgs>(args: Subset<T, ItensPedidoAggregateArgs>): Prisma.PrismaPromise<GetItensPedidoAggregateType<T>>
+
+    /**
+     * Group by ItensPedido.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ItensPedidoGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ItensPedidoGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ItensPedidoGroupByArgs['orderBy'] }
+        : { orderBy?: ItensPedidoGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ItensPedidoGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetItensPedidoGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ItensPedido model
+   */
+  readonly fields: ItensPedidoFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ItensPedido.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ItensPedidoClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    produtos<T extends ProdutosDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProdutosDefaultArgs<ExtArgs>>): Prisma__ProdutosClient<$Result.GetResult<Prisma.$ProdutosPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    pedidos<T extends PedidosDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PedidosDefaultArgs<ExtArgs>>): Prisma__PedidosClient<$Result.GetResult<Prisma.$PedidosPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ItensPedido model
+   */
+  interface ItensPedidoFieldRefs {
+    readonly id: FieldRef<"ItensPedido", 'Int'>
+    readonly idProduto: FieldRef<"ItensPedido", 'Int'>
+    readonly idPedido: FieldRef<"ItensPedido", 'Int'>
+    readonly precoUnitario: FieldRef<"ItensPedido", 'Decimal'>
+    readonly quantidade: FieldRef<"ItensPedido", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ItensPedido findUnique
+   */
+  export type ItensPedidoFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItensPedido
+     */
+    select?: ItensPedidoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ItensPedido
+     */
+    omit?: ItensPedidoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ItensPedidoInclude<ExtArgs> | null
+    /**
+     * Filter, which ItensPedido to fetch.
+     */
+    where: ItensPedidoWhereUniqueInput
+  }
+
+  /**
+   * ItensPedido findUniqueOrThrow
+   */
+  export type ItensPedidoFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItensPedido
+     */
+    select?: ItensPedidoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ItensPedido
+     */
+    omit?: ItensPedidoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ItensPedidoInclude<ExtArgs> | null
+    /**
+     * Filter, which ItensPedido to fetch.
+     */
+    where: ItensPedidoWhereUniqueInput
+  }
+
+  /**
+   * ItensPedido findFirst
+   */
+  export type ItensPedidoFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItensPedido
+     */
+    select?: ItensPedidoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ItensPedido
+     */
+    omit?: ItensPedidoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ItensPedidoInclude<ExtArgs> | null
+    /**
+     * Filter, which ItensPedido to fetch.
+     */
+    where?: ItensPedidoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ItensPedidos to fetch.
+     */
+    orderBy?: ItensPedidoOrderByWithRelationInput | ItensPedidoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ItensPedidos.
+     */
+    cursor?: ItensPedidoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ItensPedidos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ItensPedidos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ItensPedidos.
+     */
+    distinct?: ItensPedidoScalarFieldEnum | ItensPedidoScalarFieldEnum[]
+  }
+
+  /**
+   * ItensPedido findFirstOrThrow
+   */
+  export type ItensPedidoFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItensPedido
+     */
+    select?: ItensPedidoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ItensPedido
+     */
+    omit?: ItensPedidoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ItensPedidoInclude<ExtArgs> | null
+    /**
+     * Filter, which ItensPedido to fetch.
+     */
+    where?: ItensPedidoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ItensPedidos to fetch.
+     */
+    orderBy?: ItensPedidoOrderByWithRelationInput | ItensPedidoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ItensPedidos.
+     */
+    cursor?: ItensPedidoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ItensPedidos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ItensPedidos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ItensPedidos.
+     */
+    distinct?: ItensPedidoScalarFieldEnum | ItensPedidoScalarFieldEnum[]
+  }
+
+  /**
+   * ItensPedido findMany
+   */
+  export type ItensPedidoFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItensPedido
+     */
+    select?: ItensPedidoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ItensPedido
+     */
+    omit?: ItensPedidoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ItensPedidoInclude<ExtArgs> | null
+    /**
+     * Filter, which ItensPedidos to fetch.
+     */
+    where?: ItensPedidoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ItensPedidos to fetch.
+     */
+    orderBy?: ItensPedidoOrderByWithRelationInput | ItensPedidoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ItensPedidos.
+     */
+    cursor?: ItensPedidoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ItensPedidos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ItensPedidos.
+     */
+    skip?: number
+    distinct?: ItensPedidoScalarFieldEnum | ItensPedidoScalarFieldEnum[]
+  }
+
+  /**
+   * ItensPedido create
+   */
+  export type ItensPedidoCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItensPedido
+     */
+    select?: ItensPedidoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ItensPedido
+     */
+    omit?: ItensPedidoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ItensPedidoInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ItensPedido.
+     */
+    data: XOR<ItensPedidoCreateInput, ItensPedidoUncheckedCreateInput>
+  }
+
+  /**
+   * ItensPedido createMany
+   */
+  export type ItensPedidoCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ItensPedidos.
+     */
+    data: ItensPedidoCreateManyInput | ItensPedidoCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ItensPedido createManyAndReturn
+   */
+  export type ItensPedidoCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItensPedido
+     */
+    select?: ItensPedidoSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ItensPedido
+     */
+    omit?: ItensPedidoOmit<ExtArgs> | null
+    /**
+     * The data used to create many ItensPedidos.
+     */
+    data: ItensPedidoCreateManyInput | ItensPedidoCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ItensPedidoIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ItensPedido update
+   */
+  export type ItensPedidoUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItensPedido
+     */
+    select?: ItensPedidoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ItensPedido
+     */
+    omit?: ItensPedidoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ItensPedidoInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ItensPedido.
+     */
+    data: XOR<ItensPedidoUpdateInput, ItensPedidoUncheckedUpdateInput>
+    /**
+     * Choose, which ItensPedido to update.
+     */
+    where: ItensPedidoWhereUniqueInput
+  }
+
+  /**
+   * ItensPedido updateMany
+   */
+  export type ItensPedidoUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ItensPedidos.
+     */
+    data: XOR<ItensPedidoUpdateManyMutationInput, ItensPedidoUncheckedUpdateManyInput>
+    /**
+     * Filter which ItensPedidos to update
+     */
+    where?: ItensPedidoWhereInput
+    /**
+     * Limit how many ItensPedidos to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ItensPedido updateManyAndReturn
+   */
+  export type ItensPedidoUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItensPedido
+     */
+    select?: ItensPedidoSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ItensPedido
+     */
+    omit?: ItensPedidoOmit<ExtArgs> | null
+    /**
+     * The data used to update ItensPedidos.
+     */
+    data: XOR<ItensPedidoUpdateManyMutationInput, ItensPedidoUncheckedUpdateManyInput>
+    /**
+     * Filter which ItensPedidos to update
+     */
+    where?: ItensPedidoWhereInput
+    /**
+     * Limit how many ItensPedidos to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ItensPedidoIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ItensPedido upsert
+   */
+  export type ItensPedidoUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItensPedido
+     */
+    select?: ItensPedidoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ItensPedido
+     */
+    omit?: ItensPedidoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ItensPedidoInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ItensPedido to update in case it exists.
+     */
+    where: ItensPedidoWhereUniqueInput
+    /**
+     * In case the ItensPedido found by the `where` argument doesn't exist, create a new ItensPedido with this data.
+     */
+    create: XOR<ItensPedidoCreateInput, ItensPedidoUncheckedCreateInput>
+    /**
+     * In case the ItensPedido was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ItensPedidoUpdateInput, ItensPedidoUncheckedUpdateInput>
+  }
+
+  /**
+   * ItensPedido delete
+   */
+  export type ItensPedidoDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItensPedido
+     */
+    select?: ItensPedidoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ItensPedido
+     */
+    omit?: ItensPedidoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ItensPedidoInclude<ExtArgs> | null
+    /**
+     * Filter which ItensPedido to delete.
+     */
+    where: ItensPedidoWhereUniqueInput
+  }
+
+  /**
+   * ItensPedido deleteMany
+   */
+  export type ItensPedidoDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ItensPedidos to delete
+     */
+    where?: ItensPedidoWhereInput
+    /**
+     * Limit how many ItensPedidos to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ItensPedido without action
+   */
+  export type ItensPedidoDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItensPedido
+     */
+    select?: ItensPedidoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ItensPedido
+     */
+    omit?: ItensPedidoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ItensPedidoInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -4387,14 +8316,28 @@ export namespace Prisma {
   export type UsuariosScalarFieldEnum = (typeof UsuariosScalarFieldEnum)[keyof typeof UsuariosScalarFieldEnum]
 
 
+  export const ClientesScalarFieldEnum: {
+    id: 'id',
+    nome: 'nome',
+    apelido: 'apelido',
+    endereco: 'endereco',
+    fone: 'fone',
+    status: 'status',
+    data_criacao: 'data_criacao',
+    data_alteracao: 'data_alteracao'
+  };
+
+  export type ClientesScalarFieldEnum = (typeof ClientesScalarFieldEnum)[keyof typeof ClientesScalarFieldEnum]
+
+
   export const ProdutosScalarFieldEnum: {
     id: 'id',
+    idCategoria: 'idCategoria',
     descricao: 'descricao',
     preco: 'preco',
     status: 'status',
     data_criacao: 'data_criacao',
-    data_alteracao: 'data_alteracao',
-    categoriaId: 'categoriaId'
+    data_alteracao: 'data_alteracao'
   };
 
   export type ProdutosScalarFieldEnum = (typeof ProdutosScalarFieldEnum)[keyof typeof ProdutosScalarFieldEnum]
@@ -4406,6 +8349,30 @@ export namespace Prisma {
   };
 
   export type CategoriasScalarFieldEnum = (typeof CategoriasScalarFieldEnum)[keyof typeof CategoriasScalarFieldEnum]
+
+
+  export const PedidosScalarFieldEnum: {
+    id: 'id',
+    idCliente: 'idCliente',
+    idUsuario: 'idUsuario',
+    observacao: 'observacao',
+    valorTotal: 'valorTotal',
+    data_criacao: 'data_criacao',
+    data_alteracao: 'data_alteracao'
+  };
+
+  export type PedidosScalarFieldEnum = (typeof PedidosScalarFieldEnum)[keyof typeof PedidosScalarFieldEnum]
+
+
+  export const ItensPedidoScalarFieldEnum: {
+    id: 'id',
+    idProduto: 'idProduto',
+    idPedido: 'idPedido',
+    precoUnitario: 'precoUnitario',
+    quantidade: 'quantidade'
+  };
+
+  export type ItensPedidoScalarFieldEnum = (typeof ItensPedidoScalarFieldEnum)[keyof typeof ItensPedidoScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -4529,6 +8496,7 @@ export namespace Prisma {
     status?: BoolFilter<"Usuarios"> | boolean
     data_criacao?: DateTimeFilter<"Usuarios"> | Date | string
     data_alteracao?: DateTimeFilter<"Usuarios"> | Date | string
+    Pedidos?: PedidosListRelationFilter
   }
 
   export type UsuariosOrderByWithRelationInput = {
@@ -4540,6 +8508,7 @@ export namespace Prisma {
     status?: SortOrder
     data_criacao?: SortOrder
     data_alteracao?: SortOrder
+    Pedidos?: PedidosOrderByRelationAggregateInput
   }
 
   export type UsuariosWhereUniqueInput = Prisma.AtLeast<{
@@ -4554,6 +8523,7 @@ export namespace Prisma {
     status?: BoolFilter<"Usuarios"> | boolean
     data_criacao?: DateTimeFilter<"Usuarios"> | Date | string
     data_alteracao?: DateTimeFilter<"Usuarios"> | Date | string
+    Pedidos?: PedidosListRelationFilter
   }, "id" | "usuario" | "email">
 
   export type UsuariosOrderByWithAggregationInput = {
@@ -4586,29 +8556,103 @@ export namespace Prisma {
     data_alteracao?: DateTimeWithAggregatesFilter<"Usuarios"> | Date | string
   }
 
+  export type ClientesWhereInput = {
+    AND?: ClientesWhereInput | ClientesWhereInput[]
+    OR?: ClientesWhereInput[]
+    NOT?: ClientesWhereInput | ClientesWhereInput[]
+    id?: IntFilter<"Clientes"> | number
+    nome?: StringFilter<"Clientes"> | string
+    apelido?: StringNullableFilter<"Clientes"> | string | null
+    endereco?: StringNullableFilter<"Clientes"> | string | null
+    fone?: StringNullableFilter<"Clientes"> | string | null
+    status?: BoolFilter<"Clientes"> | boolean
+    data_criacao?: DateTimeFilter<"Clientes"> | Date | string
+    data_alteracao?: DateTimeFilter<"Clientes"> | Date | string
+    Pedidos?: PedidosListRelationFilter
+  }
+
+  export type ClientesOrderByWithRelationInput = {
+    id?: SortOrder
+    nome?: SortOrder
+    apelido?: SortOrderInput | SortOrder
+    endereco?: SortOrderInput | SortOrder
+    fone?: SortOrderInput | SortOrder
+    status?: SortOrder
+    data_criacao?: SortOrder
+    data_alteracao?: SortOrder
+    Pedidos?: PedidosOrderByRelationAggregateInput
+  }
+
+  export type ClientesWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: ClientesWhereInput | ClientesWhereInput[]
+    OR?: ClientesWhereInput[]
+    NOT?: ClientesWhereInput | ClientesWhereInput[]
+    nome?: StringFilter<"Clientes"> | string
+    apelido?: StringNullableFilter<"Clientes"> | string | null
+    endereco?: StringNullableFilter<"Clientes"> | string | null
+    fone?: StringNullableFilter<"Clientes"> | string | null
+    status?: BoolFilter<"Clientes"> | boolean
+    data_criacao?: DateTimeFilter<"Clientes"> | Date | string
+    data_alteracao?: DateTimeFilter<"Clientes"> | Date | string
+    Pedidos?: PedidosListRelationFilter
+  }, "id">
+
+  export type ClientesOrderByWithAggregationInput = {
+    id?: SortOrder
+    nome?: SortOrder
+    apelido?: SortOrderInput | SortOrder
+    endereco?: SortOrderInput | SortOrder
+    fone?: SortOrderInput | SortOrder
+    status?: SortOrder
+    data_criacao?: SortOrder
+    data_alteracao?: SortOrder
+    _count?: ClientesCountOrderByAggregateInput
+    _avg?: ClientesAvgOrderByAggregateInput
+    _max?: ClientesMaxOrderByAggregateInput
+    _min?: ClientesMinOrderByAggregateInput
+    _sum?: ClientesSumOrderByAggregateInput
+  }
+
+  export type ClientesScalarWhereWithAggregatesInput = {
+    AND?: ClientesScalarWhereWithAggregatesInput | ClientesScalarWhereWithAggregatesInput[]
+    OR?: ClientesScalarWhereWithAggregatesInput[]
+    NOT?: ClientesScalarWhereWithAggregatesInput | ClientesScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Clientes"> | number
+    nome?: StringWithAggregatesFilter<"Clientes"> | string
+    apelido?: StringNullableWithAggregatesFilter<"Clientes"> | string | null
+    endereco?: StringNullableWithAggregatesFilter<"Clientes"> | string | null
+    fone?: StringNullableWithAggregatesFilter<"Clientes"> | string | null
+    status?: BoolWithAggregatesFilter<"Clientes"> | boolean
+    data_criacao?: DateTimeWithAggregatesFilter<"Clientes"> | Date | string
+    data_alteracao?: DateTimeWithAggregatesFilter<"Clientes"> | Date | string
+  }
+
   export type ProdutosWhereInput = {
     AND?: ProdutosWhereInput | ProdutosWhereInput[]
     OR?: ProdutosWhereInput[]
     NOT?: ProdutosWhereInput | ProdutosWhereInput[]
     id?: IntFilter<"Produtos"> | number
+    idCategoria?: IntNullableFilter<"Produtos"> | number | null
     descricao?: StringFilter<"Produtos"> | string
     preco?: DecimalFilter<"Produtos"> | Decimal | DecimalJsLike | number | string
     status?: BoolFilter<"Produtos"> | boolean
     data_criacao?: DateTimeFilter<"Produtos"> | Date | string
     data_alteracao?: DateTimeFilter<"Produtos"> | Date | string
-    categoriaId?: IntNullableFilter<"Produtos"> | number | null
     categoria?: XOR<CategoriasNullableScalarRelationFilter, CategoriasWhereInput> | null
+    itensPedidoVenda?: ItensPedidoListRelationFilter
   }
 
   export type ProdutosOrderByWithRelationInput = {
     id?: SortOrder
+    idCategoria?: SortOrderInput | SortOrder
     descricao?: SortOrder
     preco?: SortOrder
     status?: SortOrder
     data_criacao?: SortOrder
     data_alteracao?: SortOrder
-    categoriaId?: SortOrderInput | SortOrder
     categoria?: CategoriasOrderByWithRelationInput
+    itensPedidoVenda?: ItensPedidoOrderByRelationAggregateInput
   }
 
   export type ProdutosWhereUniqueInput = Prisma.AtLeast<{
@@ -4616,23 +8660,24 @@ export namespace Prisma {
     AND?: ProdutosWhereInput | ProdutosWhereInput[]
     OR?: ProdutosWhereInput[]
     NOT?: ProdutosWhereInput | ProdutosWhereInput[]
+    idCategoria?: IntNullableFilter<"Produtos"> | number | null
     descricao?: StringFilter<"Produtos"> | string
     preco?: DecimalFilter<"Produtos"> | Decimal | DecimalJsLike | number | string
     status?: BoolFilter<"Produtos"> | boolean
     data_criacao?: DateTimeFilter<"Produtos"> | Date | string
     data_alteracao?: DateTimeFilter<"Produtos"> | Date | string
-    categoriaId?: IntNullableFilter<"Produtos"> | number | null
     categoria?: XOR<CategoriasNullableScalarRelationFilter, CategoriasWhereInput> | null
+    itensPedidoVenda?: ItensPedidoListRelationFilter
   }, "id">
 
   export type ProdutosOrderByWithAggregationInput = {
     id?: SortOrder
+    idCategoria?: SortOrderInput | SortOrder
     descricao?: SortOrder
     preco?: SortOrder
     status?: SortOrder
     data_criacao?: SortOrder
     data_alteracao?: SortOrder
-    categoriaId?: SortOrderInput | SortOrder
     _count?: ProdutosCountOrderByAggregateInput
     _avg?: ProdutosAvgOrderByAggregateInput
     _max?: ProdutosMaxOrderByAggregateInput
@@ -4645,12 +8690,12 @@ export namespace Prisma {
     OR?: ProdutosScalarWhereWithAggregatesInput[]
     NOT?: ProdutosScalarWhereWithAggregatesInput | ProdutosScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Produtos"> | number
+    idCategoria?: IntNullableWithAggregatesFilter<"Produtos"> | number | null
     descricao?: StringWithAggregatesFilter<"Produtos"> | string
     preco?: DecimalWithAggregatesFilter<"Produtos"> | Decimal | DecimalJsLike | number | string
     status?: BoolWithAggregatesFilter<"Produtos"> | boolean
     data_criacao?: DateTimeWithAggregatesFilter<"Produtos"> | Date | string
     data_alteracao?: DateTimeWithAggregatesFilter<"Produtos"> | Date | string
-    categoriaId?: IntNullableWithAggregatesFilter<"Produtos"> | number | null
   }
 
   export type CategoriasWhereInput = {
@@ -4695,6 +8740,139 @@ export namespace Prisma {
     descricao?: StringWithAggregatesFilter<"Categorias"> | string
   }
 
+  export type PedidosWhereInput = {
+    AND?: PedidosWhereInput | PedidosWhereInput[]
+    OR?: PedidosWhereInput[]
+    NOT?: PedidosWhereInput | PedidosWhereInput[]
+    id?: IntFilter<"Pedidos"> | number
+    idCliente?: IntFilter<"Pedidos"> | number
+    idUsuario?: IntFilter<"Pedidos"> | number
+    observacao?: StringNullableFilter<"Pedidos"> | string | null
+    valorTotal?: DecimalFilter<"Pedidos"> | Decimal | DecimalJsLike | number | string
+    data_criacao?: DateTimeFilter<"Pedidos"> | Date | string
+    data_alteracao?: DateTimeFilter<"Pedidos"> | Date | string
+    cliente?: XOR<ClientesScalarRelationFilter, ClientesWhereInput>
+    usuario?: XOR<UsuariosScalarRelationFilter, UsuariosWhereInput>
+    itensPedidoVenda?: ItensPedidoListRelationFilter
+  }
+
+  export type PedidosOrderByWithRelationInput = {
+    id?: SortOrder
+    idCliente?: SortOrder
+    idUsuario?: SortOrder
+    observacao?: SortOrderInput | SortOrder
+    valorTotal?: SortOrder
+    data_criacao?: SortOrder
+    data_alteracao?: SortOrder
+    cliente?: ClientesOrderByWithRelationInput
+    usuario?: UsuariosOrderByWithRelationInput
+    itensPedidoVenda?: ItensPedidoOrderByRelationAggregateInput
+  }
+
+  export type PedidosWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: PedidosWhereInput | PedidosWhereInput[]
+    OR?: PedidosWhereInput[]
+    NOT?: PedidosWhereInput | PedidosWhereInput[]
+    idCliente?: IntFilter<"Pedidos"> | number
+    idUsuario?: IntFilter<"Pedidos"> | number
+    observacao?: StringNullableFilter<"Pedidos"> | string | null
+    valorTotal?: DecimalFilter<"Pedidos"> | Decimal | DecimalJsLike | number | string
+    data_criacao?: DateTimeFilter<"Pedidos"> | Date | string
+    data_alteracao?: DateTimeFilter<"Pedidos"> | Date | string
+    cliente?: XOR<ClientesScalarRelationFilter, ClientesWhereInput>
+    usuario?: XOR<UsuariosScalarRelationFilter, UsuariosWhereInput>
+    itensPedidoVenda?: ItensPedidoListRelationFilter
+  }, "id">
+
+  export type PedidosOrderByWithAggregationInput = {
+    id?: SortOrder
+    idCliente?: SortOrder
+    idUsuario?: SortOrder
+    observacao?: SortOrderInput | SortOrder
+    valorTotal?: SortOrder
+    data_criacao?: SortOrder
+    data_alteracao?: SortOrder
+    _count?: PedidosCountOrderByAggregateInput
+    _avg?: PedidosAvgOrderByAggregateInput
+    _max?: PedidosMaxOrderByAggregateInput
+    _min?: PedidosMinOrderByAggregateInput
+    _sum?: PedidosSumOrderByAggregateInput
+  }
+
+  export type PedidosScalarWhereWithAggregatesInput = {
+    AND?: PedidosScalarWhereWithAggregatesInput | PedidosScalarWhereWithAggregatesInput[]
+    OR?: PedidosScalarWhereWithAggregatesInput[]
+    NOT?: PedidosScalarWhereWithAggregatesInput | PedidosScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Pedidos"> | number
+    idCliente?: IntWithAggregatesFilter<"Pedidos"> | number
+    idUsuario?: IntWithAggregatesFilter<"Pedidos"> | number
+    observacao?: StringNullableWithAggregatesFilter<"Pedidos"> | string | null
+    valorTotal?: DecimalWithAggregatesFilter<"Pedidos"> | Decimal | DecimalJsLike | number | string
+    data_criacao?: DateTimeWithAggregatesFilter<"Pedidos"> | Date | string
+    data_alteracao?: DateTimeWithAggregatesFilter<"Pedidos"> | Date | string
+  }
+
+  export type ItensPedidoWhereInput = {
+    AND?: ItensPedidoWhereInput | ItensPedidoWhereInput[]
+    OR?: ItensPedidoWhereInput[]
+    NOT?: ItensPedidoWhereInput | ItensPedidoWhereInput[]
+    id?: IntFilter<"ItensPedido"> | number
+    idProduto?: IntFilter<"ItensPedido"> | number
+    idPedido?: IntFilter<"ItensPedido"> | number
+    precoUnitario?: DecimalFilter<"ItensPedido"> | Decimal | DecimalJsLike | number | string
+    quantidade?: IntFilter<"ItensPedido"> | number
+    produtos?: XOR<ProdutosScalarRelationFilter, ProdutosWhereInput>
+    pedidos?: XOR<PedidosScalarRelationFilter, PedidosWhereInput>
+  }
+
+  export type ItensPedidoOrderByWithRelationInput = {
+    id?: SortOrder
+    idProduto?: SortOrder
+    idPedido?: SortOrder
+    precoUnitario?: SortOrder
+    quantidade?: SortOrder
+    produtos?: ProdutosOrderByWithRelationInput
+    pedidos?: PedidosOrderByWithRelationInput
+  }
+
+  export type ItensPedidoWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: ItensPedidoWhereInput | ItensPedidoWhereInput[]
+    OR?: ItensPedidoWhereInput[]
+    NOT?: ItensPedidoWhereInput | ItensPedidoWhereInput[]
+    idProduto?: IntFilter<"ItensPedido"> | number
+    idPedido?: IntFilter<"ItensPedido"> | number
+    precoUnitario?: DecimalFilter<"ItensPedido"> | Decimal | DecimalJsLike | number | string
+    quantidade?: IntFilter<"ItensPedido"> | number
+    produtos?: XOR<ProdutosScalarRelationFilter, ProdutosWhereInput>
+    pedidos?: XOR<PedidosScalarRelationFilter, PedidosWhereInput>
+  }, "id">
+
+  export type ItensPedidoOrderByWithAggregationInput = {
+    id?: SortOrder
+    idProduto?: SortOrder
+    idPedido?: SortOrder
+    precoUnitario?: SortOrder
+    quantidade?: SortOrder
+    _count?: ItensPedidoCountOrderByAggregateInput
+    _avg?: ItensPedidoAvgOrderByAggregateInput
+    _max?: ItensPedidoMaxOrderByAggregateInput
+    _min?: ItensPedidoMinOrderByAggregateInput
+    _sum?: ItensPedidoSumOrderByAggregateInput
+  }
+
+  export type ItensPedidoScalarWhereWithAggregatesInput = {
+    AND?: ItensPedidoScalarWhereWithAggregatesInput | ItensPedidoScalarWhereWithAggregatesInput[]
+    OR?: ItensPedidoScalarWhereWithAggregatesInput[]
+    NOT?: ItensPedidoScalarWhereWithAggregatesInput | ItensPedidoScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"ItensPedido"> | number
+    idProduto?: IntWithAggregatesFilter<"ItensPedido"> | number
+    idPedido?: IntWithAggregatesFilter<"ItensPedido"> | number
+    precoUnitario?: DecimalWithAggregatesFilter<"ItensPedido"> | Decimal | DecimalJsLike | number | string
+    quantidade?: IntWithAggregatesFilter<"ItensPedido"> | number
+  }
+
   export type UsuariosCreateInput = {
     nome: string
     usuario: string
@@ -4703,6 +8881,7 @@ export namespace Prisma {
     status?: boolean
     data_criacao?: Date | string
     data_alteracao?: Date | string
+    Pedidos?: PedidosCreateNestedManyWithoutUsuarioInput
   }
 
   export type UsuariosUncheckedCreateInput = {
@@ -4714,6 +8893,7 @@ export namespace Prisma {
     status?: boolean
     data_criacao?: Date | string
     data_alteracao?: Date | string
+    Pedidos?: PedidosUncheckedCreateNestedManyWithoutUsuarioInput
   }
 
   export type UsuariosUpdateInput = {
@@ -4724,6 +8904,7 @@ export namespace Prisma {
     status?: BoolFieldUpdateOperationsInput | boolean
     data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
     data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    Pedidos?: PedidosUpdateManyWithoutUsuarioNestedInput
   }
 
   export type UsuariosUncheckedUpdateInput = {
@@ -4735,6 +8916,7 @@ export namespace Prisma {
     status?: BoolFieldUpdateOperationsInput | boolean
     data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
     data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    Pedidos?: PedidosUncheckedUpdateManyWithoutUsuarioNestedInput
   }
 
   export type UsuariosCreateManyInput = {
@@ -4769,6 +8951,84 @@ export namespace Prisma {
     data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type ClientesCreateInput = {
+    nome: string
+    apelido?: string | null
+    endereco?: string | null
+    fone?: string | null
+    status?: boolean
+    data_criacao?: Date | string
+    data_alteracao?: Date | string
+    Pedidos?: PedidosCreateNestedManyWithoutClienteInput
+  }
+
+  export type ClientesUncheckedCreateInput = {
+    id?: number
+    nome: string
+    apelido?: string | null
+    endereco?: string | null
+    fone?: string | null
+    status?: boolean
+    data_criacao?: Date | string
+    data_alteracao?: Date | string
+    Pedidos?: PedidosUncheckedCreateNestedManyWithoutClienteInput
+  }
+
+  export type ClientesUpdateInput = {
+    nome?: StringFieldUpdateOperationsInput | string
+    apelido?: NullableStringFieldUpdateOperationsInput | string | null
+    endereco?: NullableStringFieldUpdateOperationsInput | string | null
+    fone?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: BoolFieldUpdateOperationsInput | boolean
+    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    Pedidos?: PedidosUpdateManyWithoutClienteNestedInput
+  }
+
+  export type ClientesUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    nome?: StringFieldUpdateOperationsInput | string
+    apelido?: NullableStringFieldUpdateOperationsInput | string | null
+    endereco?: NullableStringFieldUpdateOperationsInput | string | null
+    fone?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: BoolFieldUpdateOperationsInput | boolean
+    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    Pedidos?: PedidosUncheckedUpdateManyWithoutClienteNestedInput
+  }
+
+  export type ClientesCreateManyInput = {
+    id?: number
+    nome: string
+    apelido?: string | null
+    endereco?: string | null
+    fone?: string | null
+    status?: boolean
+    data_criacao?: Date | string
+    data_alteracao?: Date | string
+  }
+
+  export type ClientesUpdateManyMutationInput = {
+    nome?: StringFieldUpdateOperationsInput | string
+    apelido?: NullableStringFieldUpdateOperationsInput | string | null
+    endereco?: NullableStringFieldUpdateOperationsInput | string | null
+    fone?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: BoolFieldUpdateOperationsInput | boolean
+    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ClientesUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    nome?: StringFieldUpdateOperationsInput | string
+    apelido?: NullableStringFieldUpdateOperationsInput | string | null
+    endereco?: NullableStringFieldUpdateOperationsInput | string | null
+    fone?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: BoolFieldUpdateOperationsInput | boolean
+    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type ProdutosCreateInput = {
     descricao: string
     preco?: Decimal | DecimalJsLike | number | string
@@ -4776,16 +9036,18 @@ export namespace Prisma {
     data_criacao?: Date | string
     data_alteracao?: Date | string
     categoria?: CategoriasCreateNestedOneWithoutProdutosInput
+    itensPedidoVenda?: ItensPedidoCreateNestedManyWithoutProdutosInput
   }
 
   export type ProdutosUncheckedCreateInput = {
     id?: number
+    idCategoria?: number | null
     descricao: string
     preco?: Decimal | DecimalJsLike | number | string
     status?: boolean
     data_criacao?: Date | string
     data_alteracao?: Date | string
-    categoriaId?: number | null
+    itensPedidoVenda?: ItensPedidoUncheckedCreateNestedManyWithoutProdutosInput
   }
 
   export type ProdutosUpdateInput = {
@@ -4795,26 +9057,28 @@ export namespace Prisma {
     data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
     data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
     categoria?: CategoriasUpdateOneWithoutProdutosNestedInput
+    itensPedidoVenda?: ItensPedidoUpdateManyWithoutProdutosNestedInput
   }
 
   export type ProdutosUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
+    idCategoria?: NullableIntFieldUpdateOperationsInput | number | null
     descricao?: StringFieldUpdateOperationsInput | string
     preco?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: BoolFieldUpdateOperationsInput | boolean
     data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
     data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
-    categoriaId?: NullableIntFieldUpdateOperationsInput | number | null
+    itensPedidoVenda?: ItensPedidoUncheckedUpdateManyWithoutProdutosNestedInput
   }
 
   export type ProdutosCreateManyInput = {
     id?: number
+    idCategoria?: number | null
     descricao: string
     preco?: Decimal | DecimalJsLike | number | string
     status?: boolean
     data_criacao?: Date | string
     data_alteracao?: Date | string
-    categoriaId?: number | null
   }
 
   export type ProdutosUpdateManyMutationInput = {
@@ -4827,12 +9091,12 @@ export namespace Prisma {
 
   export type ProdutosUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
+    idCategoria?: NullableIntFieldUpdateOperationsInput | number | null
     descricao?: StringFieldUpdateOperationsInput | string
     preco?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: BoolFieldUpdateOperationsInput | boolean
     data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
     data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
-    categoriaId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type CategoriasCreateInput = {
@@ -4869,6 +9133,126 @@ export namespace Prisma {
   export type CategoriasUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     descricao?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type PedidosCreateInput = {
+    observacao?: string | null
+    valorTotal: Decimal | DecimalJsLike | number | string
+    data_criacao?: Date | string
+    data_alteracao?: Date | string
+    cliente: ClientesCreateNestedOneWithoutPedidosInput
+    usuario: UsuariosCreateNestedOneWithoutPedidosInput
+    itensPedidoVenda?: ItensPedidoCreateNestedManyWithoutPedidosInput
+  }
+
+  export type PedidosUncheckedCreateInput = {
+    id?: number
+    idCliente: number
+    idUsuario: number
+    observacao?: string | null
+    valorTotal: Decimal | DecimalJsLike | number | string
+    data_criacao?: Date | string
+    data_alteracao?: Date | string
+    itensPedidoVenda?: ItensPedidoUncheckedCreateNestedManyWithoutPedidosInput
+  }
+
+  export type PedidosUpdateInput = {
+    observacao?: NullableStringFieldUpdateOperationsInput | string | null
+    valorTotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    cliente?: ClientesUpdateOneRequiredWithoutPedidosNestedInput
+    usuario?: UsuariosUpdateOneRequiredWithoutPedidosNestedInput
+    itensPedidoVenda?: ItensPedidoUpdateManyWithoutPedidosNestedInput
+  }
+
+  export type PedidosUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    idCliente?: IntFieldUpdateOperationsInput | number
+    idUsuario?: IntFieldUpdateOperationsInput | number
+    observacao?: NullableStringFieldUpdateOperationsInput | string | null
+    valorTotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    itensPedidoVenda?: ItensPedidoUncheckedUpdateManyWithoutPedidosNestedInput
+  }
+
+  export type PedidosCreateManyInput = {
+    id?: number
+    idCliente: number
+    idUsuario: number
+    observacao?: string | null
+    valorTotal: Decimal | DecimalJsLike | number | string
+    data_criacao?: Date | string
+    data_alteracao?: Date | string
+  }
+
+  export type PedidosUpdateManyMutationInput = {
+    observacao?: NullableStringFieldUpdateOperationsInput | string | null
+    valorTotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PedidosUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    idCliente?: IntFieldUpdateOperationsInput | number
+    idUsuario?: IntFieldUpdateOperationsInput | number
+    observacao?: NullableStringFieldUpdateOperationsInput | string | null
+    valorTotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ItensPedidoCreateInput = {
+    precoUnitario: Decimal | DecimalJsLike | number | string
+    quantidade: number
+    produtos: ProdutosCreateNestedOneWithoutItensPedidoVendaInput
+    pedidos: PedidosCreateNestedOneWithoutItensPedidoVendaInput
+  }
+
+  export type ItensPedidoUncheckedCreateInput = {
+    id?: number
+    idProduto: number
+    idPedido: number
+    precoUnitario: Decimal | DecimalJsLike | number | string
+    quantidade: number
+  }
+
+  export type ItensPedidoUpdateInput = {
+    precoUnitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    quantidade?: IntFieldUpdateOperationsInput | number
+    produtos?: ProdutosUpdateOneRequiredWithoutItensPedidoVendaNestedInput
+    pedidos?: PedidosUpdateOneRequiredWithoutItensPedidoVendaNestedInput
+  }
+
+  export type ItensPedidoUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    idProduto?: IntFieldUpdateOperationsInput | number
+    idPedido?: IntFieldUpdateOperationsInput | number
+    precoUnitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    quantidade?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type ItensPedidoCreateManyInput = {
+    id?: number
+    idProduto: number
+    idPedido: number
+    precoUnitario: Decimal | DecimalJsLike | number | string
+    quantidade: number
+  }
+
+  export type ItensPedidoUpdateManyMutationInput = {
+    precoUnitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    quantidade?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type ItensPedidoUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    idProduto?: IntFieldUpdateOperationsInput | number
+    idPedido?: IntFieldUpdateOperationsInput | number
+    precoUnitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    quantidade?: IntFieldUpdateOperationsInput | number
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -4911,6 +9295,16 @@ export namespace Prisma {
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type PedidosListRelationFilter = {
+    every?: PedidosWhereInput
+    some?: PedidosWhereInput
+    none?: PedidosWhereInput
+  }
+
+  export type PedidosOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type UsuariosCountOrderByAggregateInput = {
@@ -5010,15 +9404,83 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type DecimalFilter<$PrismaModel = never> = {
-    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
+  }
+
+  export type ClientesCountOrderByAggregateInput = {
+    id?: SortOrder
+    nome?: SortOrder
+    apelido?: SortOrder
+    endereco?: SortOrder
+    fone?: SortOrder
+    status?: SortOrder
+    data_criacao?: SortOrder
+    data_alteracao?: SortOrder
+  }
+
+  export type ClientesAvgOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type ClientesMaxOrderByAggregateInput = {
+    id?: SortOrder
+    nome?: SortOrder
+    apelido?: SortOrder
+    endereco?: SortOrder
+    fone?: SortOrder
+    status?: SortOrder
+    data_criacao?: SortOrder
+    data_alteracao?: SortOrder
+  }
+
+  export type ClientesMinOrderByAggregateInput = {
+    id?: SortOrder
+    nome?: SortOrder
+    apelido?: SortOrder
+    endereco?: SortOrder
+    fone?: SortOrder
+    status?: SortOrder
+    data_criacao?: SortOrder
+    data_alteracao?: SortOrder
+  }
+
+  export type ClientesSumOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type IntNullableFilter<$PrismaModel = never> = {
@@ -5032,59 +9494,7 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
-  export type CategoriasNullableScalarRelationFilter = {
-    is?: CategoriasWhereInput | null
-    isNot?: CategoriasWhereInput | null
-  }
-
-  export type SortOrderInput = {
-    sort: SortOrder
-    nulls?: NullsOrder
-  }
-
-  export type ProdutosCountOrderByAggregateInput = {
-    id?: SortOrder
-    descricao?: SortOrder
-    preco?: SortOrder
-    status?: SortOrder
-    data_criacao?: SortOrder
-    data_alteracao?: SortOrder
-    categoriaId?: SortOrder
-  }
-
-  export type ProdutosAvgOrderByAggregateInput = {
-    id?: SortOrder
-    preco?: SortOrder
-    categoriaId?: SortOrder
-  }
-
-  export type ProdutosMaxOrderByAggregateInput = {
-    id?: SortOrder
-    descricao?: SortOrder
-    preco?: SortOrder
-    status?: SortOrder
-    data_criacao?: SortOrder
-    data_alteracao?: SortOrder
-    categoriaId?: SortOrder
-  }
-
-  export type ProdutosMinOrderByAggregateInput = {
-    id?: SortOrder
-    descricao?: SortOrder
-    preco?: SortOrder
-    status?: SortOrder
-    data_criacao?: SortOrder
-    data_alteracao?: SortOrder
-    categoriaId?: SortOrder
-  }
-
-  export type ProdutosSumOrderByAggregateInput = {
-    id?: SortOrder
-    preco?: SortOrder
-    categoriaId?: SortOrder
-  }
-
-  export type DecimalWithAggregatesFilter<$PrismaModel = never> = {
+  export type DecimalFilter<$PrismaModel = never> = {
     equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
     notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
@@ -5092,12 +9502,64 @@ export namespace Prisma {
     lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedDecimalFilter<$PrismaModel>
-    _sum?: NestedDecimalFilter<$PrismaModel>
-    _min?: NestedDecimalFilter<$PrismaModel>
-    _max?: NestedDecimalFilter<$PrismaModel>
+    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+  }
+
+  export type CategoriasNullableScalarRelationFilter = {
+    is?: CategoriasWhereInput | null
+    isNot?: CategoriasWhereInput | null
+  }
+
+  export type ItensPedidoListRelationFilter = {
+    every?: ItensPedidoWhereInput
+    some?: ItensPedidoWhereInput
+    none?: ItensPedidoWhereInput
+  }
+
+  export type ItensPedidoOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ProdutosCountOrderByAggregateInput = {
+    id?: SortOrder
+    idCategoria?: SortOrder
+    descricao?: SortOrder
+    preco?: SortOrder
+    status?: SortOrder
+    data_criacao?: SortOrder
+    data_alteracao?: SortOrder
+  }
+
+  export type ProdutosAvgOrderByAggregateInput = {
+    id?: SortOrder
+    idCategoria?: SortOrder
+    preco?: SortOrder
+  }
+
+  export type ProdutosMaxOrderByAggregateInput = {
+    id?: SortOrder
+    idCategoria?: SortOrder
+    descricao?: SortOrder
+    preco?: SortOrder
+    status?: SortOrder
+    data_criacao?: SortOrder
+    data_alteracao?: SortOrder
+  }
+
+  export type ProdutosMinOrderByAggregateInput = {
+    id?: SortOrder
+    idCategoria?: SortOrder
+    descricao?: SortOrder
+    preco?: SortOrder
+    status?: SortOrder
+    data_criacao?: SortOrder
+    data_alteracao?: SortOrder
+  }
+
+  export type ProdutosSumOrderByAggregateInput = {
+    id?: SortOrder
+    idCategoria?: SortOrder
+    preco?: SortOrder
   }
 
   export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -5114,6 +9576,22 @@ export namespace Prisma {
     _sum?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedIntNullableFilter<$PrismaModel>
     _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type DecimalWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedDecimalFilter<$PrismaModel>
+    _sum?: NestedDecimalFilter<$PrismaModel>
+    _min?: NestedDecimalFilter<$PrismaModel>
+    _max?: NestedDecimalFilter<$PrismaModel>
   }
 
   export type ProdutosListRelationFilter = {
@@ -5149,6 +9627,124 @@ export namespace Prisma {
     id?: SortOrder
   }
 
+  export type ClientesScalarRelationFilter = {
+    is?: ClientesWhereInput
+    isNot?: ClientesWhereInput
+  }
+
+  export type UsuariosScalarRelationFilter = {
+    is?: UsuariosWhereInput
+    isNot?: UsuariosWhereInput
+  }
+
+  export type PedidosCountOrderByAggregateInput = {
+    id?: SortOrder
+    idCliente?: SortOrder
+    idUsuario?: SortOrder
+    observacao?: SortOrder
+    valorTotal?: SortOrder
+    data_criacao?: SortOrder
+    data_alteracao?: SortOrder
+  }
+
+  export type PedidosAvgOrderByAggregateInput = {
+    id?: SortOrder
+    idCliente?: SortOrder
+    idUsuario?: SortOrder
+    valorTotal?: SortOrder
+  }
+
+  export type PedidosMaxOrderByAggregateInput = {
+    id?: SortOrder
+    idCliente?: SortOrder
+    idUsuario?: SortOrder
+    observacao?: SortOrder
+    valorTotal?: SortOrder
+    data_criacao?: SortOrder
+    data_alteracao?: SortOrder
+  }
+
+  export type PedidosMinOrderByAggregateInput = {
+    id?: SortOrder
+    idCliente?: SortOrder
+    idUsuario?: SortOrder
+    observacao?: SortOrder
+    valorTotal?: SortOrder
+    data_criacao?: SortOrder
+    data_alteracao?: SortOrder
+  }
+
+  export type PedidosSumOrderByAggregateInput = {
+    id?: SortOrder
+    idCliente?: SortOrder
+    idUsuario?: SortOrder
+    valorTotal?: SortOrder
+  }
+
+  export type ProdutosScalarRelationFilter = {
+    is?: ProdutosWhereInput
+    isNot?: ProdutosWhereInput
+  }
+
+  export type PedidosScalarRelationFilter = {
+    is?: PedidosWhereInput
+    isNot?: PedidosWhereInput
+  }
+
+  export type ItensPedidoCountOrderByAggregateInput = {
+    id?: SortOrder
+    idProduto?: SortOrder
+    idPedido?: SortOrder
+    precoUnitario?: SortOrder
+    quantidade?: SortOrder
+  }
+
+  export type ItensPedidoAvgOrderByAggregateInput = {
+    id?: SortOrder
+    idProduto?: SortOrder
+    idPedido?: SortOrder
+    precoUnitario?: SortOrder
+    quantidade?: SortOrder
+  }
+
+  export type ItensPedidoMaxOrderByAggregateInput = {
+    id?: SortOrder
+    idProduto?: SortOrder
+    idPedido?: SortOrder
+    precoUnitario?: SortOrder
+    quantidade?: SortOrder
+  }
+
+  export type ItensPedidoMinOrderByAggregateInput = {
+    id?: SortOrder
+    idProduto?: SortOrder
+    idPedido?: SortOrder
+    precoUnitario?: SortOrder
+    quantidade?: SortOrder
+  }
+
+  export type ItensPedidoSumOrderByAggregateInput = {
+    id?: SortOrder
+    idProduto?: SortOrder
+    idPedido?: SortOrder
+    precoUnitario?: SortOrder
+    quantidade?: SortOrder
+  }
+
+  export type PedidosCreateNestedManyWithoutUsuarioInput = {
+    create?: XOR<PedidosCreateWithoutUsuarioInput, PedidosUncheckedCreateWithoutUsuarioInput> | PedidosCreateWithoutUsuarioInput[] | PedidosUncheckedCreateWithoutUsuarioInput[]
+    connectOrCreate?: PedidosCreateOrConnectWithoutUsuarioInput | PedidosCreateOrConnectWithoutUsuarioInput[]
+    createMany?: PedidosCreateManyUsuarioInputEnvelope
+    connect?: PedidosWhereUniqueInput | PedidosWhereUniqueInput[]
+  }
+
+  export type PedidosUncheckedCreateNestedManyWithoutUsuarioInput = {
+    create?: XOR<PedidosCreateWithoutUsuarioInput, PedidosUncheckedCreateWithoutUsuarioInput> | PedidosCreateWithoutUsuarioInput[] | PedidosUncheckedCreateWithoutUsuarioInput[]
+    connectOrCreate?: PedidosCreateOrConnectWithoutUsuarioInput | PedidosCreateOrConnectWithoutUsuarioInput[]
+    createMany?: PedidosCreateManyUsuarioInputEnvelope
+    connect?: PedidosWhereUniqueInput | PedidosWhereUniqueInput[]
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
@@ -5161,6 +9757,20 @@ export namespace Prisma {
     set?: Date | string
   }
 
+  export type PedidosUpdateManyWithoutUsuarioNestedInput = {
+    create?: XOR<PedidosCreateWithoutUsuarioInput, PedidosUncheckedCreateWithoutUsuarioInput> | PedidosCreateWithoutUsuarioInput[] | PedidosUncheckedCreateWithoutUsuarioInput[]
+    connectOrCreate?: PedidosCreateOrConnectWithoutUsuarioInput | PedidosCreateOrConnectWithoutUsuarioInput[]
+    upsert?: PedidosUpsertWithWhereUniqueWithoutUsuarioInput | PedidosUpsertWithWhereUniqueWithoutUsuarioInput[]
+    createMany?: PedidosCreateManyUsuarioInputEnvelope
+    set?: PedidosWhereUniqueInput | PedidosWhereUniqueInput[]
+    disconnect?: PedidosWhereUniqueInput | PedidosWhereUniqueInput[]
+    delete?: PedidosWhereUniqueInput | PedidosWhereUniqueInput[]
+    connect?: PedidosWhereUniqueInput | PedidosWhereUniqueInput[]
+    update?: PedidosUpdateWithWhereUniqueWithoutUsuarioInput | PedidosUpdateWithWhereUniqueWithoutUsuarioInput[]
+    updateMany?: PedidosUpdateManyWithWhereWithoutUsuarioInput | PedidosUpdateManyWithWhereWithoutUsuarioInput[]
+    deleteMany?: PedidosScalarWhereInput | PedidosScalarWhereInput[]
+  }
+
   export type IntFieldUpdateOperationsInput = {
     set?: number
     increment?: number
@@ -5169,10 +9779,84 @@ export namespace Prisma {
     divide?: number
   }
 
+  export type PedidosUncheckedUpdateManyWithoutUsuarioNestedInput = {
+    create?: XOR<PedidosCreateWithoutUsuarioInput, PedidosUncheckedCreateWithoutUsuarioInput> | PedidosCreateWithoutUsuarioInput[] | PedidosUncheckedCreateWithoutUsuarioInput[]
+    connectOrCreate?: PedidosCreateOrConnectWithoutUsuarioInput | PedidosCreateOrConnectWithoutUsuarioInput[]
+    upsert?: PedidosUpsertWithWhereUniqueWithoutUsuarioInput | PedidosUpsertWithWhereUniqueWithoutUsuarioInput[]
+    createMany?: PedidosCreateManyUsuarioInputEnvelope
+    set?: PedidosWhereUniqueInput | PedidosWhereUniqueInput[]
+    disconnect?: PedidosWhereUniqueInput | PedidosWhereUniqueInput[]
+    delete?: PedidosWhereUniqueInput | PedidosWhereUniqueInput[]
+    connect?: PedidosWhereUniqueInput | PedidosWhereUniqueInput[]
+    update?: PedidosUpdateWithWhereUniqueWithoutUsuarioInput | PedidosUpdateWithWhereUniqueWithoutUsuarioInput[]
+    updateMany?: PedidosUpdateManyWithWhereWithoutUsuarioInput | PedidosUpdateManyWithWhereWithoutUsuarioInput[]
+    deleteMany?: PedidosScalarWhereInput | PedidosScalarWhereInput[]
+  }
+
+  export type PedidosCreateNestedManyWithoutClienteInput = {
+    create?: XOR<PedidosCreateWithoutClienteInput, PedidosUncheckedCreateWithoutClienteInput> | PedidosCreateWithoutClienteInput[] | PedidosUncheckedCreateWithoutClienteInput[]
+    connectOrCreate?: PedidosCreateOrConnectWithoutClienteInput | PedidosCreateOrConnectWithoutClienteInput[]
+    createMany?: PedidosCreateManyClienteInputEnvelope
+    connect?: PedidosWhereUniqueInput | PedidosWhereUniqueInput[]
+  }
+
+  export type PedidosUncheckedCreateNestedManyWithoutClienteInput = {
+    create?: XOR<PedidosCreateWithoutClienteInput, PedidosUncheckedCreateWithoutClienteInput> | PedidosCreateWithoutClienteInput[] | PedidosUncheckedCreateWithoutClienteInput[]
+    connectOrCreate?: PedidosCreateOrConnectWithoutClienteInput | PedidosCreateOrConnectWithoutClienteInput[]
+    createMany?: PedidosCreateManyClienteInputEnvelope
+    connect?: PedidosWhereUniqueInput | PedidosWhereUniqueInput[]
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
+  export type PedidosUpdateManyWithoutClienteNestedInput = {
+    create?: XOR<PedidosCreateWithoutClienteInput, PedidosUncheckedCreateWithoutClienteInput> | PedidosCreateWithoutClienteInput[] | PedidosUncheckedCreateWithoutClienteInput[]
+    connectOrCreate?: PedidosCreateOrConnectWithoutClienteInput | PedidosCreateOrConnectWithoutClienteInput[]
+    upsert?: PedidosUpsertWithWhereUniqueWithoutClienteInput | PedidosUpsertWithWhereUniqueWithoutClienteInput[]
+    createMany?: PedidosCreateManyClienteInputEnvelope
+    set?: PedidosWhereUniqueInput | PedidosWhereUniqueInput[]
+    disconnect?: PedidosWhereUniqueInput | PedidosWhereUniqueInput[]
+    delete?: PedidosWhereUniqueInput | PedidosWhereUniqueInput[]
+    connect?: PedidosWhereUniqueInput | PedidosWhereUniqueInput[]
+    update?: PedidosUpdateWithWhereUniqueWithoutClienteInput | PedidosUpdateWithWhereUniqueWithoutClienteInput[]
+    updateMany?: PedidosUpdateManyWithWhereWithoutClienteInput | PedidosUpdateManyWithWhereWithoutClienteInput[]
+    deleteMany?: PedidosScalarWhereInput | PedidosScalarWhereInput[]
+  }
+
+  export type PedidosUncheckedUpdateManyWithoutClienteNestedInput = {
+    create?: XOR<PedidosCreateWithoutClienteInput, PedidosUncheckedCreateWithoutClienteInput> | PedidosCreateWithoutClienteInput[] | PedidosUncheckedCreateWithoutClienteInput[]
+    connectOrCreate?: PedidosCreateOrConnectWithoutClienteInput | PedidosCreateOrConnectWithoutClienteInput[]
+    upsert?: PedidosUpsertWithWhereUniqueWithoutClienteInput | PedidosUpsertWithWhereUniqueWithoutClienteInput[]
+    createMany?: PedidosCreateManyClienteInputEnvelope
+    set?: PedidosWhereUniqueInput | PedidosWhereUniqueInput[]
+    disconnect?: PedidosWhereUniqueInput | PedidosWhereUniqueInput[]
+    delete?: PedidosWhereUniqueInput | PedidosWhereUniqueInput[]
+    connect?: PedidosWhereUniqueInput | PedidosWhereUniqueInput[]
+    update?: PedidosUpdateWithWhereUniqueWithoutClienteInput | PedidosUpdateWithWhereUniqueWithoutClienteInput[]
+    updateMany?: PedidosUpdateManyWithWhereWithoutClienteInput | PedidosUpdateManyWithWhereWithoutClienteInput[]
+    deleteMany?: PedidosScalarWhereInput | PedidosScalarWhereInput[]
+  }
+
   export type CategoriasCreateNestedOneWithoutProdutosInput = {
     create?: XOR<CategoriasCreateWithoutProdutosInput, CategoriasUncheckedCreateWithoutProdutosInput>
     connectOrCreate?: CategoriasCreateOrConnectWithoutProdutosInput
     connect?: CategoriasWhereUniqueInput
+  }
+
+  export type ItensPedidoCreateNestedManyWithoutProdutosInput = {
+    create?: XOR<ItensPedidoCreateWithoutProdutosInput, ItensPedidoUncheckedCreateWithoutProdutosInput> | ItensPedidoCreateWithoutProdutosInput[] | ItensPedidoUncheckedCreateWithoutProdutosInput[]
+    connectOrCreate?: ItensPedidoCreateOrConnectWithoutProdutosInput | ItensPedidoCreateOrConnectWithoutProdutosInput[]
+    createMany?: ItensPedidoCreateManyProdutosInputEnvelope
+    connect?: ItensPedidoWhereUniqueInput | ItensPedidoWhereUniqueInput[]
+  }
+
+  export type ItensPedidoUncheckedCreateNestedManyWithoutProdutosInput = {
+    create?: XOR<ItensPedidoCreateWithoutProdutosInput, ItensPedidoUncheckedCreateWithoutProdutosInput> | ItensPedidoCreateWithoutProdutosInput[] | ItensPedidoUncheckedCreateWithoutProdutosInput[]
+    connectOrCreate?: ItensPedidoCreateOrConnectWithoutProdutosInput | ItensPedidoCreateOrConnectWithoutProdutosInput[]
+    createMany?: ItensPedidoCreateManyProdutosInputEnvelope
+    connect?: ItensPedidoWhereUniqueInput | ItensPedidoWhereUniqueInput[]
   }
 
   export type DecimalFieldUpdateOperationsInput = {
@@ -5193,12 +9877,40 @@ export namespace Prisma {
     update?: XOR<XOR<CategoriasUpdateToOneWithWhereWithoutProdutosInput, CategoriasUpdateWithoutProdutosInput>, CategoriasUncheckedUpdateWithoutProdutosInput>
   }
 
+  export type ItensPedidoUpdateManyWithoutProdutosNestedInput = {
+    create?: XOR<ItensPedidoCreateWithoutProdutosInput, ItensPedidoUncheckedCreateWithoutProdutosInput> | ItensPedidoCreateWithoutProdutosInput[] | ItensPedidoUncheckedCreateWithoutProdutosInput[]
+    connectOrCreate?: ItensPedidoCreateOrConnectWithoutProdutosInput | ItensPedidoCreateOrConnectWithoutProdutosInput[]
+    upsert?: ItensPedidoUpsertWithWhereUniqueWithoutProdutosInput | ItensPedidoUpsertWithWhereUniqueWithoutProdutosInput[]
+    createMany?: ItensPedidoCreateManyProdutosInputEnvelope
+    set?: ItensPedidoWhereUniqueInput | ItensPedidoWhereUniqueInput[]
+    disconnect?: ItensPedidoWhereUniqueInput | ItensPedidoWhereUniqueInput[]
+    delete?: ItensPedidoWhereUniqueInput | ItensPedidoWhereUniqueInput[]
+    connect?: ItensPedidoWhereUniqueInput | ItensPedidoWhereUniqueInput[]
+    update?: ItensPedidoUpdateWithWhereUniqueWithoutProdutosInput | ItensPedidoUpdateWithWhereUniqueWithoutProdutosInput[]
+    updateMany?: ItensPedidoUpdateManyWithWhereWithoutProdutosInput | ItensPedidoUpdateManyWithWhereWithoutProdutosInput[]
+    deleteMany?: ItensPedidoScalarWhereInput | ItensPedidoScalarWhereInput[]
+  }
+
   export type NullableIntFieldUpdateOperationsInput = {
     set?: number | null
     increment?: number
     decrement?: number
     multiply?: number
     divide?: number
+  }
+
+  export type ItensPedidoUncheckedUpdateManyWithoutProdutosNestedInput = {
+    create?: XOR<ItensPedidoCreateWithoutProdutosInput, ItensPedidoUncheckedCreateWithoutProdutosInput> | ItensPedidoCreateWithoutProdutosInput[] | ItensPedidoUncheckedCreateWithoutProdutosInput[]
+    connectOrCreate?: ItensPedidoCreateOrConnectWithoutProdutosInput | ItensPedidoCreateOrConnectWithoutProdutosInput[]
+    upsert?: ItensPedidoUpsertWithWhereUniqueWithoutProdutosInput | ItensPedidoUpsertWithWhereUniqueWithoutProdutosInput[]
+    createMany?: ItensPedidoCreateManyProdutosInputEnvelope
+    set?: ItensPedidoWhereUniqueInput | ItensPedidoWhereUniqueInput[]
+    disconnect?: ItensPedidoWhereUniqueInput | ItensPedidoWhereUniqueInput[]
+    delete?: ItensPedidoWhereUniqueInput | ItensPedidoWhereUniqueInput[]
+    connect?: ItensPedidoWhereUniqueInput | ItensPedidoWhereUniqueInput[]
+    update?: ItensPedidoUpdateWithWhereUniqueWithoutProdutosInput | ItensPedidoUpdateWithWhereUniqueWithoutProdutosInput[]
+    updateMany?: ItensPedidoUpdateManyWithWhereWithoutProdutosInput | ItensPedidoUpdateManyWithWhereWithoutProdutosInput[]
+    deleteMany?: ItensPedidoScalarWhereInput | ItensPedidoScalarWhereInput[]
   }
 
   export type ProdutosCreateNestedManyWithoutCategoriaInput = {
@@ -5241,6 +9953,104 @@ export namespace Prisma {
     update?: ProdutosUpdateWithWhereUniqueWithoutCategoriaInput | ProdutosUpdateWithWhereUniqueWithoutCategoriaInput[]
     updateMany?: ProdutosUpdateManyWithWhereWithoutCategoriaInput | ProdutosUpdateManyWithWhereWithoutCategoriaInput[]
     deleteMany?: ProdutosScalarWhereInput | ProdutosScalarWhereInput[]
+  }
+
+  export type ClientesCreateNestedOneWithoutPedidosInput = {
+    create?: XOR<ClientesCreateWithoutPedidosInput, ClientesUncheckedCreateWithoutPedidosInput>
+    connectOrCreate?: ClientesCreateOrConnectWithoutPedidosInput
+    connect?: ClientesWhereUniqueInput
+  }
+
+  export type UsuariosCreateNestedOneWithoutPedidosInput = {
+    create?: XOR<UsuariosCreateWithoutPedidosInput, UsuariosUncheckedCreateWithoutPedidosInput>
+    connectOrCreate?: UsuariosCreateOrConnectWithoutPedidosInput
+    connect?: UsuariosWhereUniqueInput
+  }
+
+  export type ItensPedidoCreateNestedManyWithoutPedidosInput = {
+    create?: XOR<ItensPedidoCreateWithoutPedidosInput, ItensPedidoUncheckedCreateWithoutPedidosInput> | ItensPedidoCreateWithoutPedidosInput[] | ItensPedidoUncheckedCreateWithoutPedidosInput[]
+    connectOrCreate?: ItensPedidoCreateOrConnectWithoutPedidosInput | ItensPedidoCreateOrConnectWithoutPedidosInput[]
+    createMany?: ItensPedidoCreateManyPedidosInputEnvelope
+    connect?: ItensPedidoWhereUniqueInput | ItensPedidoWhereUniqueInput[]
+  }
+
+  export type ItensPedidoUncheckedCreateNestedManyWithoutPedidosInput = {
+    create?: XOR<ItensPedidoCreateWithoutPedidosInput, ItensPedidoUncheckedCreateWithoutPedidosInput> | ItensPedidoCreateWithoutPedidosInput[] | ItensPedidoUncheckedCreateWithoutPedidosInput[]
+    connectOrCreate?: ItensPedidoCreateOrConnectWithoutPedidosInput | ItensPedidoCreateOrConnectWithoutPedidosInput[]
+    createMany?: ItensPedidoCreateManyPedidosInputEnvelope
+    connect?: ItensPedidoWhereUniqueInput | ItensPedidoWhereUniqueInput[]
+  }
+
+  export type ClientesUpdateOneRequiredWithoutPedidosNestedInput = {
+    create?: XOR<ClientesCreateWithoutPedidosInput, ClientesUncheckedCreateWithoutPedidosInput>
+    connectOrCreate?: ClientesCreateOrConnectWithoutPedidosInput
+    upsert?: ClientesUpsertWithoutPedidosInput
+    connect?: ClientesWhereUniqueInput
+    update?: XOR<XOR<ClientesUpdateToOneWithWhereWithoutPedidosInput, ClientesUpdateWithoutPedidosInput>, ClientesUncheckedUpdateWithoutPedidosInput>
+  }
+
+  export type UsuariosUpdateOneRequiredWithoutPedidosNestedInput = {
+    create?: XOR<UsuariosCreateWithoutPedidosInput, UsuariosUncheckedCreateWithoutPedidosInput>
+    connectOrCreate?: UsuariosCreateOrConnectWithoutPedidosInput
+    upsert?: UsuariosUpsertWithoutPedidosInput
+    connect?: UsuariosWhereUniqueInput
+    update?: XOR<XOR<UsuariosUpdateToOneWithWhereWithoutPedidosInput, UsuariosUpdateWithoutPedidosInput>, UsuariosUncheckedUpdateWithoutPedidosInput>
+  }
+
+  export type ItensPedidoUpdateManyWithoutPedidosNestedInput = {
+    create?: XOR<ItensPedidoCreateWithoutPedidosInput, ItensPedidoUncheckedCreateWithoutPedidosInput> | ItensPedidoCreateWithoutPedidosInput[] | ItensPedidoUncheckedCreateWithoutPedidosInput[]
+    connectOrCreate?: ItensPedidoCreateOrConnectWithoutPedidosInput | ItensPedidoCreateOrConnectWithoutPedidosInput[]
+    upsert?: ItensPedidoUpsertWithWhereUniqueWithoutPedidosInput | ItensPedidoUpsertWithWhereUniqueWithoutPedidosInput[]
+    createMany?: ItensPedidoCreateManyPedidosInputEnvelope
+    set?: ItensPedidoWhereUniqueInput | ItensPedidoWhereUniqueInput[]
+    disconnect?: ItensPedidoWhereUniqueInput | ItensPedidoWhereUniqueInput[]
+    delete?: ItensPedidoWhereUniqueInput | ItensPedidoWhereUniqueInput[]
+    connect?: ItensPedidoWhereUniqueInput | ItensPedidoWhereUniqueInput[]
+    update?: ItensPedidoUpdateWithWhereUniqueWithoutPedidosInput | ItensPedidoUpdateWithWhereUniqueWithoutPedidosInput[]
+    updateMany?: ItensPedidoUpdateManyWithWhereWithoutPedidosInput | ItensPedidoUpdateManyWithWhereWithoutPedidosInput[]
+    deleteMany?: ItensPedidoScalarWhereInput | ItensPedidoScalarWhereInput[]
+  }
+
+  export type ItensPedidoUncheckedUpdateManyWithoutPedidosNestedInput = {
+    create?: XOR<ItensPedidoCreateWithoutPedidosInput, ItensPedidoUncheckedCreateWithoutPedidosInput> | ItensPedidoCreateWithoutPedidosInput[] | ItensPedidoUncheckedCreateWithoutPedidosInput[]
+    connectOrCreate?: ItensPedidoCreateOrConnectWithoutPedidosInput | ItensPedidoCreateOrConnectWithoutPedidosInput[]
+    upsert?: ItensPedidoUpsertWithWhereUniqueWithoutPedidosInput | ItensPedidoUpsertWithWhereUniqueWithoutPedidosInput[]
+    createMany?: ItensPedidoCreateManyPedidosInputEnvelope
+    set?: ItensPedidoWhereUniqueInput | ItensPedidoWhereUniqueInput[]
+    disconnect?: ItensPedidoWhereUniqueInput | ItensPedidoWhereUniqueInput[]
+    delete?: ItensPedidoWhereUniqueInput | ItensPedidoWhereUniqueInput[]
+    connect?: ItensPedidoWhereUniqueInput | ItensPedidoWhereUniqueInput[]
+    update?: ItensPedidoUpdateWithWhereUniqueWithoutPedidosInput | ItensPedidoUpdateWithWhereUniqueWithoutPedidosInput[]
+    updateMany?: ItensPedidoUpdateManyWithWhereWithoutPedidosInput | ItensPedidoUpdateManyWithWhereWithoutPedidosInput[]
+    deleteMany?: ItensPedidoScalarWhereInput | ItensPedidoScalarWhereInput[]
+  }
+
+  export type ProdutosCreateNestedOneWithoutItensPedidoVendaInput = {
+    create?: XOR<ProdutosCreateWithoutItensPedidoVendaInput, ProdutosUncheckedCreateWithoutItensPedidoVendaInput>
+    connectOrCreate?: ProdutosCreateOrConnectWithoutItensPedidoVendaInput
+    connect?: ProdutosWhereUniqueInput
+  }
+
+  export type PedidosCreateNestedOneWithoutItensPedidoVendaInput = {
+    create?: XOR<PedidosCreateWithoutItensPedidoVendaInput, PedidosUncheckedCreateWithoutItensPedidoVendaInput>
+    connectOrCreate?: PedidosCreateOrConnectWithoutItensPedidoVendaInput
+    connect?: PedidosWhereUniqueInput
+  }
+
+  export type ProdutosUpdateOneRequiredWithoutItensPedidoVendaNestedInput = {
+    create?: XOR<ProdutosCreateWithoutItensPedidoVendaInput, ProdutosUncheckedCreateWithoutItensPedidoVendaInput>
+    connectOrCreate?: ProdutosCreateOrConnectWithoutItensPedidoVendaInput
+    upsert?: ProdutosUpsertWithoutItensPedidoVendaInput
+    connect?: ProdutosWhereUniqueInput
+    update?: XOR<XOR<ProdutosUpdateToOneWithWhereWithoutItensPedidoVendaInput, ProdutosUpdateWithoutItensPedidoVendaInput>, ProdutosUncheckedUpdateWithoutItensPedidoVendaInput>
+  }
+
+  export type PedidosUpdateOneRequiredWithoutItensPedidoVendaNestedInput = {
+    create?: XOR<PedidosCreateWithoutItensPedidoVendaInput, PedidosUncheckedCreateWithoutItensPedidoVendaInput>
+    connectOrCreate?: PedidosCreateOrConnectWithoutItensPedidoVendaInput
+    upsert?: PedidosUpsertWithoutItensPedidoVendaInput
+    connect?: PedidosWhereUniqueInput
+    update?: XOR<XOR<PedidosUpdateToOneWithWhereWithoutItensPedidoVendaInput, PedidosUpdateWithoutItensPedidoVendaInput>, PedidosUncheckedUpdateWithoutItensPedidoVendaInput>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -5350,15 +10160,35 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type NestedDecimalFilter<$PrismaModel = never> = {
-    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type NestedIntNullableFilter<$PrismaModel = never> = {
@@ -5372,7 +10202,7 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
-  export type NestedDecimalWithAggregatesFilter<$PrismaModel = never> = {
+  export type NestedDecimalFilter<$PrismaModel = never> = {
     equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
     notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
@@ -5380,12 +10210,7 @@ export namespace Prisma {
     lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedDecimalFilter<$PrismaModel>
-    _sum?: NestedDecimalFilter<$PrismaModel>
-    _min?: NestedDecimalFilter<$PrismaModel>
-    _max?: NestedDecimalFilter<$PrismaModel>
+    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
   }
 
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -5415,6 +10240,125 @@ export namespace Prisma {
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
+  export type NestedDecimalWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedDecimalFilter<$PrismaModel>
+    _sum?: NestedDecimalFilter<$PrismaModel>
+    _min?: NestedDecimalFilter<$PrismaModel>
+    _max?: NestedDecimalFilter<$PrismaModel>
+  }
+
+  export type PedidosCreateWithoutUsuarioInput = {
+    observacao?: string | null
+    valorTotal: Decimal | DecimalJsLike | number | string
+    data_criacao?: Date | string
+    data_alteracao?: Date | string
+    cliente: ClientesCreateNestedOneWithoutPedidosInput
+    itensPedidoVenda?: ItensPedidoCreateNestedManyWithoutPedidosInput
+  }
+
+  export type PedidosUncheckedCreateWithoutUsuarioInput = {
+    id?: number
+    idCliente: number
+    observacao?: string | null
+    valorTotal: Decimal | DecimalJsLike | number | string
+    data_criacao?: Date | string
+    data_alteracao?: Date | string
+    itensPedidoVenda?: ItensPedidoUncheckedCreateNestedManyWithoutPedidosInput
+  }
+
+  export type PedidosCreateOrConnectWithoutUsuarioInput = {
+    where: PedidosWhereUniqueInput
+    create: XOR<PedidosCreateWithoutUsuarioInput, PedidosUncheckedCreateWithoutUsuarioInput>
+  }
+
+  export type PedidosCreateManyUsuarioInputEnvelope = {
+    data: PedidosCreateManyUsuarioInput | PedidosCreateManyUsuarioInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PedidosUpsertWithWhereUniqueWithoutUsuarioInput = {
+    where: PedidosWhereUniqueInput
+    update: XOR<PedidosUpdateWithoutUsuarioInput, PedidosUncheckedUpdateWithoutUsuarioInput>
+    create: XOR<PedidosCreateWithoutUsuarioInput, PedidosUncheckedCreateWithoutUsuarioInput>
+  }
+
+  export type PedidosUpdateWithWhereUniqueWithoutUsuarioInput = {
+    where: PedidosWhereUniqueInput
+    data: XOR<PedidosUpdateWithoutUsuarioInput, PedidosUncheckedUpdateWithoutUsuarioInput>
+  }
+
+  export type PedidosUpdateManyWithWhereWithoutUsuarioInput = {
+    where: PedidosScalarWhereInput
+    data: XOR<PedidosUpdateManyMutationInput, PedidosUncheckedUpdateManyWithoutUsuarioInput>
+  }
+
+  export type PedidosScalarWhereInput = {
+    AND?: PedidosScalarWhereInput | PedidosScalarWhereInput[]
+    OR?: PedidosScalarWhereInput[]
+    NOT?: PedidosScalarWhereInput | PedidosScalarWhereInput[]
+    id?: IntFilter<"Pedidos"> | number
+    idCliente?: IntFilter<"Pedidos"> | number
+    idUsuario?: IntFilter<"Pedidos"> | number
+    observacao?: StringNullableFilter<"Pedidos"> | string | null
+    valorTotal?: DecimalFilter<"Pedidos"> | Decimal | DecimalJsLike | number | string
+    data_criacao?: DateTimeFilter<"Pedidos"> | Date | string
+    data_alteracao?: DateTimeFilter<"Pedidos"> | Date | string
+  }
+
+  export type PedidosCreateWithoutClienteInput = {
+    observacao?: string | null
+    valorTotal: Decimal | DecimalJsLike | number | string
+    data_criacao?: Date | string
+    data_alteracao?: Date | string
+    usuario: UsuariosCreateNestedOneWithoutPedidosInput
+    itensPedidoVenda?: ItensPedidoCreateNestedManyWithoutPedidosInput
+  }
+
+  export type PedidosUncheckedCreateWithoutClienteInput = {
+    id?: number
+    idUsuario: number
+    observacao?: string | null
+    valorTotal: Decimal | DecimalJsLike | number | string
+    data_criacao?: Date | string
+    data_alteracao?: Date | string
+    itensPedidoVenda?: ItensPedidoUncheckedCreateNestedManyWithoutPedidosInput
+  }
+
+  export type PedidosCreateOrConnectWithoutClienteInput = {
+    where: PedidosWhereUniqueInput
+    create: XOR<PedidosCreateWithoutClienteInput, PedidosUncheckedCreateWithoutClienteInput>
+  }
+
+  export type PedidosCreateManyClienteInputEnvelope = {
+    data: PedidosCreateManyClienteInput | PedidosCreateManyClienteInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PedidosUpsertWithWhereUniqueWithoutClienteInput = {
+    where: PedidosWhereUniqueInput
+    update: XOR<PedidosUpdateWithoutClienteInput, PedidosUncheckedUpdateWithoutClienteInput>
+    create: XOR<PedidosCreateWithoutClienteInput, PedidosUncheckedCreateWithoutClienteInput>
+  }
+
+  export type PedidosUpdateWithWhereUniqueWithoutClienteInput = {
+    where: PedidosWhereUniqueInput
+    data: XOR<PedidosUpdateWithoutClienteInput, PedidosUncheckedUpdateWithoutClienteInput>
+  }
+
+  export type PedidosUpdateManyWithWhereWithoutClienteInput = {
+    where: PedidosScalarWhereInput
+    data: XOR<PedidosUpdateManyMutationInput, PedidosUncheckedUpdateManyWithoutClienteInput>
+  }
+
   export type CategoriasCreateWithoutProdutosInput = {
     descricao: string
   }
@@ -5427,6 +10371,29 @@ export namespace Prisma {
   export type CategoriasCreateOrConnectWithoutProdutosInput = {
     where: CategoriasWhereUniqueInput
     create: XOR<CategoriasCreateWithoutProdutosInput, CategoriasUncheckedCreateWithoutProdutosInput>
+  }
+
+  export type ItensPedidoCreateWithoutProdutosInput = {
+    precoUnitario: Decimal | DecimalJsLike | number | string
+    quantidade: number
+    pedidos: PedidosCreateNestedOneWithoutItensPedidoVendaInput
+  }
+
+  export type ItensPedidoUncheckedCreateWithoutProdutosInput = {
+    id?: number
+    idPedido: number
+    precoUnitario: Decimal | DecimalJsLike | number | string
+    quantidade: number
+  }
+
+  export type ItensPedidoCreateOrConnectWithoutProdutosInput = {
+    where: ItensPedidoWhereUniqueInput
+    create: XOR<ItensPedidoCreateWithoutProdutosInput, ItensPedidoUncheckedCreateWithoutProdutosInput>
+  }
+
+  export type ItensPedidoCreateManyProdutosInputEnvelope = {
+    data: ItensPedidoCreateManyProdutosInput | ItensPedidoCreateManyProdutosInput[]
+    skipDuplicates?: boolean
   }
 
   export type CategoriasUpsertWithoutProdutosInput = {
@@ -5449,12 +10416,40 @@ export namespace Prisma {
     descricao?: StringFieldUpdateOperationsInput | string
   }
 
+  export type ItensPedidoUpsertWithWhereUniqueWithoutProdutosInput = {
+    where: ItensPedidoWhereUniqueInput
+    update: XOR<ItensPedidoUpdateWithoutProdutosInput, ItensPedidoUncheckedUpdateWithoutProdutosInput>
+    create: XOR<ItensPedidoCreateWithoutProdutosInput, ItensPedidoUncheckedCreateWithoutProdutosInput>
+  }
+
+  export type ItensPedidoUpdateWithWhereUniqueWithoutProdutosInput = {
+    where: ItensPedidoWhereUniqueInput
+    data: XOR<ItensPedidoUpdateWithoutProdutosInput, ItensPedidoUncheckedUpdateWithoutProdutosInput>
+  }
+
+  export type ItensPedidoUpdateManyWithWhereWithoutProdutosInput = {
+    where: ItensPedidoScalarWhereInput
+    data: XOR<ItensPedidoUpdateManyMutationInput, ItensPedidoUncheckedUpdateManyWithoutProdutosInput>
+  }
+
+  export type ItensPedidoScalarWhereInput = {
+    AND?: ItensPedidoScalarWhereInput | ItensPedidoScalarWhereInput[]
+    OR?: ItensPedidoScalarWhereInput[]
+    NOT?: ItensPedidoScalarWhereInput | ItensPedidoScalarWhereInput[]
+    id?: IntFilter<"ItensPedido"> | number
+    idProduto?: IntFilter<"ItensPedido"> | number
+    idPedido?: IntFilter<"ItensPedido"> | number
+    precoUnitario?: DecimalFilter<"ItensPedido"> | Decimal | DecimalJsLike | number | string
+    quantidade?: IntFilter<"ItensPedido"> | number
+  }
+
   export type ProdutosCreateWithoutCategoriaInput = {
     descricao: string
     preco?: Decimal | DecimalJsLike | number | string
     status?: boolean
     data_criacao?: Date | string
     data_alteracao?: Date | string
+    itensPedidoVenda?: ItensPedidoCreateNestedManyWithoutProdutosInput
   }
 
   export type ProdutosUncheckedCreateWithoutCategoriaInput = {
@@ -5464,6 +10459,7 @@ export namespace Prisma {
     status?: boolean
     data_criacao?: Date | string
     data_alteracao?: Date | string
+    itensPedidoVenda?: ItensPedidoUncheckedCreateNestedManyWithoutProdutosInput
   }
 
   export type ProdutosCreateOrConnectWithoutCategoriaInput = {
@@ -5497,12 +10493,376 @@ export namespace Prisma {
     OR?: ProdutosScalarWhereInput[]
     NOT?: ProdutosScalarWhereInput | ProdutosScalarWhereInput[]
     id?: IntFilter<"Produtos"> | number
+    idCategoria?: IntNullableFilter<"Produtos"> | number | null
     descricao?: StringFilter<"Produtos"> | string
     preco?: DecimalFilter<"Produtos"> | Decimal | DecimalJsLike | number | string
     status?: BoolFilter<"Produtos"> | boolean
     data_criacao?: DateTimeFilter<"Produtos"> | Date | string
     data_alteracao?: DateTimeFilter<"Produtos"> | Date | string
-    categoriaId?: IntNullableFilter<"Produtos"> | number | null
+  }
+
+  export type ClientesCreateWithoutPedidosInput = {
+    nome: string
+    apelido?: string | null
+    endereco?: string | null
+    fone?: string | null
+    status?: boolean
+    data_criacao?: Date | string
+    data_alteracao?: Date | string
+  }
+
+  export type ClientesUncheckedCreateWithoutPedidosInput = {
+    id?: number
+    nome: string
+    apelido?: string | null
+    endereco?: string | null
+    fone?: string | null
+    status?: boolean
+    data_criacao?: Date | string
+    data_alteracao?: Date | string
+  }
+
+  export type ClientesCreateOrConnectWithoutPedidosInput = {
+    where: ClientesWhereUniqueInput
+    create: XOR<ClientesCreateWithoutPedidosInput, ClientesUncheckedCreateWithoutPedidosInput>
+  }
+
+  export type UsuariosCreateWithoutPedidosInput = {
+    nome: string
+    usuario: string
+    senha: string
+    email: string
+    status?: boolean
+    data_criacao?: Date | string
+    data_alteracao?: Date | string
+  }
+
+  export type UsuariosUncheckedCreateWithoutPedidosInput = {
+    id?: number
+    nome: string
+    usuario: string
+    senha: string
+    email: string
+    status?: boolean
+    data_criacao?: Date | string
+    data_alteracao?: Date | string
+  }
+
+  export type UsuariosCreateOrConnectWithoutPedidosInput = {
+    where: UsuariosWhereUniqueInput
+    create: XOR<UsuariosCreateWithoutPedidosInput, UsuariosUncheckedCreateWithoutPedidosInput>
+  }
+
+  export type ItensPedidoCreateWithoutPedidosInput = {
+    precoUnitario: Decimal | DecimalJsLike | number | string
+    quantidade: number
+    produtos: ProdutosCreateNestedOneWithoutItensPedidoVendaInput
+  }
+
+  export type ItensPedidoUncheckedCreateWithoutPedidosInput = {
+    id?: number
+    idProduto: number
+    precoUnitario: Decimal | DecimalJsLike | number | string
+    quantidade: number
+  }
+
+  export type ItensPedidoCreateOrConnectWithoutPedidosInput = {
+    where: ItensPedidoWhereUniqueInput
+    create: XOR<ItensPedidoCreateWithoutPedidosInput, ItensPedidoUncheckedCreateWithoutPedidosInput>
+  }
+
+  export type ItensPedidoCreateManyPedidosInputEnvelope = {
+    data: ItensPedidoCreateManyPedidosInput | ItensPedidoCreateManyPedidosInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ClientesUpsertWithoutPedidosInput = {
+    update: XOR<ClientesUpdateWithoutPedidosInput, ClientesUncheckedUpdateWithoutPedidosInput>
+    create: XOR<ClientesCreateWithoutPedidosInput, ClientesUncheckedCreateWithoutPedidosInput>
+    where?: ClientesWhereInput
+  }
+
+  export type ClientesUpdateToOneWithWhereWithoutPedidosInput = {
+    where?: ClientesWhereInput
+    data: XOR<ClientesUpdateWithoutPedidosInput, ClientesUncheckedUpdateWithoutPedidosInput>
+  }
+
+  export type ClientesUpdateWithoutPedidosInput = {
+    nome?: StringFieldUpdateOperationsInput | string
+    apelido?: NullableStringFieldUpdateOperationsInput | string | null
+    endereco?: NullableStringFieldUpdateOperationsInput | string | null
+    fone?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: BoolFieldUpdateOperationsInput | boolean
+    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ClientesUncheckedUpdateWithoutPedidosInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    nome?: StringFieldUpdateOperationsInput | string
+    apelido?: NullableStringFieldUpdateOperationsInput | string | null
+    endereco?: NullableStringFieldUpdateOperationsInput | string | null
+    fone?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: BoolFieldUpdateOperationsInput | boolean
+    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UsuariosUpsertWithoutPedidosInput = {
+    update: XOR<UsuariosUpdateWithoutPedidosInput, UsuariosUncheckedUpdateWithoutPedidosInput>
+    create: XOR<UsuariosCreateWithoutPedidosInput, UsuariosUncheckedCreateWithoutPedidosInput>
+    where?: UsuariosWhereInput
+  }
+
+  export type UsuariosUpdateToOneWithWhereWithoutPedidosInput = {
+    where?: UsuariosWhereInput
+    data: XOR<UsuariosUpdateWithoutPedidosInput, UsuariosUncheckedUpdateWithoutPedidosInput>
+  }
+
+  export type UsuariosUpdateWithoutPedidosInput = {
+    nome?: StringFieldUpdateOperationsInput | string
+    usuario?: StringFieldUpdateOperationsInput | string
+    senha?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
+    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UsuariosUncheckedUpdateWithoutPedidosInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    nome?: StringFieldUpdateOperationsInput | string
+    usuario?: StringFieldUpdateOperationsInput | string
+    senha?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
+    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ItensPedidoUpsertWithWhereUniqueWithoutPedidosInput = {
+    where: ItensPedidoWhereUniqueInput
+    update: XOR<ItensPedidoUpdateWithoutPedidosInput, ItensPedidoUncheckedUpdateWithoutPedidosInput>
+    create: XOR<ItensPedidoCreateWithoutPedidosInput, ItensPedidoUncheckedCreateWithoutPedidosInput>
+  }
+
+  export type ItensPedidoUpdateWithWhereUniqueWithoutPedidosInput = {
+    where: ItensPedidoWhereUniqueInput
+    data: XOR<ItensPedidoUpdateWithoutPedidosInput, ItensPedidoUncheckedUpdateWithoutPedidosInput>
+  }
+
+  export type ItensPedidoUpdateManyWithWhereWithoutPedidosInput = {
+    where: ItensPedidoScalarWhereInput
+    data: XOR<ItensPedidoUpdateManyMutationInput, ItensPedidoUncheckedUpdateManyWithoutPedidosInput>
+  }
+
+  export type ProdutosCreateWithoutItensPedidoVendaInput = {
+    descricao: string
+    preco?: Decimal | DecimalJsLike | number | string
+    status?: boolean
+    data_criacao?: Date | string
+    data_alteracao?: Date | string
+    categoria?: CategoriasCreateNestedOneWithoutProdutosInput
+  }
+
+  export type ProdutosUncheckedCreateWithoutItensPedidoVendaInput = {
+    id?: number
+    idCategoria?: number | null
+    descricao: string
+    preco?: Decimal | DecimalJsLike | number | string
+    status?: boolean
+    data_criacao?: Date | string
+    data_alteracao?: Date | string
+  }
+
+  export type ProdutosCreateOrConnectWithoutItensPedidoVendaInput = {
+    where: ProdutosWhereUniqueInput
+    create: XOR<ProdutosCreateWithoutItensPedidoVendaInput, ProdutosUncheckedCreateWithoutItensPedidoVendaInput>
+  }
+
+  export type PedidosCreateWithoutItensPedidoVendaInput = {
+    observacao?: string | null
+    valorTotal: Decimal | DecimalJsLike | number | string
+    data_criacao?: Date | string
+    data_alteracao?: Date | string
+    cliente: ClientesCreateNestedOneWithoutPedidosInput
+    usuario: UsuariosCreateNestedOneWithoutPedidosInput
+  }
+
+  export type PedidosUncheckedCreateWithoutItensPedidoVendaInput = {
+    id?: number
+    idCliente: number
+    idUsuario: number
+    observacao?: string | null
+    valorTotal: Decimal | DecimalJsLike | number | string
+    data_criacao?: Date | string
+    data_alteracao?: Date | string
+  }
+
+  export type PedidosCreateOrConnectWithoutItensPedidoVendaInput = {
+    where: PedidosWhereUniqueInput
+    create: XOR<PedidosCreateWithoutItensPedidoVendaInput, PedidosUncheckedCreateWithoutItensPedidoVendaInput>
+  }
+
+  export type ProdutosUpsertWithoutItensPedidoVendaInput = {
+    update: XOR<ProdutosUpdateWithoutItensPedidoVendaInput, ProdutosUncheckedUpdateWithoutItensPedidoVendaInput>
+    create: XOR<ProdutosCreateWithoutItensPedidoVendaInput, ProdutosUncheckedCreateWithoutItensPedidoVendaInput>
+    where?: ProdutosWhereInput
+  }
+
+  export type ProdutosUpdateToOneWithWhereWithoutItensPedidoVendaInput = {
+    where?: ProdutosWhereInput
+    data: XOR<ProdutosUpdateWithoutItensPedidoVendaInput, ProdutosUncheckedUpdateWithoutItensPedidoVendaInput>
+  }
+
+  export type ProdutosUpdateWithoutItensPedidoVendaInput = {
+    descricao?: StringFieldUpdateOperationsInput | string
+    preco?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: BoolFieldUpdateOperationsInput | boolean
+    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    categoria?: CategoriasUpdateOneWithoutProdutosNestedInput
+  }
+
+  export type ProdutosUncheckedUpdateWithoutItensPedidoVendaInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    idCategoria?: NullableIntFieldUpdateOperationsInput | number | null
+    descricao?: StringFieldUpdateOperationsInput | string
+    preco?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: BoolFieldUpdateOperationsInput | boolean
+    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PedidosUpsertWithoutItensPedidoVendaInput = {
+    update: XOR<PedidosUpdateWithoutItensPedidoVendaInput, PedidosUncheckedUpdateWithoutItensPedidoVendaInput>
+    create: XOR<PedidosCreateWithoutItensPedidoVendaInput, PedidosUncheckedCreateWithoutItensPedidoVendaInput>
+    where?: PedidosWhereInput
+  }
+
+  export type PedidosUpdateToOneWithWhereWithoutItensPedidoVendaInput = {
+    where?: PedidosWhereInput
+    data: XOR<PedidosUpdateWithoutItensPedidoVendaInput, PedidosUncheckedUpdateWithoutItensPedidoVendaInput>
+  }
+
+  export type PedidosUpdateWithoutItensPedidoVendaInput = {
+    observacao?: NullableStringFieldUpdateOperationsInput | string | null
+    valorTotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    cliente?: ClientesUpdateOneRequiredWithoutPedidosNestedInput
+    usuario?: UsuariosUpdateOneRequiredWithoutPedidosNestedInput
+  }
+
+  export type PedidosUncheckedUpdateWithoutItensPedidoVendaInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    idCliente?: IntFieldUpdateOperationsInput | number
+    idUsuario?: IntFieldUpdateOperationsInput | number
+    observacao?: NullableStringFieldUpdateOperationsInput | string | null
+    valorTotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PedidosCreateManyUsuarioInput = {
+    id?: number
+    idCliente: number
+    observacao?: string | null
+    valorTotal: Decimal | DecimalJsLike | number | string
+    data_criacao?: Date | string
+    data_alteracao?: Date | string
+  }
+
+  export type PedidosUpdateWithoutUsuarioInput = {
+    observacao?: NullableStringFieldUpdateOperationsInput | string | null
+    valorTotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    cliente?: ClientesUpdateOneRequiredWithoutPedidosNestedInput
+    itensPedidoVenda?: ItensPedidoUpdateManyWithoutPedidosNestedInput
+  }
+
+  export type PedidosUncheckedUpdateWithoutUsuarioInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    idCliente?: IntFieldUpdateOperationsInput | number
+    observacao?: NullableStringFieldUpdateOperationsInput | string | null
+    valorTotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    itensPedidoVenda?: ItensPedidoUncheckedUpdateManyWithoutPedidosNestedInput
+  }
+
+  export type PedidosUncheckedUpdateManyWithoutUsuarioInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    idCliente?: IntFieldUpdateOperationsInput | number
+    observacao?: NullableStringFieldUpdateOperationsInput | string | null
+    valorTotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PedidosCreateManyClienteInput = {
+    id?: number
+    idUsuario: number
+    observacao?: string | null
+    valorTotal: Decimal | DecimalJsLike | number | string
+    data_criacao?: Date | string
+    data_alteracao?: Date | string
+  }
+
+  export type PedidosUpdateWithoutClienteInput = {
+    observacao?: NullableStringFieldUpdateOperationsInput | string | null
+    valorTotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    usuario?: UsuariosUpdateOneRequiredWithoutPedidosNestedInput
+    itensPedidoVenda?: ItensPedidoUpdateManyWithoutPedidosNestedInput
+  }
+
+  export type PedidosUncheckedUpdateWithoutClienteInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    idUsuario?: IntFieldUpdateOperationsInput | number
+    observacao?: NullableStringFieldUpdateOperationsInput | string | null
+    valorTotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    itensPedidoVenda?: ItensPedidoUncheckedUpdateManyWithoutPedidosNestedInput
+  }
+
+  export type PedidosUncheckedUpdateManyWithoutClienteInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    idUsuario?: IntFieldUpdateOperationsInput | number
+    observacao?: NullableStringFieldUpdateOperationsInput | string | null
+    valorTotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ItensPedidoCreateManyProdutosInput = {
+    id?: number
+    idPedido: number
+    precoUnitario: Decimal | DecimalJsLike | number | string
+    quantidade: number
+  }
+
+  export type ItensPedidoUpdateWithoutProdutosInput = {
+    precoUnitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    quantidade?: IntFieldUpdateOperationsInput | number
+    pedidos?: PedidosUpdateOneRequiredWithoutItensPedidoVendaNestedInput
+  }
+
+  export type ItensPedidoUncheckedUpdateWithoutProdutosInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    idPedido?: IntFieldUpdateOperationsInput | number
+    precoUnitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    quantidade?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type ItensPedidoUncheckedUpdateManyWithoutProdutosInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    idPedido?: IntFieldUpdateOperationsInput | number
+    precoUnitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    quantidade?: IntFieldUpdateOperationsInput | number
   }
 
   export type ProdutosCreateManyCategoriaInput = {
@@ -5520,6 +10880,7 @@ export namespace Prisma {
     status?: BoolFieldUpdateOperationsInput | boolean
     data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
     data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    itensPedidoVenda?: ItensPedidoUpdateManyWithoutProdutosNestedInput
   }
 
   export type ProdutosUncheckedUpdateWithoutCategoriaInput = {
@@ -5529,6 +10890,7 @@ export namespace Prisma {
     status?: BoolFieldUpdateOperationsInput | boolean
     data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
     data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    itensPedidoVenda?: ItensPedidoUncheckedUpdateManyWithoutProdutosNestedInput
   }
 
   export type ProdutosUncheckedUpdateManyWithoutCategoriaInput = {
@@ -5538,6 +10900,33 @@ export namespace Prisma {
     status?: BoolFieldUpdateOperationsInput | boolean
     data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
     data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ItensPedidoCreateManyPedidosInput = {
+    id?: number
+    idProduto: number
+    precoUnitario: Decimal | DecimalJsLike | number | string
+    quantidade: number
+  }
+
+  export type ItensPedidoUpdateWithoutPedidosInput = {
+    precoUnitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    quantidade?: IntFieldUpdateOperationsInput | number
+    produtos?: ProdutosUpdateOneRequiredWithoutItensPedidoVendaNestedInput
+  }
+
+  export type ItensPedidoUncheckedUpdateWithoutPedidosInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    idProduto?: IntFieldUpdateOperationsInput | number
+    precoUnitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    quantidade?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type ItensPedidoUncheckedUpdateManyWithoutPedidosInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    idProduto?: IntFieldUpdateOperationsInput | number
+    precoUnitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    quantidade?: IntFieldUpdateOperationsInput | number
   }
 
 

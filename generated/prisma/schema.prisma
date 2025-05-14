@@ -22,22 +22,41 @@ model Usuarios {
   email   String  @unique
   status  Boolean @default(true)
 
-  data_criacao   DateTime @default(now())
-  data_alteracao DateTime @default(now())
+  data_criacao   DateTime  @default(now())
+  data_alteracao DateTime  @default(now())
+  Pedidos        Pedidos[]
 
   @@map("usuarios")
 }
 
+model Clientes {
+  id       Int     @id @default(autoincrement())
+  nome     String  @db.VarChar(120)
+  apelido  String? @db.VarChar(120)
+  endereco String? @db.VarChar(250)
+  fone     String? @db.VarChar(15)
+  status   Boolean @default(true)
+
+  data_criacao   DateTime  @default(now())
+  data_alteracao DateTime  @default(now())
+  Pedidos        Pedidos[]
+
+  @@map("clientes")
+}
+
 model Produtos {
-  id             Int      @id @default(autoincrement())
+  id          Int  @id @default(autoincrement())
+  idCategoria Int? // Chave estrangeira ?-> não obrigatório.
+
   descricao      String   @db.VarChar(120)
   preco          Decimal  @default(0) @db.Decimal(10, 4)
   status         Boolean  @default(true)
   data_criacao   DateTime @default(now())
   data_alteracao DateTime @default(now())
 
-  categoriaId Int? // Chave estrangeira
-  categoria   Categorias? @relation(fields: [categoriaId], references: [id])
+  categoria Categorias? @relation(fields: [idCategoria], references: [id])
+
+  itensPedidoVenda ItensPedido[]
 
   @@map("produtos") // Força nome minúsculo na migration
 }
@@ -48,4 +67,37 @@ model Categorias {
   produtos  Produtos[]
 
   @@map("categorias") // Força nome minúsculo na migration
+}
+
+model Pedidos {
+  id        Int @id @default(autoincrement())
+  idCliente Int
+  idUsuario Int
+
+  observacao String? @db.VarChar(250)
+  valorTotal Decimal @db.Decimal(10, 4)
+
+  data_criacao   DateTime @default(now())
+  data_alteracao DateTime @default(now())
+
+  cliente Clientes @relation(fields: [idCliente], references: [id])
+  usuario Usuarios @relation(fields: [idUsuario], references: [id])
+
+  itensPedidoVenda ItensPedido[]
+
+  @@map("pedidos") // Força nome minúsculo na migration
+}
+
+model ItensPedido {
+  id        Int @id @default(autoincrement())
+  idProduto Int // Chave estrangeira
+  idPedido  Int // Chave estrangeira
+
+  precoUnitario Decimal @db.Decimal(10, 4)
+  quantidade    Int
+
+  produtos Produtos @relation(fields: [idProduto], references: [id])
+  pedidos  Pedidos  @relation(fields: [idPedido], references: [id], onDelete: Cascade)
+
+  @@map("itenspedidovenda") // Força nome minúsculo na migration
 }

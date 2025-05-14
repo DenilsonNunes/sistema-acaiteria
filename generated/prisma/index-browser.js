@@ -131,19 +131,48 @@ exports.Prisma.UsuariosScalarFieldEnum = {
   data_alteracao: 'data_alteracao'
 };
 
+exports.Prisma.ClientesScalarFieldEnum = {
+  id: 'id',
+  nome: 'nome',
+  apelido: 'apelido',
+  endereco: 'endereco',
+  fone: 'fone',
+  status: 'status',
+  data_criacao: 'data_criacao',
+  data_alteracao: 'data_alteracao'
+};
+
 exports.Prisma.ProdutosScalarFieldEnum = {
   id: 'id',
+  idCategoria: 'idCategoria',
   descricao: 'descricao',
   preco: 'preco',
   status: 'status',
   data_criacao: 'data_criacao',
-  data_alteracao: 'data_alteracao',
-  categoriaId: 'categoriaId'
+  data_alteracao: 'data_alteracao'
 };
 
 exports.Prisma.CategoriasScalarFieldEnum = {
   id: 'id',
   descricao: 'descricao'
+};
+
+exports.Prisma.PedidosScalarFieldEnum = {
+  id: 'id',
+  idCliente: 'idCliente',
+  idUsuario: 'idUsuario',
+  observacao: 'observacao',
+  valorTotal: 'valorTotal',
+  data_criacao: 'data_criacao',
+  data_alteracao: 'data_alteracao'
+};
+
+exports.Prisma.ItensPedidoScalarFieldEnum = {
+  id: 'id',
+  idProduto: 'idProduto',
+  idPedido: 'idPedido',
+  precoUnitario: 'precoUnitario',
+  quantidade: 'quantidade'
 };
 
 exports.Prisma.SortOrder = {
@@ -164,8 +193,11 @@ exports.Prisma.NullsOrder = {
 
 exports.Prisma.ModelName = {
   Usuarios: 'Usuarios',
+  Clientes: 'Clientes',
   Produtos: 'Produtos',
-  Categorias: 'Categorias'
+  Categorias: 'Categorias',
+  Pedidos: 'Pedidos',
+  ItensPedido: 'ItensPedido'
 };
 
 /**

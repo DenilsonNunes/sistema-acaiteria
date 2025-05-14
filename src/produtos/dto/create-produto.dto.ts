@@ -11,7 +11,7 @@ export class CreateProdutoDto {
   @IsBoolean()
   status: boolean;
 
-  categoriaId?: number;
+  idCategoria?: number;
   data_criacao: Date;
   data_alteracao: Date;
 }

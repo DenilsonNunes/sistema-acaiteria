@@ -75,7 +75,7 @@ export class ProdutosService {
           descricao: updateProdutoDto?.descricao ? updateProdutoDto?.descricao : findProduct.descricao,
           preco: updateProdutoDto?.preco ? updateProdutoDto?.preco : findProduct.preco,
           status: updateProdutoDto?.status ? updateProdutoDto.status : findProduct.status,
-          categoriaId: updateProdutoDto.categoriaId ? updateProdutoDto.categoriaId : findProduct.categoriaId,
+          idCategoria: updateProdutoDto.idCategoria ? updateProdutoDto.idCategoria : findProduct.idCategoria,
           data_alteracao: new Date(),
         },
       });
