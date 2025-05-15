@@ -16,9 +16,6 @@ export class CreatePedidoDto {
   @IsNumber({}, { message: 'O código do cliente deve ser um numero' })
   idCliente: number;
 
-  @IsNumber({}, { message: 'O código do usuário deve ser um numero' })
-  idUsuario: number;
-
   observacao?: string; // Opcional
 
   @IsNumber()

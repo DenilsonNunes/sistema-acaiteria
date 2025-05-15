@@ -2,17 +2,18 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreatePedidoDto } from './dto/create-pedido.dto';
 import { UpdatePedidoDto } from './dto/update-pedido.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { JwtPayload } from 'src/auth/interfaces/jwt-payload.interface';
 
 @Injectable()
 export class PedidosService {
   constructor(private prisma: PrismaService) {}
 
-  async create(createPedidoDto: CreatePedidoDto) {
+  async create(createPedidoDto: CreatePedidoDto, payloadParam: JwtPayload) {
     try {
       // Verifica se existe o usuário
       const user = await this.prisma.usuarios.findUnique({
         where: {
-          id: createPedidoDto.idUsuario,
+          id: payloadParam.user,
         },
       });
       if (!user) {
@@ -58,7 +59,7 @@ export class PedidosService {
       const order = await this.prisma.pedidos.create({
         data: {
           idCliente: createPedidoDto.idCliente,
-          idUsuario: createPedidoDto.idUsuario,
+          idUsuario: payloadParam.user,
           observacao: createPedidoDto.observacao,
           valorTotal: createPedidoDto.valorTotal,
           itensPedidoVenda: {
@@ -108,7 +109,7 @@ export class PedidosService {
     }
   }
 
-  async update(id: number, updatePedidoDto: UpdatePedidoDto) {
+  async update(id: number, updatePedidoDto: UpdatePedidoDto, payloadParam: JwtPayload) {
     try {
       const findOrder = await this.prisma.pedidos.findUnique({
         where: {
@@ -137,7 +138,7 @@ export class PedidosService {
           },
           data: {
             idCliente: updatePedidoDto.idCliente,
-            idUsuario: updatePedidoDto.idUsuario,
+            idUsuario: payloadParam.user,
             observacao: updatePedidoDto.observacao,
             valorTotal: updatePedidoDto.valorTotal,
             data_alteracao: new Date(),
