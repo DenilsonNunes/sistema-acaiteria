@@ -29,6 +29,10 @@ export class AuthService {
       throw new HttpException('Falha ao fazer o login', HttpStatus.UNAUTHORIZED);
     }
 
+    if (user.status === false) {
+      throw new HttpException('Usuário está inativo', HttpStatus.UNAUTHORIZED);
+    }
+
     // Verificar se a senha e valida
     const passwordIsValid = await this.hashingService.compare(signInDTO.senha, user.senha);
 
