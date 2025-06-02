@@ -17,7 +17,6 @@ import {
   SelectContent,
   SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
@@ -31,8 +30,6 @@ import {
 
 import { PackagePlus  } from "lucide-react"
 import DemoTable from "./tableProducts/table"
-import { useQuery } from "@tanstack/react-query"
-import api from "@/api/axios"
 
 
 
@@ -41,31 +38,13 @@ import api from "@/api/axios"
 
 const Products = () => {
 
-
-    const { data, error, isLoading } = useQuery({
-
-        queryKey: ['products'],
-        queryFn: async () => {
-            const response = await api.get('/produtos');
-
-            console.log('Produtos', response.data)
-
-            return response.data[0];
-        },
-    });
-
-
-    console.log('O data: ', data)
-
   return (
 
-    <div className="w-full">
-
-
+    <div>
 
       <Dialog>
 
-        <form>
+        <form className="mx-4">
 
           <DialogTrigger asChild>
 
@@ -103,11 +82,11 @@ const Products = () => {
                 <Label htmlFor="username-1">Status</Label>
                 <RadioGroup defaultValue="ativo" className="flex">
                   <div className="flex items-center gap-3">
-                    <RadioGroupItem value="ativo" id="r1" />
+                    <RadioGroupItem className="bg-green-500" value="ativo" id="r1" />
                     <Label htmlFor="r1">Ativo</Label>
                   </div>
                   <div className="flex items-center gap-3">
-                    <RadioGroupItem value="inativo" id="r2" />
+                    <RadioGroupItem className="bg-red-500 text-red-700" value="inativo" id="r2"/>
                     <Label htmlFor="r2">Inativo</Label>
                   </div>
                 </RadioGroup>
@@ -118,16 +97,14 @@ const Products = () => {
                 <Label htmlFor="username-1">Categoria</Label>
                 <Select>
                   <SelectTrigger className="w-[180px]">
-                    <SelectValue placeholder="Select a fruit" />
+                    <SelectValue placeholder="selecione a categoria"/>
                   </SelectTrigger>
                   <SelectContent>
                     <SelectGroup>
-                      <SelectLabel>--Selecione--</SelectLabel>
-                      <SelectItem value="apple">Apple</SelectItem>
-                      <SelectItem value="banana">Banana</SelectItem>
-                      <SelectItem value="blueberry">Blueberry</SelectItem>
-                      <SelectItem value="grapes">Grapes</SelectItem>
-                      <SelectItem value="pineapple">Pineapple</SelectItem>
+                      {/* <SelectLabel>--Selecione--</SelectLabel> */}
+                      <SelectItem value="acai">Açai</SelectItem>
+                      <SelectItem value="sorvete">Sorvete</SelectItem>
+                      <SelectItem value="adicionais">MilkShake</SelectItem>
                     </SelectGroup>
                   </SelectContent>
                 </Select>
@@ -150,7 +127,6 @@ const Products = () => {
 
       
       <DemoTable/>
-
 
     </div>
   )

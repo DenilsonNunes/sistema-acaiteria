@@ -1,121 +1,29 @@
-import { columns, type Payment } from "./columns"
+import { useQuery } from "@tanstack/react-query";
+import { columns } from "./columns"
 import { DataTableDemo } from "./data-table"
+import api from "@/api/axios";
 
- const getData = (): Payment[] => {
-  // Fetch data from your API here.
 
-  const data: Payment[] = [
-    {
-      id: "m5gr84i9",
-      amount: 316000,
-      status: "success",
-      email: "ken99@example.com",
-    },
-    {
-      id: "3u1reuv4",
-      amount: 242,
-      status: "success",
-      email: "Abe45@example.com",
-    },
-    {
-      id: "derv1ws0",
-      amount: 837,
-      status: "processing",
-      email: "Monserrat44@example.com",
-    },
-    {
-      id: "5kma53ae",
-      amount: 874,
-      status: "success",
-      email: "Silas22@example.com",
-    },
-    {
-      id: "bhqecj4p",
-      amount: 721,
-      status: "failed",
-      email: "carmella@example.com",
-    },
-    {
-      id: "bhqecj4p",
-      amount: 721,
-      status: "failed",
-      email: "carmella@example.com",
-    },
-    {
-      id: "bhqecj4p",
-      amount: 721,
-      status: "failed",
-      email: "carmella@example.com",
-    },
-    {
-      id: "bhqecj4p",
-      amount: 721,
-      status: "failed",
-      email: "carmella@example.com",
-    },
-    {
-      id: "bhqecj4p",
-      amount: 721,
-      status: "failed",
-      email: "carmella@example.com",
-    },
-    {
-      id: "bhqecj4p",
-      amount: 721,
-      status: "failed",
-      email: "carmella@example.com",
-    },
-    {
-      id: "bhqecj4p",
-      amount: 721,
-      status: "failed",
-      email: "carmella@example.com",
-    },
-    {
-      id: "bhqecj4p",
-      amount: 721,
-      status: "failed",
-      email: "carmella@example.com",
-    },
-    {
-      id: "bhqecj4p",
-      amount: 721,
-      status: "failed",
-      email: "carmella@example.com",
-    },
-    {
-      id: "bhqecj4p",
-      amount: 721,
-      status: "failed",
-      email: "carmella@example.com",
-    },
-    {
-      id: "bhqecj4p",
-      amount: 721,
-      status: "failed",
-      email: "carmella@example.com",
-    },
-    {
-      id: "bhqecj4p",
-      amount: 721,
-      status: "failed",
-      email: "carmella@example.com",
-    },
-  ]
-
-  return data
-  
-}
 
 
 
 const DemoTable =() => {
-  
-  const data =  getData()
+
+  const { data } = useQuery({
+
+    queryKey: ['products'],
+    queryFn: async () => {
+
+      const response = await api.get('/produtos');
+      return response.data;
+
+    },
+  });
+
 
   return (
-    <div className="mx-2">
-      <DataTableDemo columns={columns} data={data} />
+    <div className="mx-4">
+      <DataTableDemo columns={columns} data={data || []} />
     </div>
   )
 }

@@ -38,7 +38,8 @@ import {
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 
-import { ChevronDown } from "lucide-react"
+import { ChevronDown, Trash2 } from "lucide-react"
+import type { Product } from "./columns"
 
 
 
@@ -77,15 +78,17 @@ export function DataTableDemo<TData, TValue>({columns, data}: DataTableProps<TDa
     },
   })
 
+  const selectedRows = table.getSelectedRowModel().rows;
 
   return (
     <div className="w-full">
+
       <div className="flex items-center py-4">
         <Input
           placeholder="Filtrar Produtos..."
-          value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
+          value={(table.getColumn("descricao")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
-            table.getColumn("email")?.setFilterValue(event.target.value)
+            table.getColumn("descricao")?.setFilterValue(event.target.value)
           }
           className="max-w-sm"
         />
@@ -116,6 +119,25 @@ export function DataTableDemo<TData, TValue>({columns, data}: DataTableProps<TDa
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
+
+      <div>
+        <Button
+          variant="destructive"
+          size="sm"
+          disabled={selectedRows.length === 0}
+          onClick={() => {
+            const selectedIds = table.getSelectedRowModel().rows.map(
+              (row) => (row.original as Product).id
+            );
+            console.log("IDs selecionados para deletar:", selectedIds);
+            // Aqui você pode chamar sua função de delete
+          }}
+        >
+          <Trash2/>
+        </Button>
+      </div>
+
+
       <div className="rounded-md border">
         <Table>
           <TableHeader>
