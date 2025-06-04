@@ -131,11 +131,11 @@ export const columns: ColumnDef<Product>[] = [
 
       return (
         <div className="flex items-center justify-center gap-2">
-            <Button size='sm' variant="outline" className="p-0" >
+            <Button size='sm' variant="outline" className="p-0 cursor-pointer bg-orange-400 hover:bg-orange-300" >
               <SquarePen/>
             </Button>
 
-          <Button size='sm' variant="destructive" className="p-0">
+          <Button size='sm' variant="destructive" className="p-0 cursor-pointer hover:bg-red-500">
             <Trash2/>
           </Button>
   

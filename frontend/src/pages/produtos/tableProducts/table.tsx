@@ -7,7 +7,7 @@ import api from "@/api/axios";
 
 
 
-const DemoTable =() => {
+const TableProducts =() => {
 
   const { data } = useQuery({
 
@@ -28,7 +28,7 @@ const DemoTable =() => {
   )
 }
 
-export default DemoTable
+export default TableProducts
 
 
 

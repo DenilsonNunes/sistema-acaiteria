@@ -83,7 +83,8 @@ export function DataTableDemo<TData, TValue>({columns, data}: DataTableProps<TDa
   return (
     <div className="w-full">
 
-      <div className="flex items-center py-4">
+      <div className="flex items-center justify-between py-4">
+
         <Input
           placeholder="Filtrar Produtos..."
           value={(table.getColumn("descricao")?.getFilterValue() as string) ?? ""}
@@ -92,49 +93,57 @@ export function DataTableDemo<TData, TValue>({columns, data}: DataTableProps<TDa
           }
           className="max-w-sm"
         />
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="ml-auto">
-              Colunas <ChevronDown />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            {table
-              .getAllColumns()
-              .filter((column) => column.getCanHide())
-              .map((column) => {
-                return (
-                  <DropdownMenuCheckboxItem
-                    key={column.id}
-                    className="capitalize"
-                    checked={column.getIsVisible()}
-                    onCheckedChange={(value) =>
-                      column.toggleVisibility(!!value)
-                    }
-                  >
-                    {column.id}
-                  </DropdownMenuCheckboxItem>
-                )
-              })}
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </div>
 
-      <div>
-        <Button
-          variant="destructive"
-          size="sm"
-          disabled={selectedRows.length === 0}
-          onClick={() => {
-            const selectedIds = table.getSelectedRowModel().rows.map(
-              (row) => (row.original as Product).id
-            );
-            console.log("IDs selecionados para deletar:", selectedIds);
-            // Aqui você pode chamar sua função de delete
-          }}
-        >
-          <Trash2/>
-        </Button>
+        <div className="flex items-center gap-2">
+          {selectedRows.length > 1 && (
+            <div className="flex items-center gap-2">
+              <p>Ações em lote:</p>
+              <Button
+                variant="destructive"
+                size="sm"
+                disabled={selectedRows.length === 0}
+                onClick={() => {
+                  const selectedIds = table.getSelectedRowModel().rows.map(
+                    (row) => (row.original as Product).id
+                  );
+                  console.log("IDs selecionados para deletar:", selectedIds);
+                  // Aqui você pode chamar sua função de delete
+                }}
+              >
+                <Trash2/>
+              </Button>
+            </div>
+          )}
+
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline" className="ml-auto">
+                Colunas <ChevronDown />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              {table
+                .getAllColumns()
+                .filter((column) => column.getCanHide())
+                .map((column) => {
+                  return (
+                    <DropdownMenuCheckboxItem
+                      key={column.id}
+                      className="capitalize"
+                      checked={column.getIsVisible()}
+                      onCheckedChange={(value) =>
+                        column.toggleVisibility(!!value)
+                      }
+                    >
+                      {column.id}
+                    </DropdownMenuCheckboxItem>
+                  )
+                })}
+            </DropdownMenuContent>
+          </DropdownMenu>
+
+        </div>
+
       </div>
 
 
@@ -158,6 +167,7 @@ export function DataTableDemo<TData, TValue>({columns, data}: DataTableProps<TDa
               </TableRow>
             ))}
           </TableHeader>
+          
           <TableBody>
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
