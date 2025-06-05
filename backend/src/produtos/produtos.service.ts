@@ -20,7 +20,14 @@ export class ProdutosService {
   }
   /*-----------------Metodos de Busca------------------*/
   async findAll() {
-    return await this.prisma.produtos.findMany();
+    return await this.prisma.produtos.findMany({
+      orderBy: {
+        id: 'asc',
+      },
+      include: {
+        categoria: true,
+      },
+    });
   }
 
   // Busca por descrição

@@ -10,23 +10,23 @@ import { Badge } from "@/components/ui/badge"
 
 
 
-export type Payment = {
-  id: string
-  amount: number
-  status: "pending" | "processing" | "success" | "failed"
-  email: string
-}
 
-export type Product = {
-  id: number,
-  descricao: string,
-  preco: string,
-  status: boolean,
-  idCategoria: number,
-  data_criacao: Date,
-  data_alteracao: Date,
-}
 
+type Category = {
+  id: number;
+  descricao: string;
+};
+
+type Product = {
+  id: number;
+  idCategoria: number;
+  descricao: string;
+  preco: string; // ou `number`, se você quiser tratar o valor como numérico
+  status: boolean;
+  data_criacao: string; // ISO 8601 date string
+  data_alteracao: string;
+  categoria: Category;
+};
 
 
 export const columns: ColumnDef<Product>[] = [
@@ -113,10 +113,11 @@ export const columns: ColumnDef<Product>[] = [
   },
 
   {
-    accessorKey: "Categoria",
+    accessorKey: "categoria",
     header: () => <div className="text-right">Categoria</div>,
     cell: ({ row }) => {
-      return <div className="text-right">{row.getValue("Categoria")}25</div>
+      const categoria = row.original.categoria?.descricao ?? '-'
+      return <div className="text-right">{categoria}</div>
     },
   },
 
@@ -131,11 +132,11 @@ export const columns: ColumnDef<Product>[] = [
 
       return (
         <div className="flex items-center justify-center gap-2">
-            <Button size='sm' variant="outline" className="p-0 cursor-pointer bg-orange-400 hover:bg-orange-300" >
+            <Button  variant="outline" className=" cursor-pointer bg-orange-400 hover:bg-orange-300" >
               <SquarePen/>
             </Button>
 
-          <Button size='sm' variant="destructive" className="p-0 cursor-pointer hover:bg-red-500">
+          <Button  variant="destructive" className="cursor-pointer hover:bg-red-500">
             <Trash2/>
           </Button>
   
@@ -147,99 +148,3 @@ export const columns: ColumnDef<Product>[] = [
 
 ]
 
-/*
-export const columns: ColumnDef<Payment>[] = [
-  {
-    id: "select",
-
-    header: ({ table }) => (
-      <Checkbox
-        checked={
-          table.getIsAllPageRowsSelected() ||
-          (table.getIsSomePageRowsSelected() && "indeterminate")
-        }
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
-      />
-    ),
-    cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
-      />
-    ),
-    enableSorting: false,
-    enableHiding: false,
-  },
-
-  {
-    accessorKey: "status",
-    header: "Status",
-    cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("status")}</div>
-    ),
-  },
-
-  {
-    accessorKey: "email",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Descrição
-          <ArrowUpDown />
-        </Button>
-      )
-    },
-    cell: ({ row }) => <div className="lowercase">{row.getValue("email")}</div>,
-  },
-
-  {
-    accessorKey: "amount",
-    header: () => <div className="text-right">Valor</div>,
-    cell: ({ row }) => {
-      const amount = parseFloat(row.getValue("amount"))
-      // Format the amount as a dollar amount
-      const formatted = new Intl.NumberFormat("pt-BR", {
-        style: "currency",
-        currency: "BRL",
-      }).format(amount)
-      return <div className="text-right font-medium">{formatted}</div>
-    },
-  },
-
-  {
-    id: "actions",
-    enableHiding: false,
-    cell: ({ row }) => {
-      const payment = row.original
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Ações</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(payment.id)}
-            >
-              Copy payment ID
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>View customer</DropdownMenuItem>
-            <DropdownMenuItem>View payment details</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      )
-    },
-  },
-]
-
-
-*/

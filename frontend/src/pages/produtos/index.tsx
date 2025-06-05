@@ -9,10 +9,8 @@ const Products = () => {
   return (
 
     <div>
-
       <CreateProductDialog/>
       <TableProducts/>
-
     </div>
   )
 }
