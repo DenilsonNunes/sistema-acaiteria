@@ -38,7 +38,7 @@ import {
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 
-import { ChevronDown, Trash2 } from "lucide-react"
+import { ChevronDown, Funnel, Trash2 } from "lucide-react"
 import type { Product } from "./columns"
 
 
@@ -85,14 +85,24 @@ export function DataTableDemo<TData, TValue>({columns, data}: DataTableProps<TDa
 
       <div className="flex items-center justify-between py-4">
 
-        <Input
-          placeholder="Filtrar Produtos..."
-          value={(table.getColumn("descricao")?.getFilterValue() as string) ?? ""}
-          onChange={(event) =>
-            table.getColumn("descricao")?.setFilterValue(event.target.value)
-          }
-          className="max-w-sm"
-        />
+        <div className="flex gap-2 w-1/2">
+
+          <Input
+            placeholder="Filtrar Produtos..."
+            value={(table.getColumn("descricao")?.getFilterValue() as string) ?? ""}
+            onChange={(event) =>
+              table.getColumn("descricao")?.setFilterValue(event.target.value)
+            }
+            className="max-w-sm"
+          />
+
+          <Button variant="outline" className="rounded-full">
+            Filtros
+            <Funnel/>
+          </Button>
+
+        </div>
+
 
         <div className="flex items-center gap-2">
           {selectedRows.length > 1 && (

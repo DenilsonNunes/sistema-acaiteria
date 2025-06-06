@@ -3,7 +3,6 @@ import {
   Dialog,
   DialogClose,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -75,15 +74,14 @@ const CreateProductDialog = () => {
     return response.data
   }
 
-  const {mutate, isPending, isSuccess, isError, reset: mutateReset } = useMutation({
+  const { mutate, isPending, isSuccess, isError, reset: mutateReset } = useMutation({
     mutationFn: createProduct,
     onSuccess: () => {
       // Força o React Query a buscar novamente os produtos
       queryClient.invalidateQueries({ queryKey: ['products'] })
       reset()
     },
-    onError: (error) => {
-      console.log('[ERRO]:', error)
+    onError: () => {
       reset()
     },
   })
@@ -227,7 +225,7 @@ const CreateProductDialog = () => {
 
             <div className="flex flex-col items-center mt-4  gap-4">
               <CircleCheck color="green" size={96}/>
-              <h1 className="font-medium">Produto criado com sucesso</h1>
+              <h1 className="font-medium text-gray-500">Produto criado com sucesso</h1>
             </div>
             
           }

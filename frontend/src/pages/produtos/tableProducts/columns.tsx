@@ -1,32 +1,20 @@
 "use client"
 
 import { type ColumnDef } from "@tanstack/react-table"
-import { ArrowUpDown, MoreHorizontal, SquarePen, Trash2 } from "lucide-react"
+import { ArrowUpDown, SquarePen, Trash2 } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 
 import { Badge } from "@/components/ui/badge"
+import EditProductDialog from "../components/edit-product-dialog"
+import DeleteProductDialog from "../components/delete-product-dialog"
+
+import type { Product } from "@/types/product"
 
 
 
 
-
-type Category = {
-  id: number;
-  descricao: string;
-};
-
-type Product = {
-  id: number;
-  idCategoria: number;
-  descricao: string;
-  preco: string; // ou `number`, se você quiser tratar o valor como numérico
-  status: boolean;
-  data_criacao: string; // ISO 8601 date string
-  data_alteracao: string;
-  categoria: Category;
-};
 
 
 export const columns: ColumnDef<Product>[] = [
@@ -56,7 +44,18 @@ export const columns: ColumnDef<Product>[] = [
 
   {
     accessorKey: "id",
-    header: () => <div className="text-left">ID</div>,
+    //<div className="text-left">ID</div>,
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          ID
+          <ArrowUpDown />
+        </Button>
+      )
+    },
     cell: ({ row }) => <div className="text-left">{row.getValue("id")}</div>
   },
 
@@ -100,15 +99,25 @@ export const columns: ColumnDef<Product>[] = [
 
   {
     accessorKey: "preco",
-    header: () => <div className="text-center">Valor</div>,
+    // <div className="text-center">Valor</div>,
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Preço
+          <ArrowUpDown />
+        </Button>
+      )
+    },
     cell: ({ row }) => {
       const preco = parseFloat(row.getValue("preco"))
-      // Format the preco as a dollar preco
       const formatted = new Intl.NumberFormat("pt-BR", {
         style: "currency",
         currency: "BRL",
       }).format(preco)
-      return <div className="text-center font-medium">{formatted}</div>
+      return <div className="text-left font-medium">{formatted}</div>
     },
   },
 
@@ -128,20 +137,15 @@ export const columns: ColumnDef<Product>[] = [
     header: () => <div className="text-center">Ações</div>,
     cell: ({ row }) => {
 
-      const product = row.original
+      const product = row.original;
 
       return (
-        <div className="flex items-center justify-center gap-2">
-            <Button  variant="outline" className=" cursor-pointer bg-orange-400 hover:bg-orange-300" >
-              <SquarePen/>
-            </Button>
-
-          <Button  variant="destructive" className="cursor-pointer hover:bg-red-500">
-            <Trash2/>
-          </Button>
-  
+        <div className="flex items-center justify-center gap-1">
+          <EditProductDialog product={product}/>
+          <DeleteProductDialog product={product}/>
         </div>
       )
+      
     },
   },
 
