@@ -81,7 +81,7 @@ export class ProdutosService {
         data: {
           descricao: updateProdutoDto?.descricao ? updateProdutoDto?.descricao : findProduct.descricao,
           preco: updateProdutoDto?.preco ? updateProdutoDto?.preco : findProduct.preco,
-          status: updateProdutoDto?.status ? updateProdutoDto.status : findProduct.status,
+          status: updateProdutoDto.status !== undefined ? updateProdutoDto.status : findProduct.status,
           idCategoria: updateProdutoDto.idCategoria ? updateProdutoDto.idCategoria : findProduct.idCategoria,
           data_alteracao: new Date(),
         },

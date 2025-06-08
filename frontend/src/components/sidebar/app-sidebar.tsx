@@ -12,10 +12,10 @@ import {
 } from "lucide-react"
 
 
-import { Routines } from "@/components/home/nav-routines"
-import { NavProjects } from "@/components/home/nav-projects"
-import { NavUser } from "@/components/home/nav-user"
-import { Companies } from "@/components/home/companies"
+import { Routines } from "@/components/sidebar/nav-routines"
+import { NavProjects } from "@/components/sidebar/nav-projects"
+import { NavUser } from "@/components/sidebar/nav-user"
+import { Companies } from "@/components/sidebar/companies"
 
 import {
   Sidebar,
@@ -58,8 +58,12 @@ const data = {
       isActive: true,
       items: [
         {
+          title: "Cardápio",
+          url: "/vendas/cardapio",
+        },
+        {
           title: "Pedido de venda",
-          url: "#",
+          url: "/vendas/pedido-de-venda",
         },
         {
           title: "Histórico de venda",

@@ -3,6 +3,7 @@ import {
   Dialog,
   DialogClose,
   DialogContent,
+  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -34,22 +35,22 @@ import { Separator } from "@radix-ui/react-select"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import api from "@/api/axios"
 import LoadingSpinner from "@/components/loading-spinner"
+import { Switch } from "@/components/ui/switch"
 
 
 
 
 const createProductSchema = z.object({
-  descricao: z.string().nonempty({message: 'A descrição não pode ser vazia'}),
+
+  descricao: z.string().nonempty({message: 'A descrição não pode ser vazia'}).max(120, {message: 'Não poder ser maior que 120 caracteres.'}),
   preco: z
     .string()
     .refine((val) => /^[0-9]+([,\.][0-9]+)?$/.test(val), {message: "Digite apenas números e vírgula para decimais"})
     .transform((val) => Number(val.replace(",", ".")))
     .pipe(z.number().positive({ message: "O preço deve ser maior que zero" })),
   status: z.boolean(),
-  idCategoria: z.preprocess(
-    (val) => (val === undefined ? "" : val),
-    z.string().nonempty("Selecione uma categoria").transform((val) => Number(val))
-  ),
+  idCategoria: z.coerce.number({ invalid_type_error: "Selecione uma categoria" }),
+
 })
 
 
@@ -61,18 +62,25 @@ const CreateProductDialog = () => {
    const queryClient = useQueryClient();
 
 
-  const {control, register, handleSubmit, formState: {errors}, reset} = useForm({
+  const {register, handleSubmit, formState: {errors}, reset, watch, setValue, trigger} = useForm({
     resolver: zodResolver(createProductSchema),
     defaultValues: {
       status:  true
     }
   })
-
+    // monitora o status do produto
+  const status = watch("status")
+  // monitor a categoria selecionada
+  const categoriaSelecionada = watch("idCategoria")
   
+
+
   const createProduct = async (data: CreateProductSchema) => {
     const response = await api.post('/produtos', data)
     return response.data
   }
+
+
 
   const { mutate, isPending, isSuccess, isError, reset: mutateReset } = useMutation({
     mutationFn: createProduct,
@@ -121,7 +129,7 @@ const CreateProductDialog = () => {
 
 
 
-        <DialogContent className="sm:max-w-[425px]">
+        <DialogContent className="sm:max-w-[425px] lg:max-w-2xl">
 
           {isPending && 
             <div className="flex items-center justify-center">
@@ -132,77 +140,81 @@ const CreateProductDialog = () => {
           {!isPending && !isSuccess && !isError &&
             <>
               <DialogHeader className="mb-4">
+
                 <DialogTitle>Criar Produto</DialogTitle>
-                {/*              
-                  <DialogDescription>
-                  teste
-                  </DialogDescription>                            
-                  */}
+                
+                <Separator  className="h-[1px] w-full bg-gray-300 mt-4"/>
+                
+                <DialogDescription></DialogDescription>                            
+      
               </DialogHeader>
 
               <form onSubmit={handleSubmit(handleCreateProduct)}>
         
                 <div className="grid gap-4">
 
-                  <div className="grid">
-                    <Label className="mb-3">Descrição</Label>
+                  <div className="grid gap-3">
+                    <Label>Descrição</Label>
                     <Input placeholder="Ex: Copo 400ml" {...register('descricao')}/>
                     {errors.descricao && <span className="text-red-500 text-sm">{errors.descricao.message}</span>}
                   </div>
-                  
-                  <div className="grid">
-                    <Label className="mb-3">Valor</Label>
-                    <Input type="text" placeholder="Ex: 25,00" {...register('preco')}/>
-                    {errors.preco && <span className="text-red-500 text-sm">{errors.preco.message}</span>}
-                  </div>
 
-                  <div className="grid gap-3 mb-4">
-                    <Controller
-                      name="status"
-                      control={control}
-                      render={({ field }) => (
-                        <RadioGroup
-                          value={field.value ? "ativo" : "inativo"}
-                          onValueChange={(value) => field.onChange(value === "ativo")}
+                  <div className="grid gap-4 items-start lg:flex lg:gap-4">
+
+                    <div className="grid gap-2">
+                      <Label>Valor</Label>
+                      <div className="relative w-full max-w-32">
+                        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground text-sm">R$</span>
+                        <Input type="text" placeholder="0,00" className="pl-10" {...register('preco')}/>
+                      </div>
+                      {errors.preco && <span className="text-red-500 text-sm">{errors.preco.message}</span>}
+                    </div>
+
+                      <div className='grid gap-2'>
+
+                        <Label>Categoria</Label>
+                        <Select
+                          value={categoriaSelecionada?.toString() ?? ""}
+                          onValueChange={(val) => {
+                            console.log('Mudando o valor', val)
+                            setValue("idCategoria", Number(val))
+                            trigger("idCategoria")
+                          }}
                         >
-                          <div className="flex items-center space-x-2">
-                            <RadioGroupItem value="ativo" className="bg-green-400"/>
-                            <Label className="text-green-500">Ativo</Label>
-                          </div>
-                          <div className="flex items-center space-x-2">
-                            <RadioGroupItem value="inativo" className="bg-red-400"/>
-                            <Label className="text-red-500">Inativo</Label>
-                          </div>
-                        </RadioGroup>
-                      )}
-                    />
-                  </div>
-
-                  <Controller
-                    name="idCategoria"
-                    control={control}
-                    defaultValue=''
-                    render={({ field }) => (
-                      <div>
-                        <Label className="mb-3">Categoria</Label>
-                        <Select onValueChange={field.onChange} value={field.value ? String(field.value) : undefined}>
-                          <SelectTrigger className="w-[180px]">
-                            <SelectValue placeholder="selecione a categoria" />
+                          <SelectTrigger>
+                            <SelectValue placeholder="Selecione uma categoria" />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectGroup>
-                              {dataFake.map((item) => (
-                                <SelectItem key={item.id} value={String(item.id)}>
-                                  {item.descricao}
-                                </SelectItem>
-                              ))}
-                            </SelectGroup>
+                            {dataFake.map((category) => (
+                              <SelectItem key={category.id} value={category.id.toString()}>
+                                {category.descricao}
+                              </SelectItem>
+                            ))}
                           </SelectContent>
                         </Select>
-                        {errors.idCategoria && <span className="text-red-500 text-sm">{errors.idCategoria.message}</span>}
+                        {errors.idCategoria && <p className="text-sm text-red-500">{errors.idCategoria.message}</p>}
+
                       </div>
-                    )}
-                  />
+
+
+
+                  </div>
+                  
+
+                  <div className="grid gap-3">
+
+                    <Label>Status</Label>
+                    <div className="flex gap-2">
+                      <Switch
+                        className="data-[state=checked]:bg-green-500 data-[state=unchecked]:bg-red-500"
+                        checked={status}
+                        onCheckedChange={(checked) => setValue("status", checked)}
+                      />
+                      <Label className={status ? 'text-green-600' : 'text-red-600'}>{status ? "Ativo" : "Inativo"}</Label>
+                    </div>
+
+                  </div>
+
 
                 </div>
 

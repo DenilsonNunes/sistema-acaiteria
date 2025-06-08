@@ -9,14 +9,8 @@ import {
 } from "@/components/ui/dialog"
 
 import {
-  RadioGroup,
-  RadioGroupItem,
-} from "@/components/ui/radio-group"
-
-import {
   Select,
   SelectContent,
-  SelectGroup,
   SelectItem,
   SelectTrigger,
   SelectValue,
@@ -27,7 +21,7 @@ import { Label } from "@/components/ui/label"
 
 import { CircleAlert, CircleCheck, SquarePen } from "lucide-react"
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { Controller, useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 
 import api from '@/api/axios'
 import { Separator } from '@/components/ui/separator'
@@ -38,22 +32,23 @@ import { useState } from 'react'
 import { DialogDescription } from '@radix-ui/react-dialog'
 
 import type { Product } from '@/types/product'
+import { Switch } from '@/components/ui/switch'
 
 
 
 
 const editProductSchema = z.object({
-  descricao: z.string().nonempty({message: 'A descrição não pode ser vazia'}),
+
+  descricao: z.string().nonempty({message: 'A descrição não pode ser vazia'}).max(120, {message: 'Não poder ser maior que 120 caracteres.'}),
   preco: z
     .string()
+    .nonempty({message: 'O valor deve ser preenchido'})
     .refine((val) => /^[0-9]+([,\.][0-9]+)?$/.test(val), {message: "Digite apenas números e vírgula para decimais"})
     .transform((val) => Number(val.replace(",", ".")))
     .pipe(z.number().positive({ message: "O preço deve ser maior que zero" })),
   status: z.boolean(),
-  idCategoria: z.preprocess(
-    (val) => (val === undefined ? "" : val),
-    z.string().nonempty("Selecione uma categoria").transform((val) => Number(val))
-  ),
+  idCategoria: z.coerce.number({ invalid_type_error: "Selecione uma categoria" }),
+
 })
 
 
@@ -69,40 +64,39 @@ const EditProductDialog = ({ product } : {product: Product}) => {
   const [openEditDialog, setOpenEditDialog] = useState(false);
 
 
-  
 
-
-
-
-  const { control, register, handleSubmit, formState: {errors}, reset } = useForm({
-    resolver: zodResolver(editProductSchema),
+  const { register, handleSubmit, formState: {errors}, reset, setValue, watch } = useForm({
     defaultValues: {
-      status:  true
-    }
+      idCategoria: product.idCategoria,
+      status: product.status
+    },
+    resolver: zodResolver(editProductSchema),
   })
-
+  // monitora o status do produto
+  const status = watch("status")
+  // monitor a categoria selecionada
+  const categoriaSelecionada = watch("idCategoria")
 
 
   const editProduct = async (data: EditProductSchema) => {
-    const response = await api.patch(`/produtos`, data)
+    const response = await api.patch(`/produtos/${product.id}`, data)
     return response.data
   }
+
 
 
 
   const { mutate, isPending, isSuccess, isError, reset: mutateReset } = useMutation({
     mutationFn: editProduct,
     onSuccess: () => {
+      reset()
       // Força o React Query a buscar novamente os produtos
       queryClient.invalidateQueries({ queryKey: ['products'] })
-      reset()
     },
     onError: () => {
       reset()
     },
   })
-
-
 
 
 
@@ -133,9 +127,12 @@ const EditProductDialog = ({ product } : {product: Product}) => {
           onOpenChange={(isOpen) => {
             setOpenEditDialog(isOpen);
             if (!isOpen) {
-              reset(); // reseta o formulário
+              reset({
+                idCategoria: product.idCategoria,
+                status: product.status,
+              });
               mutateReset(); // reseta o mutate
-            }
+            } 
           }}
         >
 
@@ -151,101 +148,81 @@ const EditProductDialog = ({ product } : {product: Product}) => {
               <>
                 <DialogHeader className="mb-4">
                   <DialogTitle>Editar Produto</DialogTitle>
-                 
+                  
+                  <Separator  className="h-[1px] w-full bg-gray-300 mt-4"/>
+
                   <DialogDescription>
-    
                   </DialogDescription>                            
               
                 </DialogHeader>
 
                 <form onSubmit={handleSubmit(handleEditProduct)}>
           
-                  <div className="grid gap-3">
+                  <div className="grid gap-4">
+
                     <div className="flex gap-2 items-start">
                       {/* Campo ID */}
                       <div className="flex flex-col w-24">
                         <Label className="mb-2">ID</Label>
                         <Input value={product.id} className='text-center' disabled />
-                        <div className="h-[22px]" /> 
                       </div>
 
                       {/* Campo Descrição */}
                       <div className="flex flex-col w-full">
                         <Label className="mb-2">Descrição</Label>
-                        <Input value={product.descricao} {...register('descricao')} />
-                        {errors.descricao ? (
-                          <span className="text-red-500 text-sm mt-1">{errors.descricao.message}</span>
-                        ) : (
-                          // Espaço reservado para manter altura
-                          <div className="h-[22px]" />
-                        )}
+                        <Input defaultValue={product.descricao} {...register('descricao')} />
+                        {errors.descricao  && <span className="text-red-500 text-sm mt-1">{errors.descricao.message}</span>}
                       </div>
+
                     </div>
                     
-                    <div className="grid lg:flex gap-2">
+                    <div className="grid gap-4 items-start lg:flex lg:gap-2">
 
-                      <div className='grid mb-3'>
-                        <Label className="mb-2">Valor</Label>
-    
+                      <div className='grid gap-2'>
+                        <Label>Valor</Label>
                         <div className="relative w-full max-w-sm">
                           <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground text-sm">R$</span>
-                          <Input value={product.preco} type="text" placeholder="0,00" className="pl-10" {...register('preco')}/>
+                          <Input defaultValue={product.preco} type="text" placeholder="0,00" className="pl-10" {...register('preco')}/>
                         </div>
                         {errors.preco && <span className="text-red-500 text-sm">{errors.preco.message}</span>}
                       </div>
 
-                    <Controller
-                      name="idCategoria"
-                      control={control}
-                      defaultValue=''
-                      render={({ field }) => (
-                        <div className='mb-3'>
-                          <Label className="mb-2">Categoria</Label>
-                          <Select onValueChange={field.onChange} value={field.value ? String(field.value) : undefined}>
-                            <SelectTrigger className="w-[180px]">
-                              <SelectValue placeholder="selecione a categoria" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectGroup>
-                                {dataFake.map((item) => (
-                                  <SelectItem key={item.id} value={String(item.id)}>
-                                    {item.descricao}
-                                  </SelectItem>
-                                ))}
-                              </SelectGroup>
-                            </SelectContent>
-                          </Select>
-                          {errors.idCategoria && <span className="text-red-500 text-sm">{errors.idCategoria.message}</span>}
-                        </div>
-                      )}
-                    />
+                      <div className='grid gap-2'>
+
+                        <Label>Categoria</Label>
+                        <Select
+                          value={categoriaSelecionada?.toString()}
+                          onValueChange={(val) => setValue("idCategoria", Number(val))}
+                        >
+                          <SelectTrigger>
+                            <SelectValue placeholder="Selecione uma categoria" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {dataFake.map((category) => (
+                              <SelectItem key={category.id} value={category.id.toString()}>
+                                {category.descricao}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                        {errors.idCategoria && <p className="text-sm text-red-500">{errors.idCategoria.message}</p>}
+
+                      </div>
 
 
                     </div>
 
-                    <div className="grid gap-3">
-
+                    <div className="grid gap-2">
                       <Label>Status</Label>
-                      <Controller
-                        name="status"
-                        control={control}
-                        render={({ field }) => (
-                          <RadioGroup
-                          className='flex mb-3'
-                            value={product.status ? "ativo" : "inativo"}
-                            onValueChange={(value) => field.onChange(value === "ativo")}
-                          >
-                            <div className="flex items-center space-x-2">
-                              <RadioGroupItem value="ativo" className="bg-green-400"/>
-                              <Label className="text-green-500">Ativo</Label>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                              <RadioGroupItem value="inativo" className="bg-red-400"/>
-                              <Label className="text-red-500">Inativo</Label>
-                            </div>
-                          </RadioGroup>
-                        )}
-                      />
+                      <div className="flex gap-2">
+                        <Switch
+                          className="data-[state=checked]:bg-green-500 data-[state=unchecked]:bg-red-500"
+                          checked={status}
+                          onCheckedChange={(checked) => setValue("status", checked)}
+                        />
+                        <Label className={status ? 'text-green-600' : 'text-red-600'}>{status ? "Ativo" : "Inativo"}</Label>
+                      </div>
+
                     </div>
 
                   </div>
@@ -298,3 +275,30 @@ export default EditProductDialog
 
 
 
+/*
+
+                      <Label>Status</Label>
+                      <Controller
+                        name="status"
+                        control={control}
+                        defaultValue={product.status} // booleano
+                        render={({ field }) => (
+                          <RadioGroup
+                            className="flex mb-3"
+                            value={field.value ? "ativo" : "inativo"} // converte booleano -> string
+                            onValueChange={(value) => field.onChange(value === "ativo")} // converte string -> booleano
+                          >
+                            <div className="flex items-center space-x-2">
+                              <RadioGroupItem value="ativo" className='bg-green-400'/>
+                              <Label className="text-green-500">Ativo</Label>
+                            </div>
+                            <div className="flex items-center space-x-2">
+                              <RadioGroupItem value="inativo" className='bg-red-400' />
+                              <Label className="text-red-500">Inativo</Label>
+                            </div>
+                          </RadioGroup>
+                        )}
+                      />
+
+
+*/
