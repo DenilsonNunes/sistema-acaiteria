@@ -1,7 +1,7 @@
 "use client"
 
 import { type ColumnDef } from "@tanstack/react-table"
-import { ArrowUpDown, SquarePen, Trash2 } from "lucide-react"
+import { ArrowUpDown } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
@@ -13,6 +13,7 @@ import DeleteProductDialog from "../components/delete-product-dialog"
 import type { Product } from "@/types/product"
 
 
+import fotoAcai from '../../../../public/acai.jpeg'
 
 
 
@@ -47,7 +48,7 @@ export const columns: ColumnDef<Product>[] = [
     //<div className="text-left">ID</div>,
     header: ({ column }) => {
       return (
-        <Button
+        <Button 
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
@@ -61,7 +62,7 @@ export const columns: ColumnDef<Product>[] = [
 
   {
     accessorKey: "status",
-    header: "Status",
+    header: () => <div className="text-left">Status</div>,
     cell: ({ row }) => {
       const status = row.getValue("status")
       return (
@@ -81,6 +82,19 @@ export const columns: ColumnDef<Product>[] = [
 
   },
 
+    {
+    accessorKey: "",
+    header: "Foto",
+    cell: () => {
+      return (
+        <div>
+          <img src={fotoAcai} alt="Foto açai" className="w-18 h-auto object-cover rounded" />
+        </div>
+      )
+    }
+
+  },
+
   {
     accessorKey: "descricao",
     header: ({ column }) => {
@@ -94,7 +108,13 @@ export const columns: ColumnDef<Product>[] = [
         </Button>
       )
     },
-    cell: ({ row }) => <div className="lowercase">{row.getValue("descricao")}</div>,
+    cell: ({ row }) => {
+      return (
+        <div>
+          {row.getValue("descricao")}
+        </div>
+      )
+    }
   },
 
   {

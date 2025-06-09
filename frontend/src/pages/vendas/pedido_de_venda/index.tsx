@@ -1,15 +1,12 @@
 
 import { useState } from "react";
 
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion"
 
 import fotoAcai from '../../../../public/acai.jpeg'
-
+import { Button } from "@/components/ui/button";
+import { useQuery } from "@tanstack/react-query";
+import api from "@/api/axios";
+import type { Product } from "@/types/product";
 
 
 
@@ -24,7 +21,10 @@ import fotoAcai from '../../../../public/acai.jpeg'
 
 const PedidoDeVenda = () => {
 
-const [categoriaSelecionada, setCategoriaSelecionada] = useState('');
+
+
+
+const [categorySelected, setCategorySelected] = useState('Açai');
 
   const categorias = [
     'Açai', 
@@ -38,98 +38,169 @@ const [categoriaSelecionada, setCategoriaSelecionada] = useState('');
 
 
 
+
+
+
+  const { data: products } = useQuery<Product[]>({
+    queryKey: ['products'],
+    queryFn: async () => {
+      const response = await api.get('/produtos');
+      return response.data;
+    },
+  });
+
+
+
+
+
   return (
 
 
-    <section className="flex flex-col items-center w-full">
+    <section className="flex w-full">
 
+      <div className="flex w-full lg:w-[70%] flex-col">
 
-      <div className="w-5xl">
-
-        <div className="mb-4">
-          <img src={fotoAcai}  alt="Copo açai" className="w-full h-40 object-cover rounded"/>
+        <div className="bg-gray-200 py-2">
+          <ul className="flex ml-2 gap-6 overflow-x-auto scrollbar-hide">
+            {categorias.map((item) => (
+              <li key={item} 
+                className={`cursor-pointer border-b-2 font-medium 
+                  ${categorySelected === item ? "border-b-fuchsia-600" : "border-b-transparent"}
+                  ${categorySelected === item && "text-fuchsia-600"}
+                `}
+                onClick={() => setCategorySelected(item)}
+              >
+                {item}
+              </li>
+            ))}
+          </ul>
         </div>
 
-        <Accordion
-          type="single"
-          collapsible
-          className="w-full"
-          defaultValue="item-1"
-        >
-          <AccordionItem value="item-1">
-            <AccordionTrigger className="flex items-center py-1 px-4 bg-fuchsia-700 hover:no-underline rounded-none text-white">
-              <div className="flex flex-col">
-                <p className="font-medium text-white text-lg">4 Acompanhamentos grátis</p>
-                <p className="text-white">Escolha entre 1 a 4 itens</p>
-              </div>
-            </AccordionTrigger>
+        {categorySelected === 'Açai' && (
 
-            <AccordionContent className="flex flex-col gap-4 text-balance">
-              <p>
-                Our flagship product combines cutting-edge technology with sleek
-                design. Built with premium materials, it offers unparalleled
-                performance and reliability.
-              </p>
-              <p>
-                Key features include advanced processing capabilities, and an
-                intuitive user interface designed for both beginners and experts.
-              </p>
-            </AccordionContent>
-            
-          </AccordionItem>
+          <div className="w-full bg-gray-100 h-screen pt-4">
+            <p className="text-2xl font-medium ml-4 mb-4">Açai</p>
 
-          <AccordionItem value="item-2">
-            <AccordionTrigger className="flex items-center py-1 px-4 bg-fuchsia-700 hover:no-underline rounded-none text-white">
-              <div className="flex flex-col">
-                <p className="font-medium text-white text-lg">Adicionais especiais</p>
-                <p className="text-white">Escolha entre 1 a 4 itens</p>
-              </div>
-            </AccordionTrigger>
+            <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-2 px-2">
 
-            <AccordionContent className="flex flex-col gap-4 text-balance">
-              <p>
-                Our flagship product combines cutting-edge technology with sleek
-                design. Built with premium materials, it offers unparalleled
-                performance and reliability.
-              </p>
-              <p>
-                Key features include advanced processing capabilities, and an
-                intuitive user interface designed for both beginners and experts.
-              </p>
-            </AccordionContent>
+              {products?.map((product) => (
 
-          </AccordionItem>
+                <div key={product.id} className="flex flex-col p-1 shadow-md bg-white rounded">
 
-          <AccordionItem value="item-3">
-            <AccordionTrigger className="flex items-center py-1 px-4 bg-fuchsia-700 hover:no-underline rounded-none text-white">
-              <div className="flex flex-col">
-                <p className="font-medium text-white text-lg">4 Acompanhamentos grátis</p>
-                <p className="text-white">Escolha entre 1 a 4 itens</p>
-              </div>
-            </AccordionTrigger>
+                  <div>
+                    <img src={fotoAcai}  alt="Copo açai" className="w-full h-44 object-cover rounded"/>
+                  </div>
+                  
+                  <div>
+                    <p className="text-lg font-bold text-gray-700">{product.descricao}</p>
+                    <p className="text-gray-600">Com 4 acompanhamentos</p>
+                    <p className="text-gray-600">3 camadas</p>
+                    <p className="mt-4 text-lg font-bold">
+                      {Number(product.preco).toLocaleString('pt-BR', {
+                        style: 'currency',
+                        currency: 'BRL',
+                      })}
+                    </p>
+                    
+                  </div>
 
-            <AccordionContent className="flex flex-col gap-4 text-balance">
-              <p>
-                Our flagship product combines cutting-edge technology with sleek
-                design. Built with premium materials, it offers unparalleled
-                performance and reliability.
-              </p>
-              <p>
-                Key features include advanced processing capabilities, and an
-                intuitive user interface designed for both beginners and experts.
-              </p>
-            </AccordionContent>
+                </div>
+              ))}
 
-          </AccordionItem>
+            </div>
 
-        </Accordion>
 
-   
+          </div>
+
+        )}
+
       </div>
 
 
+      {/* PEDIDO ATUAL*/}
+      <div className="w-[30%] overflow-y-auto h-screen px-2 hidden lg:block">
 
-  
+        <p className="text-2xl font-medium  mb-6 text-gray-800">Pedido atual</p>
+
+        <div className="w-full mb-4 flex items-center justify-between gap-2">
+
+          <div>
+            <img src={fotoAcai} alt="Copo açai" className="w-28 h-auto object-cover rounded" />
+          </div>
+
+          <div className="flex flex-col justify-between h-22 w-full">
+            {/* Topo */}
+            <p className="text-lg font-medium">Copo 300ML</p>
+
+            {/* Base */}
+            <div className="flex items-center justify-between">
+              <p className="text-lg font-bold">R$ 13,00</p>
+
+              <div className="flex items-center gap-2">
+                <Button size="icon" className="w-6 h-6 p-0 text-lg bg-fuchsia-700 text-white hover:bg-fuchsia-600 cursor-pointer">
+                  -
+                </Button>
+                <span className="font-medium">4</span>
+                <Button size="icon" className="w-6 h-6 p-0 text-lg font-bold bg-fuchsia-700 text-white hover:bg-fuchsia-600 cursor-pointer">
+                  +
+                </Button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div className="w-full flex items-center justify-between gap-2">
+
+          <div>
+            <img src={fotoAcai} alt="Copo açai" className="w-28 h-auto object-cover rounded" />
+          </div>
+
+          <div className="flex flex-col justify-between h-22 w-full">
+            {/* Topo */}
+            <p className="text-lg font-medium">Copo 300ML</p>
+
+            {/* Base */}
+            <div className="flex items-center justify-between">
+              <p className="text-lg font-bold">R$ 13,00</p>
+
+              <div className="flex items-center gap-2">
+                <Button size="icon" className="w-6 h-6 p-0 text-lg bg-fuchsia-700 text-white hover:bg-fuchsia-600">
+                  -
+                </Button>
+                <span className="font-medium">4</span>
+                <Button size="icon" className="w-6 h-6 p-0 text-lg font-bold bg-fuchsia-700 text-white hover:bg-fuchsia-600">
+                  +
+                </Button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div className="mt-2 bg-gray-300 rounded-lg p-4">
+
+          <div className="flex justify-between">
+            <p>SubTotal</p>
+            <p className="font-medium">R$ 105,00</p>
+          </div>
+
+          <div className="flex items-center justify-between">
+            <p>Desconto</p>
+            <p className="font-medium text-sm text-red-600">- R$ 20,00</p>
+          </div>
+
+        </div>
+
+        <div className="mx-2 border-t-2 border-dashed border-gray-500" />
+
+        <div className="flex justify-between bg-gray-300 rounded-lg p-4">
+          <p className="font-bold">Total</p>
+          <p className="font-medium">R$ 98,00</p>
+        </div>
+
+      </div>
+
 
     </section>
 
