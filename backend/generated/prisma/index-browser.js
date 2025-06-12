@@ -148,6 +148,7 @@ exports.Prisma.ProdutosScalarFieldEnum = {
   descricao: 'descricao',
   preco: 'preco',
   status: 'status',
+  qtdAcompanhamentos: 'qtdAcompanhamentos',
   data_criacao: 'data_criacao',
   data_alteracao: 'data_alteracao'
 };

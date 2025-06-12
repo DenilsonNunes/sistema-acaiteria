@@ -10,10 +10,10 @@ import { Badge } from "@/components/ui/badge"
 import EditProductDialog from "../components/edit-product-dialog"
 import DeleteProductDialog from "../components/delete-product-dialog"
 
-import type { Product } from "@/types/product"
+import type { Product } from "@/types/produtos/product"
 
 
-import fotoAcai from '../../../../public/acai.jpeg'
+import fotoAcai from '../../../assets/acai.jpeg'
 
 
 
@@ -48,16 +48,18 @@ export const columns: ColumnDef<Product>[] = [
     //<div className="text-left">ID</div>,
     header: ({ column }) => {
       return (
-        <Button 
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          ID
-          <ArrowUpDown />
-        </Button>
+        <div className="flex justify-center">
+          <Button 
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            ID
+            <ArrowUpDown />
+          </Button>
+        </div>
       )
     },
-    cell: ({ row }) => <div className="text-left">{row.getValue("id")}</div>
+    cell: ({ row }) => <div className="text-center">{row.getValue("id")}</div>
   },
 
   {

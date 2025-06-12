@@ -31,8 +31,9 @@ import LoadingSpinner from '@/components/loading-spinner'
 import { useState } from 'react'
 import { DialogDescription } from '@radix-ui/react-dialog'
 
-import type { Product } from '@/types/product'
+import type { Product } from '@/types/produtos/product'
 import { Switch } from '@/components/ui/switch'
+import { useCategories } from '@/hooks/useCategories'
 
 
 
@@ -47,6 +48,7 @@ const editProductSchema = z.object({
     .transform((val) => Number(val.replace(",", ".")))
     .pipe(z.number().positive({ message: "O preço deve ser maior que zero" })),
   status: z.boolean(),
+  qtdAcompanhamentos: z.coerce.number().int().min(0, { message: 'Não pode ser negativo' }).max(10, { message: 'O máximo é 10' }),
   idCategoria: z.coerce.number({ invalid_type_error: "Selecione uma categoria" }),
 
 })
@@ -59,6 +61,8 @@ type EditProductSchema = z.infer<typeof editProductSchema>
 
 const EditProductDialog = ({ product } : {product: Product}) => {
 
+    const {data: dataCategories} = useCategories();
+  
 
   const queryClient = useQueryClient();
   const [openEditDialog, setOpenEditDialog] = useState(false);
@@ -106,12 +110,6 @@ const EditProductDialog = ({ product } : {product: Product}) => {
 
 
 
-  const dataFake = [
-    {id: 1 , descricao: 'Açai'},
-    {id: 2 , descricao: 'Sorvete'},
-    {id: 3 , descricao: 'MilkShake'},
-    {id: 4 , descricao: 'Adicional'},
-  ]
 
 
   return (
@@ -198,7 +196,7 @@ const EditProductDialog = ({ product } : {product: Product}) => {
                             <SelectValue placeholder="Selecione uma categoria" />
                           </SelectTrigger>
                           <SelectContent>
-                            {dataFake.map((category) => (
+                            {dataCategories && dataCategories.map((category) => (
                               <SelectItem key={category.id} value={category.id.toString()}>
                                 {category.descricao}
                               </SelectItem>
@@ -208,6 +206,19 @@ const EditProductDialog = ({ product } : {product: Product}) => {
                         {errors.idCategoria && <p className="text-sm text-red-500">{errors.idCategoria.message}</p>}
 
                       </div>
+
+                      {categoriaSelecionada === 1 && (
+
+                        <div className='grid gap-2'>
+
+                          <Label>Qtd Acompanhamentos</Label>
+                          <Input type="number" defaultValue={product.qtdAcompanhamentos} placeholder="1" min={0} max={10} {...register('qtdAcompanhamentos')}/>
+                          {errors.qtdAcompanhamentos && <span className="text-red-500 text-sm">{errors.qtdAcompanhamentos.message}</span>}
+
+                        </div>
+                      
+                      )}
+
 
 
                     </div>

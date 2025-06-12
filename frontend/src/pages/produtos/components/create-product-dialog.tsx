@@ -10,8 +10,6 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 
-
-
 import {
   Select,
   SelectContent,
@@ -22,17 +20,18 @@ import {
 
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { Separator } from "@/components/ui/separator"
+import { Switch } from "@/components/ui/switch"
 
-import { CircleAlert, CircleCheck, PackagePlus  } from "lucide-react"
 import { z } from 'zod'
 import {  useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Separator } from "@radix-ui/react-select"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
-import api from "@/api/axios"
 import LoadingSpinner from "@/components/loading-spinner"
-import { Switch } from "@/components/ui/switch"
+import { CircleAlert, CircleCheck, PackagePlus  } from "lucide-react"
 
+import api from "@/api/axios"
+import { useCategories } from "@/hooks/useCategories"
 
 
 
@@ -45,6 +44,7 @@ const createProductSchema = z.object({
     .transform((val) => Number(val.replace(",", ".")))
     .pipe(z.number().positive({ message: "O preço deve ser maior que zero" })),
   status: z.boolean(),
+  qtdAcompanhamentos: z.coerce.number().int().min(0, { message: 'Não pode ser negativo' }).max(10, { message: 'O máximo é 10' }),
   idCategoria: z.coerce.number({ invalid_type_error: "Selecione uma categoria" }),
 
 })
@@ -53,31 +53,44 @@ const createProductSchema = z.object({
 type CreateProductSchema = z.infer<typeof createProductSchema>
 
 
+
+
+
+
+
 const CreateProductDialog = () => {
 
-   const queryClient = useQueryClient();
+  const queryClient = useQueryClient();
+
+  const {data: dataCategories} = useCategories();
+
 
 
   const {register, handleSubmit, formState: {errors}, reset, watch, setValue, trigger} = useForm({
     resolver: zodResolver(createProductSchema),
     defaultValues: {
-      status:  true
+      status:  true,
+      qtdAcompanhamentos: 0
     }
   })
-    // monitora o status do produto
+  // monitora o status do produto
   const status = watch("status")
   // monitor a categoria selecionada
   const categoriaSelecionada = watch("idCategoria")
-  
+
+  const descricao = watch('descricao')
 
 
+
+
+
+  // Criação de produtos
   const createProduct = async (data: CreateProductSchema) => {
     const response = await api.post('/produtos', data)
     return response.data
   }
 
-
-
+  
   const { mutate, isPending, isSuccess, isError, reset: mutateReset } = useMutation({
     mutationFn: createProduct,
     onSuccess: () => {
@@ -96,14 +109,8 @@ const CreateProductDialog = () => {
   }
 
 
-  const dataFake = [
-    {id: 1 , descricao: 'Açai'},
-    {id: 2 , descricao: 'Sorvete'},
-    {id: 3 , descricao: 'MilkShake'},
-    {id: 4 , descricao: 'Adicional'},
-  ]
 
-
+  
   return (
 
     <div className="mx-4 mt-2">
@@ -125,7 +132,7 @@ const CreateProductDialog = () => {
 
 
 
-        <DialogContent className="sm:max-w-[425px] lg:max-w-2xl">
+        <DialogContent className="sm:max-w-[425px] lg:max-w-3xl">
 
           {isPending && 
             <div className="flex items-center justify-center">
@@ -149,10 +156,15 @@ const CreateProductDialog = () => {
         
                 <div className="grid gap-4">
 
-                  <div className="grid gap-3">
-                    <Label>Descrição</Label>
+                  <div className="grid">
+
+                    <Label className="mb-2">Descrição</Label>
                     <Input placeholder="Ex: Copo 400ml" {...register('descricao')}/>
-                    {errors.descricao && <span className="text-red-500 text-sm">{errors.descricao.message}</span>}
+                    <div className={`flex items-center  ${errors.descricao ? 'justify-between' : 'justify-end'}`}>
+                      {errors.descricao && <span className="text-red-500 text-sm">{errors.descricao.message}</span>}
+                      <p className="text-xs  text-gray-500 ">{descricao?.length ? descricao?.length : 0}/140 caracteres</p>
+                    </div>
+            
                   </div>
 
                   <div className="grid gap-4 items-start lg:flex lg:gap-4">
@@ -166,31 +178,42 @@ const CreateProductDialog = () => {
                       {errors.preco && <span className="text-red-500 text-sm">{errors.preco.message}</span>}
                     </div>
 
+                    <div className='grid gap-2'>
+
+                      <Label>Categoria</Label>
+                      <Select
+                        value={categoriaSelecionada?.toString() ?? ""}
+                        onValueChange={(val) => {
+                          setValue("idCategoria", Number(val))
+                          trigger("idCategoria")
+                        }}
+                      >
+                        <SelectTrigger>
+                          <SelectValue placeholder="Selecione uma categoria" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {dataCategories && dataCategories.map((category) => (
+                            <SelectItem key={category.id} value={category.id.toString()}>
+                              {category.descricao}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      {errors.idCategoria && <p className="text-sm text-red-500">{errors.idCategoria.message}</p>}
+
+                    </div>
+
+                    {categoriaSelecionada === 1 && (
+
                       <div className='grid gap-2'>
 
-                        <Label>Categoria</Label>
-                        <Select
-                          value={categoriaSelecionada?.toString() ?? ""}
-                          onValueChange={(val) => {
-                            console.log('Mudando o valor', val)
-                            setValue("idCategoria", Number(val))
-                            trigger("idCategoria")
-                          }}
-                        >
-                          <SelectTrigger>
-                            <SelectValue placeholder="Selecione uma categoria" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {dataFake.map((category) => (
-                              <SelectItem key={category.id} value={category.id.toString()}>
-                                {category.descricao}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                        {errors.idCategoria && <p className="text-sm text-red-500">{errors.idCategoria.message}</p>}
+                        <Label>Qtd Acompanhamentos</Label>
+                        <Input type="number" placeholder="1" min={0} max={10} {...register('qtdAcompanhamentos')}/>
+                        {errors.qtdAcompanhamentos && <span className="text-red-500 text-sm">{errors.qtdAcompanhamentos.message}</span>}
 
                       </div>
+                      
+                    )}
 
 
 

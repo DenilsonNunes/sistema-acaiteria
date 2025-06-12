@@ -3780,12 +3780,14 @@ export namespace Prisma {
     id: number | null
     idCategoria: number | null
     preco: Decimal | null
+    qtdAcompanhamentos: number | null
   }
 
   export type ProdutosSumAggregateOutputType = {
     id: number | null
     idCategoria: number | null
     preco: Decimal | null
+    qtdAcompanhamentos: number | null
   }
 
   export type ProdutosMinAggregateOutputType = {
@@ -3794,6 +3796,7 @@ export namespace Prisma {
     descricao: string | null
     preco: Decimal | null
     status: boolean | null
+    qtdAcompanhamentos: number | null
     data_criacao: Date | null
     data_alteracao: Date | null
   }
@@ -3804,6 +3807,7 @@ export namespace Prisma {
     descricao: string | null
     preco: Decimal | null
     status: boolean | null
+    qtdAcompanhamentos: number | null
     data_criacao: Date | null
     data_alteracao: Date | null
   }
@@ -3814,6 +3818,7 @@ export namespace Prisma {
     descricao: number
     preco: number
     status: number
+    qtdAcompanhamentos: number
     data_criacao: number
     data_alteracao: number
     _all: number
@@ -3824,12 +3829,14 @@ export namespace Prisma {
     id?: true
     idCategoria?: true
     preco?: true
+    qtdAcompanhamentos?: true
   }
 
   export type ProdutosSumAggregateInputType = {
     id?: true
     idCategoria?: true
     preco?: true
+    qtdAcompanhamentos?: true
   }
 
   export type ProdutosMinAggregateInputType = {
@@ -3838,6 +3845,7 @@ export namespace Prisma {
     descricao?: true
     preco?: true
     status?: true
+    qtdAcompanhamentos?: true
     data_criacao?: true
     data_alteracao?: true
   }
@@ -3848,6 +3856,7 @@ export namespace Prisma {
     descricao?: true
     preco?: true
     status?: true
+    qtdAcompanhamentos?: true
     data_criacao?: true
     data_alteracao?: true
   }
@@ -3858,6 +3867,7 @@ export namespace Prisma {
     descricao?: true
     preco?: true
     status?: true
+    qtdAcompanhamentos?: true
     data_criacao?: true
     data_alteracao?: true
     _all?: true
@@ -3955,6 +3965,7 @@ export namespace Prisma {
     descricao: string
     preco: Decimal
     status: boolean
+    qtdAcompanhamentos: number | null
     data_criacao: Date
     data_alteracao: Date
     _count: ProdutosCountAggregateOutputType | null
@@ -3984,6 +3995,7 @@ export namespace Prisma {
     descricao?: boolean
     preco?: boolean
     status?: boolean
+    qtdAcompanhamentos?: boolean
     data_criacao?: boolean
     data_alteracao?: boolean
     categoria?: boolean | Produtos$categoriaArgs<ExtArgs>
@@ -3997,6 +4009,7 @@ export namespace Prisma {
     descricao?: boolean
     preco?: boolean
     status?: boolean
+    qtdAcompanhamentos?: boolean
     data_criacao?: boolean
     data_alteracao?: boolean
     categoria?: boolean | Produtos$categoriaArgs<ExtArgs>
@@ -4008,6 +4021,7 @@ export namespace Prisma {
     descricao?: boolean
     preco?: boolean
     status?: boolean
+    qtdAcompanhamentos?: boolean
     data_criacao?: boolean
     data_alteracao?: boolean
     categoria?: boolean | Produtos$categoriaArgs<ExtArgs>
@@ -4019,11 +4033,12 @@ export namespace Prisma {
     descricao?: boolean
     preco?: boolean
     status?: boolean
+    qtdAcompanhamentos?: boolean
     data_criacao?: boolean
     data_alteracao?: boolean
   }
 
-  export type ProdutosOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "idCategoria" | "descricao" | "preco" | "status" | "data_criacao" | "data_alteracao", ExtArgs["result"]["produtos"]>
+  export type ProdutosOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "idCategoria" | "descricao" | "preco" | "status" | "qtdAcompanhamentos" | "data_criacao" | "data_alteracao", ExtArgs["result"]["produtos"]>
   export type ProdutosInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     categoria?: boolean | Produtos$categoriaArgs<ExtArgs>
     itensPedidoVenda?: boolean | Produtos$itensPedidoVendaArgs<ExtArgs>
@@ -4048,6 +4063,7 @@ export namespace Prisma {
       descricao: string
       preco: Prisma.Decimal
       status: boolean
+      qtdAcompanhamentos: number | null
       data_criacao: Date
       data_alteracao: Date
     }, ExtArgs["result"]["produtos"]>
@@ -4480,6 +4496,7 @@ export namespace Prisma {
     readonly descricao: FieldRef<"Produtos", 'String'>
     readonly preco: FieldRef<"Produtos", 'Decimal'>
     readonly status: FieldRef<"Produtos", 'Boolean'>
+    readonly qtdAcompanhamentos: FieldRef<"Produtos", 'Int'>
     readonly data_criacao: FieldRef<"Produtos", 'DateTime'>
     readonly data_alteracao: FieldRef<"Produtos", 'DateTime'>
   }
@@ -8336,6 +8353,7 @@ export namespace Prisma {
     descricao: 'descricao',
     preco: 'preco',
     status: 'status',
+    qtdAcompanhamentos: 'qtdAcompanhamentos',
     data_criacao: 'data_criacao',
     data_alteracao: 'data_alteracao'
   };
@@ -8637,6 +8655,7 @@ export namespace Prisma {
     descricao?: StringFilter<"Produtos"> | string
     preco?: DecimalFilter<"Produtos"> | Decimal | DecimalJsLike | number | string
     status?: BoolFilter<"Produtos"> | boolean
+    qtdAcompanhamentos?: IntNullableFilter<"Produtos"> | number | null
     data_criacao?: DateTimeFilter<"Produtos"> | Date | string
     data_alteracao?: DateTimeFilter<"Produtos"> | Date | string
     categoria?: XOR<CategoriasNullableScalarRelationFilter, CategoriasWhereInput> | null
@@ -8649,6 +8668,7 @@ export namespace Prisma {
     descricao?: SortOrder
     preco?: SortOrder
     status?: SortOrder
+    qtdAcompanhamentos?: SortOrderInput | SortOrder
     data_criacao?: SortOrder
     data_alteracao?: SortOrder
     categoria?: CategoriasOrderByWithRelationInput
@@ -8664,6 +8684,7 @@ export namespace Prisma {
     descricao?: StringFilter<"Produtos"> | string
     preco?: DecimalFilter<"Produtos"> | Decimal | DecimalJsLike | number | string
     status?: BoolFilter<"Produtos"> | boolean
+    qtdAcompanhamentos?: IntNullableFilter<"Produtos"> | number | null
     data_criacao?: DateTimeFilter<"Produtos"> | Date | string
     data_alteracao?: DateTimeFilter<"Produtos"> | Date | string
     categoria?: XOR<CategoriasNullableScalarRelationFilter, CategoriasWhereInput> | null
@@ -8676,6 +8697,7 @@ export namespace Prisma {
     descricao?: SortOrder
     preco?: SortOrder
     status?: SortOrder
+    qtdAcompanhamentos?: SortOrderInput | SortOrder
     data_criacao?: SortOrder
     data_alteracao?: SortOrder
     _count?: ProdutosCountOrderByAggregateInput
@@ -8694,6 +8716,7 @@ export namespace Prisma {
     descricao?: StringWithAggregatesFilter<"Produtos"> | string
     preco?: DecimalWithAggregatesFilter<"Produtos"> | Decimal | DecimalJsLike | number | string
     status?: BoolWithAggregatesFilter<"Produtos"> | boolean
+    qtdAcompanhamentos?: IntNullableWithAggregatesFilter<"Produtos"> | number | null
     data_criacao?: DateTimeWithAggregatesFilter<"Produtos"> | Date | string
     data_alteracao?: DateTimeWithAggregatesFilter<"Produtos"> | Date | string
   }
@@ -9033,6 +9056,7 @@ export namespace Prisma {
     descricao: string
     preco?: Decimal | DecimalJsLike | number | string
     status?: boolean
+    qtdAcompanhamentos?: number | null
     data_criacao?: Date | string
     data_alteracao?: Date | string
     categoria?: CategoriasCreateNestedOneWithoutProdutosInput
@@ -9045,6 +9069,7 @@ export namespace Prisma {
     descricao: string
     preco?: Decimal | DecimalJsLike | number | string
     status?: boolean
+    qtdAcompanhamentos?: number | null
     data_criacao?: Date | string
     data_alteracao?: Date | string
     itensPedidoVenda?: ItensPedidoUncheckedCreateNestedManyWithoutProdutosInput
@@ -9054,6 +9079,7 @@ export namespace Prisma {
     descricao?: StringFieldUpdateOperationsInput | string
     preco?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: BoolFieldUpdateOperationsInput | boolean
+    qtdAcompanhamentos?: NullableIntFieldUpdateOperationsInput | number | null
     data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
     data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
     categoria?: CategoriasUpdateOneWithoutProdutosNestedInput
@@ -9066,6 +9092,7 @@ export namespace Prisma {
     descricao?: StringFieldUpdateOperationsInput | string
     preco?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: BoolFieldUpdateOperationsInput | boolean
+    qtdAcompanhamentos?: NullableIntFieldUpdateOperationsInput | number | null
     data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
     data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
     itensPedidoVenda?: ItensPedidoUncheckedUpdateManyWithoutProdutosNestedInput
@@ -9077,6 +9104,7 @@ export namespace Prisma {
     descricao: string
     preco?: Decimal | DecimalJsLike | number | string
     status?: boolean
+    qtdAcompanhamentos?: number | null
     data_criacao?: Date | string
     data_alteracao?: Date | string
   }
@@ -9085,6 +9113,7 @@ export namespace Prisma {
     descricao?: StringFieldUpdateOperationsInput | string
     preco?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: BoolFieldUpdateOperationsInput | boolean
+    qtdAcompanhamentos?: NullableIntFieldUpdateOperationsInput | number | null
     data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
     data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -9095,6 +9124,7 @@ export namespace Prisma {
     descricao?: StringFieldUpdateOperationsInput | string
     preco?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: BoolFieldUpdateOperationsInput | boolean
+    qtdAcompanhamentos?: NullableIntFieldUpdateOperationsInput | number | null
     data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
     data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -9526,6 +9556,7 @@ export namespace Prisma {
     descricao?: SortOrder
     preco?: SortOrder
     status?: SortOrder
+    qtdAcompanhamentos?: SortOrder
     data_criacao?: SortOrder
     data_alteracao?: SortOrder
   }
@@ -9534,6 +9565,7 @@ export namespace Prisma {
     id?: SortOrder
     idCategoria?: SortOrder
     preco?: SortOrder
+    qtdAcompanhamentos?: SortOrder
   }
 
   export type ProdutosMaxOrderByAggregateInput = {
@@ -9542,6 +9574,7 @@ export namespace Prisma {
     descricao?: SortOrder
     preco?: SortOrder
     status?: SortOrder
+    qtdAcompanhamentos?: SortOrder
     data_criacao?: SortOrder
     data_alteracao?: SortOrder
   }
@@ -9552,6 +9585,7 @@ export namespace Prisma {
     descricao?: SortOrder
     preco?: SortOrder
     status?: SortOrder
+    qtdAcompanhamentos?: SortOrder
     data_criacao?: SortOrder
     data_alteracao?: SortOrder
   }
@@ -9560,6 +9594,7 @@ export namespace Prisma {
     id?: SortOrder
     idCategoria?: SortOrder
     preco?: SortOrder
+    qtdAcompanhamentos?: SortOrder
   }
 
   export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -9867,6 +9902,14 @@ export namespace Prisma {
     divide?: Decimal | DecimalJsLike | number | string
   }
 
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
   export type CategoriasUpdateOneWithoutProdutosNestedInput = {
     create?: XOR<CategoriasCreateWithoutProdutosInput, CategoriasUncheckedCreateWithoutProdutosInput>
     connectOrCreate?: CategoriasCreateOrConnectWithoutProdutosInput
@@ -9889,14 +9932,6 @@ export namespace Prisma {
     update?: ItensPedidoUpdateWithWhereUniqueWithoutProdutosInput | ItensPedidoUpdateWithWhereUniqueWithoutProdutosInput[]
     updateMany?: ItensPedidoUpdateManyWithWhereWithoutProdutosInput | ItensPedidoUpdateManyWithWhereWithoutProdutosInput[]
     deleteMany?: ItensPedidoScalarWhereInput | ItensPedidoScalarWhereInput[]
-  }
-
-  export type NullableIntFieldUpdateOperationsInput = {
-    set?: number | null
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
   }
 
   export type ItensPedidoUncheckedUpdateManyWithoutProdutosNestedInput = {
@@ -10447,6 +10482,7 @@ export namespace Prisma {
     descricao: string
     preco?: Decimal | DecimalJsLike | number | string
     status?: boolean
+    qtdAcompanhamentos?: number | null
     data_criacao?: Date | string
     data_alteracao?: Date | string
     itensPedidoVenda?: ItensPedidoCreateNestedManyWithoutProdutosInput
@@ -10457,6 +10493,7 @@ export namespace Prisma {
     descricao: string
     preco?: Decimal | DecimalJsLike | number | string
     status?: boolean
+    qtdAcompanhamentos?: number | null
     data_criacao?: Date | string
     data_alteracao?: Date | string
     itensPedidoVenda?: ItensPedidoUncheckedCreateNestedManyWithoutProdutosInput
@@ -10497,6 +10534,7 @@ export namespace Prisma {
     descricao?: StringFilter<"Produtos"> | string
     preco?: DecimalFilter<"Produtos"> | Decimal | DecimalJsLike | number | string
     status?: BoolFilter<"Produtos"> | boolean
+    qtdAcompanhamentos?: IntNullableFilter<"Produtos"> | number | null
     data_criacao?: DateTimeFilter<"Produtos"> | Date | string
     data_alteracao?: DateTimeFilter<"Produtos"> | Date | string
   }
@@ -10660,6 +10698,7 @@ export namespace Prisma {
     descricao: string
     preco?: Decimal | DecimalJsLike | number | string
     status?: boolean
+    qtdAcompanhamentos?: number | null
     data_criacao?: Date | string
     data_alteracao?: Date | string
     categoria?: CategoriasCreateNestedOneWithoutProdutosInput
@@ -10671,6 +10710,7 @@ export namespace Prisma {
     descricao: string
     preco?: Decimal | DecimalJsLike | number | string
     status?: boolean
+    qtdAcompanhamentos?: number | null
     data_criacao?: Date | string
     data_alteracao?: Date | string
   }
@@ -10719,6 +10759,7 @@ export namespace Prisma {
     descricao?: StringFieldUpdateOperationsInput | string
     preco?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: BoolFieldUpdateOperationsInput | boolean
+    qtdAcompanhamentos?: NullableIntFieldUpdateOperationsInput | number | null
     data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
     data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
     categoria?: CategoriasUpdateOneWithoutProdutosNestedInput
@@ -10730,6 +10771,7 @@ export namespace Prisma {
     descricao?: StringFieldUpdateOperationsInput | string
     preco?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: BoolFieldUpdateOperationsInput | boolean
+    qtdAcompanhamentos?: NullableIntFieldUpdateOperationsInput | number | null
     data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
     data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -10870,6 +10912,7 @@ export namespace Prisma {
     descricao: string
     preco?: Decimal | DecimalJsLike | number | string
     status?: boolean
+    qtdAcompanhamentos?: number | null
     data_criacao?: Date | string
     data_alteracao?: Date | string
   }
@@ -10878,6 +10921,7 @@ export namespace Prisma {
     descricao?: StringFieldUpdateOperationsInput | string
     preco?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: BoolFieldUpdateOperationsInput | boolean
+    qtdAcompanhamentos?: NullableIntFieldUpdateOperationsInput | number | null
     data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
     data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
     itensPedidoVenda?: ItensPedidoUpdateManyWithoutProdutosNestedInput
@@ -10888,6 +10932,7 @@ export namespace Prisma {
     descricao?: StringFieldUpdateOperationsInput | string
     preco?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: BoolFieldUpdateOperationsInput | boolean
+    qtdAcompanhamentos?: NullableIntFieldUpdateOperationsInput | number | null
     data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
     data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
     itensPedidoVenda?: ItensPedidoUncheckedUpdateManyWithoutProdutosNestedInput
@@ -10898,6 +10943,7 @@ export namespace Prisma {
     descricao?: StringFieldUpdateOperationsInput | string
     preco?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: BoolFieldUpdateOperationsInput | boolean
+    qtdAcompanhamentos?: NullableIntFieldUpdateOperationsInput | number | null
     data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
     data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
   }

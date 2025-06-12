@@ -27,7 +27,6 @@ export class ClientesService {
 
       return customer;
     } catch (err) {
-      console.log(err);
       throw new HttpException('Houve um erro ao cadastrar o cliente', HttpStatus.BAD_REQUEST, { cause: err });
     }
   }

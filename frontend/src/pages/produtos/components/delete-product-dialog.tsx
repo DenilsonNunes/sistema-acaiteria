@@ -7,7 +7,7 @@ import { Separator } from "@/components/ui/separator"
 import { CircleAlert, CircleCheck, Trash2} from "lucide-react"
 
 
-import type { Product } from "@/types/product"
+import type { Product } from "@/types/produtos/product"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import api from "@/api/axios"
 

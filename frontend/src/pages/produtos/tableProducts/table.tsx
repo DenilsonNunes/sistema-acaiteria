@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { columns } from "./columns"
-import { DataTableDemo } from "./data-table"
+import { DataTableProducts } from "./data-table"
 import api from "@/api/axios";
 
 
@@ -9,7 +9,7 @@ import api from "@/api/axios";
 
 const TableProducts =() => {
 
-  const { data } = useQuery({
+  const { data, isLoading, isError } = useQuery({
 
     queryKey: ['products'],
     queryFn: async () => {
@@ -23,7 +23,7 @@ const TableProducts =() => {
 
   return (
     <div className="mx-4">
-      <DataTableDemo columns={columns} data={data || []} />
+      <DataTableProducts columns={columns} data={data || []} isLoading={isLoading} isError={isError} />
     </div>
   )
 }

@@ -1,11 +1,12 @@
-import { DollarSign, ShoppingCart, UsersRound } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { DollarSign, Plus, ReceiptText, ShoppingCart, UsersRound } from "lucide-react"
 
 
 
 const Home = () => {
 
   return (
-    <div className="flex flex-1 flex-col gap-4 p-4 pt-2 ">
+    <section className="flex flex-1 flex-col gap-4 p-4 pt-2 ">
 
       <div className="grid sm:grid-cols-2 gap-4  lg:grid-cols-3">
 
@@ -53,8 +54,10 @@ const Home = () => {
         </div>
 
       </div>
+
       <div className="bg-muted/50 min-h-[100vh] flex-1 rounded-xl md:min-h-min shadow-md" />
-    </div>
+
+    </section>
   )
 }
 

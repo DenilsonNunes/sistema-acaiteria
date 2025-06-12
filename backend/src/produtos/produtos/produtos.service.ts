@@ -13,14 +13,18 @@ export class ProdutosService {
       const product = await this.prisma.produtos.create({
         data: createProdutoDto,
       });
-      return product;
+
+      return {
+        ...product,
+        preco: Number(product.preco),
+      };
     } catch (err) {
       throw new HttpException('Erro ao criar o produto!', HttpStatus.BAD_REQUEST, { cause: err });
     }
   }
   /*-----------------Metodos de Busca------------------*/
   async findAll() {
-    return await this.prisma.produtos.findMany({
+    const product = await this.prisma.produtos.findMany({
       orderBy: {
         id: 'asc',
       },
@@ -28,6 +32,11 @@ export class ProdutosService {
         categoria: true,
       },
     });
+
+    return product.map((product) => ({
+      ...product,
+      preco: Number(product.preco),
+    }));
   }
 
   // Busca por descrição
@@ -82,6 +91,7 @@ export class ProdutosService {
           descricao: updateProdutoDto?.descricao ? updateProdutoDto?.descricao : findProduct.descricao,
           preco: updateProdutoDto?.preco ? updateProdutoDto?.preco : findProduct.preco,
           status: updateProdutoDto.status !== undefined ? updateProdutoDto.status : findProduct.status,
+          qtdAcompanhamentos: updateProdutoDto.qtdAcompanhamentos !== undefined ? updateProdutoDto.qtdAcompanhamentos : (findProduct.qtdAcompanhamentos as number),
           idCategoria: updateProdutoDto.idCategoria ? updateProdutoDto.idCategoria : findProduct.idCategoria,
           data_alteracao: new Date(),
         },
@@ -110,6 +120,19 @@ export class ProdutosService {
       if (!findProduct) {
         throw new HttpException('Produto não encontrado.', HttpStatus.NOT_FOUND);
       }
+
+      // Verificar se o produto ja foi vendido
+      const productSold = await this.prisma.itensPedido.findMany({
+        where: {
+          idProduto: id,
+        },
+      });
+
+      // Se não encontrar o produto, retorna mensagem
+      if (productSold.length > 0) {
+        throw new HttpException(`Não é possível deletar o produto pois ele já foi vendido, [PEDIDO]: ${productSold[0].idPedido}`, HttpStatus.CONFLICT);
+      }
+
       // Deleta o produto
       await this.prisma.produtos.delete({
         where: {

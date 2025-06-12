@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import fotoAcai from '../../../../public/acai.jpeg'
+import fotoAcai from '../../../assets/acai.jpeg'
 
 
 const Cardapio = () => {

@@ -39,7 +39,9 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 
 import { ChevronDown, Funnel, Trash2 } from "lucide-react"
-import type { Product } from "./columns"
+import type { Product } from "@/types/produtos/product"
+import LoadingSpinner from "@/components/loading-spinner"
+import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination"
 
 
 
@@ -47,11 +49,12 @@ import type { Product } from "./columns"
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
+  isLoading?: boolean;
+  isError?: boolean;
 }
 
 
-export function DataTableDemo<TData, TValue>({columns, data}: DataTableProps<TData, TValue>) {
-
+export function DataTableProducts<TData, TValue>({columns, data, isLoading, isError}: DataTableProps<TData, TValue>) {
 
   const [sorting, setSorting] = useState<SortingState>([])
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
@@ -80,12 +83,12 @@ export function DataTableDemo<TData, TValue>({columns, data}: DataTableProps<TDa
 
   const selectedRows = table.getSelectedRowModel().rows;
 
+
   return (
     <div className="w-full">
 
       <div className="flex items-center justify-between py-4">
 
-        <div className="flex gap-2 w-1/2">
 
           <Input
             placeholder="Filtrar Produtos..."
@@ -96,12 +99,6 @@ export function DataTableDemo<TData, TValue>({columns, data}: DataTableProps<TDa
             className="max-w-sm"
           />
 
-          <Button variant="outline" className="rounded-full">
-            Filtros
-            <Funnel/>
-          </Button>
-
-        </div>
 
 
         <div className="flex items-center gap-2">
@@ -156,7 +153,6 @@ export function DataTableDemo<TData, TValue>({columns, data}: DataTableProps<TDa
 
       </div>
 
-
       <div className="rounded-md border">
         <Table>
           <TableHeader>
@@ -179,7 +175,24 @@ export function DataTableDemo<TData, TValue>({columns, data}: DataTableProps<TDa
           </TableHeader>
           
           <TableBody>
-            {table.getRowModel().rows?.length ? (
+            {isLoading ? (
+              <TableRow>
+                <TableCell colSpan={columns.length} className="p-8">
+                  <div className="flex justify-center items-center w-full">
+                    <LoadingSpinner size={120} />
+                  </div>
+                </TableCell>
+              </TableRow>
+            ) : isError ? (
+              <TableRow>
+                <TableCell
+                  colSpan={columns.length}
+                  className="h-24 text-center text-red-500 font-medium"
+                >
+                  Houve um erro ao buscar os produtos, tente novamente mais tarde!
+                </TableCell>
+              </TableRow>
+            ) : table.getRowModel().rows.length > 0 ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
@@ -187,10 +200,7 @@ export function DataTableDemo<TData, TValue>({columns, data}: DataTableProps<TDa
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </TableCell>
                   ))}
                 </TableRow>
@@ -199,13 +209,14 @@ export function DataTableDemo<TData, TValue>({columns, data}: DataTableProps<TDa
               <TableRow>
                 <TableCell
                   colSpan={columns.length}
-                  className="h-24 text-center"
+                  className="h-24 text-center font-medium text-red-500"
                 >
                   Nenhum resultado
                 </TableCell>
               </TableRow>
             )}
           </TableBody>
+
         </Table>
       </div>
       <div className="flex items-center justify-end space-x-2 py-4">
@@ -232,6 +243,41 @@ export function DataTableDemo<TData, TValue>({columns, data}: DataTableProps<TDa
           </Button>
         </div>
       </div>
+
+      <div>
+        <Pagination>
+          <PaginationContent>
+
+            <PaginationItem>
+              <PaginationPrevious href="#" />
+            </PaginationItem>
+
+            <PaginationItem>
+              <PaginationLink href="#">1</PaginationLink>
+            </PaginationItem>
+
+            <PaginationItem>
+              <PaginationLink href="#" isActive>
+                2
+              </PaginationLink>
+            </PaginationItem>
+
+            <PaginationItem>
+              <PaginationLink href="#">3</PaginationLink>
+            </PaginationItem>
+
+            <PaginationItem>
+              <PaginationEllipsis />
+            </PaginationItem>
+
+            <PaginationItem>
+              <PaginationNext  href="#" />
+            </PaginationItem>
+
+          </PaginationContent>
+        </Pagination>
+      </div>
+
     </div>
   )
 }
