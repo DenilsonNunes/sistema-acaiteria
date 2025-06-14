@@ -8,7 +8,8 @@ import {
   Map,
   PieChart,
   ShoppingCart,
-  PackageSearch
+  PackageSearch,
+  CookingPot
 } from "lucide-react"
 
 
@@ -58,8 +59,8 @@ const data = {
       isActive: true,
       items: [
         {
-          title: "Cardápio",
-          url: "/vendas/cardapio",
+          title: "Vendas",
+          url: "/vendas",
         },
         {
           title: "Pedido de venda",
@@ -106,6 +107,17 @@ const data = {
         {
           title: "Categorias",
           url: "/categorias",
+        },
+      ],
+    },
+    {
+      title: "Cozinha",
+      url: "#",
+      icon: CookingPot,
+      items: [
+        {
+          title: "Monitor de preparo",
+          url: "/monitor-de-preparo",
         },
       ],
     },

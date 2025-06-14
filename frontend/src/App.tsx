@@ -7,10 +7,11 @@ import Products from "./pages/produtos";
 import Login from "./pages/login";
 import LayoutHome from "./components/layoutHome";
 import Teste from "./pages/teste";
-import Cardapio from "./pages/vendas/cardapio";
 import PedidoDeVenda from "./pages/vendas/pedido_de_venda";
 import Categorias from "./pages/produtos/categorias";
 import Vendas from "./pages/vendas";
+import SelecionarAcompanhamentos from "./pages/vendas/pedido_de_venda/selecionar-acompanhamentos";
+import MonitorPreparo from "./pages/cozinha/monitor-de-preparo";
 
 
 const routes = createBrowserRouter([
@@ -38,12 +39,18 @@ const routes = createBrowserRouter([
         element: <Vendas/>
       },
       {
-        path: '/vendas/cardapio',
-        element: <Cardapio/>
-      },
-      {
         path: '/vendas/pedido-de-venda',
         element: <PedidoDeVenda/>
+      },
+      {
+        path: '/vendas/pedido-de-venda/produto/:id',
+        element: <SelecionarAcompanhamentos/>
+      },
+
+      // COZINHA
+      {
+        path: '/monitor-de-preparo',
+        element: <MonitorPreparo/>
       },
     ]
   },

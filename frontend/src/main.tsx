@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import './index.css'
 import { routes } from './App.tsx'
+import PedidoProvider from './contexts/PedidoContext.tsx';
 
 
 const queryClient = new QueryClient();
@@ -12,11 +13,13 @@ const queryClient = new QueryClient();
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
 
-    <QueryClientProvider client={queryClient}>
+    <PedidoProvider>
 
-      <RouterProvider router={routes} />
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={routes} />
+      </QueryClientProvider>
 
-    </QueryClientProvider>
+    </PedidoProvider>
 
   </StrictMode>,
 )

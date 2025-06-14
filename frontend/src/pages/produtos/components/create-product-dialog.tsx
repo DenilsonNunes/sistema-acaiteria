@@ -28,7 +28,7 @@ import {  useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import LoadingSpinner from "@/components/loading-spinner"
-import { CircleAlert, CircleCheck, PackagePlus  } from "lucide-react"
+import { CircleAlert, CircleCheck, PackagePlus, Upload  } from "lucide-react"
 
 import api from "@/api/axios"
 import { useCategories } from "@/hooks/useCategories"
@@ -156,16 +156,50 @@ const CreateProductDialog = () => {
         
                 <div className="grid gap-4">
 
-                  <div className="grid">
+                  <div className="flex items-start gap-2">
 
-                    <Label className="mb-2">Descrição</Label>
-                    <Input placeholder="Ex: Copo 400ml" {...register('descricao')}/>
-                    <div className={`flex items-center  ${errors.descricao ? 'justify-between' : 'justify-end'}`}>
-                      {errors.descricao && <span className="text-red-500 text-sm">{errors.descricao.message}</span>}
-                      <p className="text-xs  text-gray-500 ">{descricao?.length ? descricao?.length : 0}/140 caracteres</p>
+                    <div className="grid">
+        
+                      <Label className="mb-2">Imagem</Label>
+
+                      <div className="flex gap-2">
+
+                        <button 
+                          className="border w-24 h-20 rounded-lg flex items-center justify-center cursor-pointer"
+                        >
+                          <div className="absolute cursor-pointer">
+                            <Upload size={30} />
+                          </div>    
+                          <div className="cursor-pointer">
+                            <input className="opacity-0 cursor-pointer" type="file" accept="image/*"/>
+                          </div>
+
+                        </button>
+
+                        <div className="flex items-center justify-center border w-24 h-20 rounded-lg ">
+                          Foto
+                        </div>
+
+                      </div>
+
                     </div>
-            
+
+
+
+                    <div className="grid w-full">
+
+                      <Label className="mb-2">Descrição</Label>
+                      <Input placeholder="Ex: Copo 400ml" {...register('descricao')}/>
+                      <div className={`flex items-center  ${errors.descricao ? 'justify-between' : 'justify-end'}`}>
+                        {errors.descricao && <span className="text-red-500 text-sm">{errors.descricao.message}</span>}
+                        <p className="text-xs  text-gray-500 ">{descricao?.length ? descricao?.length : 0}/140 caracteres</p>
+                      </div>
+              
+                    </div>
+
                   </div>
+
+
 
                   <div className="grid gap-4 items-start lg:flex lg:gap-4">
 

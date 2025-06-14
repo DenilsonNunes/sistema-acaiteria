@@ -35,48 +35,49 @@ const LayoutHome = () => {
         <SidebarInset>
           <header className="flex h-12 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-10 border-b">
             <div className="flex items-center gap-2 px-4">
+
               <SidebarTrigger className="-ml-1"/>
 
-            <Breadcrumb className="hidden sm:block">
-              <BreadcrumbList>
-                {/* Item "Home" fixo */}
-                <BreadcrumbItem>
-                  <BreadcrumbLink asChild>
-                    <Link to="/home">Home</Link>
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                
-                {/* Itens dinâmicos baseados na rota */}
-                {pathnames.map((rota, index) => {
+              <Breadcrumb className="hidden sm:block">
+                <BreadcrumbList>
+                  {/* Item "Home" fixo */}
+                  <BreadcrumbItem>
+                    <BreadcrumbLink asChild>
+                      <Link to="/home">Home</Link>
+                    </BreadcrumbLink>
+                  </BreadcrumbItem>
+                  
+                  {/* Itens dinâmicos baseados na rota */}
+                  {pathnames.map((rota, index) => {
 
-                  const isLast = index === pathnames.length - 1;
-                  const to = `/${pathnames.slice(0, index + 1).join('/')}`;
-                  const displayName = rota.charAt(0).toUpperCase() + rota.slice(1);
+                    const isLast = index === pathnames.length - 1;
+                    const to = `/${pathnames.slice(0, index + 1).join('/')}`;
+                    const displayName = rota.charAt(0).toUpperCase() + rota.slice(1);
 
 
-                  return (
-                    <div key={index} className="flex items-center gap-2"> 
-                      {displayName !== 'Home' && 
-                        <>                  
-                          <BreadcrumbSeparator />
-                          <BreadcrumbItem>
-                            {isLast ? (
-                              <BreadcrumbPage>{displayName}</BreadcrumbPage>
-                            ) : (
-                              <BreadcrumbLink asChild >
-                                <Link to={to}>{displayName}</Link>
-                              </BreadcrumbLink>
-                            )}
-                          </BreadcrumbItem>                    
-                        </>                                        
-                      }
-                    </div>
-                  );
+                    return (
+                      <div key={index} className="flex items-center gap-2"> 
+                        {displayName !== 'Home' && 
+                          <>                  
+                            <BreadcrumbSeparator />
+                            <BreadcrumbItem>
+                              {isLast ? (
+                                <BreadcrumbPage>{displayName}</BreadcrumbPage>
+                              ) : (
+                                <BreadcrumbLink asChild >
+                                  <Link to={to}>{displayName}</Link>
+                                </BreadcrumbLink>
+                              )}
+                            </BreadcrumbItem>                    
+                          </>                                        
+                        }
+                      </div>
+                    );
 
-                })}
+                  })}
 
-              </BreadcrumbList>
-            </Breadcrumb>
+                </BreadcrumbList>
+              </Breadcrumb>
 
             </div>
           </header>
