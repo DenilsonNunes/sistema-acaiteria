@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 
 import fotoAcai from '../../../assets/acai.jpeg'
@@ -8,6 +8,11 @@ import { useQuery } from "@tanstack/react-query";
 import api from "@/api/axios";
 import type { Product } from "@/types/produtos/product";
 import { Link } from "react-router-dom";
+import LoadingSpinner from "@/components/loading-spinner";
+import { CloudAlert } from "lucide-react";
+import { PedidoVendaContext } from "@/contexts/PedidoContext";
+import PedidoAtual from "./components/pedido-atual";
+import AcoesVendas from "@/components/acoesFooter/acoes-vendas";
 
 
 
@@ -22,8 +27,10 @@ import { Link } from "react-router-dom";
 
 const PedidoDeVenda = () => {
 
+  const {adicionarItem, removerItem, cart} = useContext(PedidoVendaContext)
 
-const [categorySelected, setCategorySelected] = useState('Açai');
+
+  const [categorySelected, setCategorySelected] = useState('Açai');
 
   const categorias = [
     'Açai', 
@@ -37,10 +44,7 @@ const [categorySelected, setCategorySelected] = useState('Açai');
 
 
 
-
-
-
-  const { data: products } = useQuery<Product[]>({
+  const { data: products, isLoading, isError} = useQuery<Product[]>({
     queryKey: ['products'],
     queryFn: async () => {
       const response = await api.get('/produtos');
@@ -50,11 +54,42 @@ const [categorySelected, setCategorySelected] = useState('Açai');
 
 
 
+
+
+
+
+  if(isLoading) {
+
+    return (
+      <section className="w-full h-screen  flex items-center justify-center">
+        <LoadingSpinner size={120}/>
+      </section>
+    )
+
+  }
+
+  
+  if(isError) {
+
+    return (
+      <section className="w-full h-screen  flex items-center justify-center">
+        <div className="flex flex-col gap-4 items-center text-orange-700  bg-orange-200 p-4 rounded-lg border-2 border-orange-300 ">
+          <CloudAlert size={60} />
+          <p className="text-lg">Erro ao carregar a página, tente novamente mais tarde!</p>
+        </div>
+      </section>
+    )
+
+  }
+
+
+
   return (
 
 
     <section className="flex w-full">
-       
+
+
       {/* SELEÇÃO DOS PRODUTOS */}
       <div className="flex w-full lg:w-[70%] flex-col">
 
@@ -83,7 +118,10 @@ const [categorySelected, setCategorySelected] = useState('Açai');
 
               {products && products.map((product, index) => (
 
-                <Link key={index} to={`/vendas/pedido-de-venda/produto/${product.id}`}>
+                <Link 
+                  key={index} to={`/vendas/pedido-de-venda/produto/${product.id}`}
+                  onClick={()=> adicionarItem(product)}
+                >
 
                   <div className="flex flex-col p-1 shadow-md bg-white rounded">
 
@@ -122,87 +160,10 @@ const [categorySelected, setCategorySelected] = useState('Açai');
 
       {/* PEDIDO ATUAL*/}
       <div className="w-[30%] overflow-y-auto h-screen px-2 hidden lg:block">
-
-        <p className="text-2xl font-medium  mb-6 text-gray-800">Pedido atual</p>
-
-        <div className="w-full mb-4 flex items-center justify-between gap-2">
-
-          <div>
-            <img src={fotoAcai} alt="Copo açai" className="w-28 h-auto object-cover rounded" />
-          </div>
-
-          <div className="flex flex-col justify-between h-22 w-full">
-            {/* Topo */}
-            <p className="text-lg font-medium">Copo 300ML</p>
-
-            {/* Base */}
-            <div className="flex items-center justify-between">
-              <p className="text-lg font-bold">R$ 13,00</p>
-
-              <div className="flex items-center gap-2">
-                <Button size="icon" className="w-6 h-6 p-0 text-lg bg-fuchsia-700 text-white hover:bg-fuchsia-600 cursor-pointer">
-                  -
-                </Button>
-                <span className="font-medium">4</span>
-                <Button size="icon" className="w-6 h-6 p-0 text-lg font-bold bg-fuchsia-700 text-white hover:bg-fuchsia-600 cursor-pointer">
-                  +
-                </Button>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-        <div className="w-full flex items-center justify-between gap-2">
-
-          <div>
-            <img src={fotoAcai} alt="Copo açai" className="w-28 h-auto object-cover rounded" />
-          </div>
-
-          <div className="flex flex-col justify-between h-22 w-full">
-            {/* Topo */}
-            <p className="text-lg font-medium">Copo 300ML</p>
-
-            {/* Base */}
-            <div className="flex items-center justify-between">
-              <p className="text-lg font-bold">R$ 13,00</p>
-
-              <div className="flex items-center gap-2">
-                <Button size="icon" className="w-6 h-6 p-0 text-lg bg-fuchsia-700 text-white hover:bg-fuchsia-600">
-                  -
-                </Button>
-                <span className="font-medium">4</span>
-                <Button size="icon" className="w-6 h-6 p-0 text-lg font-bold bg-fuchsia-700 text-white hover:bg-fuchsia-600">
-                  +
-                </Button>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-        <div className="mt-2 bg-gray-300 rounded-lg p-4">
-
-          <div className="flex justify-between">
-            <p>SubTotal</p>
-            <p className="font-medium">R$ 105,00</p>
-          </div>
-
-          <div className="flex items-center justify-between">
-            <p>Desconto</p>
-            <p className="font-medium text-sm text-red-600">- R$ 20,00</p>
-          </div>
-
-        </div>
-
-        <div className="mx-2 border-t-2 border-dashed border-gray-500" />
-
-        <div className="flex justify-between bg-gray-300 rounded-lg p-4">
-          <p className="font-bold">Total</p>
-          <p className="font-medium">R$ 98,00</p>
-        </div>
-
+        <PedidoAtual/>
       </div>
+
+      <AcoesVendas/>
 
     </section>
 

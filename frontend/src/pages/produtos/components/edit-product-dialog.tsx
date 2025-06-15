@@ -61,7 +61,7 @@ type EditProductSchema = z.infer<typeof editProductSchema>
 
 const EditProductDialog = ({ product } : {product: Product}) => {
 
-    const {data: dataCategories} = useCategories();
+  const {data: dataCategories} = useCategories();
   
 
   const queryClient = useQueryClient();

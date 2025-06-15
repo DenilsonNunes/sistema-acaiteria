@@ -7,7 +7,7 @@ import api from "@/api/axios";
 
 
 
-const TableProducts =() => {
+const TableProducts = () => {
 
   const { data, isLoading, isError } = useQuery({
 

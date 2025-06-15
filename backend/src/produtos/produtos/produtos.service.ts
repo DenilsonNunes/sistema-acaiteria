@@ -39,25 +39,9 @@ export class ProdutosService {
     }));
   }
 
-  // Busca por descrição
-  async findByDescription(description: string) {
-    const product = await this.prisma.produtos.findMany({
-      where: {
-        descricao: {
-          contains: description,
-          mode: 'insensitive', // ignora maiúsculas/minúsculas
-        },
-      },
-    });
-
-    if (product.length > 0) return product;
-
-    throw new HttpException('Produto não encontrado!', HttpStatus.NOT_FOUND);
-  }
-
   //Busca somente por um ID
   async findOne(id: number) {
-    const product = await this.prisma.produtos.findFirst({
+    const product = await this.prisma.produtos.findUnique({
       where: {
         id: id,
       },

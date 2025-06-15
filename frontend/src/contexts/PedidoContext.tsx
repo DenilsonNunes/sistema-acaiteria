@@ -1,18 +1,29 @@
 // context/PedidoContext.tsx
-import { createContext, useContext, useState, ReactNode } from "react"
+import { createContext, useEffect, useState, type ReactNode } from "react"
 
-type ItemPedido = {
-  id: string
-  nome: string
-  preco: number
-  quantidade: number
+
+type AdicionalItem = {
+  id: number;
+  descricao: string;
+  quantidade: number;
 }
 
+type ItemPedido = {
+  id: number;
+  descricao: string;
+  preco: number;
+  precoTotal: number;
+  quantidade: number;
+  adicionais: AdicionalItem[]
+}
+
+
 type PedidoContextType = {
-  itens: ItemPedido[]
+  cart: ItemPedido[]
   adicionarItem: (item: ItemPedido) => void
-  removerItem: (id: string) => void
+  removerItem: (itemParaRemover: ItemPedido) => void
   limparPedido: () => void
+  valorTotalPedido: string
 }
 
 
@@ -24,43 +35,113 @@ interface PedidoProviderProps {
 
 
 
-const PedidoContext = createContext<PedidoContextType | undefined>(undefined)
+export const PedidoVendaContext = createContext({} as PedidoContextType)
 
 
 
 
 const PedidoProvider = ({ children }: PedidoProviderProps) => {
 
-  const [itens, setItens] = useState<ItemPedido[]>([])
+  
+  const [cart, setCart] = useState<ItemPedido[]>([])
+  const [valorTotalPedido, setValorTotalPedido] = useState('')
 
-  const adicionarItem = (item: ItemPedido) => {
-    setItens((prev) => {
-      const existente = prev.find((i) => i.id === item.id)
-      if (existente) {
-        return prev.map((i) =>
-          i.id === item.id
-            ? { ...i, quantidade: i.quantidade + item.quantidade }
-            : i
-        )
+
+  // Quando o carrinho muda, recalcula o total
+  useEffect(() => {
+    calculaTotalPedido(cart);
+  }, [cart]);
+
+
+  const adicionarItem = (newItem: ItemPedido) => {
+
+    setCart((prevCart) => {
+
+      const itemExistente = prevCart.find((item) => item.id === newItem.id);
+
+      if (!itemExistente) {
+        // Se não existe, adiciona novo
+        return [
+          ...prevCart,
+          {
+            id: newItem.id,
+            descricao: newItem.descricao,
+            quantidade: 1,
+            preco: newItem.preco,
+            precoTotal: newItem.preco,
+            adicionais: [],
+          },
+        ];
+
+        
+      } else {
+        // Se já existe, atualiza quantidade e preço
+        return prevCart.map((item) =>
+          item.id === newItem.id
+            ? {
+                ...item,
+                quantidade: item.quantidade + 1,
+                precoTotal: ((item.quantidade + 1) * item.preco),
+              }
+            : item
+        );
       }
-      return [...prev, item]
-    })
-  }
 
-  const removerItem = (id: string) => {
-    setItens((prev) => prev.filter((i) => i.id !== id))
-  }
+
+    });
+    
+  };
+
+
+  const removerItem = (itemParaRemover: ItemPedido) => {
+
+    setCart((prevCart) => {
+
+      const itemExistente = prevCart.find((item) => item.id === itemParaRemover.id);
+
+      if (!itemExistente) return prevCart; // não faz nada se o item não existir
+
+      if (itemExistente.quantidade > 1) {
+        // Diminui a quantidade e atualiza o total
+        return prevCart.map((item) =>
+          item.id === itemParaRemover.id
+            ? {
+                ...item,
+                quantidade: item.quantidade - 1,
+                precoTotal: (item.quantidade - 1) * item.preco,
+              }
+            : item
+        );
+      } else {
+        // Remove o item se a quantidade for 1
+        return prevCart.filter((item) => item.id !== itemParaRemover.id);
+      }
+      
+    });
+  };
+
 
   const limparPedido = () => {
-    setItens([])
+    setCart([])
   }
 
+
+const calculaTotalPedido = (items: ItemPedido[]) => {
+  const total = items.reduce((acc, item) => {
+    return acc + (item.precoTotal);
+  }, 0);
+
+  const totalFormatado = total.toLocaleString('pt-br', {minimumFractionDigits: 2})
+  setValorTotalPedido(totalFormatado);
+
+};
+
   return (
-    <PedidoContext.Provider
-      value={{ itens, adicionarItem, removerItem, limparPedido }}
+    <PedidoVendaContext.Provider
+      value={{ adicionarItem, removerItem, limparPedido, cart, valorTotalPedido }}
     >
       {children}
-    </PedidoContext.Provider>
+    </PedidoVendaContext.Provider>
   )
 }
 

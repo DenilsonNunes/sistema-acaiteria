@@ -18,11 +18,6 @@ export class ProdutosController {
     return this.produtosService.findAll();
   }
 
-  @Get(':description')
-  findByDescription(@Param('description') descripton: string) {
-    return this.produtosService.findByDescription(descripton);
-  }
-
   @Get(':id')
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.produtosService.findOne(id);

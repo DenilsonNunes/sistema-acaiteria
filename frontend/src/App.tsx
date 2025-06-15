@@ -12,6 +12,7 @@ import Categorias from "./pages/produtos/categorias";
 import Vendas from "./pages/vendas";
 import SelecionarAcompanhamentos from "./pages/vendas/pedido_de_venda/selecionar-acompanhamentos";
 import MonitorPreparo from "./pages/cozinha/monitor-de-preparo";
+import Carrinho from "./pages/vendas/carrinho";
 
 
 const routes = createBrowserRouter([
@@ -45,6 +46,10 @@ const routes = createBrowserRouter([
       {
         path: '/vendas/pedido-de-venda/produto/:id',
         element: <SelecionarAcompanhamentos/>
+      },
+      {
+        path: '/vendas/carrinho',
+        element: <Carrinho/>
       },
 
       // COZINHA
