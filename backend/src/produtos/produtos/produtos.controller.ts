@@ -1,15 +1,34 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe, UploadedFile, UseInterceptors, ParseFilePipeBuilder, HttpStatus } from '@nestjs/common';
 import { ProdutosService } from '../produtos/produtos.service';
 import { CreateProdutoDto } from './dto/create-produto.dto';
 import { UpdateProdutoDto } from './dto/update-produto.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('produtos')
 export class ProdutosController {
   constructor(private readonly produtosService: ProdutosService) {}
 
   @Post()
-  create(@Body() createProdutoDto: CreateProdutoDto) {
-    return this.produtosService.create(createProdutoDto);
+  @UseInterceptors(FileInterceptor('file'))
+  async create(
+    @Body() createProdutoDto: CreateProdutoDto,
+    // Validações da imagem
+    @UploadedFile(
+      new ParseFilePipeBuilder()
+        .addFileTypeValidator({
+          fileType: /jpeg|jpg|png/g,
+        })
+        .addMaxSizeValidator({
+          maxSize: 1 * (1024 * 1024), // Tamanho maximo 1 MB
+        })
+        .build({
+          errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY,
+          fileIsRequired: false, // Permite que o arquivo seja opcional
+        }),
+    )
+    file: Express.Multer.File,
+  ) {
+    return this.produtosService.create(createProdutoDto, file);
   }
 
   /*-----------------Metodos de Busca------------------*/

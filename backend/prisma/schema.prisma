@@ -45,17 +45,20 @@ model Clientes {
 }
 
 model Produtos {
-  id          Int  @id @default(autoincrement())
-  idCategoria Int? // Chave estrangeira ?-> não obrigatório.
+  id                  Int  @id @default(autoincrement())
+  idCategoria         Int? // Chave estrangeira ?-> não obrigatório.
+  idGrupoComplementos Int?
 
-  descricao          String   @db.VarChar(120)
-  preco              Decimal  @default(0) @db.Decimal(10, 4)
-  status             Boolean  @default(true)
-  qtdAcompanhamentos Int?
-  data_criacao       DateTime @default(now())
-  data_alteracao     DateTime @default(now())
+  nomeProduto    String   @db.VarChar(80)
+  descricao      String?  @db.VarChar(1000)
+  preco          Decimal  @default(0) @db.Decimal(10, 4)
+  status         Boolean  @default(true)
+  imagemUrl      String?
+  data_criacao   DateTime @default(now())
+  data_alteracao DateTime @default(now())
 
-  categoria Categorias? @relation(fields: [idCategoria], references: [id])
+  categoria         Categorias?        @relation(fields: [idCategoria], references: [id])
+  grupoComplementos GrupoComplementos? @relation(fields: [idGrupoComplementos], references: [id])
 
   itensPedidoVenda ItensPedido[]
 
@@ -68,6 +71,39 @@ model Categorias {
   produtos  Produtos[]
 
   @@map("categorias") // Força nome minúsculo na migration
+}
+
+model GrupoComplementos {
+  id                Int     @id @default(autoincrement())
+  descricao         String  @db.VarChar(40)
+  obrigatorio       Boolean
+  qtdMinComplemento Int
+  qtdMaxComplemento Int
+
+  data_criacao   DateTime @default(now())
+  data_alteracao DateTime @default(now())
+
+  Produtos     Produtos[]
+  Complementos Complementos[]
+
+  @@map("grupocomplementos") // Força nome minúsculo na migration
+}
+
+model Complementos {
+  id                  Int  @id @default(autoincrement())
+  idGrupoComplementos Int?
+
+  nomeComplemento String  @db.VarChar(80)
+  descricao       String  @db.VarChar(200)
+  status          Boolean @default(true)
+  preco           Decimal @default(0) @db.Decimal(10, 4)
+
+  grupoComplementos GrupoComplementos? @relation(fields: [idGrupoComplementos], references: [id])
+
+  data_criacao   DateTime @default(now())
+  data_alteracao DateTime @default(now())
+
+  @@map("complementos") // Força nome minúsculo na migration
 }
 
 model Pedidos {

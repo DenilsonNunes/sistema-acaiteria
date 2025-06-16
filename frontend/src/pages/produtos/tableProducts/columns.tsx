@@ -84,13 +84,24 @@ export const columns: ColumnDef<Product>[] = [
 
   },
 
-    {
+  {
     accessorKey: "",
     header: "Foto",
-    cell: () => {
+    cell: ({row}) => {
+      const imageUrl = row.original.imagemUrl
       return (
         <div>
-          <img src={fotoAcai} alt="Foto açai" className="w-18 h-auto object-cover rounded" />
+          <div className="flex items-center justify-center border w-20 h-16 rounded-lg overflow-hidden bg-gray-100">
+            {imageUrl ? (                      
+              <img
+                src={imageUrl}
+                alt="Preview"
+                className="object-cover w-full h-full"
+              />                       
+            ):(
+              <span className="text-sm text-gray-500">Sem Foto</span>
+            )}
+          </div>
         </div>
       )
     }

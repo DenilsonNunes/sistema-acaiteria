@@ -145,10 +145,12 @@ exports.Prisma.ClientesScalarFieldEnum = {
 exports.Prisma.ProdutosScalarFieldEnum = {
   id: 'id',
   idCategoria: 'idCategoria',
+  idGrupoComplementos: 'idGrupoComplementos',
+  nomeProduto: 'nomeProduto',
   descricao: 'descricao',
   preco: 'preco',
   status: 'status',
-  qtdAcompanhamentos: 'qtdAcompanhamentos',
+  imagemUrl: 'imagemUrl',
   data_criacao: 'data_criacao',
   data_alteracao: 'data_alteracao'
 };
@@ -156,6 +158,27 @@ exports.Prisma.ProdutosScalarFieldEnum = {
 exports.Prisma.CategoriasScalarFieldEnum = {
   id: 'id',
   descricao: 'descricao'
+};
+
+exports.Prisma.GrupoComplementosScalarFieldEnum = {
+  id: 'id',
+  descricao: 'descricao',
+  obrigatorio: 'obrigatorio',
+  qtdMinComplemento: 'qtdMinComplemento',
+  qtdMaxComplemento: 'qtdMaxComplemento',
+  data_criacao: 'data_criacao',
+  data_alteracao: 'data_alteracao'
+};
+
+exports.Prisma.ComplementosScalarFieldEnum = {
+  id: 'id',
+  idGrupoComplementos: 'idGrupoComplementos',
+  nomeComplemento: 'nomeComplemento',
+  descricao: 'descricao',
+  status: 'status',
+  preco: 'preco',
+  data_criacao: 'data_criacao',
+  data_alteracao: 'data_alteracao'
 };
 
 exports.Prisma.PedidosScalarFieldEnum = {
@@ -197,6 +220,8 @@ exports.Prisma.ModelName = {
   Clientes: 'Clientes',
   Produtos: 'Produtos',
   Categorias: 'Categorias',
+  GrupoComplementos: 'GrupoComplementos',
+  Complementos: 'Complementos',
   Pedidos: 'Pedidos',
   ItensPedido: 'ItensPedido'
 };

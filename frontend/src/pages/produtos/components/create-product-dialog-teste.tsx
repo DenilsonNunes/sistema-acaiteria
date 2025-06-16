@@ -33,12 +33,13 @@ import { CircleAlert, CircleCheck, PackagePlus, Upload  } from "lucide-react"
 import api from "@/api/axios"
 import { useCategories } from "@/hooks/useCategories"
 import { useState, type ChangeEvent } from "react"
+import { Textarea } from "@/components/ui/textarea"
 
 
 
 const createProductSchema = z.object({
-
-  descricao: z.string().nonempty({message: 'A descrição não pode ser vazia'}).max(120, {message: 'Não poder ser maior que 120 caracteres.'}),
+  nomeProduto: z.string().nonempty({message: 'O nome do produto não pode ser vazio'}).max(80, {message: 'Não poder ser maior que 80 caracteres.'}),
+  descricao: z.string().max(1000, {message: 'Não poder ser maior que 1000 caracteres.'}),
   preco: z
     .string()
     .refine((val) => /^[0-9]+([,\.][0-9]+)?$/.test(val), {message: "Digite apenas números e vírgula para decimais"})
@@ -59,7 +60,7 @@ type CreateProductSchema = z.infer<typeof createProductSchema>
 
 
 
-const CreateProductDialog = () => {
+const CreateProductTeste = () => {
 
   const [fileImage, setFileImage] = useState<File | null>(null)
 
@@ -73,14 +74,13 @@ const CreateProductDialog = () => {
     resolver: zodResolver(createProductSchema),
     defaultValues: {
       status:  true,
-      qtdAcompanhamentos: 0
-    }
+    },
+    mode: 'onChange'
   })
-  // monitora o status do produto
+  // Monitora as propriedades
   const status = watch("status")
-  // monitor a categoria selecionada
   const categoriaSelecionada = watch("idCategoria")
-
+  const nomeProduto = watch('nomeProduto')
   const descricao = watch('descricao')
 
 
@@ -89,9 +89,30 @@ const CreateProductDialog = () => {
 
   // Criação de produtos
   const createProduct = async (data: CreateProductSchema) => {
-    const response = await api.post('/produtos', data)
-    return response.data
-  }
+
+    const formData = new FormData();
+
+    // Campos do produto
+    formData.append("nomeProduto", data.nomeProduto);
+    formData.append("descricao", data.descricao);
+    formData.append("preco", data.preco.toString());
+    formData.append("status", String(data.status));
+    formData.append("qtdAcompanhamentos", data.qtdAcompanhamentos.toString());
+    formData.append("idCategoria", data.idCategoria.toString());
+
+    // Adiciona imagem se existir
+    if (fileImage) {
+      formData.append('file', fileImage); // O nome 'file' deve bater com o backend
+    }
+
+    const response = await api.post('/produtos', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+
+    return response.data;
+  };
 
   
   const { mutate, isPending, isSuccess, isError, reset: mutateReset } = useMutation({
@@ -113,9 +134,11 @@ const CreateProductDialog = () => {
 
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log("COMO VEM A IMAGEM", e.target.files[0])
-    setFileImage(e.target.files[0])
-  }
+    const file = e.target.files?.[0];
+    if (file) {
+      setFileImage(file);
+    }
+  };
 
 
   
@@ -166,43 +189,67 @@ const CreateProductDialog = () => {
 
                   <div className="flex items-start gap-2">
 
+                    {/* IMAGEM */}
                     <div className="grid">
-        
+
                       <Label className="mb-2">Imagem</Label>
+                      <div className="flex gap-2 items-center">
 
-                      <div className="flex gap-2">
-
-                        <button 
-                          className="border w-24 h-20 rounded-lg flex items-center justify-center cursor-pointer"
+                        {/* Wrapper para input invisível e label estilizado */}
+                        <label
+                          htmlFor="fileInput"
+                          className="border w-24 h-20 rounded-lg flex items-center justify-center cursor-pointer relative hover:bg-gray-100 transition"
                         >
-                          <div className="absolute cursor-pointer">
-                            <Upload size={30} />
-                          </div>    
-                          <div className="cursor-pointer">
-                            <input className="opacity-0 cursor-pointer" type="file" accept="image/*" onChange={handleFileChange}/>
-                          </div>
+                          <Upload size={30} />
+                        </label>
 
-                        </button>
+                        <input
+                          id="fileInput"
+                          type="file"
+                          accept="image/*"
+                          className="hidden"
+                          onChange={handleFileChange}
+                        />
 
-                        <div className="flex items-center justify-center border w-24 h-20 rounded-lg ">
-                          Foto
+                        {/* Preview da imagem, se houver */}
+                        <div className="flex items-center justify-center border w-24 h-20 rounded-lg overflow-hidden bg-gray-100">
+                          {fileImage ? (
+                            <img
+                              src={URL.createObjectURL(fileImage)}
+                              alt="Preview"
+                              className="object-cover w-full h-full"
+                            />
+                          ) : (
+                            <span className="text-sm text-gray-500">Foto</span>
+                          )}
                         </div>
-
+                        
                       </div>
 
                     </div>
 
 
 
+
                     <div className="grid w-full">
 
-                      <Label className="mb-2">Descrição</Label>
-                      <Input placeholder="Ex: Copo 400ml" {...register('descricao')}/>
-                      <div className={`flex items-center  ${errors.descricao ? 'justify-between' : 'justify-end'}`}>
-                        {errors.descricao && <span className="text-red-500 text-sm">{errors.descricao.message}</span>}
-                        <p className="text-xs  text-gray-500 ">{descricao?.length ? descricao?.length : 0}/140 caracteres</p>
+                      <Label className="mb-2">Nome do produto</Label>
+                      <Input placeholder="Ex: Copo 400ml" {...register('nomeProduto')}/>
+                      <div className={`flex items-center  ${errors.nomeProduto ? 'justify-between' : 'justify-end'}`}>
+                        {errors.nomeProduto && <span className="text-red-500 text-sm">{errors.nomeProduto.message}</span>}
+                        <p className="text-xs  text-gray-500 ">{nomeProduto?.length ? nomeProduto?.length : 0}/1000 caracteres</p>
                       </div>
               
+                    </div>
+
+                  </div>
+
+                  <div className="grid">
+                    <Label className="mb-2">Descrição</Label>
+                    <Textarea placeholder="Informe a descrição" {...register('descricao')}/>
+                    <div className={`flex items-center  ${errors.descricao ? 'justify-between' : 'justify-end'}`}>
+                      {errors.descricao && <span className="text-red-500 text-sm">{errors.descricao?.message}</span>}
+                      <p className="text-xs  text-gray-500 ">{descricao?.length ? descricao?.length : 0}/80 caracteres</p>
                     </div>
 
                   </div>
@@ -321,7 +368,7 @@ const CreateProductDialog = () => {
   )
 }
 
-export default CreateProductDialog
+export default CreateProductTeste
 
 /*
            

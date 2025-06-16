@@ -2,17 +2,45 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateProdutoDto } from './dto/create-produto.dto';
 import { UpdateProdutoDto } from './dto/update-produto.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
+import * as path from 'node:path';
+import * as fs from 'node:fs/promises';
 
 @Injectable()
 export class ProdutosService {
   constructor(private prisma: PrismaService) {}
 
   // Criação do produto
-  async create(createProdutoDto: CreateProdutoDto) {
+  async create(createProdutoDto: CreateProdutoDto, file: Express.Multer.File) {
     try {
+      //Cria o produto no banco
       const product = await this.prisma.produtos.create({
         data: createProdutoDto,
       });
+
+      // Se enviou imagem, salva no disco e atualiza a coluna imageUrl
+      if (file) {
+        // Pega extensão do arquivo
+        const fileExtension = path.extname(file.originalname).toLowerCase().substring(1);
+
+        // Monta nome do arquivo com id
+        const fileName = `${product.id}.${fileExtension}`;
+
+        // Caminho físico onde o arquivo será salvo
+        const filePath = path.resolve(process.cwd(), 'files/products/images', fileName);
+
+        // Salva o arquivo
+        await fs.writeFile(filePath, file.buffer);
+
+        // Atualiza a coluna imageUrl no produto
+        await this.prisma.produtos.update({
+          where: {
+            id: product.id,
+          },
+          data: {
+            imagemUrl: `http://localhost:3000/files/products/images/${fileName}`,
+          },
+        });
+      }
 
       return {
         ...product,
@@ -72,10 +100,10 @@ export class ProdutosService {
           id: id,
         },
         data: {
+          nomeProduto: (updateProdutoDto?.nomeProduto as string) ?? findProduct.nomeProduto,
           descricao: updateProdutoDto?.descricao ? updateProdutoDto?.descricao : findProduct.descricao,
           preco: updateProdutoDto?.preco ? updateProdutoDto?.preco : findProduct.preco,
           status: updateProdutoDto.status !== undefined ? updateProdutoDto.status : findProduct.status,
-          qtdAcompanhamentos: updateProdutoDto.qtdAcompanhamentos !== undefined ? updateProdutoDto.qtdAcompanhamentos : (findProduct.qtdAcompanhamentos as number),
           idCategoria: updateProdutoDto.idCategoria ? updateProdutoDto.idCategoria : findProduct.idCategoria,
           data_alteracao: new Date(),
         },

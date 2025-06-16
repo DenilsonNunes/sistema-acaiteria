@@ -38,7 +38,7 @@ import {
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 
-import { ChevronDown, Funnel, Trash2 } from "lucide-react"
+import { ChevronDown, Trash2 } from "lucide-react"
 import type { Product } from "@/types/produtos/product"
 import LoadingSpinner from "@/components/loading-spinner"
 import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination"

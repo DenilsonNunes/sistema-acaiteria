@@ -1,7 +1,6 @@
 import { useCategories } from "@/hooks/useCategories"
 import CreateCategoryDialog from "./components/create-category-dialog"
 import { Separator } from "@/components/ui/separator"
-import CreateProductCategory from "./components/create-product-category-dialog"
 import CreateProductCategoryDialog from "./components/create-product-category-dialog"
 
 
@@ -21,25 +20,31 @@ const HomeCategory = () => {
         <CreateCategoryDialog/> 
       </div>
 
+      {categories && categories.length > 0 ? (
+        <>
+          {categories?.map((category, index)=> (
+            <div key={index} className="w-full bg-gray-100 border border-gray-300 rounded p-2 mb-4">
 
-      {categories?.map((category)=> (
-        <div className="w-full bg-gray-100 border border-gray-300 rounded p-2 mb-4">
+              <p className="text-lg font-medium">{category.descricao}</p>
 
-          <p className="text-lg font-medium">{category.descricao}</p>
+              <Separator className="bg-gray-300"/>
 
-          <Separator className="bg-gray-300"/>
+              <div className="mt-4">
+                <p className="text-center text-gray-600">Não exite nem um item cadastrado com essa categoria</p>
+              </div>
 
-          <div className="mt-4">
-            <p className="text-center text-gray-600">Não exite nem um item cadastrado com essa categoria</p>
-          </div>
+              <div className="flex justify-center sm:justify-end">
+                <CreateProductCategoryDialog category={category}/>
+              </div>
 
-          <div className="flex justify-center sm:justify-end">
-            <CreateProductCategoryDialog category={category}/>
-          </div>
-
-        </div>
-      ))}
-
+            </div>
+          ))}    
+        </>
+      ) : (
+        <>
+          <p className="text-center">Nenhuma categoria encontrada</p>    
+        </>
+      )}
 
     </section>
 
