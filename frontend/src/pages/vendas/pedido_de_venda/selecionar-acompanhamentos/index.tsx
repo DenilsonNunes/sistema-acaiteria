@@ -68,7 +68,6 @@ const SelecionarAcompanhamentos = () => {
   });
 
 
-  console.log("Data", product)
 
 
   /*

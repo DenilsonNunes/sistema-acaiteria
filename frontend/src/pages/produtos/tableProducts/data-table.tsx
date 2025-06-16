@@ -113,7 +113,6 @@ export function DataTableProducts<TData, TValue>({columns, data, isLoading, isEr
                   const selectedIds = table.getSelectedRowModel().rows.map(
                     (row) => (row.original as Product).id
                   );
-                  console.log("IDs selecionados para deletar:", selectedIds);
                   // Aqui você pode chamar sua função de delete
                 }}
               >

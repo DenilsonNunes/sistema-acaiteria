@@ -113,7 +113,6 @@ const CreateProductDialog = () => {
 
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log("COMO VEM A IMAGEM", e.target.files[0])
     setFileImage(e.target.files[0])
   }
 

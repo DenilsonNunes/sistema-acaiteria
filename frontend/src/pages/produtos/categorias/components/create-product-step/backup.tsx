@@ -51,7 +51,6 @@ const createProductSchema = z.object({
     .pipe(z.number().positive({ message: "O preço deve ser maior que zero" })),
   status: z.boolean(),
   idCategoria: z.coerce.number({ invalid_type_error: "Selecione uma categoria" }),
-
 })
 
 const createGrupoComplementosSchema = z.object({
@@ -72,7 +71,7 @@ const fullSchema = createProductSchema.merge(createGrupoComplementosSchema)
 
 
 
-const CreateProductCategoryDialog = ({category}: {category: Category}) => {
+const CreateProductForm = ({category}: {category: Category}) => {
 
   const [fileImage, setFileImage] = useState<File | null>(null)
   const [temComplementos, setTemComplementos] = useState("");
@@ -206,8 +205,8 @@ const CreateProductCategoryDialog = ({category}: {category: Category}) => {
                   <Tabs defaultValue="detalhes" className="w-full">
 
                     <TabsList>
-                      <TabsTrigger value="detalhes">Detalhes Produto</TabsTrigger>
-                      <TabsTrigger value="grupoComplementos">Grupo Complementos</TabsTrigger>
+                      <TabsTrigger value="detalhes">Detalhes do Produto</TabsTrigger>
+                      <TabsTrigger value="grupoComplementos">Grupo de Complementos</TabsTrigger>
                       <TabsTrigger value="complementos">Complementos</TabsTrigger>
                     </TabsList>
 
@@ -626,7 +625,7 @@ const CreateProductCategoryDialog = ({category}: {category: Category}) => {
   )
 }
 
-export default CreateProductCategoryDialog
+export default CreateProductForm
 
 /*
            

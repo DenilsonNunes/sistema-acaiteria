@@ -1,7 +1,8 @@
 import { useCategories } from "@/hooks/useCategories"
 import CreateCategoryDialog from "./components/create-category-dialog"
 import { Separator } from "@/components/ui/separator"
-import CreateProductCategoryDialog from "./components/create-product-category-dialog"
+import CreateProductCategoryDialog from "./components/create-product-step/create-product-form"
+import CreateProductForm from "./components/create-product-step/create-product-form"
 
 
 
@@ -34,7 +35,7 @@ const HomeCategory = () => {
               </div>
 
               <div className="flex justify-center sm:justify-end">
-                <CreateProductCategoryDialog category={category}/>
+                <CreateProductForm category={category}/>
               </div>
 
             </div>
