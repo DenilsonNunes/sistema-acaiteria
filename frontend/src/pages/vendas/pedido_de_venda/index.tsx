@@ -1,9 +1,8 @@
 
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 
 
 import fotoAcai from '../../../assets/acai.jpeg'
-import { Button } from "@/components/ui/button";
 import { useQuery } from "@tanstack/react-query";
 import api from "@/api/axios";
 import type { Product } from "@/types/produtos/product";

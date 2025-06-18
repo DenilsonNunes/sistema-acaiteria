@@ -19,7 +19,11 @@ export class CategoriasService {
 
   // Buscar todas as categotias
   async findAll() {
-    return await this.prisma.categorias.findMany({});
+    return await this.prisma.categorias.findMany({
+      include: {
+        produtos: true,
+      },
+    });
   }
 
   // Buscar uma categoria

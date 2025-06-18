@@ -32,6 +32,8 @@ const StepProduct = () => {
   const status = watch('produto.status');
 
 
+  console.log('Categoria selecionada no step1', categoriaSelecionada)
+
 
 
 
@@ -58,10 +60,11 @@ const StepProduct = () => {
 
     <div className="grid gap-2">
 
-      <div className="flex items-start gap-2">
-        
+      <div className="flex flex-col-reverse sm:flex-row sm:items-start">
+
+
         {/* IMAGEM */}
-        <div className="grid">
+        <div className="grid mb-2 mr-4">
 
           <Label className="mb-2">Imagem</Label>
           <div className="flex gap-2 items-center">
@@ -94,8 +97,8 @@ const StepProduct = () => {
           </div>
 
         </div>
-
-
+        
+        {/*Descrição do produto */}
         <div className="grid w-full">
 
           <Label className="mb-2">Nome do produto</Label>
@@ -104,8 +107,9 @@ const StepProduct = () => {
             {errors.produto?.nomeProduto?.message && <span className="text-red-500 text-sm">{errors.produto?.nomeProduto?.message}</span>}
             <p className="text-xs  text-gray-500 ">{nomeProduto?.length ? nomeProduto?.length : 0}/80 caracteres</p>
           </div>
-  
+        
         </div>
+
 
       </div>
       

@@ -125,17 +125,17 @@ const data = {
   ],
   projects: [
     {
-      name: "Design Engineering",
+      name: "Implementação futura...",
       url: "#",
       icon: Frame,
     },
     {
-      name: "Sales & Marketing",
+      name: "Implementação futura...",
       url: "#",
       icon: PieChart,
     },
     {
-      name: "Travel",
+      name: "Implementação futura...",
       url: "#",
       icon: Map,
     },

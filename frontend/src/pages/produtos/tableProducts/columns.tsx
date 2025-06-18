@@ -13,9 +13,6 @@ import DeleteProductDialog from "../components/delete-product-dialog"
 import type { Product } from "@/types/produtos/product"
 
 
-import fotoAcai from '../../../assets/acai.jpeg'
-
-
 
 
 export const columns: ColumnDef<Product>[] = [

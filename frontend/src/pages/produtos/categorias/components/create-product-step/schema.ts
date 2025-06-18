@@ -42,13 +42,15 @@ const createComplementosSchema = z.object({
 
 
 
-// Esquema combinado para o formulário completo
 export const createFullSchema = z.object({
 
+  
   produto: createProductSchema,
-  grupoComplementos: createGrupoComplementosSchema,
-  complementos: createComplementosSchema,
+  temComplementos: z.boolean(),
+  grupoComplementos: createGrupoComplementosSchema.optional(),
+  complementos: z.array(createComplementosSchema).optional(),
 
-});
+
+})
 
 export type FullCreateProducSchema = z.infer<typeof createFullSchema>;
