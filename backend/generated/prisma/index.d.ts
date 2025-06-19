@@ -7493,6 +7493,7 @@ export namespace Prisma {
     descricao: string | null
     status: boolean | null
     preco: Decimal | null
+    imagemUrl: string | null
     data_criacao: Date | null
     data_alteracao: Date | null
   }
@@ -7504,6 +7505,7 @@ export namespace Prisma {
     descricao: string | null
     status: boolean | null
     preco: Decimal | null
+    imagemUrl: string | null
     data_criacao: Date | null
     data_alteracao: Date | null
   }
@@ -7515,6 +7517,7 @@ export namespace Prisma {
     descricao: number
     status: number
     preco: number
+    imagemUrl: number
     data_criacao: number
     data_alteracao: number
     _all: number
@@ -7540,6 +7543,7 @@ export namespace Prisma {
     descricao?: true
     status?: true
     preco?: true
+    imagemUrl?: true
     data_criacao?: true
     data_alteracao?: true
   }
@@ -7551,6 +7555,7 @@ export namespace Prisma {
     descricao?: true
     status?: true
     preco?: true
+    imagemUrl?: true
     data_criacao?: true
     data_alteracao?: true
   }
@@ -7562,6 +7567,7 @@ export namespace Prisma {
     descricao?: true
     status?: true
     preco?: true
+    imagemUrl?: true
     data_criacao?: true
     data_alteracao?: true
     _all?: true
@@ -7657,9 +7663,10 @@ export namespace Prisma {
     id: number
     idGrupoComplementos: number | null
     nomeComplemento: string
-    descricao: string
+    descricao: string | null
     status: boolean
     preco: Decimal
+    imagemUrl: string | null
     data_criacao: Date
     data_alteracao: Date
     _count: ComplementosCountAggregateOutputType | null
@@ -7690,6 +7697,7 @@ export namespace Prisma {
     descricao?: boolean
     status?: boolean
     preco?: boolean
+    imagemUrl?: boolean
     data_criacao?: boolean
     data_alteracao?: boolean
     grupoComplementos?: boolean | Complementos$grupoComplementosArgs<ExtArgs>
@@ -7702,6 +7710,7 @@ export namespace Prisma {
     descricao?: boolean
     status?: boolean
     preco?: boolean
+    imagemUrl?: boolean
     data_criacao?: boolean
     data_alteracao?: boolean
     grupoComplementos?: boolean | Complementos$grupoComplementosArgs<ExtArgs>
@@ -7714,6 +7723,7 @@ export namespace Prisma {
     descricao?: boolean
     status?: boolean
     preco?: boolean
+    imagemUrl?: boolean
     data_criacao?: boolean
     data_alteracao?: boolean
     grupoComplementos?: boolean | Complementos$grupoComplementosArgs<ExtArgs>
@@ -7726,11 +7736,12 @@ export namespace Prisma {
     descricao?: boolean
     status?: boolean
     preco?: boolean
+    imagemUrl?: boolean
     data_criacao?: boolean
     data_alteracao?: boolean
   }
 
-  export type ComplementosOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "idGrupoComplementos" | "nomeComplemento" | "descricao" | "status" | "preco" | "data_criacao" | "data_alteracao", ExtArgs["result"]["complementos"]>
+  export type ComplementosOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "idGrupoComplementos" | "nomeComplemento" | "descricao" | "status" | "preco" | "imagemUrl" | "data_criacao" | "data_alteracao", ExtArgs["result"]["complementos"]>
   export type ComplementosInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     grupoComplementos?: boolean | Complementos$grupoComplementosArgs<ExtArgs>
   }
@@ -7750,9 +7761,10 @@ export namespace Prisma {
       id: number
       idGrupoComplementos: number | null
       nomeComplemento: string
-      descricao: string
+      descricao: string | null
       status: boolean
       preco: Prisma.Decimal
+      imagemUrl: string | null
       data_criacao: Date
       data_alteracao: Date
     }, ExtArgs["result"]["complementos"]>
@@ -8185,6 +8197,7 @@ export namespace Prisma {
     readonly descricao: FieldRef<"Complementos", 'String'>
     readonly status: FieldRef<"Complementos", 'Boolean'>
     readonly preco: FieldRef<"Complementos", 'Decimal'>
+    readonly imagemUrl: FieldRef<"Complementos", 'String'>
     readonly data_criacao: FieldRef<"Complementos", 'DateTime'>
     readonly data_alteracao: FieldRef<"Complementos", 'DateTime'>
   }
@@ -10990,6 +11003,7 @@ export namespace Prisma {
     descricao: 'descricao',
     status: 'status',
     preco: 'preco',
+    imagemUrl: 'imagemUrl',
     data_criacao: 'data_criacao',
     data_alteracao: 'data_alteracao'
   };
@@ -11481,9 +11495,10 @@ export namespace Prisma {
     id?: IntFilter<"Complementos"> | number
     idGrupoComplementos?: IntNullableFilter<"Complementos"> | number | null
     nomeComplemento?: StringFilter<"Complementos"> | string
-    descricao?: StringFilter<"Complementos"> | string
+    descricao?: StringNullableFilter<"Complementos"> | string | null
     status?: BoolFilter<"Complementos"> | boolean
     preco?: DecimalFilter<"Complementos"> | Decimal | DecimalJsLike | number | string
+    imagemUrl?: StringNullableFilter<"Complementos"> | string | null
     data_criacao?: DateTimeFilter<"Complementos"> | Date | string
     data_alteracao?: DateTimeFilter<"Complementos"> | Date | string
     grupoComplementos?: XOR<GrupoComplementosNullableScalarRelationFilter, GrupoComplementosWhereInput> | null
@@ -11493,9 +11508,10 @@ export namespace Prisma {
     id?: SortOrder
     idGrupoComplementos?: SortOrderInput | SortOrder
     nomeComplemento?: SortOrder
-    descricao?: SortOrder
+    descricao?: SortOrderInput | SortOrder
     status?: SortOrder
     preco?: SortOrder
+    imagemUrl?: SortOrderInput | SortOrder
     data_criacao?: SortOrder
     data_alteracao?: SortOrder
     grupoComplementos?: GrupoComplementosOrderByWithRelationInput
@@ -11508,9 +11524,10 @@ export namespace Prisma {
     NOT?: ComplementosWhereInput | ComplementosWhereInput[]
     idGrupoComplementos?: IntNullableFilter<"Complementos"> | number | null
     nomeComplemento?: StringFilter<"Complementos"> | string
-    descricao?: StringFilter<"Complementos"> | string
+    descricao?: StringNullableFilter<"Complementos"> | string | null
     status?: BoolFilter<"Complementos"> | boolean
     preco?: DecimalFilter<"Complementos"> | Decimal | DecimalJsLike | number | string
+    imagemUrl?: StringNullableFilter<"Complementos"> | string | null
     data_criacao?: DateTimeFilter<"Complementos"> | Date | string
     data_alteracao?: DateTimeFilter<"Complementos"> | Date | string
     grupoComplementos?: XOR<GrupoComplementosNullableScalarRelationFilter, GrupoComplementosWhereInput> | null
@@ -11520,9 +11537,10 @@ export namespace Prisma {
     id?: SortOrder
     idGrupoComplementos?: SortOrderInput | SortOrder
     nomeComplemento?: SortOrder
-    descricao?: SortOrder
+    descricao?: SortOrderInput | SortOrder
     status?: SortOrder
     preco?: SortOrder
+    imagemUrl?: SortOrderInput | SortOrder
     data_criacao?: SortOrder
     data_alteracao?: SortOrder
     _count?: ComplementosCountOrderByAggregateInput
@@ -11539,9 +11557,10 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"Complementos"> | number
     idGrupoComplementos?: IntNullableWithAggregatesFilter<"Complementos"> | number | null
     nomeComplemento?: StringWithAggregatesFilter<"Complementos"> | string
-    descricao?: StringWithAggregatesFilter<"Complementos"> | string
+    descricao?: StringNullableWithAggregatesFilter<"Complementos"> | string | null
     status?: BoolWithAggregatesFilter<"Complementos"> | boolean
     preco?: DecimalWithAggregatesFilter<"Complementos"> | Decimal | DecimalJsLike | number | string
+    imagemUrl?: StringNullableWithAggregatesFilter<"Complementos"> | string | null
     data_criacao?: DateTimeWithAggregatesFilter<"Complementos"> | Date | string
     data_alteracao?: DateTimeWithAggregatesFilter<"Complementos"> | Date | string
   }
@@ -12038,9 +12057,10 @@ export namespace Prisma {
 
   export type ComplementosCreateInput = {
     nomeComplemento: string
-    descricao: string
+    descricao?: string | null
     status?: boolean
     preco?: Decimal | DecimalJsLike | number | string
+    imagemUrl?: string | null
     data_criacao?: Date | string
     data_alteracao?: Date | string
     grupoComplementos?: GrupoComplementosCreateNestedOneWithoutComplementosInput
@@ -12050,18 +12070,20 @@ export namespace Prisma {
     id?: number
     idGrupoComplementos?: number | null
     nomeComplemento: string
-    descricao: string
+    descricao?: string | null
     status?: boolean
     preco?: Decimal | DecimalJsLike | number | string
+    imagemUrl?: string | null
     data_criacao?: Date | string
     data_alteracao?: Date | string
   }
 
   export type ComplementosUpdateInput = {
     nomeComplemento?: StringFieldUpdateOperationsInput | string
-    descricao?: StringFieldUpdateOperationsInput | string
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
     status?: BoolFieldUpdateOperationsInput | boolean
     preco?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    imagemUrl?: NullableStringFieldUpdateOperationsInput | string | null
     data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
     data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
     grupoComplementos?: GrupoComplementosUpdateOneWithoutComplementosNestedInput
@@ -12071,9 +12093,10 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     idGrupoComplementos?: NullableIntFieldUpdateOperationsInput | number | null
     nomeComplemento?: StringFieldUpdateOperationsInput | string
-    descricao?: StringFieldUpdateOperationsInput | string
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
     status?: BoolFieldUpdateOperationsInput | boolean
     preco?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    imagemUrl?: NullableStringFieldUpdateOperationsInput | string | null
     data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
     data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -12082,18 +12105,20 @@ export namespace Prisma {
     id?: number
     idGrupoComplementos?: number | null
     nomeComplemento: string
-    descricao: string
+    descricao?: string | null
     status?: boolean
     preco?: Decimal | DecimalJsLike | number | string
+    imagemUrl?: string | null
     data_criacao?: Date | string
     data_alteracao?: Date | string
   }
 
   export type ComplementosUpdateManyMutationInput = {
     nomeComplemento?: StringFieldUpdateOperationsInput | string
-    descricao?: StringFieldUpdateOperationsInput | string
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
     status?: BoolFieldUpdateOperationsInput | boolean
     preco?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    imagemUrl?: NullableStringFieldUpdateOperationsInput | string | null
     data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
     data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -12102,9 +12127,10 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     idGrupoComplementos?: NullableIntFieldUpdateOperationsInput | number | null
     nomeComplemento?: StringFieldUpdateOperationsInput | string
-    descricao?: StringFieldUpdateOperationsInput | string
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
     status?: BoolFieldUpdateOperationsInput | boolean
     preco?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    imagemUrl?: NullableStringFieldUpdateOperationsInput | string | null
     data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
     data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -12676,6 +12702,7 @@ export namespace Prisma {
     descricao?: SortOrder
     status?: SortOrder
     preco?: SortOrder
+    imagemUrl?: SortOrder
     data_criacao?: SortOrder
     data_alteracao?: SortOrder
   }
@@ -12693,6 +12720,7 @@ export namespace Prisma {
     descricao?: SortOrder
     status?: SortOrder
     preco?: SortOrder
+    imagemUrl?: SortOrder
     data_criacao?: SortOrder
     data_alteracao?: SortOrder
   }
@@ -12704,6 +12732,7 @@ export namespace Prisma {
     descricao?: SortOrder
     status?: SortOrder
     preco?: SortOrder
+    imagemUrl?: SortOrder
     data_criacao?: SortOrder
     data_alteracao?: SortOrder
   }
@@ -13808,9 +13837,10 @@ export namespace Prisma {
 
   export type ComplementosCreateWithoutGrupoComplementosInput = {
     nomeComplemento: string
-    descricao: string
+    descricao?: string | null
     status?: boolean
     preco?: Decimal | DecimalJsLike | number | string
+    imagemUrl?: string | null
     data_criacao?: Date | string
     data_alteracao?: Date | string
   }
@@ -13818,9 +13848,10 @@ export namespace Prisma {
   export type ComplementosUncheckedCreateWithoutGrupoComplementosInput = {
     id?: number
     nomeComplemento: string
-    descricao: string
+    descricao?: string | null
     status?: boolean
     preco?: Decimal | DecimalJsLike | number | string
+    imagemUrl?: string | null
     data_criacao?: Date | string
     data_alteracao?: Date | string
   }
@@ -13874,9 +13905,10 @@ export namespace Prisma {
     id?: IntFilter<"Complementos"> | number
     idGrupoComplementos?: IntNullableFilter<"Complementos"> | number | null
     nomeComplemento?: StringFilter<"Complementos"> | string
-    descricao?: StringFilter<"Complementos"> | string
+    descricao?: StringNullableFilter<"Complementos"> | string | null
     status?: BoolFilter<"Complementos"> | boolean
     preco?: DecimalFilter<"Complementos"> | Decimal | DecimalJsLike | number | string
+    imagemUrl?: StringNullableFilter<"Complementos"> | string | null
     data_criacao?: DateTimeFilter<"Complementos"> | Date | string
     data_alteracao?: DateTimeFilter<"Complementos"> | Date | string
   }
@@ -14379,9 +14411,10 @@ export namespace Prisma {
   export type ComplementosCreateManyGrupoComplementosInput = {
     id?: number
     nomeComplemento: string
-    descricao: string
+    descricao?: string | null
     status?: boolean
     preco?: Decimal | DecimalJsLike | number | string
+    imagemUrl?: string | null
     data_criacao?: Date | string
     data_alteracao?: Date | string
   }
@@ -14425,9 +14458,10 @@ export namespace Prisma {
 
   export type ComplementosUpdateWithoutGrupoComplementosInput = {
     nomeComplemento?: StringFieldUpdateOperationsInput | string
-    descricao?: StringFieldUpdateOperationsInput | string
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
     status?: BoolFieldUpdateOperationsInput | boolean
     preco?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    imagemUrl?: NullableStringFieldUpdateOperationsInput | string | null
     data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
     data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -14435,9 +14469,10 @@ export namespace Prisma {
   export type ComplementosUncheckedUpdateWithoutGrupoComplementosInput = {
     id?: IntFieldUpdateOperationsInput | number
     nomeComplemento?: StringFieldUpdateOperationsInput | string
-    descricao?: StringFieldUpdateOperationsInput | string
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
     status?: BoolFieldUpdateOperationsInput | boolean
     preco?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    imagemUrl?: NullableStringFieldUpdateOperationsInput | string | null
     data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
     data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -14445,9 +14480,10 @@ export namespace Prisma {
   export type ComplementosUncheckedUpdateManyWithoutGrupoComplementosInput = {
     id?: IntFieldUpdateOperationsInput | number
     nomeComplemento?: StringFieldUpdateOperationsInput | string
-    descricao?: StringFieldUpdateOperationsInput | string
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
     status?: BoolFieldUpdateOperationsInput | boolean
     preco?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    imagemUrl?: NullableStringFieldUpdateOperationsInput | string | null
     data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
     data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
   }

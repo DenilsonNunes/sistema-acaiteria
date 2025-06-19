@@ -133,7 +133,7 @@ const CreateCategoryDialog = () => {
               <div className="grid w-full">
 
                 <Label className="mb-2">Descrição da categoria</Label>
-                <Input placeholder="Ex: Copo 400ml" {...register('descricao')}/>
+                <Input placeholder="Ex: Lanches / Açai / Sucos" {...register('descricao')}/>
                 <div className={`flex items-center  ${errors.descricao ? 'justify-between' : 'justify-end'}`}>
                   {errors.descricao && <span className="text-red-500 text-sm">{errors.descricao.message}</span>}
                   <p className="text-xs  text-gray-500 ">{descricao?.length ? descricao?.length : 0}/40 caracteres</p>

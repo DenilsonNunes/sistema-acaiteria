@@ -17,22 +17,16 @@ import type { FullCreateProducSchema } from "./schema"
 const StepProduct = () => {
 
   const [fileImage, setFileImage] = useState<File | null>(null);
-
-
   const {data: dataCategories} = useCategories();
 
 
+
   const { register, setValue, trigger, watch, formState: { errors } } = useFormContext<FullCreateProducSchema>();
-
-
 
   const nomeProduto = watch('produto.nomeProduto');
   const descricao = watch('produto.descricao');
   const categoriaSelecionada = watch('produto.idCategoria');
   const status = watch('produto.status');
-
-
-  console.log('Categoria selecionada no step1', categoriaSelecionada)
 
 
 

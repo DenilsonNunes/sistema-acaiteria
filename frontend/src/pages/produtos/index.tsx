@@ -1,4 +1,3 @@
-import CreateProductDialog from "./components/create-product-dialog"
 import CreateProductTeste from "./components/create-product-dialog-teste"
 import TableProducts from "./tableProducts/table"
 

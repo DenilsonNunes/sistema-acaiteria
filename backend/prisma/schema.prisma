@@ -94,9 +94,10 @@ model Complementos {
   idGrupoComplementos Int?
 
   nomeComplemento String  @db.VarChar(80)
-  descricao       String  @db.VarChar(200)
+  descricao       String? @db.VarChar(200)
   status          Boolean @default(true)
   preco           Decimal @default(0) @db.Decimal(10, 4)
+  imagemUrl       String?
 
   grupoComplementos GrupoComplementos? @relation(fields: [idGrupoComplementos], references: [id])
 

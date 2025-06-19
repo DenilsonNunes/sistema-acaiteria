@@ -177,6 +177,7 @@ exports.Prisma.ComplementosScalarFieldEnum = {
   descricao: 'descricao',
   status: 'status',
   preco: 'preco',
+  imagemUrl: 'imagemUrl',
   data_criacao: 'data_criacao',
   data_alteracao: 'data_alteracao'
 };

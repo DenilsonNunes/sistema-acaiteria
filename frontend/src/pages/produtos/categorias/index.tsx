@@ -1,5 +1,5 @@
 import { useCategories } from "@/hooks/useCategories"
-import CreateCategoryDialog from "./components/create-category-dialog"
+import CreateCategoryDialog from "./components/create-category-dialog/create-category-dialog"
 import { Separator } from "@/components/ui/separator"
 import CreateProductForm from "./components/create-product-step/create-product-form"
 
@@ -7,9 +7,7 @@ import CreateProductForm from "./components/create-product-step/create-product-f
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
-  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
@@ -30,31 +28,18 @@ const HomeCategory = () => {
   
   return (
 
-    <section className="mx-4 mt-2">
+    <section className="flex flex-col items-center justify-center px-2">
 
-      <div className="mb-4">
-        <CreateCategoryDialog/> 
-      </div>
 
-        {isLoading && (
-          <div className="flex items-center justify-center py-15">
-            <LoadingSpinner size={100}/>
+      {!isLoading && !isError && (
+
+        <div className="w-full max-w-6xl">
+
+          <div className="mb-4 mt-4">
+            <CreateCategoryDialog/> 
           </div>
-        )}
 
-        {isError && 
-
-          <div className="flex flex-col items-center justify-center mt-4 gap-4 border">
-            <CircleAlert color="red" size={96}/>
-            <h1 className="font-medium text-red-600">Erro ao buscar as categorias</h1>
-          </div>
-        }
-
-        {!isLoading && !isError && (
-
-          <>
-  
-            {categories?.map((category, index) => (
+          {categories?.map((category, index) => (
             <div
               key={index}
               className="w-full bg-gray-100 border border-gray-300 rounded p-2 mb-4"
@@ -68,8 +53,8 @@ const HomeCategory = () => {
                   <TableHeader>
                     <TableRow>
                       <TableHead>Produto</TableHead>
-                      <TableHead>Preço (R$)</TableHead>
-                      <TableHead>Status venda</TableHead>
+                      <TableHead className="text-center">Preço (R$)</TableHead>
+                      <TableHead className="text-center">Status venda</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -89,8 +74,10 @@ const HomeCategory = () => {
                           </div>
                           {product.nomeProduto}
                         </TableCell>
-                        <TableCell>{formatarMoedaBRL(product.preco)}</TableCell>
-                        <TableCell>
+
+                        <TableCell className="text-center">{formatarMoedaBRL(product.preco)}</TableCell>
+
+                        <TableCell className="text-center">
                           {product.status ? (
                             <Badge
                               variant="outline"
@@ -123,18 +110,27 @@ const HomeCategory = () => {
                 <CreateProductForm category={category} />
               </div>
             </div>
-            ))}
+          ))}
 
-          
-          </>
+        
+        </div>
 
-
-        )}
-
+      )}
 
 
+      {isLoading && (
+        <div className="flex items-center justify-center py-15">
+          <LoadingSpinner size={100}/>
+        </div>
+      )}
 
+      {isError && 
 
+        <div className="flex flex-col items-center justify-center mt-4 gap-4">
+          <CircleAlert color="red" size={96}/>
+          <h1 className="font-medium text-red-600">Erro ao buscar as categorias</h1>
+        </div>
+      }
 
 
 

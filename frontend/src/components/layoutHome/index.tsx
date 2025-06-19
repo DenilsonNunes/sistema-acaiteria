@@ -103,7 +103,7 @@ const LayoutHome = () => {
           </header>
 
           <Outlet/>
-          
+
         </SidebarInset>
       </SidebarProvider>
       

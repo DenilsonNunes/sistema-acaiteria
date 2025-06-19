@@ -14,7 +14,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query"
     // Criação de produtos
     const createProduct = async (data: FullCreateProducSchema) => {
 
-      console.log('Como chegou produtos', data.produto)
+      console.log('Como chegou para salvar', data)
 
       const formData = new FormData();
 

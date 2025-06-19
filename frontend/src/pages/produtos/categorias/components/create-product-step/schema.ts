@@ -27,6 +27,7 @@ const createGrupoComplementosSchema = z.object({
 
 
 const createComplementosSchema = z.object({
+  
   nomeComplemento: z.string().nonempty({message: 'O nome do grupo não pode ser vazio'}).max(80, {message: 'Não poder ser maior que 80 caracteres.'}),
   descricao: z.string().max(200, {message: 'Não poder ser maior que 200 caracteres.'}),
   status: z.boolean(),

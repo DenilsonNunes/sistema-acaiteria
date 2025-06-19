@@ -5,17 +5,24 @@ import { ProdutosModule } from 'src/produtos/produtos/produtos.module';
 import { UsuariosModule } from 'src/usuarios/usuarios.module';
 import { ClientesModule } from 'src/clientes/clientes.module';
 import { PedidosModule } from 'src/pedidos/pedidos.module';
+import { CategoriasModule } from 'src/produtos/categorias/categorias.module';
+import { GrupoComplementosModule } from 'src/produtos/grupo-complementos/grupo-complementos.module';
+
 import { AuthModule } from 'src/auth/auth.module';
 import { APP_GUARD } from '@nestjs/core';
 import { AuthTokenGuard } from 'src/auth/guard/auth.token.guard';
-import { CategoriasModule } from 'src/produtos/categorias/categorias.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'node:path';
+import { ComplementosModule } from 'src/produtos/complementos/complementos.module';
 
 @Module({
   imports: [
+    /*----------Produtos--------- */
     ProdutosModule,
     CategoriasModule,
+    GrupoComplementosModule,
+    ComplementosModule,
+    /*------------fim--------------- */
     UsuariosModule,
     ClientesModule,
     PedidosModule,

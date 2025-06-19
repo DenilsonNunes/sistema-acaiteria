@@ -36,7 +36,6 @@ const CreateProductForm = ({ category } : {category: Category}) => {
   const [habilitaBtnProx, setHabilitaBtnProx] = useState(true);
   const [habilitaBtnSalvar, setHabilitaBtnSalvar] = useState(false);
 
-  console.log("Qual a categoria? create", category.id)
 
 
 
@@ -103,10 +102,17 @@ const CreateProductForm = ({ category } : {category: Category}) => {
       if (temComplementos) {
 
         const isValid = await trigger("grupoComplementos");
+
         if (!isValid) return;
         setCurrentStep("complementos");
         setHabilitaBtnProx(false)
         setHabilitaBtnSalvar(true)
+
+        const isValidComplementos = await trigger("complementos")
+
+        console.log('Esta valido complementos ?', isValidComplementos)
+
+
 
       } else {
 
@@ -117,8 +123,6 @@ const CreateProductForm = ({ category } : {category: Category}) => {
           return;
         }
 
-        console.log('Vou executar o submit')
-        //await handleSubmit(handleCreateProduct)();
       }
     }
   };
@@ -204,7 +208,9 @@ const CreateProductForm = ({ category } : {category: Category}) => {
 
             <FormProvider {...methods}>
               <form onSubmit={handleSubmit(handleCreateProduct)}>
+
                 <Tabs value={currentStep} onValueChange={setCurrentStep}>
+                  
                   <TabsList className="w-full overflow-x-auto whitespace-nowrap scrollbar-hide flex">
                     <TabsTrigger value="detalhes" className="data-[state=active]:bg-gray-300">
                       Detalhes do Produto
@@ -257,7 +263,7 @@ const CreateProductForm = ({ category } : {category: Category}) => {
                     </div>
                   </TabsContent>
 
-                  <TabsContent value="complementos" className="w-full mb-4">
+                  <TabsContent value="complementos" className="w-full flex flex-col items-center">
                     <StepAddOns />
                   </TabsContent>
                 </Tabs>
