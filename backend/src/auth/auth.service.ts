@@ -21,7 +21,7 @@ export class AuthService {
     // Verificar se usuário existe e esta ativo
     const user = await this.prisma.usuarios.findUnique({
       where: {
-        usuario: signInDTO.usuario,
+        usuario: signInDTO.user,
       },
     });
 
@@ -34,7 +34,7 @@ export class AuthService {
     }
 
     // Verificar se a senha e valida
-    const passwordIsValid = await this.hashingService.compare(signInDTO.senha, user.senha);
+    const passwordIsValid = await this.hashingService.compare(signInDTO.password, user.senha);
 
     // Se não for válida, retorna mensagem
     if (!passwordIsValid) {

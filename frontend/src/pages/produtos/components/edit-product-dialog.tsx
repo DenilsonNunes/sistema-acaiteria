@@ -33,7 +33,7 @@ import { DialogDescription } from '@radix-ui/react-dialog'
 
 import type { Product } from '@/types/produtos/product'
 import { Switch } from '@/components/ui/switch'
-import { useCategories } from '@/hooks/useCategories'
+import { useCategories } from '@/hooks/categorias/useCategories'
 
 
 

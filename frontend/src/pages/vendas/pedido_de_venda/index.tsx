@@ -11,7 +11,7 @@ import LoadingSpinner from "@/components/loading-spinner";
 import { CloudAlert } from "lucide-react";
 import { PedidoVendaContext } from "@/contexts/PedidoContext";
 import PedidoAtual from "./components/pedido-atual";
-import AcoesVendas from "@/components/acoesFooter/acoes-vendas";
+import AcoesVendas from "@/components/acoesFooterMobile/acoes-vendas";
 
 
 

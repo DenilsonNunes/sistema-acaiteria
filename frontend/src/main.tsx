@@ -4,8 +4,10 @@ import { RouterProvider } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import './index.css'
-import { routes } from './App.tsx'
+import { routes } from './routes/index.tsx'
 import PedidoProvider from './contexts/PedidoContext.tsx';
+import { AuthProvider } from './contexts/AuthContext.tsx';
+import { Toaster } from 'sonner';
 
 
 const queryClient = new QueryClient();
@@ -13,13 +15,19 @@ const queryClient = new QueryClient();
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
 
-    <PedidoProvider>
+    <AuthProvider>
 
-      <QueryClientProvider client={queryClient}>
-        <RouterProvider router={routes} />
-      </QueryClientProvider>
+      <PedidoProvider>
 
-    </PedidoProvider>
+        <QueryClientProvider client={queryClient}>
+          <Toaster/>
+          <RouterProvider router={routes} />
+        </QueryClientProvider>
+
+      </PedidoProvider>
+
+    </AuthProvider>
+
 
   </StrictMode>,
 )

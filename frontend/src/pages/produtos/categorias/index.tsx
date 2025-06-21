@@ -1,4 +1,4 @@
-import { useCategories } from "@/hooks/useCategories"
+import { useCategories } from "@/hooks/categorias/useCategories"
 import CreateCategoryDialog from "./components/create-category-dialog/create-category-dialog"
 import { Separator } from "@/components/ui/separator"
 import CreateProductForm from "./components/create-product-step/create-product-form"

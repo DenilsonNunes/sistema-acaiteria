@@ -24,7 +24,7 @@ import { CircleAlert, CircleCheck } from "lucide-react"
 
 import api from "@/api/axios"
 
-import { useCategories } from "@/hooks/useCategories"
+import { useCategories } from "@/hooks/categorias/useCategories"
 
 
 

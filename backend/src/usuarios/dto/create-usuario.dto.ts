@@ -1,9 +1,12 @@
+import { Transform } from 'class-transformer';
 import { IsBoolean, IsEmail, IsString, MaxLength, MinLength } from 'class-validator';
 
 export class CreateUsuarioDto {
+  @Transform(({ value }: { value: unknown }): string => (typeof value === 'string' ? value.trim() : ''))
   nome: string;
 
-  @IsString()
+  @IsString({ message: 'O usuário deve ser uma string.' })
+  @Transform(({ value }: { value: unknown }): string => (typeof value === 'string' ? value.trim() : ''))
   @MaxLength(10, { message: 'O usuário deve conter no máximo 10 caracteres' })
   usuario: string;
 

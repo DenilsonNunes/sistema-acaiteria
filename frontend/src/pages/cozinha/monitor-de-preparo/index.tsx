@@ -37,7 +37,7 @@ const pedidos = [
 
 
 
-const MonitorPreparo = () => {
+const HomeMonitorPreparo = () => {
 
   return (
     <section className="p-2 w-full h-screen bg-gray-100">
@@ -155,4 +155,4 @@ const MonitorPreparo = () => {
   )
 }
 
-export default MonitorPreparo
+export default HomeMonitorPreparo

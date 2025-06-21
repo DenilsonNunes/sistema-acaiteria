@@ -13,9 +13,26 @@ export class UsuariosService {
 
   async create(createUsuarioDto: CreateUsuarioDto) {
     try {
-      // Verifica se o usuário contém Espaços
-      if (createUsuarioDto.usuario.includes(' ')) {
-        throw new HttpException('O usuário não pode conter espaços!', HttpStatus.BAD_REQUEST);
+      const existingUser = await this.prisma.usuarios.findUnique({
+        where: {
+          usuario: createUsuarioDto.usuario,
+        },
+      });
+
+      // Verifica se ja existe um usuário com esse nome
+      if (existingUser) {
+        throw new HttpException('Esse usuário já exite, por favor informe um novo usuário.', HttpStatus.BAD_REQUEST);
+      }
+
+      const existingEmail = await this.prisma.usuarios.findUnique({
+        where: {
+          email: createUsuarioDto.email,
+        },
+      });
+
+      // Verifica se ja existe o email cadastrado
+      if (existingEmail) {
+        throw new HttpException('O e-mail informado já está em uso. Por favor, utilize um e-mail diferente.', HttpStatus.BAD_REQUEST);
       }
 
       const senhaHash = await this.hashingService.hash(createUsuarioDto.senha);

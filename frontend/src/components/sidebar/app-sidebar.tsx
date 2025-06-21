@@ -106,7 +106,7 @@ const data = {
         },
         {
           title: "Categorias",
-          url: "/categorias",
+          url: "produtos/categorias",
         },
       ],
     },
@@ -117,7 +117,7 @@ const data = {
       items: [
         {
           title: "Monitor de preparo",
-          url: "/monitor-de-preparo",
+          url: "cozinha/monitor-de-preparo",
         },
       ],
     },

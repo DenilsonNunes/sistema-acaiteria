@@ -8,9 +8,6 @@ import { useMutation, useQueryClient } from "@tanstack/react-query"
 
     const queryClient = useQueryClient()
 
-
-
-    
     // Criação de produtos
     const createProduct = async (data: FullCreateProducSchema) => {
 
@@ -39,8 +36,6 @@ import { useMutation, useQueryClient } from "@tanstack/react-query"
       return response.data;
 
     };
-
-
 
 
     return useMutation({

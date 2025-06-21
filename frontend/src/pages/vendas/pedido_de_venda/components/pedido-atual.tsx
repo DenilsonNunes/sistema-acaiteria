@@ -6,7 +6,7 @@ import  { useContext } from 'react'
 
 
 import fotoAcai from '../../../../assets/acai.jpeg'
-import AcoesVendas from '@/components/acoesFooter/acoes-vendas'
+import AcoesVendas from '@/components/acoesFooterMobile/acoes-vendas'
 import { ArrowLeft, ChevronRight, Save, Trash2 } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 
