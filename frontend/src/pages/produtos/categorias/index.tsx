@@ -1,4 +1,4 @@
-import { useCategories } from "@/hooks/categorias/useCategories"
+import { useCategories } from "@/hooks/categories/useCategories"
 import CreateCategoryDialog from "./components/create-category-dialog/create-category-dialog"
 import { Separator } from "@/components/ui/separator"
 import CreateProductForm from "./components/create-product-step/create-product-form"
@@ -23,7 +23,8 @@ import { formatarMoedaBRL } from "@/utils/formataMoedaBRL"
 
 const HomeCategory = () => {
 
-  const {data: categories, isLoading, isError} = useCategories()
+  const {fetchCategories} = useCategories();
+  const { data: categories, isLoading, isError } = fetchCategories;
 
   
   return (
@@ -58,7 +59,7 @@ const HomeCategory = () => {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {category.produtos.map((product) => (
+                    {category.produtos.map((product,) => (
                       <TableRow key={product.id}>
                         <TableCell className="flex items-center gap-4">
                           <div className="flex items-center justify-center border w-20 h-16 rounded-lg overflow-hidden bg-gray-100">

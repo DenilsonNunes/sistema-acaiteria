@@ -145,7 +145,6 @@ exports.Prisma.ClientesScalarFieldEnum = {
 exports.Prisma.ProdutosScalarFieldEnum = {
   id: 'id',
   idCategoria: 'idCategoria',
-  idGrupoComplementos: 'idGrupoComplementos',
   nomeProduto: 'nomeProduto',
   descricao: 'descricao',
   preco: 'preco',
@@ -162,6 +161,8 @@ exports.Prisma.CategoriasScalarFieldEnum = {
 
 exports.Prisma.GrupoComplementosScalarFieldEnum = {
   id: 'id',
+  idProduto: 'idProduto',
+  nomeGrupoComplementos: 'nomeGrupoComplementos',
   descricao: 'descricao',
   obrigatorio: 'obrigatorio',
   qtdMinComplemento: 'qtdMinComplemento',

@@ -15,27 +15,20 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Separator } from "@/components/ui/separator"
 
-import { z } from 'zod'
 import {  useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useMutation, useQueryClient } from "@tanstack/react-query"
+import { useQueryClient } from "@tanstack/react-query"
 import LoadingSpinner from "@/components/loading-spinner"
 import { CircleAlert, CircleCheck } from "lucide-react"
 
-import api from "@/api/axios"
-
-import { useCategories } from "@/hooks/categorias/useCategories"
 
 
-
-const createCategorySchema = z.object({
-
-  descricao: z.string().nonempty({message: 'A descrição não pode ser vazia'}).max(40, {message: 'Não poder ser maior que 40 caracteres.'}),
-
-})
+import { useCategories } from "@/hooks/categories/useCategories"
+import { createCategorySchema, type CreateCategorySchema } from "@/schemas/products/categories"
 
 
-type CreateCategorySchema = z.infer<typeof createCategorySchema>
+
+
 
 
 
@@ -47,7 +40,9 @@ const CreateCategoryDialog = () => {
 
   const queryClient = useQueryClient();
 
-  const {data: dataCategories} = useCategories();
+  const {  createCategory } = useCategories();
+  const {  isPending, reset: mutateReset, isSuccess, isError} = createCategory;
+
 
 
 
@@ -59,30 +54,9 @@ const CreateCategoryDialog = () => {
 
 
 
-
-
-  // Criação de produtos
-  const createCategory = async (data: CreateCategorySchema) => {
-    const response = await api.post('/categorias', data)
-    return response.data
-  }
-
-  
-  const { mutate, isPending, isSuccess, isError, reset: mutateReset } = useMutation({
-    mutationFn: createCategory,
-    onSuccess: () => {
-      // Força o React Query a buscar novamente os produtos
-      queryClient.invalidateQueries({ queryKey: ['categories'] })
-      reset()
-    },
-    onError: () => {
-      reset()
-    },
-  })
-
   
   const handleCreateCategory = (data: CreateCategorySchema) => {
-    mutate(data)
+    createCategory.mutate(data);
   }
 
 

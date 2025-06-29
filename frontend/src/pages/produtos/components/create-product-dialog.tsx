@@ -31,7 +31,7 @@ import LoadingSpinner from "@/components/loading-spinner"
 import { CircleAlert, CircleCheck, PackagePlus, Upload  } from "lucide-react"
 
 import api from "@/api/axios"
-import { useCategories } from "@/hooks/categorias/useCategories"
+import { useCategories } from "@/hooks/categories/useCategories"
 import { useState, type ChangeEvent } from "react"
 
 

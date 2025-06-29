@@ -2,12 +2,14 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateComplementoDto } from './dto/create-complemento.dto';
 import { UpdateComplementoDto } from './dto/update-complemento.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
+import * as path from 'node:path';
+import * as fs from 'node:fs/promises';
 
 @Injectable()
 export class ComplementosService {
   constructor(private prisma: PrismaService) {}
 
-  async create(createComplementoDto: CreateComplementoDto) {
+  async create(createComplementoDto: CreateComplementoDto, file: Express.Multer.File) {
     try {
       const findAddOnGroup = await this.prisma.grupoComplementos.findUnique({
         where: {
@@ -20,8 +22,40 @@ export class ComplementosService {
         throw new HttpException(`Falha ao criar complemento. O Grupo de complementos ${createComplementoDto.idGrupoComplementos} não existe.`, HttpStatus.NOT_FOUND);
       }
 
-      return await this.prisma.complementos.create({
+      const addOn = await this.prisma.complementos.create({
         data: createComplementoDto,
+      });
+
+      // Se enviou imagem, salva no disco e atualiza a coluna imageUrl
+      if (file) {
+        // Pega extensão do arquivo
+        const fileExtension = path.extname(file.originalname).toLowerCase().substring(1);
+
+        // Monta nome do arquivo com id
+        const fileName = `${addOn.id}.${fileExtension}`;
+
+        // Caminho físico onde o arquivo será salvo
+        const filePath = path.resolve(process.cwd(), 'files/addOns/images', fileName);
+
+        // Salva o arquivo
+        await fs.writeFile(filePath, file.buffer);
+
+        // Atualiza a coluna imageUrl no produto
+        await this.prisma.complementos.update({
+          where: {
+            id: addOn.id,
+          },
+          data: {
+            imagemUrl: `http://localhost:3000/files/addOns/images/${fileName}`,
+          },
+        });
+      }
+
+      // Retorna o complemento ja com imageUrl
+      return await this.prisma.complementos.findUnique({
+        where: {
+          id: addOn.id,
+        },
       });
     } catch (err) {
       console.log('Error', err);
@@ -29,7 +63,7 @@ export class ComplementosService {
       if (err instanceof HttpException) {
         throw err; // Propaga a HttpException original
       }
-      throw new HttpException('Falha ao criar grupo de complementos', HttpStatus.BAD_REQUEST, { cause: err });
+      throw new HttpException('Falha ao criar complemento', HttpStatus.BAD_REQUEST, { cause: err });
     }
   }
 

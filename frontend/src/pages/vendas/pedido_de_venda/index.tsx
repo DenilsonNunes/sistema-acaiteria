@@ -12,6 +12,8 @@ import { CloudAlert } from "lucide-react";
 import { PedidoVendaContext } from "@/contexts/PedidoContext";
 import PedidoAtual from "./components/pedido-atual";
 import AcoesVendas from "@/components/acoesFooterMobile/acoes-vendas";
+import { formatarMoedaBRL } from "@/utils/formataMoedaBRL";
+import { useCategories } from "@/hooks/categories/useCategories";
 
 
 
@@ -26,20 +28,13 @@ import AcoesVendas from "@/components/acoesFooterMobile/acoes-vendas";
 
 const PedidoDeVenda = () => {
 
-  const {adicionarItem, removerItem, cart} = useContext(PedidoVendaContext)
+  const {adicionarItem, removerItem, cart} = useContext(PedidoVendaContext);
+  const { fetchCategories } = useCategories();
+  const {data: categories} = fetchCategories;
 
 
-  const [categorySelected, setCategorySelected] = useState('Açai');
+  const [categorySelected, setCategorySelected] = useState('');
 
-  const categorias = [
-    'Açai', 
-    'Sorvetes', 
-    'MilkShake',
-    'Lanches',
-    'Pizzas',
-    'Bebidas',
-    'Salgados'
-  ]
 
 
 
@@ -94,15 +89,15 @@ const PedidoDeVenda = () => {
 
         <div className="bg-gray-200 py-2">
           <ul className="flex ml-2 gap-6 overflow-x-auto scrollbar-hide">
-            {categorias.map((item) => (
-              <li key={item} 
+            {categories && categories.map((item, index) => (
+              <li key={index} 
                 className={`cursor-pointer border-b-2 font-medium 
-                  ${categorySelected === item ? "border-b-fuchsia-600" : "border-b-transparent"}
-                  ${categorySelected === item && "text-fuchsia-600"}
+                  ${categorySelected === item.descricao ? "border-b-fuchsia-600" : "border-b-transparent"}
+                  ${categorySelected === item.descricao && "text-fuchsia-600"}
                 `}
-                onClick={() => setCategorySelected(item)}
+                onClick={() => setCategorySelected(item.descricao)}
               >
-                {item}
+                {item.descricao}
               </li>
             ))}
           </ul>
@@ -129,14 +124,11 @@ const PedidoDeVenda = () => {
                     </div>
                     
                     <div>
-                      <p className="text-lg font-bold text-gray-700">{product.descricao}</p>
-                      <p className="text-gray-600">{product.qtdAcompanhamentos > 0 && `Com ${product.qtdAcompanhamentos} acompanhamentos`}</p>
-                      <p className="text-gray-600">{product.categoria?.descricao === 'Açai' && '3 camadas'}</p>
+                      <p className="text-lg font-bold text-gray-700">{product.nomeProduto}</p>
+                      <p className="text-gray-600">5 Acompanhamentos</p>
+                      <p className="text-gray-600">3 camadas</p>
                       <p className="mt-4 text-lg font-bold">
-                        {Number(product.preco).toLocaleString('pt-BR', {
-                          style: 'currency',
-                          currency: 'BRL',
-                        })}
+                        R$ {formatarMoedaBRL(product.preco)}
                       </p>
                       
                     </div>

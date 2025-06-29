@@ -29,19 +29,22 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar"
+import { AuthContext } from "@/contexts/AuthContext"
+import { useContext } from "react"
 
-export function NavUser({
-  user,
-}: {
-  user: {
-    name: string
-    email: string
-    avatar: string
-  }
-}) {
+
+
+
+export function NavUser() {
+
   const { isMobile } = useSidebar()
 
+  const { logout, user, userData } = useContext(AuthContext);
+  
+
   return (
+
+
     <SidebarMenu>
       <SidebarMenuItem>
         <DropdownMenu>
@@ -55,8 +58,8 @@ export function NavUser({
                 <AvatarFallback className="rounded-lg">DN</AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-medium">{user.name}</span>
-                <span className="truncate text-xs">{user.email}</span>
+                <span className="truncate font-medium">{userData?.user}</span>
+                <span className="truncate text-xs">{userData?.email}</span>
               </div>
               <ChevronsUpDown className="ml-auto size-4" />
             </SidebarMenuButton>
@@ -74,8 +77,8 @@ export function NavUser({
                   <AvatarFallback className="rounded-lg">DN</AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-medium">{user.name}</span>
-                  <span className="truncate text-xs">{user.email}</span>
+                  <span className="truncate font-medium">{userData?.user}</span>
+                  <span className="truncate text-xs">{userData?.email}</span>
                 </div>
               </div>
             </DropdownMenuLabel>
@@ -102,7 +105,7 @@ export function NavUser({
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={logout}>
               <LogOut />
               Sair
             </DropdownMenuItem>

@@ -30,9 +30,8 @@ CREATE TABLE "clientes" (
 CREATE TABLE "produtos" (
     "id" SERIAL NOT NULL,
     "idCategoria" INTEGER,
-    "idGrupoComplementos" INTEGER,
     "nomeProduto" VARCHAR(80) NOT NULL,
-    "descricao" VARCHAR(1000) NOT NULL,
+    "descricao" VARCHAR(1000),
     "preco" DECIMAL(10,4) NOT NULL DEFAULT 0,
     "status" BOOLEAN NOT NULL DEFAULT true,
     "imagemUrl" TEXT,
@@ -53,6 +52,7 @@ CREATE TABLE "categorias" (
 -- CreateTable
 CREATE TABLE "grupocomplementos" (
     "id" SERIAL NOT NULL,
+    "idProduto" INTEGER NOT NULL,
     "descricao" VARCHAR(40) NOT NULL,
     "obrigatorio" BOOLEAN NOT NULL,
     "qtdMinComplemento" INTEGER NOT NULL,
@@ -68,9 +68,10 @@ CREATE TABLE "complementos" (
     "id" SERIAL NOT NULL,
     "idGrupoComplementos" INTEGER,
     "nomeComplemento" VARCHAR(80) NOT NULL,
-    "descricao" VARCHAR(200) NOT NULL,
+    "descricao" VARCHAR(200),
     "status" BOOLEAN NOT NULL DEFAULT true,
     "preco" DECIMAL(10,4) NOT NULL DEFAULT 0,
+    "imagemUrl" TEXT,
     "data_criacao" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "data_alteracao" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
@@ -111,7 +112,7 @@ CREATE UNIQUE INDEX "usuarios_email_key" ON "usuarios"("email");
 ALTER TABLE "produtos" ADD CONSTRAINT "produtos_idCategoria_fkey" FOREIGN KEY ("idCategoria") REFERENCES "categorias"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "produtos" ADD CONSTRAINT "produtos_idGrupoComplementos_fkey" FOREIGN KEY ("idGrupoComplementos") REFERENCES "grupocomplementos"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "grupocomplementos" ADD CONSTRAINT "grupocomplementos_idProduto_fkey" FOREIGN KEY ("idProduto") REFERENCES "produtos"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "complementos" ADD CONSTRAINT "complementos_idGrupoComplementos_fkey" FOREIGN KEY ("idGrupoComplementos") REFERENCES "grupocomplementos"("id") ON DELETE SET NULL ON UPDATE CASCADE;

@@ -26,7 +26,7 @@ export class AuthService {
     });
 
     if (!user) {
-      throw new HttpException('Falha ao fazer o login', HttpStatus.UNAUTHORIZED);
+      throw new HttpException('Usuário/Senha incorretos', HttpStatus.UNAUTHORIZED);
     }
 
     if (user.status === false) {
@@ -38,7 +38,7 @@ export class AuthService {
 
     // Se não for válida, retorna mensagem
     if (!passwordIsValid) {
-      throw new HttpException('Senha/Usuário incorretos', HttpStatus.UNAUTHORIZED);
+      throw new HttpException('Usuário/Senha incorretos', HttpStatus.UNAUTHORIZED);
     }
 
     const token = await this.jwtService.signAsync(
@@ -56,6 +56,8 @@ export class AuthService {
     return {
       id: user.id,
       usuario: user.usuario,
+      nome: user.nome,
+      email: user.email,
       token: token,
     };
   }

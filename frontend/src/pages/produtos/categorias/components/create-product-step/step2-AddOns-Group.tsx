@@ -21,12 +21,12 @@ const StepAddOnsGroup = () => {
   // monitora grupo complementos
   const obrigatorio = watch("grupoComplementos.obrigatorio")
   const nomeGrupoComplementos = watch("grupoComplementos.nomeGrupoComplementos")
-  const qtdMin = watch("grupoComplementos.qtdMin")
-  const qtdMax = watch("grupoComplementos.qtdMax")
+  const qtdMinComplemento = watch("grupoComplementos.qtdMinComplemento")
+  const qtdMaxComplemento = watch("grupoComplementos.qtdMaxComplemento")
 
 
 
-  const alterarValor = (campo: "qtdMin" | "qtdMax", valor: number) => {
+  const alterarValor = (campo: "qtdMinComplemento" | "qtdMaxComplemento", valor: number) => {
 
     setValue(`grupoComplementos.${campo}`, Math.max(0, valor), { shouldValidate: true })
 
@@ -35,23 +35,18 @@ const StepAddOnsGroup = () => {
 
   useEffect(() => {
 
-    if (obrigatorio && qtdMin < 1) {
+    if (obrigatorio && qtdMinComplemento < 1) {
 
-      setValue("grupoComplementos.qtdMin", 1, { shouldValidate: true })
-      setValue("grupoComplementos.qtdMax", 1, { shouldValidate: true })
+      setValue("grupoComplementos.qtdMinComplemento", 1, { shouldValidate: true })
+      setValue("grupoComplementos.qtdMaxComplemento", 1, { shouldValidate: true })
 
     } else if (!obrigatorio){
 
-      setValue("grupoComplementos.qtdMin", 0, { shouldValidate: true })
+      setValue("grupoComplementos.qtdMinComplemento", 0, { shouldValidate: true })
 
     }
     
-  }, [obrigatorio, qtdMin, setValue])
-
-
-
-
-
+  }, [obrigatorio, qtdMinComplemento, setValue])
 
 
   return (
@@ -106,23 +101,23 @@ const StepAddOnsGroup = () => {
           <div className="w-25 px-2 flex items-center justify-between gap-4 border border-gray-300-500 rounded-lg">
             <button
               type="button"
-              onClick={() => alterarValor("qtdMin", qtdMin - 1)}
+              onClick={() => alterarValor("qtdMinComplemento", qtdMinComplemento - 1)}
               className="font-bold cursor-pointer"
             >
               <Minus size={16} />
             </button>
 
-            <span>{qtdMin}</span>
+            <span>{qtdMinComplemento}</span>
 
             <button
               type="button"
-              onClick={() => alterarValor("qtdMin", qtdMin + 1)}
+              onClick={() => alterarValor("qtdMinComplemento", qtdMinComplemento + 1)}
               className="font-bold cursor-pointer"
             >
               <Plus size={16} />
             </button>
           </div>
-          {errors.grupoComplementos?.qtdMin && <span className="text-sm text-red-500">{errors.grupoComplementos.qtdMin.message}</span>}
+          {errors.grupoComplementos?.qtdMinComplemento && <span className="text-sm text-red-500">{errors.grupoComplementos.qtdMinComplemento.message}</span>}
           </div>
 
           <div className="grid gap-1">
@@ -130,23 +125,23 @@ const StepAddOnsGroup = () => {
             <div className="w-25 px-2 flex items-center justify-between gap-4 border border-gray-300-500 rounded-lg">
               <button
                 type="button"
-                onClick={() => alterarValor("qtdMax", qtdMax - 1)}
+                onClick={() => alterarValor("qtdMaxComplemento", qtdMaxComplemento - 1)}
                 className="font-bold cursor-pointer"
               >
                 <Minus size={16} />
               </button>
 
-              <span>{qtdMax}</span>
+              <span>{qtdMaxComplemento}</span>
 
               <button
                 type="button"
-                onClick={() => alterarValor("qtdMax", qtdMax + 1)}
+                onClick={() => alterarValor("qtdMaxComplemento", qtdMaxComplemento + 1)}
                 className="font-bold cursor-pointer"
               >
                 <Plus size={16} />
               </button>
             </div>
-            {errors.grupoComplementos?.qtdMax && <span className="text-sm text-red-500">{errors.grupoComplementos.qtdMax.message}</span>}
+            {errors.grupoComplementos?.qtdMaxComplemento && <span className="text-sm text-red-500">{errors.grupoComplementos.qtdMaxComplemento.message}</span>}
           </div>
 
         </div>

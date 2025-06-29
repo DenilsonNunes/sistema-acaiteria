@@ -20,15 +20,12 @@ import { Button } from "@/components/ui/button"
 const StepAddOns = () => {
 
 
-
-const { control, register, setValue, watch, formState: { errors } } = useFormContext<FullCreateProducSchema>();
+  const { control, register, setValue, watch, formState: { errors } } = useFormContext<FullCreateProducSchema>();
 
   const { fields, append, remove } = useFieldArray({
     control,
     name: 'complementos',
   });
-
-
 
 
   const handleAddComplemento = () => {
@@ -43,9 +40,6 @@ const { control, register, setValue, watch, formState: { errors } } = useFormCon
 
 
  
-
-
-
 
 
 

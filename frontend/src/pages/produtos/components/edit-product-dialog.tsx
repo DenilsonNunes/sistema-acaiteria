@@ -33,7 +33,7 @@ import { DialogDescription } from '@radix-ui/react-dialog'
 
 import type { Product } from '@/types/produtos/product'
 import { Switch } from '@/components/ui/switch'
-import { useCategories } from '@/hooks/categorias/useCategories'
+import { useCategories } from '@/hooks/categories/useCategories'
 
 
 
@@ -115,7 +115,7 @@ const EditProductDialog = ({ product } : {product: Product}) => {
   return (
     <>
 
-      <Button variant="outline" className="w-8 h-8  cursor-pointer bg-orange-500 hover:bg-orange-400" onClick={()=> setOpenEditDialog(!openEditDialog)}>
+      <Button variant="outline" className="w-7 h-7  cursor-pointer bg-orange-500 hover:bg-orange-400" onClick={()=> setOpenEditDialog(!openEditDialog)}>
         <SquarePen/>
       </Button>
 

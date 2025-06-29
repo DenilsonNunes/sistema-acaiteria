@@ -1569,10 +1569,12 @@ export namespace Prisma {
 
   export type ProdutosCountOutputType = {
     itensPedidoVenda: number
+    GrupoComplementos: number
   }
 
   export type ProdutosCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     itensPedidoVenda?: boolean | ProdutosCountOutputTypeCountItensPedidoVendaArgs
+    GrupoComplementos?: boolean | ProdutosCountOutputTypeCountGrupoComplementosArgs
   }
 
   // Custom InputTypes
@@ -1591,6 +1593,13 @@ export namespace Prisma {
    */
   export type ProdutosCountOutputTypeCountItensPedidoVendaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ItensPedidoWhereInput
+  }
+
+  /**
+   * ProdutosCountOutputType without action
+   */
+  export type ProdutosCountOutputTypeCountGrupoComplementosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GrupoComplementosWhereInput
   }
 
 
@@ -1630,12 +1639,10 @@ export namespace Prisma {
    */
 
   export type GrupoComplementosCountOutputType = {
-    Produtos: number
     Complementos: number
   }
 
   export type GrupoComplementosCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    Produtos?: boolean | GrupoComplementosCountOutputTypeCountProdutosArgs
     Complementos?: boolean | GrupoComplementosCountOutputTypeCountComplementosArgs
   }
 
@@ -1648,13 +1655,6 @@ export namespace Prisma {
      * Select specific fields to fetch from the GrupoComplementosCountOutputType
      */
     select?: GrupoComplementosCountOutputTypeSelect<ExtArgs> | null
-  }
-
-  /**
-   * GrupoComplementosCountOutputType without action
-   */
-  export type GrupoComplementosCountOutputTypeCountProdutosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ProdutosWhereInput
   }
 
   /**
@@ -4001,21 +4001,18 @@ export namespace Prisma {
   export type ProdutosAvgAggregateOutputType = {
     id: number | null
     idCategoria: number | null
-    idGrupoComplementos: number | null
     preco: Decimal | null
   }
 
   export type ProdutosSumAggregateOutputType = {
     id: number | null
     idCategoria: number | null
-    idGrupoComplementos: number | null
     preco: Decimal | null
   }
 
   export type ProdutosMinAggregateOutputType = {
     id: number | null
     idCategoria: number | null
-    idGrupoComplementos: number | null
     nomeProduto: string | null
     descricao: string | null
     preco: Decimal | null
@@ -4028,7 +4025,6 @@ export namespace Prisma {
   export type ProdutosMaxAggregateOutputType = {
     id: number | null
     idCategoria: number | null
-    idGrupoComplementos: number | null
     nomeProduto: string | null
     descricao: string | null
     preco: Decimal | null
@@ -4041,7 +4037,6 @@ export namespace Prisma {
   export type ProdutosCountAggregateOutputType = {
     id: number
     idCategoria: number
-    idGrupoComplementos: number
     nomeProduto: number
     descricao: number
     preco: number
@@ -4056,21 +4051,18 @@ export namespace Prisma {
   export type ProdutosAvgAggregateInputType = {
     id?: true
     idCategoria?: true
-    idGrupoComplementos?: true
     preco?: true
   }
 
   export type ProdutosSumAggregateInputType = {
     id?: true
     idCategoria?: true
-    idGrupoComplementos?: true
     preco?: true
   }
 
   export type ProdutosMinAggregateInputType = {
     id?: true
     idCategoria?: true
-    idGrupoComplementos?: true
     nomeProduto?: true
     descricao?: true
     preco?: true
@@ -4083,7 +4075,6 @@ export namespace Prisma {
   export type ProdutosMaxAggregateInputType = {
     id?: true
     idCategoria?: true
-    idGrupoComplementos?: true
     nomeProduto?: true
     descricao?: true
     preco?: true
@@ -4096,7 +4087,6 @@ export namespace Prisma {
   export type ProdutosCountAggregateInputType = {
     id?: true
     idCategoria?: true
-    idGrupoComplementos?: true
     nomeProduto?: true
     descricao?: true
     preco?: true
@@ -4196,7 +4186,6 @@ export namespace Prisma {
   export type ProdutosGroupByOutputType = {
     id: number
     idCategoria: number | null
-    idGrupoComplementos: number | null
     nomeProduto: string
     descricao: string | null
     preco: Decimal
@@ -4228,7 +4217,6 @@ export namespace Prisma {
   export type ProdutosSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     idCategoria?: boolean
-    idGrupoComplementos?: boolean
     nomeProduto?: boolean
     descricao?: boolean
     preco?: boolean
@@ -4237,15 +4225,14 @@ export namespace Prisma {
     data_criacao?: boolean
     data_alteracao?: boolean
     categoria?: boolean | Produtos$categoriaArgs<ExtArgs>
-    grupoComplementos?: boolean | Produtos$grupoComplementosArgs<ExtArgs>
     itensPedidoVenda?: boolean | Produtos$itensPedidoVendaArgs<ExtArgs>
+    GrupoComplementos?: boolean | Produtos$GrupoComplementosArgs<ExtArgs>
     _count?: boolean | ProdutosCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["produtos"]>
 
   export type ProdutosSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     idCategoria?: boolean
-    idGrupoComplementos?: boolean
     nomeProduto?: boolean
     descricao?: boolean
     preco?: boolean
@@ -4254,13 +4241,11 @@ export namespace Prisma {
     data_criacao?: boolean
     data_alteracao?: boolean
     categoria?: boolean | Produtos$categoriaArgs<ExtArgs>
-    grupoComplementos?: boolean | Produtos$grupoComplementosArgs<ExtArgs>
   }, ExtArgs["result"]["produtos"]>
 
   export type ProdutosSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     idCategoria?: boolean
-    idGrupoComplementos?: boolean
     nomeProduto?: boolean
     descricao?: boolean
     preco?: boolean
@@ -4269,13 +4254,11 @@ export namespace Prisma {
     data_criacao?: boolean
     data_alteracao?: boolean
     categoria?: boolean | Produtos$categoriaArgs<ExtArgs>
-    grupoComplementos?: boolean | Produtos$grupoComplementosArgs<ExtArgs>
   }, ExtArgs["result"]["produtos"]>
 
   export type ProdutosSelectScalar = {
     id?: boolean
     idCategoria?: boolean
-    idGrupoComplementos?: boolean
     nomeProduto?: boolean
     descricao?: boolean
     preco?: boolean
@@ -4285,33 +4268,30 @@ export namespace Prisma {
     data_alteracao?: boolean
   }
 
-  export type ProdutosOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "idCategoria" | "idGrupoComplementos" | "nomeProduto" | "descricao" | "preco" | "status" | "imagemUrl" | "data_criacao" | "data_alteracao", ExtArgs["result"]["produtos"]>
+  export type ProdutosOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "idCategoria" | "nomeProduto" | "descricao" | "preco" | "status" | "imagemUrl" | "data_criacao" | "data_alteracao", ExtArgs["result"]["produtos"]>
   export type ProdutosInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     categoria?: boolean | Produtos$categoriaArgs<ExtArgs>
-    grupoComplementos?: boolean | Produtos$grupoComplementosArgs<ExtArgs>
     itensPedidoVenda?: boolean | Produtos$itensPedidoVendaArgs<ExtArgs>
+    GrupoComplementos?: boolean | Produtos$GrupoComplementosArgs<ExtArgs>
     _count?: boolean | ProdutosCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ProdutosIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     categoria?: boolean | Produtos$categoriaArgs<ExtArgs>
-    grupoComplementos?: boolean | Produtos$grupoComplementosArgs<ExtArgs>
   }
   export type ProdutosIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     categoria?: boolean | Produtos$categoriaArgs<ExtArgs>
-    grupoComplementos?: boolean | Produtos$grupoComplementosArgs<ExtArgs>
   }
 
   export type $ProdutosPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Produtos"
     objects: {
       categoria: Prisma.$CategoriasPayload<ExtArgs> | null
-      grupoComplementos: Prisma.$GrupoComplementosPayload<ExtArgs> | null
       itensPedidoVenda: Prisma.$ItensPedidoPayload<ExtArgs>[]
+      GrupoComplementos: Prisma.$GrupoComplementosPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       idCategoria: number | null
-      idGrupoComplementos: number | null
       nomeProduto: string
       descricao: string | null
       preco: Prisma.Decimal
@@ -4714,8 +4694,8 @@ export namespace Prisma {
   export interface Prisma__ProdutosClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     categoria<T extends Produtos$categoriaArgs<ExtArgs> = {}>(args?: Subset<T, Produtos$categoriaArgs<ExtArgs>>): Prisma__CategoriasClient<$Result.GetResult<Prisma.$CategoriasPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    grupoComplementos<T extends Produtos$grupoComplementosArgs<ExtArgs> = {}>(args?: Subset<T, Produtos$grupoComplementosArgs<ExtArgs>>): Prisma__GrupoComplementosClient<$Result.GetResult<Prisma.$GrupoComplementosPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     itensPedidoVenda<T extends Produtos$itensPedidoVendaArgs<ExtArgs> = {}>(args?: Subset<T, Produtos$itensPedidoVendaArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ItensPedidoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    GrupoComplementos<T extends Produtos$GrupoComplementosArgs<ExtArgs> = {}>(args?: Subset<T, Produtos$GrupoComplementosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GrupoComplementosPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4747,7 +4727,6 @@ export namespace Prisma {
   interface ProdutosFieldRefs {
     readonly id: FieldRef<"Produtos", 'Int'>
     readonly idCategoria: FieldRef<"Produtos", 'Int'>
-    readonly idGrupoComplementos: FieldRef<"Produtos", 'Int'>
     readonly nomeProduto: FieldRef<"Produtos", 'String'>
     readonly descricao: FieldRef<"Produtos", 'String'>
     readonly preco: FieldRef<"Produtos", 'Decimal'>
@@ -5170,25 +5149,6 @@ export namespace Prisma {
   }
 
   /**
-   * Produtos.grupoComplementos
-   */
-  export type Produtos$grupoComplementosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the GrupoComplementos
-     */
-    select?: GrupoComplementosSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the GrupoComplementos
-     */
-    omit?: GrupoComplementosOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: GrupoComplementosInclude<ExtArgs> | null
-    where?: GrupoComplementosWhereInput
-  }
-
-  /**
    * Produtos.itensPedidoVenda
    */
   export type Produtos$itensPedidoVendaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5210,6 +5170,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ItensPedidoScalarFieldEnum | ItensPedidoScalarFieldEnum[]
+  }
+
+  /**
+   * Produtos.GrupoComplementos
+   */
+  export type Produtos$GrupoComplementosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GrupoComplementos
+     */
+    select?: GrupoComplementosSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GrupoComplementos
+     */
+    omit?: GrupoComplementosOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GrupoComplementosInclude<ExtArgs> | null
+    where?: GrupoComplementosWhereInput
+    orderBy?: GrupoComplementosOrderByWithRelationInput | GrupoComplementosOrderByWithRelationInput[]
+    cursor?: GrupoComplementosWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: GrupoComplementosScalarFieldEnum | GrupoComplementosScalarFieldEnum[]
   }
 
   /**
@@ -6310,18 +6294,22 @@ export namespace Prisma {
 
   export type GrupoComplementosAvgAggregateOutputType = {
     id: number | null
+    idProduto: number | null
     qtdMinComplemento: number | null
     qtdMaxComplemento: number | null
   }
 
   export type GrupoComplementosSumAggregateOutputType = {
     id: number | null
+    idProduto: number | null
     qtdMinComplemento: number | null
     qtdMaxComplemento: number | null
   }
 
   export type GrupoComplementosMinAggregateOutputType = {
     id: number | null
+    idProduto: number | null
+    nomeGrupoComplementos: string | null
     descricao: string | null
     obrigatorio: boolean | null
     qtdMinComplemento: number | null
@@ -6332,6 +6320,8 @@ export namespace Prisma {
 
   export type GrupoComplementosMaxAggregateOutputType = {
     id: number | null
+    idProduto: number | null
+    nomeGrupoComplementos: string | null
     descricao: string | null
     obrigatorio: boolean | null
     qtdMinComplemento: number | null
@@ -6342,6 +6332,8 @@ export namespace Prisma {
 
   export type GrupoComplementosCountAggregateOutputType = {
     id: number
+    idProduto: number
+    nomeGrupoComplementos: number
     descricao: number
     obrigatorio: number
     qtdMinComplemento: number
@@ -6354,18 +6346,22 @@ export namespace Prisma {
 
   export type GrupoComplementosAvgAggregateInputType = {
     id?: true
+    idProduto?: true
     qtdMinComplemento?: true
     qtdMaxComplemento?: true
   }
 
   export type GrupoComplementosSumAggregateInputType = {
     id?: true
+    idProduto?: true
     qtdMinComplemento?: true
     qtdMaxComplemento?: true
   }
 
   export type GrupoComplementosMinAggregateInputType = {
     id?: true
+    idProduto?: true
+    nomeGrupoComplementos?: true
     descricao?: true
     obrigatorio?: true
     qtdMinComplemento?: true
@@ -6376,6 +6372,8 @@ export namespace Prisma {
 
   export type GrupoComplementosMaxAggregateInputType = {
     id?: true
+    idProduto?: true
+    nomeGrupoComplementos?: true
     descricao?: true
     obrigatorio?: true
     qtdMinComplemento?: true
@@ -6386,6 +6384,8 @@ export namespace Prisma {
 
   export type GrupoComplementosCountAggregateInputType = {
     id?: true
+    idProduto?: true
+    nomeGrupoComplementos?: true
     descricao?: true
     obrigatorio?: true
     qtdMinComplemento?: true
@@ -6483,7 +6483,9 @@ export namespace Prisma {
 
   export type GrupoComplementosGroupByOutputType = {
     id: number
-    descricao: string
+    idProduto: number
+    nomeGrupoComplementos: string
+    descricao: string | null
     obrigatorio: boolean
     qtdMinComplemento: number
     qtdMaxComplemento: number
@@ -6512,39 +6514,49 @@ export namespace Prisma {
 
   export type GrupoComplementosSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    idProduto?: boolean
+    nomeGrupoComplementos?: boolean
     descricao?: boolean
     obrigatorio?: boolean
     qtdMinComplemento?: boolean
     qtdMaxComplemento?: boolean
     data_criacao?: boolean
     data_alteracao?: boolean
-    Produtos?: boolean | GrupoComplementos$ProdutosArgs<ExtArgs>
+    produtos?: boolean | GrupoComplementos$produtosArgs<ExtArgs>
     Complementos?: boolean | GrupoComplementos$ComplementosArgs<ExtArgs>
     _count?: boolean | GrupoComplementosCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["grupoComplementos"]>
 
   export type GrupoComplementosSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    idProduto?: boolean
+    nomeGrupoComplementos?: boolean
     descricao?: boolean
     obrigatorio?: boolean
     qtdMinComplemento?: boolean
     qtdMaxComplemento?: boolean
     data_criacao?: boolean
     data_alteracao?: boolean
+    produtos?: boolean | GrupoComplementos$produtosArgs<ExtArgs>
   }, ExtArgs["result"]["grupoComplementos"]>
 
   export type GrupoComplementosSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    idProduto?: boolean
+    nomeGrupoComplementos?: boolean
     descricao?: boolean
     obrigatorio?: boolean
     qtdMinComplemento?: boolean
     qtdMaxComplemento?: boolean
     data_criacao?: boolean
     data_alteracao?: boolean
+    produtos?: boolean | GrupoComplementos$produtosArgs<ExtArgs>
   }, ExtArgs["result"]["grupoComplementos"]>
 
   export type GrupoComplementosSelectScalar = {
     id?: boolean
+    idProduto?: boolean
+    nomeGrupoComplementos?: boolean
     descricao?: boolean
     obrigatorio?: boolean
     qtdMinComplemento?: boolean
@@ -6553,24 +6565,30 @@ export namespace Prisma {
     data_alteracao?: boolean
   }
 
-  export type GrupoComplementosOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "descricao" | "obrigatorio" | "qtdMinComplemento" | "qtdMaxComplemento" | "data_criacao" | "data_alteracao", ExtArgs["result"]["grupoComplementos"]>
+  export type GrupoComplementosOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "idProduto" | "nomeGrupoComplementos" | "descricao" | "obrigatorio" | "qtdMinComplemento" | "qtdMaxComplemento" | "data_criacao" | "data_alteracao", ExtArgs["result"]["grupoComplementos"]>
   export type GrupoComplementosInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    Produtos?: boolean | GrupoComplementos$ProdutosArgs<ExtArgs>
+    produtos?: boolean | GrupoComplementos$produtosArgs<ExtArgs>
     Complementos?: boolean | GrupoComplementos$ComplementosArgs<ExtArgs>
     _count?: boolean | GrupoComplementosCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type GrupoComplementosIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-  export type GrupoComplementosIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type GrupoComplementosIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    produtos?: boolean | GrupoComplementos$produtosArgs<ExtArgs>
+  }
+  export type GrupoComplementosIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    produtos?: boolean | GrupoComplementos$produtosArgs<ExtArgs>
+  }
 
   export type $GrupoComplementosPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "GrupoComplementos"
     objects: {
-      Produtos: Prisma.$ProdutosPayload<ExtArgs>[]
+      produtos: Prisma.$ProdutosPayload<ExtArgs> | null
       Complementos: Prisma.$ComplementosPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
-      descricao: string
+      idProduto: number
+      nomeGrupoComplementos: string
+      descricao: string | null
       obrigatorio: boolean
       qtdMinComplemento: number
       qtdMaxComplemento: number
@@ -6970,7 +6988,7 @@ export namespace Prisma {
    */
   export interface Prisma__GrupoComplementosClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    Produtos<T extends GrupoComplementos$ProdutosArgs<ExtArgs> = {}>(args?: Subset<T, GrupoComplementos$ProdutosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProdutosPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    produtos<T extends GrupoComplementos$produtosArgs<ExtArgs> = {}>(args?: Subset<T, GrupoComplementos$produtosArgs<ExtArgs>>): Prisma__ProdutosClient<$Result.GetResult<Prisma.$ProdutosPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     Complementos<T extends GrupoComplementos$ComplementosArgs<ExtArgs> = {}>(args?: Subset<T, GrupoComplementos$ComplementosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ComplementosPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -7002,6 +7020,8 @@ export namespace Prisma {
    */
   interface GrupoComplementosFieldRefs {
     readonly id: FieldRef<"GrupoComplementos", 'Int'>
+    readonly idProduto: FieldRef<"GrupoComplementos", 'Int'>
+    readonly nomeGrupoComplementos: FieldRef<"GrupoComplementos", 'String'>
     readonly descricao: FieldRef<"GrupoComplementos", 'String'>
     readonly obrigatorio: FieldRef<"GrupoComplementos", 'Boolean'>
     readonly qtdMinComplemento: FieldRef<"GrupoComplementos", 'Int'>
@@ -7257,6 +7277,10 @@ export namespace Prisma {
      */
     data: GrupoComplementosCreateManyInput | GrupoComplementosCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GrupoComplementosIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -7327,6 +7351,10 @@ export namespace Prisma {
      * Limit how many GrupoComplementos to update.
      */
     limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GrupoComplementosIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -7396,9 +7424,9 @@ export namespace Prisma {
   }
 
   /**
-   * GrupoComplementos.Produtos
+   * GrupoComplementos.produtos
    */
-  export type GrupoComplementos$ProdutosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type GrupoComplementos$produtosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Produtos
      */
@@ -7412,11 +7440,6 @@ export namespace Prisma {
      */
     include?: ProdutosInclude<ExtArgs> | null
     where?: ProdutosWhereInput
-    orderBy?: ProdutosOrderByWithRelationInput | ProdutosOrderByWithRelationInput[]
-    cursor?: ProdutosWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: ProdutosScalarFieldEnum | ProdutosScalarFieldEnum[]
   }
 
   /**
@@ -10962,7 +10985,6 @@ export namespace Prisma {
   export const ProdutosScalarFieldEnum: {
     id: 'id',
     idCategoria: 'idCategoria',
-    idGrupoComplementos: 'idGrupoComplementos',
     nomeProduto: 'nomeProduto',
     descricao: 'descricao',
     preco: 'preco',
@@ -10985,6 +11007,8 @@ export namespace Prisma {
 
   export const GrupoComplementosScalarFieldEnum: {
     id: 'id',
+    idProduto: 'idProduto',
+    nomeGrupoComplementos: 'nomeGrupoComplementos',
     descricao: 'descricao',
     obrigatorio: 'obrigatorio',
     qtdMinComplemento: 'qtdMinComplemento',
@@ -11294,7 +11318,6 @@ export namespace Prisma {
     NOT?: ProdutosWhereInput | ProdutosWhereInput[]
     id?: IntFilter<"Produtos"> | number
     idCategoria?: IntNullableFilter<"Produtos"> | number | null
-    idGrupoComplementos?: IntNullableFilter<"Produtos"> | number | null
     nomeProduto?: StringFilter<"Produtos"> | string
     descricao?: StringNullableFilter<"Produtos"> | string | null
     preco?: DecimalFilter<"Produtos"> | Decimal | DecimalJsLike | number | string
@@ -11303,14 +11326,13 @@ export namespace Prisma {
     data_criacao?: DateTimeFilter<"Produtos"> | Date | string
     data_alteracao?: DateTimeFilter<"Produtos"> | Date | string
     categoria?: XOR<CategoriasNullableScalarRelationFilter, CategoriasWhereInput> | null
-    grupoComplementos?: XOR<GrupoComplementosNullableScalarRelationFilter, GrupoComplementosWhereInput> | null
     itensPedidoVenda?: ItensPedidoListRelationFilter
+    GrupoComplementos?: GrupoComplementosListRelationFilter
   }
 
   export type ProdutosOrderByWithRelationInput = {
     id?: SortOrder
     idCategoria?: SortOrderInput | SortOrder
-    idGrupoComplementos?: SortOrderInput | SortOrder
     nomeProduto?: SortOrder
     descricao?: SortOrderInput | SortOrder
     preco?: SortOrder
@@ -11319,8 +11341,8 @@ export namespace Prisma {
     data_criacao?: SortOrder
     data_alteracao?: SortOrder
     categoria?: CategoriasOrderByWithRelationInput
-    grupoComplementos?: GrupoComplementosOrderByWithRelationInput
     itensPedidoVenda?: ItensPedidoOrderByRelationAggregateInput
+    GrupoComplementos?: GrupoComplementosOrderByRelationAggregateInput
   }
 
   export type ProdutosWhereUniqueInput = Prisma.AtLeast<{
@@ -11329,7 +11351,6 @@ export namespace Prisma {
     OR?: ProdutosWhereInput[]
     NOT?: ProdutosWhereInput | ProdutosWhereInput[]
     idCategoria?: IntNullableFilter<"Produtos"> | number | null
-    idGrupoComplementos?: IntNullableFilter<"Produtos"> | number | null
     nomeProduto?: StringFilter<"Produtos"> | string
     descricao?: StringNullableFilter<"Produtos"> | string | null
     preco?: DecimalFilter<"Produtos"> | Decimal | DecimalJsLike | number | string
@@ -11338,14 +11359,13 @@ export namespace Prisma {
     data_criacao?: DateTimeFilter<"Produtos"> | Date | string
     data_alteracao?: DateTimeFilter<"Produtos"> | Date | string
     categoria?: XOR<CategoriasNullableScalarRelationFilter, CategoriasWhereInput> | null
-    grupoComplementos?: XOR<GrupoComplementosNullableScalarRelationFilter, GrupoComplementosWhereInput> | null
     itensPedidoVenda?: ItensPedidoListRelationFilter
+    GrupoComplementos?: GrupoComplementosListRelationFilter
   }, "id">
 
   export type ProdutosOrderByWithAggregationInput = {
     id?: SortOrder
     idCategoria?: SortOrderInput | SortOrder
-    idGrupoComplementos?: SortOrderInput | SortOrder
     nomeProduto?: SortOrder
     descricao?: SortOrderInput | SortOrder
     preco?: SortOrder
@@ -11366,7 +11386,6 @@ export namespace Prisma {
     NOT?: ProdutosScalarWhereWithAggregatesInput | ProdutosScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Produtos"> | number
     idCategoria?: IntNullableWithAggregatesFilter<"Produtos"> | number | null
-    idGrupoComplementos?: IntNullableWithAggregatesFilter<"Produtos"> | number | null
     nomeProduto?: StringWithAggregatesFilter<"Produtos"> | string
     descricao?: StringNullableWithAggregatesFilter<"Produtos"> | string | null
     preco?: DecimalWithAggregatesFilter<"Produtos"> | Decimal | DecimalJsLike | number | string
@@ -11423,25 +11442,29 @@ export namespace Prisma {
     OR?: GrupoComplementosWhereInput[]
     NOT?: GrupoComplementosWhereInput | GrupoComplementosWhereInput[]
     id?: IntFilter<"GrupoComplementos"> | number
-    descricao?: StringFilter<"GrupoComplementos"> | string
+    idProduto?: IntFilter<"GrupoComplementos"> | number
+    nomeGrupoComplementos?: StringFilter<"GrupoComplementos"> | string
+    descricao?: StringNullableFilter<"GrupoComplementos"> | string | null
     obrigatorio?: BoolFilter<"GrupoComplementos"> | boolean
     qtdMinComplemento?: IntFilter<"GrupoComplementos"> | number
     qtdMaxComplemento?: IntFilter<"GrupoComplementos"> | number
     data_criacao?: DateTimeFilter<"GrupoComplementos"> | Date | string
     data_alteracao?: DateTimeFilter<"GrupoComplementos"> | Date | string
-    Produtos?: ProdutosListRelationFilter
+    produtos?: XOR<ProdutosNullableScalarRelationFilter, ProdutosWhereInput> | null
     Complementos?: ComplementosListRelationFilter
   }
 
   export type GrupoComplementosOrderByWithRelationInput = {
     id?: SortOrder
-    descricao?: SortOrder
+    idProduto?: SortOrder
+    nomeGrupoComplementos?: SortOrder
+    descricao?: SortOrderInput | SortOrder
     obrigatorio?: SortOrder
     qtdMinComplemento?: SortOrder
     qtdMaxComplemento?: SortOrder
     data_criacao?: SortOrder
     data_alteracao?: SortOrder
-    Produtos?: ProdutosOrderByRelationAggregateInput
+    produtos?: ProdutosOrderByWithRelationInput
     Complementos?: ComplementosOrderByRelationAggregateInput
   }
 
@@ -11450,19 +11473,23 @@ export namespace Prisma {
     AND?: GrupoComplementosWhereInput | GrupoComplementosWhereInput[]
     OR?: GrupoComplementosWhereInput[]
     NOT?: GrupoComplementosWhereInput | GrupoComplementosWhereInput[]
-    descricao?: StringFilter<"GrupoComplementos"> | string
+    idProduto?: IntFilter<"GrupoComplementos"> | number
+    nomeGrupoComplementos?: StringFilter<"GrupoComplementos"> | string
+    descricao?: StringNullableFilter<"GrupoComplementos"> | string | null
     obrigatorio?: BoolFilter<"GrupoComplementos"> | boolean
     qtdMinComplemento?: IntFilter<"GrupoComplementos"> | number
     qtdMaxComplemento?: IntFilter<"GrupoComplementos"> | number
     data_criacao?: DateTimeFilter<"GrupoComplementos"> | Date | string
     data_alteracao?: DateTimeFilter<"GrupoComplementos"> | Date | string
-    Produtos?: ProdutosListRelationFilter
+    produtos?: XOR<ProdutosNullableScalarRelationFilter, ProdutosWhereInput> | null
     Complementos?: ComplementosListRelationFilter
   }, "id">
 
   export type GrupoComplementosOrderByWithAggregationInput = {
     id?: SortOrder
-    descricao?: SortOrder
+    idProduto?: SortOrder
+    nomeGrupoComplementos?: SortOrder
+    descricao?: SortOrderInput | SortOrder
     obrigatorio?: SortOrder
     qtdMinComplemento?: SortOrder
     qtdMaxComplemento?: SortOrder
@@ -11480,7 +11507,9 @@ export namespace Prisma {
     OR?: GrupoComplementosScalarWhereWithAggregatesInput[]
     NOT?: GrupoComplementosScalarWhereWithAggregatesInput | GrupoComplementosScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"GrupoComplementos"> | number
-    descricao?: StringWithAggregatesFilter<"GrupoComplementos"> | string
+    idProduto?: IntWithAggregatesFilter<"GrupoComplementos"> | number
+    nomeGrupoComplementos?: StringWithAggregatesFilter<"GrupoComplementos"> | string
+    descricao?: StringNullableWithAggregatesFilter<"GrupoComplementos"> | string | null
     obrigatorio?: BoolWithAggregatesFilter<"GrupoComplementos"> | boolean
     qtdMinComplemento?: IntWithAggregatesFilter<"GrupoComplementos"> | number
     qtdMaxComplemento?: IntWithAggregatesFilter<"GrupoComplementos"> | number
@@ -11863,14 +11892,13 @@ export namespace Prisma {
     data_criacao?: Date | string
     data_alteracao?: Date | string
     categoria?: CategoriasCreateNestedOneWithoutProdutosInput
-    grupoComplementos?: GrupoComplementosCreateNestedOneWithoutProdutosInput
     itensPedidoVenda?: ItensPedidoCreateNestedManyWithoutProdutosInput
+    GrupoComplementos?: GrupoComplementosCreateNestedManyWithoutProdutosInput
   }
 
   export type ProdutosUncheckedCreateInput = {
     id?: number
     idCategoria?: number | null
-    idGrupoComplementos?: number | null
     nomeProduto: string
     descricao?: string | null
     preco?: Decimal | DecimalJsLike | number | string
@@ -11879,6 +11907,7 @@ export namespace Prisma {
     data_criacao?: Date | string
     data_alteracao?: Date | string
     itensPedidoVenda?: ItensPedidoUncheckedCreateNestedManyWithoutProdutosInput
+    GrupoComplementos?: GrupoComplementosUncheckedCreateNestedManyWithoutProdutosInput
   }
 
   export type ProdutosUpdateInput = {
@@ -11890,14 +11919,13 @@ export namespace Prisma {
     data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
     data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
     categoria?: CategoriasUpdateOneWithoutProdutosNestedInput
-    grupoComplementos?: GrupoComplementosUpdateOneWithoutProdutosNestedInput
     itensPedidoVenda?: ItensPedidoUpdateManyWithoutProdutosNestedInput
+    GrupoComplementos?: GrupoComplementosUpdateManyWithoutProdutosNestedInput
   }
 
   export type ProdutosUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     idCategoria?: NullableIntFieldUpdateOperationsInput | number | null
-    idGrupoComplementos?: NullableIntFieldUpdateOperationsInput | number | null
     nomeProduto?: StringFieldUpdateOperationsInput | string
     descricao?: NullableStringFieldUpdateOperationsInput | string | null
     preco?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -11906,12 +11934,12 @@ export namespace Prisma {
     data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
     data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
     itensPedidoVenda?: ItensPedidoUncheckedUpdateManyWithoutProdutosNestedInput
+    GrupoComplementos?: GrupoComplementosUncheckedUpdateManyWithoutProdutosNestedInput
   }
 
   export type ProdutosCreateManyInput = {
     id?: number
     idCategoria?: number | null
-    idGrupoComplementos?: number | null
     nomeProduto: string
     descricao?: string | null
     preco?: Decimal | DecimalJsLike | number | string
@@ -11934,7 +11962,6 @@ export namespace Prisma {
   export type ProdutosUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     idCategoria?: NullableIntFieldUpdateOperationsInput | number | null
-    idGrupoComplementos?: NullableIntFieldUpdateOperationsInput | number | null
     nomeProduto?: StringFieldUpdateOperationsInput | string
     descricao?: NullableStringFieldUpdateOperationsInput | string | null
     preco?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -11981,54 +12008,60 @@ export namespace Prisma {
   }
 
   export type GrupoComplementosCreateInput = {
-    descricao: string
+    nomeGrupoComplementos: string
+    descricao?: string | null
     obrigatorio: boolean
     qtdMinComplemento: number
     qtdMaxComplemento: number
     data_criacao?: Date | string
     data_alteracao?: Date | string
-    Produtos?: ProdutosCreateNestedManyWithoutGrupoComplementosInput
+    produtos?: ProdutosCreateNestedOneWithoutGrupoComplementosInput
     Complementos?: ComplementosCreateNestedManyWithoutGrupoComplementosInput
   }
 
   export type GrupoComplementosUncheckedCreateInput = {
     id?: number
-    descricao: string
+    idProduto: number
+    nomeGrupoComplementos: string
+    descricao?: string | null
     obrigatorio: boolean
     qtdMinComplemento: number
     qtdMaxComplemento: number
     data_criacao?: Date | string
     data_alteracao?: Date | string
-    Produtos?: ProdutosUncheckedCreateNestedManyWithoutGrupoComplementosInput
     Complementos?: ComplementosUncheckedCreateNestedManyWithoutGrupoComplementosInput
   }
 
   export type GrupoComplementosUpdateInput = {
-    descricao?: StringFieldUpdateOperationsInput | string
+    nomeGrupoComplementos?: StringFieldUpdateOperationsInput | string
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
     obrigatorio?: BoolFieldUpdateOperationsInput | boolean
     qtdMinComplemento?: IntFieldUpdateOperationsInput | number
     qtdMaxComplemento?: IntFieldUpdateOperationsInput | number
     data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
     data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
-    Produtos?: ProdutosUpdateManyWithoutGrupoComplementosNestedInput
+    produtos?: ProdutosUpdateOneWithoutGrupoComplementosNestedInput
     Complementos?: ComplementosUpdateManyWithoutGrupoComplementosNestedInput
   }
 
   export type GrupoComplementosUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
-    descricao?: StringFieldUpdateOperationsInput | string
+    idProduto?: IntFieldUpdateOperationsInput | number
+    nomeGrupoComplementos?: StringFieldUpdateOperationsInput | string
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
     obrigatorio?: BoolFieldUpdateOperationsInput | boolean
     qtdMinComplemento?: IntFieldUpdateOperationsInput | number
     qtdMaxComplemento?: IntFieldUpdateOperationsInput | number
     data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
     data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
-    Produtos?: ProdutosUncheckedUpdateManyWithoutGrupoComplementosNestedInput
     Complementos?: ComplementosUncheckedUpdateManyWithoutGrupoComplementosNestedInput
   }
 
   export type GrupoComplementosCreateManyInput = {
     id?: number
-    descricao: string
+    idProduto: number
+    nomeGrupoComplementos: string
+    descricao?: string | null
     obrigatorio: boolean
     qtdMinComplemento: number
     qtdMaxComplemento: number
@@ -12037,7 +12070,8 @@ export namespace Prisma {
   }
 
   export type GrupoComplementosUpdateManyMutationInput = {
-    descricao?: StringFieldUpdateOperationsInput | string
+    nomeGrupoComplementos?: StringFieldUpdateOperationsInput | string
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
     obrigatorio?: BoolFieldUpdateOperationsInput | boolean
     qtdMinComplemento?: IntFieldUpdateOperationsInput | number
     qtdMaxComplemento?: IntFieldUpdateOperationsInput | number
@@ -12047,7 +12081,9 @@ export namespace Prisma {
 
   export type GrupoComplementosUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
-    descricao?: StringFieldUpdateOperationsInput | string
+    idProduto?: IntFieldUpdateOperationsInput | number
+    nomeGrupoComplementos?: StringFieldUpdateOperationsInput | string
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
     obrigatorio?: BoolFieldUpdateOperationsInput | boolean
     qtdMinComplemento?: IntFieldUpdateOperationsInput | number
     qtdMaxComplemento?: IntFieldUpdateOperationsInput | number
@@ -12510,25 +12546,29 @@ export namespace Prisma {
     isNot?: CategoriasWhereInput | null
   }
 
-  export type GrupoComplementosNullableScalarRelationFilter = {
-    is?: GrupoComplementosWhereInput | null
-    isNot?: GrupoComplementosWhereInput | null
-  }
-
   export type ItensPedidoListRelationFilter = {
     every?: ItensPedidoWhereInput
     some?: ItensPedidoWhereInput
     none?: ItensPedidoWhereInput
   }
 
+  export type GrupoComplementosListRelationFilter = {
+    every?: GrupoComplementosWhereInput
+    some?: GrupoComplementosWhereInput
+    none?: GrupoComplementosWhereInput
+  }
+
   export type ItensPedidoOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type GrupoComplementosOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
   export type ProdutosCountOrderByAggregateInput = {
     id?: SortOrder
     idCategoria?: SortOrder
-    idGrupoComplementos?: SortOrder
     nomeProduto?: SortOrder
     descricao?: SortOrder
     preco?: SortOrder
@@ -12541,14 +12581,12 @@ export namespace Prisma {
   export type ProdutosAvgOrderByAggregateInput = {
     id?: SortOrder
     idCategoria?: SortOrder
-    idGrupoComplementos?: SortOrder
     preco?: SortOrder
   }
 
   export type ProdutosMaxOrderByAggregateInput = {
     id?: SortOrder
     idCategoria?: SortOrder
-    idGrupoComplementos?: SortOrder
     nomeProduto?: SortOrder
     descricao?: SortOrder
     preco?: SortOrder
@@ -12561,7 +12599,6 @@ export namespace Prisma {
   export type ProdutosMinOrderByAggregateInput = {
     id?: SortOrder
     idCategoria?: SortOrder
-    idGrupoComplementos?: SortOrder
     nomeProduto?: SortOrder
     descricao?: SortOrder
     preco?: SortOrder
@@ -12574,7 +12611,6 @@ export namespace Prisma {
   export type ProdutosSumOrderByAggregateInput = {
     id?: SortOrder
     idCategoria?: SortOrder
-    idGrupoComplementos?: SortOrder
     preco?: SortOrder
   }
 
@@ -12643,6 +12679,11 @@ export namespace Prisma {
     id?: SortOrder
   }
 
+  export type ProdutosNullableScalarRelationFilter = {
+    is?: ProdutosWhereInput | null
+    isNot?: ProdutosWhereInput | null
+  }
+
   export type ComplementosListRelationFilter = {
     every?: ComplementosWhereInput
     some?: ComplementosWhereInput
@@ -12655,6 +12696,8 @@ export namespace Prisma {
 
   export type GrupoComplementosCountOrderByAggregateInput = {
     id?: SortOrder
+    idProduto?: SortOrder
+    nomeGrupoComplementos?: SortOrder
     descricao?: SortOrder
     obrigatorio?: SortOrder
     qtdMinComplemento?: SortOrder
@@ -12665,12 +12708,15 @@ export namespace Prisma {
 
   export type GrupoComplementosAvgOrderByAggregateInput = {
     id?: SortOrder
+    idProduto?: SortOrder
     qtdMinComplemento?: SortOrder
     qtdMaxComplemento?: SortOrder
   }
 
   export type GrupoComplementosMaxOrderByAggregateInput = {
     id?: SortOrder
+    idProduto?: SortOrder
+    nomeGrupoComplementos?: SortOrder
     descricao?: SortOrder
     obrigatorio?: SortOrder
     qtdMinComplemento?: SortOrder
@@ -12681,6 +12727,8 @@ export namespace Prisma {
 
   export type GrupoComplementosMinOrderByAggregateInput = {
     id?: SortOrder
+    idProduto?: SortOrder
+    nomeGrupoComplementos?: SortOrder
     descricao?: SortOrder
     obrigatorio?: SortOrder
     qtdMinComplemento?: SortOrder
@@ -12691,8 +12739,14 @@ export namespace Prisma {
 
   export type GrupoComplementosSumOrderByAggregateInput = {
     id?: SortOrder
+    idProduto?: SortOrder
     qtdMinComplemento?: SortOrder
     qtdMaxComplemento?: SortOrder
+  }
+
+  export type GrupoComplementosNullableScalarRelationFilter = {
+    is?: GrupoComplementosWhereInput | null
+    isNot?: GrupoComplementosWhereInput | null
   }
 
   export type ComplementosCountOrderByAggregateInput = {
@@ -12961,12 +13015,6 @@ export namespace Prisma {
     connect?: CategoriasWhereUniqueInput
   }
 
-  export type GrupoComplementosCreateNestedOneWithoutProdutosInput = {
-    create?: XOR<GrupoComplementosCreateWithoutProdutosInput, GrupoComplementosUncheckedCreateWithoutProdutosInput>
-    connectOrCreate?: GrupoComplementosCreateOrConnectWithoutProdutosInput
-    connect?: GrupoComplementosWhereUniqueInput
-  }
-
   export type ItensPedidoCreateNestedManyWithoutProdutosInput = {
     create?: XOR<ItensPedidoCreateWithoutProdutosInput, ItensPedidoUncheckedCreateWithoutProdutosInput> | ItensPedidoCreateWithoutProdutosInput[] | ItensPedidoUncheckedCreateWithoutProdutosInput[]
     connectOrCreate?: ItensPedidoCreateOrConnectWithoutProdutosInput | ItensPedidoCreateOrConnectWithoutProdutosInput[]
@@ -12974,11 +13022,25 @@ export namespace Prisma {
     connect?: ItensPedidoWhereUniqueInput | ItensPedidoWhereUniqueInput[]
   }
 
+  export type GrupoComplementosCreateNestedManyWithoutProdutosInput = {
+    create?: XOR<GrupoComplementosCreateWithoutProdutosInput, GrupoComplementosUncheckedCreateWithoutProdutosInput> | GrupoComplementosCreateWithoutProdutosInput[] | GrupoComplementosUncheckedCreateWithoutProdutosInput[]
+    connectOrCreate?: GrupoComplementosCreateOrConnectWithoutProdutosInput | GrupoComplementosCreateOrConnectWithoutProdutosInput[]
+    createMany?: GrupoComplementosCreateManyProdutosInputEnvelope
+    connect?: GrupoComplementosWhereUniqueInput | GrupoComplementosWhereUniqueInput[]
+  }
+
   export type ItensPedidoUncheckedCreateNestedManyWithoutProdutosInput = {
     create?: XOR<ItensPedidoCreateWithoutProdutosInput, ItensPedidoUncheckedCreateWithoutProdutosInput> | ItensPedidoCreateWithoutProdutosInput[] | ItensPedidoUncheckedCreateWithoutProdutosInput[]
     connectOrCreate?: ItensPedidoCreateOrConnectWithoutProdutosInput | ItensPedidoCreateOrConnectWithoutProdutosInput[]
     createMany?: ItensPedidoCreateManyProdutosInputEnvelope
     connect?: ItensPedidoWhereUniqueInput | ItensPedidoWhereUniqueInput[]
+  }
+
+  export type GrupoComplementosUncheckedCreateNestedManyWithoutProdutosInput = {
+    create?: XOR<GrupoComplementosCreateWithoutProdutosInput, GrupoComplementosUncheckedCreateWithoutProdutosInput> | GrupoComplementosCreateWithoutProdutosInput[] | GrupoComplementosUncheckedCreateWithoutProdutosInput[]
+    connectOrCreate?: GrupoComplementosCreateOrConnectWithoutProdutosInput | GrupoComplementosCreateOrConnectWithoutProdutosInput[]
+    createMany?: GrupoComplementosCreateManyProdutosInputEnvelope
+    connect?: GrupoComplementosWhereUniqueInput | GrupoComplementosWhereUniqueInput[]
   }
 
   export type DecimalFieldUpdateOperationsInput = {
@@ -12999,16 +13061,6 @@ export namespace Prisma {
     update?: XOR<XOR<CategoriasUpdateToOneWithWhereWithoutProdutosInput, CategoriasUpdateWithoutProdutosInput>, CategoriasUncheckedUpdateWithoutProdutosInput>
   }
 
-  export type GrupoComplementosUpdateOneWithoutProdutosNestedInput = {
-    create?: XOR<GrupoComplementosCreateWithoutProdutosInput, GrupoComplementosUncheckedCreateWithoutProdutosInput>
-    connectOrCreate?: GrupoComplementosCreateOrConnectWithoutProdutosInput
-    upsert?: GrupoComplementosUpsertWithoutProdutosInput
-    disconnect?: GrupoComplementosWhereInput | boolean
-    delete?: GrupoComplementosWhereInput | boolean
-    connect?: GrupoComplementosWhereUniqueInput
-    update?: XOR<XOR<GrupoComplementosUpdateToOneWithWhereWithoutProdutosInput, GrupoComplementosUpdateWithoutProdutosInput>, GrupoComplementosUncheckedUpdateWithoutProdutosInput>
-  }
-
   export type ItensPedidoUpdateManyWithoutProdutosNestedInput = {
     create?: XOR<ItensPedidoCreateWithoutProdutosInput, ItensPedidoUncheckedCreateWithoutProdutosInput> | ItensPedidoCreateWithoutProdutosInput[] | ItensPedidoUncheckedCreateWithoutProdutosInput[]
     connectOrCreate?: ItensPedidoCreateOrConnectWithoutProdutosInput | ItensPedidoCreateOrConnectWithoutProdutosInput[]
@@ -13021,6 +13073,20 @@ export namespace Prisma {
     update?: ItensPedidoUpdateWithWhereUniqueWithoutProdutosInput | ItensPedidoUpdateWithWhereUniqueWithoutProdutosInput[]
     updateMany?: ItensPedidoUpdateManyWithWhereWithoutProdutosInput | ItensPedidoUpdateManyWithWhereWithoutProdutosInput[]
     deleteMany?: ItensPedidoScalarWhereInput | ItensPedidoScalarWhereInput[]
+  }
+
+  export type GrupoComplementosUpdateManyWithoutProdutosNestedInput = {
+    create?: XOR<GrupoComplementosCreateWithoutProdutosInput, GrupoComplementosUncheckedCreateWithoutProdutosInput> | GrupoComplementosCreateWithoutProdutosInput[] | GrupoComplementosUncheckedCreateWithoutProdutosInput[]
+    connectOrCreate?: GrupoComplementosCreateOrConnectWithoutProdutosInput | GrupoComplementosCreateOrConnectWithoutProdutosInput[]
+    upsert?: GrupoComplementosUpsertWithWhereUniqueWithoutProdutosInput | GrupoComplementosUpsertWithWhereUniqueWithoutProdutosInput[]
+    createMany?: GrupoComplementosCreateManyProdutosInputEnvelope
+    set?: GrupoComplementosWhereUniqueInput | GrupoComplementosWhereUniqueInput[]
+    disconnect?: GrupoComplementosWhereUniqueInput | GrupoComplementosWhereUniqueInput[]
+    delete?: GrupoComplementosWhereUniqueInput | GrupoComplementosWhereUniqueInput[]
+    connect?: GrupoComplementosWhereUniqueInput | GrupoComplementosWhereUniqueInput[]
+    update?: GrupoComplementosUpdateWithWhereUniqueWithoutProdutosInput | GrupoComplementosUpdateWithWhereUniqueWithoutProdutosInput[]
+    updateMany?: GrupoComplementosUpdateManyWithWhereWithoutProdutosInput | GrupoComplementosUpdateManyWithWhereWithoutProdutosInput[]
+    deleteMany?: GrupoComplementosScalarWhereInput | GrupoComplementosScalarWhereInput[]
   }
 
   export type NullableIntFieldUpdateOperationsInput = {
@@ -13043,6 +13109,20 @@ export namespace Prisma {
     update?: ItensPedidoUpdateWithWhereUniqueWithoutProdutosInput | ItensPedidoUpdateWithWhereUniqueWithoutProdutosInput[]
     updateMany?: ItensPedidoUpdateManyWithWhereWithoutProdutosInput | ItensPedidoUpdateManyWithWhereWithoutProdutosInput[]
     deleteMany?: ItensPedidoScalarWhereInput | ItensPedidoScalarWhereInput[]
+  }
+
+  export type GrupoComplementosUncheckedUpdateManyWithoutProdutosNestedInput = {
+    create?: XOR<GrupoComplementosCreateWithoutProdutosInput, GrupoComplementosUncheckedCreateWithoutProdutosInput> | GrupoComplementosCreateWithoutProdutosInput[] | GrupoComplementosUncheckedCreateWithoutProdutosInput[]
+    connectOrCreate?: GrupoComplementosCreateOrConnectWithoutProdutosInput | GrupoComplementosCreateOrConnectWithoutProdutosInput[]
+    upsert?: GrupoComplementosUpsertWithWhereUniqueWithoutProdutosInput | GrupoComplementosUpsertWithWhereUniqueWithoutProdutosInput[]
+    createMany?: GrupoComplementosCreateManyProdutosInputEnvelope
+    set?: GrupoComplementosWhereUniqueInput | GrupoComplementosWhereUniqueInput[]
+    disconnect?: GrupoComplementosWhereUniqueInput | GrupoComplementosWhereUniqueInput[]
+    delete?: GrupoComplementosWhereUniqueInput | GrupoComplementosWhereUniqueInput[]
+    connect?: GrupoComplementosWhereUniqueInput | GrupoComplementosWhereUniqueInput[]
+    update?: GrupoComplementosUpdateWithWhereUniqueWithoutProdutosInput | GrupoComplementosUpdateWithWhereUniqueWithoutProdutosInput[]
+    updateMany?: GrupoComplementosUpdateManyWithWhereWithoutProdutosInput | GrupoComplementosUpdateManyWithWhereWithoutProdutosInput[]
+    deleteMany?: GrupoComplementosScalarWhereInput | GrupoComplementosScalarWhereInput[]
   }
 
   export type ProdutosCreateNestedManyWithoutCategoriaInput = {
@@ -13087,11 +13167,10 @@ export namespace Prisma {
     deleteMany?: ProdutosScalarWhereInput | ProdutosScalarWhereInput[]
   }
 
-  export type ProdutosCreateNestedManyWithoutGrupoComplementosInput = {
-    create?: XOR<ProdutosCreateWithoutGrupoComplementosInput, ProdutosUncheckedCreateWithoutGrupoComplementosInput> | ProdutosCreateWithoutGrupoComplementosInput[] | ProdutosUncheckedCreateWithoutGrupoComplementosInput[]
-    connectOrCreate?: ProdutosCreateOrConnectWithoutGrupoComplementosInput | ProdutosCreateOrConnectWithoutGrupoComplementosInput[]
-    createMany?: ProdutosCreateManyGrupoComplementosInputEnvelope
-    connect?: ProdutosWhereUniqueInput | ProdutosWhereUniqueInput[]
+  export type ProdutosCreateNestedOneWithoutGrupoComplementosInput = {
+    create?: XOR<ProdutosCreateWithoutGrupoComplementosInput, ProdutosUncheckedCreateWithoutGrupoComplementosInput>
+    connectOrCreate?: ProdutosCreateOrConnectWithoutGrupoComplementosInput
+    connect?: ProdutosWhereUniqueInput
   }
 
   export type ComplementosCreateNestedManyWithoutGrupoComplementosInput = {
@@ -13101,13 +13180,6 @@ export namespace Prisma {
     connect?: ComplementosWhereUniqueInput | ComplementosWhereUniqueInput[]
   }
 
-  export type ProdutosUncheckedCreateNestedManyWithoutGrupoComplementosInput = {
-    create?: XOR<ProdutosCreateWithoutGrupoComplementosInput, ProdutosUncheckedCreateWithoutGrupoComplementosInput> | ProdutosCreateWithoutGrupoComplementosInput[] | ProdutosUncheckedCreateWithoutGrupoComplementosInput[]
-    connectOrCreate?: ProdutosCreateOrConnectWithoutGrupoComplementosInput | ProdutosCreateOrConnectWithoutGrupoComplementosInput[]
-    createMany?: ProdutosCreateManyGrupoComplementosInputEnvelope
-    connect?: ProdutosWhereUniqueInput | ProdutosWhereUniqueInput[]
-  }
-
   export type ComplementosUncheckedCreateNestedManyWithoutGrupoComplementosInput = {
     create?: XOR<ComplementosCreateWithoutGrupoComplementosInput, ComplementosUncheckedCreateWithoutGrupoComplementosInput> | ComplementosCreateWithoutGrupoComplementosInput[] | ComplementosUncheckedCreateWithoutGrupoComplementosInput[]
     connectOrCreate?: ComplementosCreateOrConnectWithoutGrupoComplementosInput | ComplementosCreateOrConnectWithoutGrupoComplementosInput[]
@@ -13115,18 +13187,14 @@ export namespace Prisma {
     connect?: ComplementosWhereUniqueInput | ComplementosWhereUniqueInput[]
   }
 
-  export type ProdutosUpdateManyWithoutGrupoComplementosNestedInput = {
-    create?: XOR<ProdutosCreateWithoutGrupoComplementosInput, ProdutosUncheckedCreateWithoutGrupoComplementosInput> | ProdutosCreateWithoutGrupoComplementosInput[] | ProdutosUncheckedCreateWithoutGrupoComplementosInput[]
-    connectOrCreate?: ProdutosCreateOrConnectWithoutGrupoComplementosInput | ProdutosCreateOrConnectWithoutGrupoComplementosInput[]
-    upsert?: ProdutosUpsertWithWhereUniqueWithoutGrupoComplementosInput | ProdutosUpsertWithWhereUniqueWithoutGrupoComplementosInput[]
-    createMany?: ProdutosCreateManyGrupoComplementosInputEnvelope
-    set?: ProdutosWhereUniqueInput | ProdutosWhereUniqueInput[]
-    disconnect?: ProdutosWhereUniqueInput | ProdutosWhereUniqueInput[]
-    delete?: ProdutosWhereUniqueInput | ProdutosWhereUniqueInput[]
-    connect?: ProdutosWhereUniqueInput | ProdutosWhereUniqueInput[]
-    update?: ProdutosUpdateWithWhereUniqueWithoutGrupoComplementosInput | ProdutosUpdateWithWhereUniqueWithoutGrupoComplementosInput[]
-    updateMany?: ProdutosUpdateManyWithWhereWithoutGrupoComplementosInput | ProdutosUpdateManyWithWhereWithoutGrupoComplementosInput[]
-    deleteMany?: ProdutosScalarWhereInput | ProdutosScalarWhereInput[]
+  export type ProdutosUpdateOneWithoutGrupoComplementosNestedInput = {
+    create?: XOR<ProdutosCreateWithoutGrupoComplementosInput, ProdutosUncheckedCreateWithoutGrupoComplementosInput>
+    connectOrCreate?: ProdutosCreateOrConnectWithoutGrupoComplementosInput
+    upsert?: ProdutosUpsertWithoutGrupoComplementosInput
+    disconnect?: ProdutosWhereInput | boolean
+    delete?: ProdutosWhereInput | boolean
+    connect?: ProdutosWhereUniqueInput
+    update?: XOR<XOR<ProdutosUpdateToOneWithWhereWithoutGrupoComplementosInput, ProdutosUpdateWithoutGrupoComplementosInput>, ProdutosUncheckedUpdateWithoutGrupoComplementosInput>
   }
 
   export type ComplementosUpdateManyWithoutGrupoComplementosNestedInput = {
@@ -13141,20 +13209,6 @@ export namespace Prisma {
     update?: ComplementosUpdateWithWhereUniqueWithoutGrupoComplementosInput | ComplementosUpdateWithWhereUniqueWithoutGrupoComplementosInput[]
     updateMany?: ComplementosUpdateManyWithWhereWithoutGrupoComplementosInput | ComplementosUpdateManyWithWhereWithoutGrupoComplementosInput[]
     deleteMany?: ComplementosScalarWhereInput | ComplementosScalarWhereInput[]
-  }
-
-  export type ProdutosUncheckedUpdateManyWithoutGrupoComplementosNestedInput = {
-    create?: XOR<ProdutosCreateWithoutGrupoComplementosInput, ProdutosUncheckedCreateWithoutGrupoComplementosInput> | ProdutosCreateWithoutGrupoComplementosInput[] | ProdutosUncheckedCreateWithoutGrupoComplementosInput[]
-    connectOrCreate?: ProdutosCreateOrConnectWithoutGrupoComplementosInput | ProdutosCreateOrConnectWithoutGrupoComplementosInput[]
-    upsert?: ProdutosUpsertWithWhereUniqueWithoutGrupoComplementosInput | ProdutosUpsertWithWhereUniqueWithoutGrupoComplementosInput[]
-    createMany?: ProdutosCreateManyGrupoComplementosInputEnvelope
-    set?: ProdutosWhereUniqueInput | ProdutosWhereUniqueInput[]
-    disconnect?: ProdutosWhereUniqueInput | ProdutosWhereUniqueInput[]
-    delete?: ProdutosWhereUniqueInput | ProdutosWhereUniqueInput[]
-    connect?: ProdutosWhereUniqueInput | ProdutosWhereUniqueInput[]
-    update?: ProdutosUpdateWithWhereUniqueWithoutGrupoComplementosInput | ProdutosUpdateWithWhereUniqueWithoutGrupoComplementosInput[]
-    updateMany?: ProdutosUpdateManyWithWhereWithoutGrupoComplementosInput | ProdutosUpdateManyWithWhereWithoutGrupoComplementosInput[]
-    deleteMany?: ProdutosScalarWhereInput | ProdutosScalarWhereInput[]
   }
 
   export type ComplementosUncheckedUpdateManyWithoutGrupoComplementosNestedInput = {
@@ -13605,32 +13659,6 @@ export namespace Prisma {
     create: XOR<CategoriasCreateWithoutProdutosInput, CategoriasUncheckedCreateWithoutProdutosInput>
   }
 
-  export type GrupoComplementosCreateWithoutProdutosInput = {
-    descricao: string
-    obrigatorio: boolean
-    qtdMinComplemento: number
-    qtdMaxComplemento: number
-    data_criacao?: Date | string
-    data_alteracao?: Date | string
-    Complementos?: ComplementosCreateNestedManyWithoutGrupoComplementosInput
-  }
-
-  export type GrupoComplementosUncheckedCreateWithoutProdutosInput = {
-    id?: number
-    descricao: string
-    obrigatorio: boolean
-    qtdMinComplemento: number
-    qtdMaxComplemento: number
-    data_criacao?: Date | string
-    data_alteracao?: Date | string
-    Complementos?: ComplementosUncheckedCreateNestedManyWithoutGrupoComplementosInput
-  }
-
-  export type GrupoComplementosCreateOrConnectWithoutProdutosInput = {
-    where: GrupoComplementosWhereUniqueInput
-    create: XOR<GrupoComplementosCreateWithoutProdutosInput, GrupoComplementosUncheckedCreateWithoutProdutosInput>
-  }
-
   export type ItensPedidoCreateWithoutProdutosInput = {
     precoUnitario: Decimal | DecimalJsLike | number | string
     quantidade: number
@@ -13654,6 +13682,39 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type GrupoComplementosCreateWithoutProdutosInput = {
+    nomeGrupoComplementos: string
+    descricao?: string | null
+    obrigatorio: boolean
+    qtdMinComplemento: number
+    qtdMaxComplemento: number
+    data_criacao?: Date | string
+    data_alteracao?: Date | string
+    Complementos?: ComplementosCreateNestedManyWithoutGrupoComplementosInput
+  }
+
+  export type GrupoComplementosUncheckedCreateWithoutProdutosInput = {
+    id?: number
+    nomeGrupoComplementos: string
+    descricao?: string | null
+    obrigatorio: boolean
+    qtdMinComplemento: number
+    qtdMaxComplemento: number
+    data_criacao?: Date | string
+    data_alteracao?: Date | string
+    Complementos?: ComplementosUncheckedCreateNestedManyWithoutGrupoComplementosInput
+  }
+
+  export type GrupoComplementosCreateOrConnectWithoutProdutosInput = {
+    where: GrupoComplementosWhereUniqueInput
+    create: XOR<GrupoComplementosCreateWithoutProdutosInput, GrupoComplementosUncheckedCreateWithoutProdutosInput>
+  }
+
+  export type GrupoComplementosCreateManyProdutosInputEnvelope = {
+    data: GrupoComplementosCreateManyProdutosInput | GrupoComplementosCreateManyProdutosInput[]
+    skipDuplicates?: boolean
+  }
+
   export type CategoriasUpsertWithoutProdutosInput = {
     update: XOR<CategoriasUpdateWithoutProdutosInput, CategoriasUncheckedUpdateWithoutProdutosInput>
     create: XOR<CategoriasCreateWithoutProdutosInput, CategoriasUncheckedCreateWithoutProdutosInput>
@@ -13672,38 +13733,6 @@ export namespace Prisma {
   export type CategoriasUncheckedUpdateWithoutProdutosInput = {
     id?: IntFieldUpdateOperationsInput | number
     descricao?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type GrupoComplementosUpsertWithoutProdutosInput = {
-    update: XOR<GrupoComplementosUpdateWithoutProdutosInput, GrupoComplementosUncheckedUpdateWithoutProdutosInput>
-    create: XOR<GrupoComplementosCreateWithoutProdutosInput, GrupoComplementosUncheckedCreateWithoutProdutosInput>
-    where?: GrupoComplementosWhereInput
-  }
-
-  export type GrupoComplementosUpdateToOneWithWhereWithoutProdutosInput = {
-    where?: GrupoComplementosWhereInput
-    data: XOR<GrupoComplementosUpdateWithoutProdutosInput, GrupoComplementosUncheckedUpdateWithoutProdutosInput>
-  }
-
-  export type GrupoComplementosUpdateWithoutProdutosInput = {
-    descricao?: StringFieldUpdateOperationsInput | string
-    obrigatorio?: BoolFieldUpdateOperationsInput | boolean
-    qtdMinComplemento?: IntFieldUpdateOperationsInput | number
-    qtdMaxComplemento?: IntFieldUpdateOperationsInput | number
-    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
-    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
-    Complementos?: ComplementosUpdateManyWithoutGrupoComplementosNestedInput
-  }
-
-  export type GrupoComplementosUncheckedUpdateWithoutProdutosInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    descricao?: StringFieldUpdateOperationsInput | string
-    obrigatorio?: BoolFieldUpdateOperationsInput | boolean
-    qtdMinComplemento?: IntFieldUpdateOperationsInput | number
-    qtdMaxComplemento?: IntFieldUpdateOperationsInput | number
-    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
-    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
-    Complementos?: ComplementosUncheckedUpdateManyWithoutGrupoComplementosNestedInput
   }
 
   export type ItensPedidoUpsertWithWhereUniqueWithoutProdutosInput = {
@@ -13733,6 +13762,37 @@ export namespace Prisma {
     quantidade?: IntFilter<"ItensPedido"> | number
   }
 
+  export type GrupoComplementosUpsertWithWhereUniqueWithoutProdutosInput = {
+    where: GrupoComplementosWhereUniqueInput
+    update: XOR<GrupoComplementosUpdateWithoutProdutosInput, GrupoComplementosUncheckedUpdateWithoutProdutosInput>
+    create: XOR<GrupoComplementosCreateWithoutProdutosInput, GrupoComplementosUncheckedCreateWithoutProdutosInput>
+  }
+
+  export type GrupoComplementosUpdateWithWhereUniqueWithoutProdutosInput = {
+    where: GrupoComplementosWhereUniqueInput
+    data: XOR<GrupoComplementosUpdateWithoutProdutosInput, GrupoComplementosUncheckedUpdateWithoutProdutosInput>
+  }
+
+  export type GrupoComplementosUpdateManyWithWhereWithoutProdutosInput = {
+    where: GrupoComplementosScalarWhereInput
+    data: XOR<GrupoComplementosUpdateManyMutationInput, GrupoComplementosUncheckedUpdateManyWithoutProdutosInput>
+  }
+
+  export type GrupoComplementosScalarWhereInput = {
+    AND?: GrupoComplementosScalarWhereInput | GrupoComplementosScalarWhereInput[]
+    OR?: GrupoComplementosScalarWhereInput[]
+    NOT?: GrupoComplementosScalarWhereInput | GrupoComplementosScalarWhereInput[]
+    id?: IntFilter<"GrupoComplementos"> | number
+    idProduto?: IntFilter<"GrupoComplementos"> | number
+    nomeGrupoComplementos?: StringFilter<"GrupoComplementos"> | string
+    descricao?: StringNullableFilter<"GrupoComplementos"> | string | null
+    obrigatorio?: BoolFilter<"GrupoComplementos"> | boolean
+    qtdMinComplemento?: IntFilter<"GrupoComplementos"> | number
+    qtdMaxComplemento?: IntFilter<"GrupoComplementos"> | number
+    data_criacao?: DateTimeFilter<"GrupoComplementos"> | Date | string
+    data_alteracao?: DateTimeFilter<"GrupoComplementos"> | Date | string
+  }
+
   export type ProdutosCreateWithoutCategoriaInput = {
     nomeProduto: string
     descricao?: string | null
@@ -13741,13 +13801,12 @@ export namespace Prisma {
     imagemUrl?: string | null
     data_criacao?: Date | string
     data_alteracao?: Date | string
-    grupoComplementos?: GrupoComplementosCreateNestedOneWithoutProdutosInput
     itensPedidoVenda?: ItensPedidoCreateNestedManyWithoutProdutosInput
+    GrupoComplementos?: GrupoComplementosCreateNestedManyWithoutProdutosInput
   }
 
   export type ProdutosUncheckedCreateWithoutCategoriaInput = {
     id?: number
-    idGrupoComplementos?: number | null
     nomeProduto: string
     descricao?: string | null
     preco?: Decimal | DecimalJsLike | number | string
@@ -13756,6 +13815,7 @@ export namespace Prisma {
     data_criacao?: Date | string
     data_alteracao?: Date | string
     itensPedidoVenda?: ItensPedidoUncheckedCreateNestedManyWithoutProdutosInput
+    GrupoComplementos?: GrupoComplementosUncheckedCreateNestedManyWithoutProdutosInput
   }
 
   export type ProdutosCreateOrConnectWithoutCategoriaInput = {
@@ -13790,7 +13850,6 @@ export namespace Prisma {
     NOT?: ProdutosScalarWhereInput | ProdutosScalarWhereInput[]
     id?: IntFilter<"Produtos"> | number
     idCategoria?: IntNullableFilter<"Produtos"> | number | null
-    idGrupoComplementos?: IntNullableFilter<"Produtos"> | number | null
     nomeProduto?: StringFilter<"Produtos"> | string
     descricao?: StringNullableFilter<"Produtos"> | string | null
     preco?: DecimalFilter<"Produtos"> | Decimal | DecimalJsLike | number | string
@@ -13830,11 +13889,6 @@ export namespace Prisma {
     create: XOR<ProdutosCreateWithoutGrupoComplementosInput, ProdutosUncheckedCreateWithoutGrupoComplementosInput>
   }
 
-  export type ProdutosCreateManyGrupoComplementosInputEnvelope = {
-    data: ProdutosCreateManyGrupoComplementosInput | ProdutosCreateManyGrupoComplementosInput[]
-    skipDuplicates?: boolean
-  }
-
   export type ComplementosCreateWithoutGrupoComplementosInput = {
     nomeComplemento: string
     descricao?: string | null
@@ -13866,20 +13920,40 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type ProdutosUpsertWithWhereUniqueWithoutGrupoComplementosInput = {
-    where: ProdutosWhereUniqueInput
+  export type ProdutosUpsertWithoutGrupoComplementosInput = {
     update: XOR<ProdutosUpdateWithoutGrupoComplementosInput, ProdutosUncheckedUpdateWithoutGrupoComplementosInput>
     create: XOR<ProdutosCreateWithoutGrupoComplementosInput, ProdutosUncheckedCreateWithoutGrupoComplementosInput>
+    where?: ProdutosWhereInput
   }
 
-  export type ProdutosUpdateWithWhereUniqueWithoutGrupoComplementosInput = {
-    where: ProdutosWhereUniqueInput
+  export type ProdutosUpdateToOneWithWhereWithoutGrupoComplementosInput = {
+    where?: ProdutosWhereInput
     data: XOR<ProdutosUpdateWithoutGrupoComplementosInput, ProdutosUncheckedUpdateWithoutGrupoComplementosInput>
   }
 
-  export type ProdutosUpdateManyWithWhereWithoutGrupoComplementosInput = {
-    where: ProdutosScalarWhereInput
-    data: XOR<ProdutosUpdateManyMutationInput, ProdutosUncheckedUpdateManyWithoutGrupoComplementosInput>
+  export type ProdutosUpdateWithoutGrupoComplementosInput = {
+    nomeProduto?: StringFieldUpdateOperationsInput | string
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
+    preco?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: BoolFieldUpdateOperationsInput | boolean
+    imagemUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    categoria?: CategoriasUpdateOneWithoutProdutosNestedInput
+    itensPedidoVenda?: ItensPedidoUpdateManyWithoutProdutosNestedInput
+  }
+
+  export type ProdutosUncheckedUpdateWithoutGrupoComplementosInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    idCategoria?: NullableIntFieldUpdateOperationsInput | number | null
+    nomeProduto?: StringFieldUpdateOperationsInput | string
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
+    preco?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: BoolFieldUpdateOperationsInput | boolean
+    imagemUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    itensPedidoVenda?: ItensPedidoUncheckedUpdateManyWithoutProdutosNestedInput
   }
 
   export type ComplementosUpsertWithWhereUniqueWithoutGrupoComplementosInput = {
@@ -13914,24 +13988,26 @@ export namespace Prisma {
   }
 
   export type GrupoComplementosCreateWithoutComplementosInput = {
-    descricao: string
+    nomeGrupoComplementos: string
+    descricao?: string | null
     obrigatorio: boolean
     qtdMinComplemento: number
     qtdMaxComplemento: number
     data_criacao?: Date | string
     data_alteracao?: Date | string
-    Produtos?: ProdutosCreateNestedManyWithoutGrupoComplementosInput
+    produtos?: ProdutosCreateNestedOneWithoutGrupoComplementosInput
   }
 
   export type GrupoComplementosUncheckedCreateWithoutComplementosInput = {
     id?: number
-    descricao: string
+    idProduto: number
+    nomeGrupoComplementos: string
+    descricao?: string | null
     obrigatorio: boolean
     qtdMinComplemento: number
     qtdMaxComplemento: number
     data_criacao?: Date | string
     data_alteracao?: Date | string
-    Produtos?: ProdutosUncheckedCreateNestedManyWithoutGrupoComplementosInput
   }
 
   export type GrupoComplementosCreateOrConnectWithoutComplementosInput = {
@@ -13951,24 +14027,26 @@ export namespace Prisma {
   }
 
   export type GrupoComplementosUpdateWithoutComplementosInput = {
-    descricao?: StringFieldUpdateOperationsInput | string
+    nomeGrupoComplementos?: StringFieldUpdateOperationsInput | string
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
     obrigatorio?: BoolFieldUpdateOperationsInput | boolean
     qtdMinComplemento?: IntFieldUpdateOperationsInput | number
     qtdMaxComplemento?: IntFieldUpdateOperationsInput | number
     data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
     data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
-    Produtos?: ProdutosUpdateManyWithoutGrupoComplementosNestedInput
+    produtos?: ProdutosUpdateOneWithoutGrupoComplementosNestedInput
   }
 
   export type GrupoComplementosUncheckedUpdateWithoutComplementosInput = {
     id?: IntFieldUpdateOperationsInput | number
-    descricao?: StringFieldUpdateOperationsInput | string
+    idProduto?: IntFieldUpdateOperationsInput | number
+    nomeGrupoComplementos?: StringFieldUpdateOperationsInput | string
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
     obrigatorio?: BoolFieldUpdateOperationsInput | boolean
     qtdMinComplemento?: IntFieldUpdateOperationsInput | number
     qtdMaxComplemento?: IntFieldUpdateOperationsInput | number
     data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
     data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
-    Produtos?: ProdutosUncheckedUpdateManyWithoutGrupoComplementosNestedInput
   }
 
   export type ClientesCreateWithoutPedidosInput = {
@@ -14135,13 +14213,12 @@ export namespace Prisma {
     data_criacao?: Date | string
     data_alteracao?: Date | string
     categoria?: CategoriasCreateNestedOneWithoutProdutosInput
-    grupoComplementos?: GrupoComplementosCreateNestedOneWithoutProdutosInput
+    GrupoComplementos?: GrupoComplementosCreateNestedManyWithoutProdutosInput
   }
 
   export type ProdutosUncheckedCreateWithoutItensPedidoVendaInput = {
     id?: number
     idCategoria?: number | null
-    idGrupoComplementos?: number | null
     nomeProduto: string
     descricao?: string | null
     preco?: Decimal | DecimalJsLike | number | string
@@ -14149,6 +14226,7 @@ export namespace Prisma {
     imagemUrl?: string | null
     data_criacao?: Date | string
     data_alteracao?: Date | string
+    GrupoComplementos?: GrupoComplementosUncheckedCreateNestedManyWithoutProdutosInput
   }
 
   export type ProdutosCreateOrConnectWithoutItensPedidoVendaInput = {
@@ -14200,13 +14278,12 @@ export namespace Prisma {
     data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
     data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
     categoria?: CategoriasUpdateOneWithoutProdutosNestedInput
-    grupoComplementos?: GrupoComplementosUpdateOneWithoutProdutosNestedInput
+    GrupoComplementos?: GrupoComplementosUpdateManyWithoutProdutosNestedInput
   }
 
   export type ProdutosUncheckedUpdateWithoutItensPedidoVendaInput = {
     id?: IntFieldUpdateOperationsInput | number
     idCategoria?: NullableIntFieldUpdateOperationsInput | number | null
-    idGrupoComplementos?: NullableIntFieldUpdateOperationsInput | number | null
     nomeProduto?: StringFieldUpdateOperationsInput | string
     descricao?: NullableStringFieldUpdateOperationsInput | string | null
     preco?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -14214,6 +14291,7 @@ export namespace Prisma {
     imagemUrl?: NullableStringFieldUpdateOperationsInput | string | null
     data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
     data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    GrupoComplementos?: GrupoComplementosUncheckedUpdateManyWithoutProdutosNestedInput
   }
 
   export type PedidosUpsertWithoutItensPedidoVendaInput = {
@@ -14327,6 +14405,17 @@ export namespace Prisma {
     quantidade: number
   }
 
+  export type GrupoComplementosCreateManyProdutosInput = {
+    id?: number
+    nomeGrupoComplementos: string
+    descricao?: string | null
+    obrigatorio: boolean
+    qtdMinComplemento: number
+    qtdMaxComplemento: number
+    data_criacao?: Date | string
+    data_alteracao?: Date | string
+  }
+
   export type ItensPedidoUpdateWithoutProdutosInput = {
     precoUnitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     quantidade?: IntFieldUpdateOperationsInput | number
@@ -14347,9 +14436,42 @@ export namespace Prisma {
     quantidade?: IntFieldUpdateOperationsInput | number
   }
 
+  export type GrupoComplementosUpdateWithoutProdutosInput = {
+    nomeGrupoComplementos?: StringFieldUpdateOperationsInput | string
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
+    obrigatorio?: BoolFieldUpdateOperationsInput | boolean
+    qtdMinComplemento?: IntFieldUpdateOperationsInput | number
+    qtdMaxComplemento?: IntFieldUpdateOperationsInput | number
+    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    Complementos?: ComplementosUpdateManyWithoutGrupoComplementosNestedInput
+  }
+
+  export type GrupoComplementosUncheckedUpdateWithoutProdutosInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    nomeGrupoComplementos?: StringFieldUpdateOperationsInput | string
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
+    obrigatorio?: BoolFieldUpdateOperationsInput | boolean
+    qtdMinComplemento?: IntFieldUpdateOperationsInput | number
+    qtdMaxComplemento?: IntFieldUpdateOperationsInput | number
+    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    Complementos?: ComplementosUncheckedUpdateManyWithoutGrupoComplementosNestedInput
+  }
+
+  export type GrupoComplementosUncheckedUpdateManyWithoutProdutosInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    nomeGrupoComplementos?: StringFieldUpdateOperationsInput | string
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
+    obrigatorio?: BoolFieldUpdateOperationsInput | boolean
+    qtdMinComplemento?: IntFieldUpdateOperationsInput | number
+    qtdMaxComplemento?: IntFieldUpdateOperationsInput | number
+    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type ProdutosCreateManyCategoriaInput = {
     id?: number
-    idGrupoComplementos?: number | null
     nomeProduto: string
     descricao?: string | null
     preco?: Decimal | DecimalJsLike | number | string
@@ -14367,13 +14489,12 @@ export namespace Prisma {
     imagemUrl?: NullableStringFieldUpdateOperationsInput | string | null
     data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
     data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
-    grupoComplementos?: GrupoComplementosUpdateOneWithoutProdutosNestedInput
     itensPedidoVenda?: ItensPedidoUpdateManyWithoutProdutosNestedInput
+    GrupoComplementos?: GrupoComplementosUpdateManyWithoutProdutosNestedInput
   }
 
   export type ProdutosUncheckedUpdateWithoutCategoriaInput = {
     id?: IntFieldUpdateOperationsInput | number
-    idGrupoComplementos?: NullableIntFieldUpdateOperationsInput | number | null
     nomeProduto?: StringFieldUpdateOperationsInput | string
     descricao?: NullableStringFieldUpdateOperationsInput | string | null
     preco?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -14382,11 +14503,11 @@ export namespace Prisma {
     data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
     data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
     itensPedidoVenda?: ItensPedidoUncheckedUpdateManyWithoutProdutosNestedInput
+    GrupoComplementos?: GrupoComplementosUncheckedUpdateManyWithoutProdutosNestedInput
   }
 
   export type ProdutosUncheckedUpdateManyWithoutCategoriaInput = {
     id?: IntFieldUpdateOperationsInput | number
-    idGrupoComplementos?: NullableIntFieldUpdateOperationsInput | number | null
     nomeProduto?: StringFieldUpdateOperationsInput | string
     descricao?: NullableStringFieldUpdateOperationsInput | string | null
     preco?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -14394,18 +14515,6 @@ export namespace Prisma {
     imagemUrl?: NullableStringFieldUpdateOperationsInput | string | null
     data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
     data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type ProdutosCreateManyGrupoComplementosInput = {
-    id?: number
-    idCategoria?: number | null
-    nomeProduto: string
-    descricao?: string | null
-    preco?: Decimal | DecimalJsLike | number | string
-    status?: boolean
-    imagemUrl?: string | null
-    data_criacao?: Date | string
-    data_alteracao?: Date | string
   }
 
   export type ComplementosCreateManyGrupoComplementosInput = {
@@ -14417,43 +14526,6 @@ export namespace Prisma {
     imagemUrl?: string | null
     data_criacao?: Date | string
     data_alteracao?: Date | string
-  }
-
-  export type ProdutosUpdateWithoutGrupoComplementosInput = {
-    nomeProduto?: StringFieldUpdateOperationsInput | string
-    descricao?: NullableStringFieldUpdateOperationsInput | string | null
-    preco?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    status?: BoolFieldUpdateOperationsInput | boolean
-    imagemUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
-    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
-    categoria?: CategoriasUpdateOneWithoutProdutosNestedInput
-    itensPedidoVenda?: ItensPedidoUpdateManyWithoutProdutosNestedInput
-  }
-
-  export type ProdutosUncheckedUpdateWithoutGrupoComplementosInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    idCategoria?: NullableIntFieldUpdateOperationsInput | number | null
-    nomeProduto?: StringFieldUpdateOperationsInput | string
-    descricao?: NullableStringFieldUpdateOperationsInput | string | null
-    preco?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    status?: BoolFieldUpdateOperationsInput | boolean
-    imagemUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
-    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
-    itensPedidoVenda?: ItensPedidoUncheckedUpdateManyWithoutProdutosNestedInput
-  }
-
-  export type ProdutosUncheckedUpdateManyWithoutGrupoComplementosInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    idCategoria?: NullableIntFieldUpdateOperationsInput | number | null
-    nomeProduto?: StringFieldUpdateOperationsInput | string
-    descricao?: NullableStringFieldUpdateOperationsInput | string | null
-    preco?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    status?: BoolFieldUpdateOperationsInput | boolean
-    imagemUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
-    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ComplementosUpdateWithoutGrupoComplementosInput = {

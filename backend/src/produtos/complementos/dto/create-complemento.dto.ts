@@ -3,6 +3,7 @@ import { Transform, Type } from 'class-transformer';
 
 export class CreateComplementoDto {
   @IsOptional({})
+  @Type(() => Number)
   @IsNumber({}, { message: 'O ID do grupo de complementos deve ser um numero.' })
   idGrupoComplementos?: number;
 

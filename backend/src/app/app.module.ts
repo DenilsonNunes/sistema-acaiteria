@@ -32,6 +32,10 @@ import { ComplementosModule } from 'src/produtos/complementos/complementos.modul
       rootPath: join(__dirname, '..', '..', 'files', 'products', 'images'), // caminho que vai salvar as imagens.
       serveRoot: '/files/products/images', // url que vai ser servido as imagens.
     }),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', '..', 'files', 'addOns', 'images'), // caminho que vai salvar as imagens.
+      serveRoot: '/files/addOns/images', // url que vai ser servido as imagens.
+    }),
   ],
   controllers: [AppController],
   providers: [

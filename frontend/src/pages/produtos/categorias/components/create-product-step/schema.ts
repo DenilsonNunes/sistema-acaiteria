@@ -3,6 +3,7 @@ import { z } from "zod";
 
 
 const createProductSchema = z.object({
+
   nomeProduto: z.string().nonempty({message: 'O nome do produto não pode ser vazio'}).max(80, {message: 'Não poder ser maior que 80 caracteres.'}),
   descricao: z.string().max(1000, {message: 'Não poder ser maior que 1000 caracteres.'}),
 
@@ -19,15 +20,16 @@ const createProductSchema = z.object({
 
 
 const createGrupoComplementosSchema = z.object({
+  idProduto: z.number().optional(),
   nomeGrupoComplementos: z.string().nonempty({message: 'O nome do grupo não pode ser vazio'}).max(40, {message: 'Não poder ser maior que 40 caracteres.'}),
   obrigatorio: z.boolean(),
-  qtdMax: z.number(),
-  qtdMin: z.number()
+  qtdMaxComplemento: z.number(),
+  qtdMinComplemento: z.number()
 })
 
 
 const createComplementosSchema = z.object({
-  
+  idGrupoComplementos: z.coerce.number({ invalid_type_error: "Informe um Grupo de complementos" }).optional(),
   nomeComplemento: z.string().nonempty({message: 'O nome do grupo não pode ser vazio'}).max(80, {message: 'Não poder ser maior que 80 caracteres.'}),
   descricao: z.string().max(200, {message: 'Não poder ser maior que 200 caracteres.'}),
   status: z.boolean(),
@@ -44,7 +46,6 @@ const createComplementosSchema = z.object({
 
 
 export const createFullSchema = z.object({
-
   
   produto: createProductSchema,
   temComplementos: z.boolean(),
@@ -53,5 +54,13 @@ export const createFullSchema = z.object({
 
 
 })
+
+
+
+export type CreateProductSchema = z.infer<typeof createProductSchema>;
+export type CreateGrupoComplementosSchema = z.infer<typeof createGrupoComplementosSchema>;
+export type CreateComplementosSchema = z.infer<typeof createComplementosSchema>;
+
+
 
 export type FullCreateProducSchema = z.infer<typeof createFullSchema>;

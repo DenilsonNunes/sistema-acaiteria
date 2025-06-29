@@ -14,6 +14,17 @@ export class GrupoComplementosService {
       throw new BadRequestException('A quantidade mínima de complementos não pode ser maior que a quantidade máxima.');
     }
 
+    const findProduct = await this.prisma.produtos.findUnique({
+      where: {
+        id: createGrupoComplementoDto.idProduto,
+      },
+    });
+
+    // Se não encontrar, retorna mensagem para o usuário
+    if (!findProduct) {
+      throw new HttpException(`Falha ao criar  o grupo de complementos. O produto ${createGrupoComplementoDto.idProduto} não existe.`, HttpStatus.NOT_FOUND);
+    }
+
     try {
       return await this.prisma.grupoComplementos.create({
         data: createGrupoComplementoDto,

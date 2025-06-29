@@ -5,8 +5,10 @@ import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { Loader2Icon } from "lucide-react"
-import { useAuth } from "@/contexts/AuthContext"
+import { AuthContext } from "@/contexts/AuthContext"
 import { toast } from "sonner"
+import { useNavigate } from "react-router-dom"
+import { useContext, useState } from "react"
 
 
 
@@ -33,8 +35,12 @@ type SignInSchema = z.infer<typeof signInSchema>
 
 const Login = () => {
 
+  const [ isLoading, setIsLoading] =  useState(false);
 
-  const  { login } = useAuth()
+
+  const naviate = useNavigate();
+
+  const  { login } = useContext(AuthContext);
 
 
   const {register, handleSubmit, formState: {errors}, reset, watch} = useForm({
@@ -44,20 +50,96 @@ const Login = () => {
   
 
   const handleSignIn = async (data: SignInSchema) => {
+
+    setIsLoading(true);
+
     try {
-      await login(data.user, data.password)
+
+      await login(data.user, data.password);
+
+      toast.success("Login realizado com sucesso!", {
+        richColors: true,
+        closeButton: true,
+        position: "top-right"
+      })
+ 
+
+      setTimeout(() => {
+
+        setIsLoading(false);
+
+        naviate('/home');
+    
+      }, 2000)
+      
+
+    } catch (error) {
+
+      const message = error instanceof Error ? error.message : typeof error === 'string' ? error : 'Erro desconhecido';
+
+
+      toast.error(message, {
+        richColors: true,
+        closeButton: true,
+        duration: 5000,
+        position: "top-right"
+      })
+
+      setIsLoading(false);
+      reset();
+
+    }
+
+
+ 
+
+
+    /*
+    
+  
+    
+    
+    try {
+ 
+      setIsLoading(true);
+ 
+      await login(data.user, data.password);
       toast.success("Login realizado com sucesso!", {
         richColors: true,
         closeButton: true
       })
-
+ 
+ 
+      setTimeout(()=>{
+ 
+        naviate('/home');
+ 
+      }, 1000)
+ 
+ 
     } catch (error) {
+ 
+      console.log('Qual o erro', error);
+ 
+      /*
+      
+      
+            reset();
+      
+            toast.error("Usuário/Senha inválidos!", {
+              richColors: true,
+              closeButton: true
+            })
+      
+            setIsLoading(false);
+      
+      
+      */
+  
+ 
 
-      const response = error.response.data;
-      console.log('CAiuu aqui...', response)
-      alert("Deu erro..."+ error)
-    }
-    
+
+
   }
   
 
@@ -71,28 +153,38 @@ const Login = () => {
 
         <div className="w-full">
           <Label className="text-lg mb-0.5">Usuario</Label>
-          <Input className="bg-white" type="text" placeholder="Digite o usuario..." {...register('user')}/>
+          <Input 
+            disabled={isLoading}
+            className="bg-white" 
+            type="text" 
+            placeholder="Digite o usuario..." 
+            {...register('user')}
+          />
           {errors.user && <span className="text-red-500 text-sm">{errors.user.message}</span>}
 
         </div>
 
         <div className="w-full mb-6">
           <Label  className="text-lg mb-0.5">Senha</Label>
-          <Input className="bg-white" type="password"  placeholder="Digite sua senha..." {...register('password')}/>
+          <Input 
+            className="bg-white" 
+            type="password"  
+            placeholder="Digite sua senha..." 
+            {...register('password')}
+            disabled={isLoading}
+          />
           {errors.password && <span className="text-red-500 text-sm">{errors.password.message}</span>}
         
         </div>
         
         <Button 
           type="submit" 
-          //disabled
+          disabled={isLoading}
           className="w-full cursor-pointer text-lg bg-fuchsia-700 text-white hover:bg-fuchsia-600"
-        >
-          {/*
-          
-          <Loader2Icon className="animate-spin" />
-          
-          */}
+        >    
+          {isLoading && (
+            <Loader2Icon className="animate-spin" />                  
+          )}                
           Entrar
         </Button>
 

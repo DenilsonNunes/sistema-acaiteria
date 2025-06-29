@@ -1,4 +1,4 @@
-import { Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { FormProvider, useForm } from "react-hook-form";
@@ -11,10 +11,10 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
-import { useCreateProduct } from "@/hooks/produtos/useCreateProductCategory";
 import LoadingSpinner from "@/components/loading-spinner";
 import { CircleAlert, CircleCheck } from "lucide-react";
 import type { Category } from "@/types/produtos/category";
+import { useCreateProductWithAddons } from "@/hooks/products/useCreateProductWithAddons";
 
 
 
@@ -27,8 +27,7 @@ import type { Category } from "@/types/produtos/category";
 
 const CreateProductForm = ({ category } : {category: Category}) => {
 
-  const {mutate, isPending, isError, isSuccess, reset: resetMutation} = useCreateProduct()
-
+  
   const [currentStep, setCurrentStep] = useState("detalhes");
   const [openFormAddOns, setOpenFormAddOns] = useState(false);
   const [checkedComplementos, setCheckedComplementos] = useState("");
@@ -36,6 +35,8 @@ const CreateProductForm = ({ category } : {category: Category}) => {
   const [habilitaBtnProx, setHabilitaBtnProx] = useState(true);
   const [habilitaBtnSalvar, setHabilitaBtnSalvar] = useState(false);
 
+
+  const {mutate, isPending, isError, isSuccess, reset: resetMutation} = useCreateProductWithAddons()
 
 
 
@@ -52,15 +53,15 @@ const CreateProductForm = ({ category } : {category: Category}) => {
       grupoComplementos: {
         nomeGrupoComplementos: "",
         obrigatorio: false,
-        qtdMin: 0,
-        qtdMax: 0,
+        qtdMinComplemento: 0,
+        qtdMaxComplemento: 0,
       },
       complementos: [],
     },
     mode: "onChange",
   });
 
-  const { trigger, handleSubmit, formState: { errors }, reset, setValue, watch } = methods;
+  const { trigger, handleSubmit, reset, setValue, watch } = methods;
 
   const temComplementos = watch("temComplementos");
 
@@ -87,6 +88,7 @@ const CreateProductForm = ({ category } : {category: Category}) => {
 
     if (currentStep === "detalhes") {
       const isValid = await trigger("produto");
+
       if (!isValid) return;
 
       setHabilitaBtnProx(false)
@@ -107,12 +109,6 @@ const CreateProductForm = ({ category } : {category: Category}) => {
         setCurrentStep("complementos");
         setHabilitaBtnProx(false)
         setHabilitaBtnSalvar(true)
-
-        const isValidComplementos = await trigger("complementos")
-
-        console.log('Esta valido complementos ?', isValidComplementos)
-
-
 
       } else {
 
@@ -146,7 +142,10 @@ const CreateProductForm = ({ category } : {category: Category}) => {
     }
   };
 
+
+
   const handleCreateProduct = (data: FullCreateProducSchema) => {
+    console.log('ta indo dados', data);
     mutate(data)
   };
 

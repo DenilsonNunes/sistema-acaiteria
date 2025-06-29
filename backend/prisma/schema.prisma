@@ -45,9 +45,8 @@ model Clientes {
 }
 
 model Produtos {
-  id                  Int  @id @default(autoincrement())
-  idCategoria         Int? // Chave estrangeira ?-> não obrigatório.
-  idGrupoComplementos Int?
+  id          Int  @id @default(autoincrement())
+  idCategoria Int? // Chave estrangeira ?-> não obrigatório.
 
   nomeProduto    String   @db.VarChar(80)
   descricao      String?  @db.VarChar(1000)
@@ -57,10 +56,10 @@ model Produtos {
   data_criacao   DateTime @default(now())
   data_alteracao DateTime @default(now())
 
-  categoria         Categorias?        @relation(fields: [idCategoria], references: [id])
-  grupoComplementos GrupoComplementos? @relation(fields: [idGrupoComplementos], references: [id])
+  categoria Categorias? @relation(fields: [idCategoria], references: [id])
 
-  itensPedidoVenda ItensPedido[]
+  itensPedidoVenda  ItensPedido[]
+  GrupoComplementos GrupoComplementos[]
 
   @@map("produtos") // Força nome minúsculo na migration
 }
@@ -74,16 +73,21 @@ model Categorias {
 }
 
 model GrupoComplementos {
-  id                Int     @id @default(autoincrement())
-  descricao         String  @db.VarChar(40)
+  id        Int @id @default(autoincrement())
+  idProduto Int
+
+  nomeGrupoComplementos String  @db.VarChar(40)
+  descricao             String? @db.VarChar(200)
+
   obrigatorio       Boolean
   qtdMinComplemento Int
   qtdMaxComplemento Int
 
+  produtos Produtos? @relation(fields: [idProduto], references: [id])
+
   data_criacao   DateTime @default(now())
   data_alteracao DateTime @default(now())
 
-  Produtos     Produtos[]
   Complementos Complementos[]
 
   @@map("grupocomplementos") // Força nome minúsculo na migration

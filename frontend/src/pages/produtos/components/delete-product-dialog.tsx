@@ -47,7 +47,7 @@ const DeleteProductDialog = ({ product } : {product: Product}) => {
 
     <>
 
-      <Button variant="destructive" className="w-8 h-8  cursor-pointer hover:bg-red-400" onClick={()=> setOpenDeleteDialog(!openDeleteDialog)}>
+      <Button variant="destructive" className="w-7 h-7  cursor-pointer hover:bg-red-400" onClick={()=> setOpenDeleteDialog(!openDeleteDialog)}>
         <Trash2/>
       </Button>
  
