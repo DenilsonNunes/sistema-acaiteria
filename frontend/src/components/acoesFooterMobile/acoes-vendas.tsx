@@ -1,4 +1,4 @@
-import { Plus, ReceiptText } from "lucide-react"
+import { House, Plus, ReceiptText } from "lucide-react"
 import { Link } from "react-router-dom"
 
 const AcoesVendas = () => {
@@ -7,7 +7,7 @@ const AcoesVendas = () => {
 
         <div className="flex flex-col items-center">
           <button>
-            <ReceiptText size={28}/>
+            <House size={28}/>
           </button>
           <p className="font-medium">Home</p>
         </div>

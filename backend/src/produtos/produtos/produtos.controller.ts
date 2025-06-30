@@ -42,6 +42,11 @@ export class ProdutosController {
     return this.produtosService.findOne(id);
   }
 
+  @Get(':id/grupo-complementos')
+  findAddOnGroupAndAddOnsByProductId(@Param('id', ParseIntPipe) id: number) {
+    return this.produtosService.findAddOnGroupAndAddOnsByProductId(id);
+  }
+
   @Patch(':id')
   update(@Param('id', ParseIntPipe) id: number, @Body() updateProdutoDto: UpdateProdutoDto) {
     return this.produtosService.update(id, updateProdutoDto);

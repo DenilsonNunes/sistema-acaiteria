@@ -54,6 +54,18 @@ export class GrupoComplementosService {
     throw new HttpException('Grupo de complementos não encontrado!', HttpStatus.NOT_FOUND);
   }
 
+  async findAddOnGroupByProductId(id: number) {
+    const addOnGroup = await this.prisma.grupoComplementos.findMany({
+      where: {
+        idProduto: id,
+      },
+    });
+
+    if (addOnGroup) return addOnGroup;
+    // Caso não encontre o grupo de complementos
+    throw new HttpException('Grupo de complementos não encontrado!', HttpStatus.NOT_FOUND);
+  }
+
   async update(id: number, updateGrupoComplementoDto: UpdateGrupoComplementoDto) {
     try {
       // Busca o grupo de complementos por ID

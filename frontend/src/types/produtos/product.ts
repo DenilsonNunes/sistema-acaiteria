@@ -1,3 +1,4 @@
+import type { AddOnGroup } from "./addOonGroup";
 
 type Category = {
   id: number;
@@ -8,7 +9,6 @@ export type Product = {
 
   id: number;
   idCategoria: number;
-  idGrupoComplementos: number;
 
   nomeProduto: string;
   descricao: string;
@@ -16,6 +16,8 @@ export type Product = {
   status: boolean;
   categoria: Category;
   imagemUrl: string;
+
+  GrupoComplementos: AddOnGroup[];
 
   data_criacao: string;
   data_alteracao: string;

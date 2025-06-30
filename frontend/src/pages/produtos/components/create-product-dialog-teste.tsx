@@ -46,7 +46,6 @@ const createProductSchema = z.object({
     .transform((val) => Number(val.replace(",", ".")))
     .pipe(z.number().positive({ message: "O preço deve ser maior que zero" })),
   status: z.boolean(),
-  qtdAcompanhamentos: z.coerce.number().int().min(0, { message: 'Não pode ser negativo' }).max(10, { message: 'O máximo é 10' }),
   idCategoria: z.coerce.number({ invalid_type_error: "Selecione uma categoria" }),
 
 })
@@ -66,7 +65,9 @@ const CreateProductTeste = () => {
 
   const queryClient = useQueryClient();
 
-  const {data: dataCategories} = useCategories();
+  const {fetchCategories} = useCategories();
+  const {data: categories} = fetchCategories;
+
 
 
 
@@ -97,7 +98,6 @@ const CreateProductTeste = () => {
     formData.append("descricao", data.descricao);
     formData.append("preco", data.preco.toString());
     formData.append("status", String(data.status));
-    formData.append("qtdAcompanhamentos", data.qtdAcompanhamentos.toString());
     formData.append("idCategoria", data.idCategoria.toString());
 
     // Adiciona imagem se existir
@@ -230,7 +230,7 @@ const CreateProductTeste = () => {
 
 
 
-
+                    {/*Nome do produto */}
                     <div className="grid w-full">
 
                       <Label className="mb-2">Nome do produto</Label>
@@ -244,6 +244,7 @@ const CreateProductTeste = () => {
 
                   </div>
 
+                  {/*Descrição do produto */}
                   <div className="grid">
                     <Label className="mb-2">Descrição</Label>
                     <Textarea placeholder="Informe a descrição" {...register('descricao')}/>
@@ -255,7 +256,7 @@ const CreateProductTeste = () => {
                   </div>
 
 
-
+                  {/* Valor/Categoria */}
                   <div className="grid gap-4 items-start lg:flex lg:gap-4">
 
                     <div className="grid gap-2">
@@ -281,7 +282,7 @@ const CreateProductTeste = () => {
                           <SelectValue placeholder="Selecione uma categoria" />
                         </SelectTrigger>
                         <SelectContent>
-                          {dataCategories && dataCategories.map((category) => (
+                          {categories && categories.map((category) => (
                             <SelectItem key={category.id} value={category.id.toString()}>
                               {category.descricao}
                             </SelectItem>
@@ -291,20 +292,6 @@ const CreateProductTeste = () => {
                       {errors.idCategoria && <p className="text-sm text-red-500">{errors.idCategoria.message}</p>}
 
                     </div>
-
-                    {categoriaSelecionada === 1 && (
-
-                      <div className='grid gap-2'>
-
-                        <Label>Qtd Acompanhamentos</Label>
-                        <Input type="number" placeholder="1" min={0} max={10} {...register('qtdAcompanhamentos')}/>
-                        {errors.qtdAcompanhamentos && <span className="text-red-500 text-sm">{errors.qtdAcompanhamentos.message}</span>}
-
-                      </div>
-                      
-                    )}
-
-
 
                   </div>
                   

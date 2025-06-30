@@ -1,27 +1,15 @@
 // context/PedidoContext.tsx
+import type { Cart, ItemPedido } from "@/types/pedido_de_venda/pedidoVenda"
+import { formatarMoedaBRL } from "@/utils/formataMoedaBRL"
 import { createContext, useEffect, useState, type ReactNode } from "react"
 
 
-type AdicionalItem = {
-  id: number;
-  descricao: string;
-  quantidade: number;
-}
-
-type ItemPedido = {
-  id: number;
-  descricao: string;
-  preco: number;
-  precoTotal: number;
-  quantidade: number;
-  adicionais: AdicionalItem[]
-}
 
 
 type PedidoContextType = {
-  cart: ItemPedido[]
+  cart: Cart[]
   adicionarItem: (item: ItemPedido) => void
-  removerItem: (itemParaRemover: ItemPedido) => void
+  removerItem: (itemParaRemover: Cart) => void
   limparPedido: () => void
   valorTotalPedido: string
 }
@@ -43,7 +31,7 @@ export const PedidoVendaContext = createContext({} as PedidoContextType)
 const PedidoProvider = ({ children }: PedidoProviderProps) => {
 
   
-  const [cart, setCart] = useState<ItemPedido[]>([])
+  const [cart, setCart] = useState<Cart[]>([])
   const [valorTotalPedido, setValorTotalPedido] = useState('')
 
 
@@ -55,9 +43,13 @@ const PedidoProvider = ({ children }: PedidoProviderProps) => {
 
   const adicionarItem = (newItem: ItemPedido) => {
 
+    console.log("OQue chega", newItem);
+
     setCart((prevCart) => {
 
       const itemExistente = prevCart.find((item) => item.id === newItem.id);
+
+      console.log('Cheguei aqui', itemExistente);
 
       if (!itemExistente) {
         // Se não existe, adiciona novo
@@ -65,7 +57,7 @@ const PedidoProvider = ({ children }: PedidoProviderProps) => {
           ...prevCart,
           {
             id: newItem.id,
-            descricao: newItem.descricao,
+            nomeProduto: newItem.nomeProduto,
             quantidade: 1,
             preco: newItem.preco,
             precoTotal: newItem.preco,
@@ -93,7 +85,7 @@ const PedidoProvider = ({ children }: PedidoProviderProps) => {
   };
 
 
-  const removerItem = (itemParaRemover: ItemPedido) => {
+  const removerItem = (itemParaRemover: Cart) => {
 
     setCart((prevCart) => {
 
@@ -126,12 +118,13 @@ const PedidoProvider = ({ children }: PedidoProviderProps) => {
   }
 
 
-const calculaTotalPedido = (items: ItemPedido[]) => {
+const calculaTotalPedido = (items: Cart[]) => {
+
   const total = items.reduce((acc, item) => {
-    return acc + (item.precoTotal);
+    return acc + (Number(item.precoTotal));
   }, 0);
 
-  const totalFormatado = total.toLocaleString('pt-br', {minimumFractionDigits: 2})
+  const totalFormatado = formatarMoedaBRL(total);
   setValorTotalPedido(totalFormatado);
 
 };

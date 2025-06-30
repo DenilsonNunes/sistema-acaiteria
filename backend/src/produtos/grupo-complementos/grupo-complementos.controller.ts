@@ -22,6 +22,11 @@ export class GrupoComplementosController {
     return this.grupoComplementosService.findOne(id);
   }
 
+  @Get(':id')
+  findAddOnGroupByProductId(@Param('id', ParseIntPipe) id: number) {
+    return this.grupoComplementosService.findAddOnGroupByProductId(id);
+  }
+
   @Patch(':id')
   update(@Param('id', ParseIntPipe) id: number, @Body() updateGrupoComplementoDto: UpdateGrupoComplementoDto) {
     return this.grupoComplementosService.update(id, updateGrupoComplementoDto);

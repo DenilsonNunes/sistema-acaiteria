@@ -26,7 +26,7 @@ const HomeCategory = () => {
   const {fetchCategories} = useCategories();
   const { data: categories, isLoading, isError } = fetchCategories;
 
-  
+
   return (
 
     <section className="flex flex-col items-center justify-center px-2">

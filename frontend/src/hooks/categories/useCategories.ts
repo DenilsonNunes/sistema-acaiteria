@@ -31,7 +31,6 @@ export const useCategories = () => {
   });
 
 
-
   return {
     fetchCategories,
     createCategory,

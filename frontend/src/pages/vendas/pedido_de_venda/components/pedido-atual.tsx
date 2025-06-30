@@ -7,8 +7,9 @@ import  { useContext } from 'react'
 
 import fotoAcai from '../../../../assets/acai.jpeg'
 import AcoesVendas from '@/components/acoesFooterMobile/acoes-vendas'
-import { ArrowLeft, ChevronRight, Save, Trash2 } from 'lucide-react'
+import { ArrowLeft, Save, Trash2 } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
+import { formatarMoedaBRL } from '@/utils/formataMoedaBRL'
 
 
 
@@ -36,7 +37,7 @@ const PedidoAtual = () => {
           <ArrowLeft size={26} />
         </button>
 
-        <p className="text-2xl font-medium text-gray-800">Pedido atual</p>
+        <p className="text-2xl font-medium text-gray-800 mt-3">Pedido atual</p>
 
       </div>
 
@@ -58,7 +59,7 @@ const PedidoAtual = () => {
                     {/* Topo */}
                     <div className='flex items-center gap-1'>
                       <p>{item.quantidade}x</p>
-                      <p className="text-lg font-medium">{item.descricao}</p>
+                      <p className="text-lg font-medium">{item.nomeProduto}</p>
                     </div>
 
                     <div className='ml-4'>
@@ -87,7 +88,7 @@ const PedidoAtual = () => {
 
                   <div className='flex items-center gap-1'>
                     <p className='font-medium'>R$</p>
-                    <p className="text-2xl font-bold">{item.precoTotal.toLocaleString('pt-br', {minimumFractionDigits: 2})}</p>
+                    <p className="text-2xl font-bold">{formatarMoedaBRL(item.precoTotal)}</p>
                   </div>
 
 
@@ -138,12 +139,31 @@ const PedidoAtual = () => {
             </div>
           </div>
 
-          <button className='w-full h-15 flex flex-col items-center justify-center bg-green-500 pl-4 cursor-pointer fixed bottom-0 left-0 right-0 px-4'>
-            <div className='flex items-center'>
-              <p className='text-2xl font-medium'>Salvar Pedido</p>
-              <Save size={36}/>
-            </div>
-          </button>
+
+          <div className='flex w-full h-15 fixed bottom-0 left-0 right-0'>
+
+            <button 
+              className='w-full flex flex-col items-center justify-center bg-blue-500 text-white cursor-pointer'
+              onClick={() => navigate('/vendas/pedido-de-venda')}  
+            >
+              <div className='flex items-center'>
+                <ArrowLeft size={26} />
+                <p className='text-lg font-medium'>Escolher mais itens</p>
+              </div>
+
+            </button>
+
+            <button 
+              className='w-full flex flex-col items-center justify-center bg-green-600 text-white cursor-pointer'               
+            >
+              <div className='flex items-center gap-2'>
+                <p className='text-2xl font-medium'>Salvar Pedido</p>
+                <Save size={30}/>
+              </div>
+            </button>
+
+          </div>
+
 
 
         </>

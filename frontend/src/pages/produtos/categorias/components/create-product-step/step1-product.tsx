@@ -17,7 +17,9 @@ import type { FullCreateProducSchema } from "./schema"
 const StepProduct = () => {
 
   const [fileImage, setFileImage] = useState<File | null>(null);
-  const {data: dataCategories} = useCategories();
+  const {fetchCategories} = useCategories();
+  const {data: dataCategories} = fetchCategories;
+
 
 
 

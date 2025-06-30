@@ -79,6 +79,27 @@ export class ProdutosService {
     // Caso não encontre o produto
     throw new HttpException('Produto não encontrado!', HttpStatus.NOT_FOUND);
   }
+
+  //Busca um produto seus grupo de complementos e complementos do seu grupo
+  async findAddOnGroupAndAddOnsByProductId(id: number) {
+    const product = await this.prisma.produtos.findUnique({
+      where: {
+        id: id,
+      },
+      include: {
+        GrupoComplementos: {
+          include: {
+            Complementos: true,
+          },
+        },
+      },
+    });
+
+    if (product) return product;
+    // Caso não encontre o produto
+    throw new HttpException('Produto não encontrado!', HttpStatus.NOT_FOUND);
+  }
+
   /*---------------------Fim--------------------------*/
 
   /*-------------------Metodo Update--------------------*/

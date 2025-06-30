@@ -1,4 +1,4 @@
-import Vendas from "@/pages/vendas";
+import Vendas from "@/pages/vendas/home";
 import Carrinho from "@/pages/vendas/carrinho";
 import PedidoDeVenda from "@/pages/vendas/pedido_de_venda";
 import SelecionarAcompanhamentos from "@/pages/vendas/pedido_de_venda/selecionar-acompanhamentos";
