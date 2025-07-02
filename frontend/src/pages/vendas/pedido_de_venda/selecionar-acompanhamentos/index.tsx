@@ -10,19 +10,16 @@ import {
 } from "@/components/ui/accordion"
 
 
-import { ArrowLeft, ChevronRight} from "lucide-react";
-import { useContext, useEffect, useRef, useState } from 'react';
+import { ArrowLeft, ChevronRight, Minus, Plus} from "lucide-react";
+import { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import {  useNavigate, useParams } from "react-router-dom";
-import api from '@/api/axios';
-import { useQuery } from '@tanstack/react-query';
-import type { Product } from '@/types/produtos/product';
+
 import LoadingSpinner from '@/components/loading-spinner';
 import { useSelectSideDishes } from '@/hooks/sales/sales_order/useSelectSideDishes';
-import type { ResponseSelectSideDishes } from '@/types/pedido_de_venda/selectSideDishes';
+
 import { formatarMoedaBRL } from '@/utils/formataMoedaBRL';
 import { PedidoVendaContext } from '@/contexts/PedidoContext';
-import type { ItemPedido } from '@/types/pedido_de_venda/pedidoVenda';
-
+import { Button } from '@/components/ui/button';
 
 
 
@@ -34,23 +31,22 @@ import type { ItemPedido } from '@/types/pedido_de_venda/pedidoVenda';
 
 
 const SelecionarAcompanhamentos = () => {
-   const { id: idProduto } = useParams();
 
+  const { id } = useParams();
   const navigate = useNavigate();
-  const [accordionValue, setAccordionValue] = useState<string | undefined>("item-1");
-  const itemRef = useRef<HTMLDivElement>(null);
+  const idProduto = useMemo(() => id, [id]);
+
+
+
+  const {adicionarItem, addAdicional, adicionaisProduto} = useContext(PedidoVendaContext);
+
+
+  const {data: addOnGroup, isLoading, isError} = useSelectSideDishes(idProduto);
+
+
+  console.log('Adicionais', adicionaisProduto);
+
   
-  const {adicionarItem, removerItem, cart} = useContext(PedidoVendaContext);
-  
-
-  const {data: addOnGroup, isLoading, isError} = useSelectSideDishes(idProduto)
-
-  const product = {
-    id: addOnGroup?.id,
-    nomeProduto: addOnGroup?.nomeProduto,
-    preco: addOnGroup?.preco
-  }
-
   
   /*
   
@@ -74,6 +70,9 @@ const SelecionarAcompanhamentos = () => {
   
   
   */
+
+
+
 
 
 
@@ -123,8 +122,6 @@ const SelecionarAcompanhamentos = () => {
           type="single"
           collapsible
           className="w-full"
-          value={accordionValue}
-          onValueChange={setAccordionValue}
         >
 
           {addOnGroup?.GrupoComplementos && addOnGroup.GrupoComplementos.map((addOnGroup)=> (
@@ -143,32 +140,41 @@ const SelecionarAcompanhamentos = () => {
 
                   <div key={index} className='flex items-center justify-between border-b-2'>
 
-                    <div className='flex items-center gap-2'>
-                      <div className='w-18 h-16 flex items-center justify-center border mb-1'>
+                    <div className='flex items-center gap-2 mb-4'>
+                      <div className='w-18 h-16 flex items-center justify-center border'>
                         FOTO
                       </div>
                       <p className='text-lg'>{addOns.nomeComplemento}</p> 
                     </div>
 
 
-                    <div className="flex items-center gap-4 mr-4">
-
-      
-                      <>                      
-                        <button 
-                          className="w-8 h-8 p-0 text-4xl font-bold text-fuchsia-700 cursor-pointer flex items-center justify-center"                          
-                        >
-                          -
-                        </button>
-                        <span className="text-lg font-medium">5</span>                    
-                      </>                    
-          
-
-                      <button 
-                        className="w-8 h-8 p-0 text-3xl font-bold text-fuchsia-700 cursor-pointer flex items-center justify-center"                        
+                    <div className="flex items-center justify-center gap-4 mr-4 border">
+                                        
+                      <Button 
+                        className='text-fuchsia-700 bg-transparent hover:bg-transparent cursor-pointer'                      
                       >
-                        +
-                      </button>
+                        <Minus/>
+                      </Button>
+
+                      <div className='flex justify-center w-3'>
+
+                        {adicionaisProduto.map((item)=> (
+                          <>
+                            {item.id === addOns.id && (
+                              <Button className='text-black bg-transparent hover:bg-transparent'>{item.quantidade}</Button>
+                            )}
+                          </>
+                        ))}
+
+                      </div>
+                              
+                      <Button 
+                        className='text-fuchsia-700 bg-transparent hover:bg-transparent cursor-pointer'
+                        onClick={()=>addAdicional(addOns)}                        
+                      >
+                        <Plus/>
+                      </Button>
+
                     </div>
 
                   </div>

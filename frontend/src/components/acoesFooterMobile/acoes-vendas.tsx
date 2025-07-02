@@ -14,7 +14,7 @@ const AcoesVendas = () => {
 
         <div className="flex flex-col items-center">
           <Link to='/vendas/pedido-de-venda'>
-            <button className="rounded-full h-14 w-14 flex items-center justify-center bg-fuchsia-700 shadow-lg shadow-fuchsia-300 text-white transform -translate-y-4">
+            <button className="rounded-full h-16 w-16 flex items-center justify-center bg-fuchsia-700 shadow-lg border-4 border-fuchsia-200 text-white transform -translate-y-4">
               <Plus size={32} />
             </button>   
           </Link>

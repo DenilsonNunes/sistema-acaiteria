@@ -18,7 +18,10 @@ const PedidoAtual = () => {
 
   const navigate = useNavigate()
 
-  const {cart, adicionarItem, removerItem, valorTotalPedido} = useContext(PedidoVendaContext)
+  const {cart, adicionarItem, removerItem, valorTotalPedido} = useContext(PedidoVendaContext);
+
+
+  console.log('No pedido atual', cart);
 
 
   return (
@@ -37,7 +40,10 @@ const PedidoAtual = () => {
           <ArrowLeft size={26} />
         </button>
 
-        <p className="text-2xl font-medium text-gray-800 mt-3">Pedido atual</p>
+        <div className='flex justify-center items-center h-12 bg-gray-200 mt-2 w-full rounded-lg shadow'>
+          <p className="text-2xl font-medium text-gray-800">Pedido atual</p>
+        </div>
+
 
       </div>
 
@@ -64,10 +70,9 @@ const PedidoAtual = () => {
 
                     <div className='ml-4'>
                       <p>acompanhamentos</p>
-                      <p><span className='font-medium'>1x</span> Banana</p>
-                      <p><span className='font-medium'>1x</span> Granola</p>
-                      <p><span className='font-medium'>1x</span> Leite em pó</p>
-                      <p><span className='font-medium'>1x</span> Banana</p>
+                      {item.adicionais.map(( adicional)=> (
+                        <p><span className='font-medium'>{adicional.quantidade}x</span> {adicional.nomeComplemento}</p>
+                      ))}
                     </div>
                   </div>
 

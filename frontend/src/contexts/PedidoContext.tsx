@@ -1,7 +1,48 @@
 // context/PedidoContext.tsx
-import type { Cart, ItemPedido } from "@/types/pedido_de_venda/pedidoVenda"
+
 import { formatarMoedaBRL } from "@/utils/formataMoedaBRL"
 import { createContext, useEffect, useState, type ReactNode } from "react"
+
+
+
+
+
+
+
+
+interface ItemAdicional {
+  id: number;
+  nomeComplemento: string;
+  quantidade: number;
+  preco: number;
+}
+
+
+
+
+type ItemPedido = {
+  id: number;
+  nomeProduto: string;
+  preco: number;
+  adicionais?: ItemAdicional[]
+}
+
+type Cart = {
+
+  id: number;
+  nomeProduto: string;
+  preco: number;
+  precoTotal: number;
+  quantidade: number;
+  adicionais: ItemAdicional[]
+
+}
+
+
+
+
+
+
 
 
 
@@ -12,6 +53,9 @@ type PedidoContextType = {
   removerItem: (itemParaRemover: Cart) => void
   limparPedido: () => void
   valorTotalPedido: string
+
+  addAdicional: (adicional: ItemAdicional) => void
+  adicionaisProduto: ItemAdicional[]
 }
 
 
@@ -32,6 +76,7 @@ const PedidoProvider = ({ children }: PedidoProviderProps) => {
 
   
   const [cart, setCart] = useState<Cart[]>([])
+  const [adicionaisProduto, setAdicionaisProdutos] = useState<ItemAdicional[]>([]);
   const [valorTotalPedido, setValorTotalPedido] = useState('')
 
 
@@ -41,48 +86,101 @@ const PedidoProvider = ({ children }: PedidoProviderProps) => {
   }, [cart]);
 
 
+
+  
+
+
   const adicionarItem = (newItem: ItemPedido) => {
 
-    console.log("OQue chega", newItem);
 
     setCart((prevCart) => {
-
       const itemExistente = prevCart.find((item) => item.id === newItem.id);
 
-      console.log('Cheguei aqui', itemExistente);
-
       if (!itemExistente) {
-        // Se não existe, adiciona novo
+        // Se o item ainda não existe, adiciona com os adicionais
         return [
           ...prevCart,
           {
             id: newItem.id,
             nomeProduto: newItem.nomeProduto,
             quantidade: 1,
-            preco: newItem.preco,
-            precoTotal: newItem.preco,
-            adicionais: [],
+            preco: Number(newItem.preco),
+            precoTotal: Number(newItem.preco),
+            adicionais: newItem.adicionais || [],
           },
         ];
-
-        
       } else {
-        // Se já existe, atualiza quantidade e preço
-        return prevCart.map((item) =>
-          item.id === newItem.id
-            ? {
-                ...item,
-                quantidade: item.quantidade + 1,
-                precoTotal: ((item.quantidade + 1) * item.preco),
-              }
-            : item
-        );
+        // Se o item já existe, atualiza quantidade e precoTotal
+        return prevCart.map((item) => {
+          if (item.id === newItem.id) {
+            // Atualiza a quantidade do produto e o precoTotal
+            const novaQuantidade = item.quantidade + 1;
+            const novoPrecoTotal = novaQuantidade * Number(item.preco);
+
+            // Mantém os adicionais do item inalterados (sem somar quantidades)
+            return {
+              ...item,
+              quantidade: novaQuantidade,
+              precoTotal: novoPrecoTotal,
+              adicionais: item.adicionais, // Não altera os adicionais
+            };
+          }
+
+          return item;
+        });
       }
-
-
     });
-    
+
+
   };
+
+
+const addAdicional = (newAddOn: ItemAdicional) => {
+
+  setAdicionaisProdutos(prevAdd => {
+    // Garantir que prevAdd não seja undefined
+    if (!prevAdd) {
+      prevAdd = [];
+    }
+
+    const existeAdicional = prevAdd.find(item => item.id === newAddOn.id);
+
+    if (!existeAdicional) {
+      // Se o item ainda não existe, adiciona com os adicionais
+      const novoAdicional = [
+        ...prevAdd,
+        {
+          id: newAddOn.id,
+          nomeComplemento: newAddOn.nomeComplemento,            
+          quantidade: 1,
+          preco: Number(newAddOn.preco),
+        },
+      ];
+
+      return novoAdicional;
+
+    } else {
+      // Se já existe o adicional, percorre para aumentar a quantidade
+      const novosAdicionais = prevAdd.map(item => {
+        if (item.id === newAddOn.id) {
+          console.log('Entrei aqui, existe o adicional');
+          const novaQuantidade = item.quantidade + 1;
+          console.log('Nova quantidade', novaQuantidade);
+
+          return {
+            ...item,
+            quantidade: novaQuantidade,
+          };
+        }
+
+        // Retorna o item original se não for o que precisa ser atualizado
+        return item;
+      });
+
+      return novosAdicionais;
+    }
+  });
+};
 
 
   const removerItem = (itemParaRemover: Cart) => {
@@ -118,20 +216,22 @@ const PedidoProvider = ({ children }: PedidoProviderProps) => {
   }
 
 
-const calculaTotalPedido = (items: Cart[]) => {
+  const calculaTotalPedido = (items: Cart[]) => {
 
-  const total = items.reduce((acc, item) => {
-    return acc + (Number(item.precoTotal));
-  }, 0);
+    const total = items.reduce((acc, item) => {
+      return acc + (Number(item.precoTotal));
+    }, 0);
 
-  const totalFormatado = formatarMoedaBRL(total);
-  setValorTotalPedido(totalFormatado);
+    const totalFormatado = formatarMoedaBRL(total);
+    setValorTotalPedido(totalFormatado);
 
-};
+  };
+
+  console.log("Como fica os adicionais?", adicionaisProduto);
 
   return (
     <PedidoVendaContext.Provider
-      value={{ adicionarItem, removerItem, limparPedido, cart, valorTotalPedido }}
+      value={{ adicionarItem, removerItem, limparPedido, cart, valorTotalPedido, addAdicional, adicionaisProduto }}
     >
       {children}
     </PedidoVendaContext.Provider>

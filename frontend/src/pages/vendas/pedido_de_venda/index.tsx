@@ -78,7 +78,7 @@ const PedidoDeVenda = () => {
                 <TabsTrigger 
                   key={index} 
                   value={String(category.id)}
-                  className={"data-[state=active]:text-fuchsia-600 text-lg"}
+                  className={"data-[state=active]:text-fuchsia-600"}
                 >
                   {category.descricao}
                 </TabsTrigger>

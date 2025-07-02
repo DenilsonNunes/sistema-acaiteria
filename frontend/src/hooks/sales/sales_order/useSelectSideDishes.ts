@@ -15,6 +15,9 @@ export const useSelectSideDishes = (id?: number | string) => {
       const { data } = await api.get(`/produtos/${id}/grupo-complementos`);
       return data;
     },
+    staleTime: 1_000 * 60 * 5,      // 5 minutos em cache
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
   });
 
   return {
