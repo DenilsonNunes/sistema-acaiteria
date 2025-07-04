@@ -1,15 +1,9 @@
 
-import { useContext, useState } from "react";
 
 
-import fotoAcai from '../../../assets/acai.jpeg'
-import { useQuery } from "@tanstack/react-query";
-import api from "@/api/axios";
-import type { Product } from "@/types/produtos/product";
 import { Link } from "react-router-dom";
 import LoadingSpinner from "@/components/loading-spinner";
-import { CloudAlert, ImagePlus } from "lucide-react";
-import { PedidoVendaContext } from "@/contexts/PedidoContext";
+import { CloudAlert } from "lucide-react";
 import PedidoAtual from "./components/pedido-atual";
 import AcoesVendas from "@/components/acoesFooterMobile/acoes-vendas";
 import { formatarMoedaBRL } from "@/utils/formataMoedaBRL";

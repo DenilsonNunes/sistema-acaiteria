@@ -7,7 +7,7 @@ import  { useContext } from 'react'
 
 import fotoAcai from '../../../../assets/acai.jpeg'
 import AcoesVendas from '@/components/acoesFooterMobile/acoes-vendas'
-import { ArrowLeft, Save, Trash2 } from 'lucide-react'
+import { ArrowLeft, Minus, Plus, Save, Trash2 } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { formatarMoedaBRL } from '@/utils/formataMoedaBRL'
 
@@ -19,9 +19,6 @@ const PedidoAtual = () => {
   const navigate = useNavigate()
 
   const {cart, adicionarItem, removerItem, valorTotalPedido} = useContext(PedidoVendaContext);
-
-
-  console.log('No pedido atual', cart);
 
 
   return (
@@ -57,8 +54,16 @@ const PedidoAtual = () => {
 
                 <div className='flex gap-2'>
 
-                  <div>
-                    <img src={fotoAcai} alt="Copo açai" className="w-28 h-auto object-cover rounded" />
+                  <div className="flex items-center justify-center border w-18 h-18 rounded-lg overflow-hidden bg-gray-100">
+                    {5 === 6? (
+                      <img
+                        src=""
+                        alt=""
+                        className="object-cover w-full h-full"
+                      />
+                    ) : (
+                      <span className="text-sm text-center text-gray-500">Sem Foto</span>
+                    )}
                   </div>
 
                   <div>
@@ -79,7 +84,7 @@ const PedidoAtual = () => {
                 </div>
 
                 <div>
-                  <button className='text-red-500 p-1.5 bg-red-200 rounded'>
+                  <button className='text-red-500 p-1.5 bg-red-200 rounded-full cursor-pointer hover:border border-red-400'>
                     <Trash2/>
                   </button>
                 </div>
@@ -97,20 +102,25 @@ const PedidoAtual = () => {
                   </div>
 
 
-                  <div className="flex items-center gap-2">
-                    <Button
-                      size="icon" className="w-10 h-10 p-0 text-2xl bg-fuchsia-700 text-white hover:bg-fuchsia-600 cursor-pointer"
+                  <div className="flex items-center gap-4">
+
+                    <button
+                      className="bg-fuchsia-700 text-white border-2 border-fuchsia-300 rounded-full cursor-pointer"
                       onClick={() => removerItem(item)}
                     >
-                      -
-                    </Button>
+                      <Minus size={24} />
+                    </button>
+
                     <span className="font-medium text-lg">{item.quantidade}</span>
-                    <Button 
-                      size="icon" className="w-10 h-10 p-0 text-2xl font-bold bg-fuchsia-700 text-white hover:bg-fuchsia-600 cursor-pointer"
-                      onClick={()=>adicionarItem(item)}
-                    >
-                      +
-                    </Button>
+
+                      <button
+                        onClick={()=>adicionarItem(item)}
+                        className="bg-fuchsia-700 text-white border-2 border-fuchsia-300 rounded-full  cursor-pointer"
+                      >
+                        
+                        <Plus size={24} />
+                      </button>
+
                   </div>
                 </div>
 
@@ -136,7 +146,7 @@ const PedidoAtual = () => {
 
           <div className="mx-2 border-t-2 border-dashed border-gray-500" />
 
-          <div className="flex justify-between bg-gray-300 rounded-lg p-4 mb-16">
+          <div className="flex justify-between bg-gray-300 rounded-lg p-4 mb-6">
             <p className="font-bold text-lg">Total</p>
             <div className='flex items-center gap-1'>
               <p>R$</p>
@@ -144,8 +154,16 @@ const PedidoAtual = () => {
             </div>
           </div>
 
+          <div className='md:block flex w-full border'>
+            <button 
+              className='w-full cursor-pointer bg-green-500 text-white font-medium rounded py-3 text-lg hover:bg-green-600'
+            >
+              Salvar pedido
+            </button>
+          </div>
 
-          <div className='flex w-full h-15 fixed bottom-0 left-0 right-0'>
+
+          <div className='md:hidden flex w-full h-15 fixed bottom-0 left-0 right-0'>
 
             <button 
               className='w-full flex flex-col items-center justify-center bg-blue-500 text-white cursor-pointer'

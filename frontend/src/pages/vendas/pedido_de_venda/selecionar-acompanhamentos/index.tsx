@@ -19,7 +19,7 @@ import { useSelectSideDishes } from '@/hooks/sales/sales_order/useSelectSideDish
 
 import { formatarMoedaBRL } from '@/utils/formataMoedaBRL';
 import { PedidoVendaContext } from '@/contexts/PedidoContext';
-import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 
 
 
@@ -38,13 +38,14 @@ const SelecionarAcompanhamentos = () => {
 
 
 
-  const {adicionarItem, addAdicional, adicionaisProduto} = useContext(PedidoVendaContext);
+  const {adicionarItem, addAdicional, adicionaisProduto, removeAdicionalItem} = useContext(PedidoVendaContext);
 
 
   const {data: addOnGroup, isLoading, isError} = useSelectSideDishes(idProduto);
 
+  console.log("Quai dados vem ?", addOnGroup);
 
-  console.log('Adicionais', adicionaisProduto);
+
 
   
   
@@ -70,8 +71,6 @@ const SelecionarAcompanhamentos = () => {
   
   
   */
-
-
 
 
 
@@ -124,64 +123,91 @@ const SelecionarAcompanhamentos = () => {
           className="w-full"
         >
 
-          {addOnGroup?.GrupoComplementos && addOnGroup.GrupoComplementos.map((addOnGroup)=> (
-            <AccordionItem value={String(addOnGroup.id)}>
+          {addOnGroup?.GrupoComplementos && addOnGroup.GrupoComplementos.map((addOnGroup, index)=> (
+            <AccordionItem key={index} value={String(addOnGroup.id)}>
 
-              <AccordionTrigger className="flex items-center py-1 px-4 bg-fuchsia-700 hover:no-underline rounded-none text-white">
-                <div className="flex flex-col">
+              <AccordionTrigger className="flex items-center py-1 px-2 bg-fuchsia-700 hover:no-underline rounded-none text-white">
+                <div className="flex flex-col w-full">
                   <p className="font-medium text-white text-2xl">{addOnGroup.nomeGrupoComplementos}</p>
-                  <p className="text-white">Escolha entre {addOnGroup.qtdMinComplemento} e {addOnGroup.qtdMaxComplemento} itens</p>
+
+                  <div className='flex w-full items-end justify-between'>
+                    <p className="text-white">Escolha entre {addOnGroup.qtdMinComplemento} e {addOnGroup.qtdMaxComplemento} itens</p>
+                    
+                    {addOnGroup.obrigatorio ? (
+                      <Badge variant="secondary" className='bg-orange-500 text-white'>                      
+                        Obrigatório
+                      </Badge>
+                    ) : (
+                      <Badge variant="secondary" className='bg-orange-500 text-white'>                      
+                        Não obrigatório
+                      </Badge>
+                    )}
+                  </div>
+
                 </div>
               </AccordionTrigger>
 
               <AccordionContent className="flex flex-col gap-4 text-balance py-4">
 
-                {addOnGroup.Complementos?.map((addOns, index) => (
+                {addOnGroup.Complementos?.map((addOn) => {
 
-                  <div key={index} className='flex items-center justify-between border-b-2'>
+                  // procura se o complemento já foi escolhido
+                  const selecionado = adicionaisProduto.find((p) => p.id === addOn.id);
+                  const quantidade  = selecionado?.quantidade ?? 0;
 
-                    <div className='flex items-center gap-2 mb-4'>
-                      <div className='w-18 h-16 flex items-center justify-center border'>
-                        FOTO
+                  console.log('Como esta o adicional ?')
+
+                  return (
+                    <div
+                      key={addOn.id}    
+                      className="flex items-center justify-between border-b-2"
+                    >
+                      {/* ——— lado esquerdo: foto + nome ——— */}
+                      <div className="flex items-center gap-2 mb-4">
+
+                        <div className="flex items-center justify-center border w-15 h-15 rounded-lg overflow-hidden bg-gray-100">
+                          {addOn.imagemUrl ? (
+                            <img
+                              src={addOn.imagemUrl}
+                              alt={addOn.nomeComplemento}
+                              className="object-cover w-full h-full"
+                            />
+                          ) : (
+                            <span className="text-sm text-center text-gray-500">Sem Foto</span>
+                          )}
+                        </div>
+                        <p className="text-lg">{addOn.nomeComplemento}</p>
+
                       </div>
-                      <p className='text-lg'>{addOns.nomeComplemento}</p> 
-                    </div>
 
-
-                    <div className="flex items-center justify-center gap-4 mr-4 border">
-                                        
-                      <Button 
-                        className='text-fuchsia-700 bg-transparent hover:bg-transparent cursor-pointer'                      
-                      >
-                        <Minus/>
-                      </Button>
-
-                      <div className='flex justify-center w-3'>
-
-                        {adicionaisProduto.map((item)=> (
+                      {/* ——— lado direito: botões ——— */}
+                      <div className="flex items-center gap-1 h-8 mr-2 rounded-lg  px-1">
+                        {/* só mostra o “‑” e o contador se já tiver pelo menos 1 */}
+                        {selecionado && (
                           <>
-                            {item.id === addOns.id && (
-                              <Button className='text-black bg-transparent hover:bg-transparent'>{item.quantidade}</Button>
-                            )}
+                            <button
+                              onClick={() => removeAdicionalItem(addOn)}
+                              className="text-fuchsia-700 cursor-pointer"
+                            >
+                              <Minus size={24} />
+                            </button>
+
+                            <span className="w-6 text-center font-medium">{quantidade}</span>
                           </>
-                        ))}
+                        )}
+
+                        {/* “+” sempre visível */}
+                        <button
+                          onClick={() => addAdicional(addOn)}
+                          className="text-fuchsia-700 cursor-pointer"
+                        >
+                          <Plus size={24} />
+                        </button>
 
                       </div>
-                              
-                      <Button 
-                        className='text-fuchsia-700 bg-transparent hover:bg-transparent cursor-pointer'
-                        onClick={()=>addAdicional(addOns)}                        
-                      >
-                        <Plus/>
-                      </Button>
-
                     </div>
-
-                  </div>
-
-
-                ))}
-
+                  );
+                })}
 
               </AccordionContent>
               
@@ -201,7 +227,12 @@ const SelecionarAcompanhamentos = () => {
         <button 
           className='w-full md:ml-12 h-15 flex justify-between items-center bg-green-500 pl-4 cursor-pointer fixed bottom-0 left-0 right-0 px-4'
           onClick={() => {
-            adicionarItem(product);
+            adicionarItem({
+              id: addOnGroup?.id,
+              nomeProduto: addOnGroup?.nomeProduto,
+              preco: addOnGroup?.preco,
+              adicionais: [...adicionaisProduto]
+            });
             navigate('/vendas/carrinho');
           }}
         >

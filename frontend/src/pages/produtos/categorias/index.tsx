@@ -12,10 +12,18 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
+
 import LoadingSpinner from "@/components/loading-spinner"
-import { CircleAlert } from "lucide-react"
+import { CircleAlert, Copy, SquarePen } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { formatarMoedaBRL } from "@/utils/formataMoedaBRL"
+import { Button } from "@/components/ui/button"
 
 
 
@@ -56,6 +64,7 @@ const HomeCategory = () => {
                       <TableHead>Produto</TableHead>
                       <TableHead className="text-center">Preço (R$)</TableHead>
                       <TableHead className="text-center">Status venda</TableHead>
+                      <TableHead className="text-center">Ações</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -95,6 +104,35 @@ const HomeCategory = () => {
                             </Badge>
                           )}
                         </TableCell>
+                        
+                        <TableCell className="flex gap-2 justify-center">
+
+                          <Tooltip>
+                            <TooltipTrigger>
+                              <button className="cursor-pointer p-0.5  text-blue-600">
+                                <Copy size={20} />
+                              </button>
+                            </TooltipTrigger>
+                            <TooltipContent>
+                              <p>Duplicar produto</p>
+                            </TooltipContent>
+                          </Tooltip>
+
+
+                          <Tooltip>
+                            <TooltipTrigger>
+                              <button className="cursor-pointer p-0.5  text-orange-600 ">
+                                <SquarePen size={20}/>
+                              </button>
+                            </TooltipTrigger>
+                            <TooltipContent>
+                              <p>Editar produto</p>
+                            </TooltipContent>
+                          </Tooltip>
+
+
+                        </TableCell>
+
                       </TableRow>
                     ))}
                   </TableBody>

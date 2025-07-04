@@ -56,4 +56,13 @@ export class ProdutosController {
   remove(@Param('id', ParseIntPipe) id: number) {
     return this.produtosService.remove(id);
   }
+
+  @Post(':id/duplicar')
+  duplicateProduct(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() data: { nomeProduto: string }, // Tipando 'data' como um objeto
+  ) {
+    const { nomeProduto } = data; // Fazendo destructuring corretamente
+    return this.produtosService.duplicateProduct(id, nomeProduto);
+  }
 }

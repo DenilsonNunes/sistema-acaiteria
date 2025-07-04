@@ -48,6 +48,7 @@ type Cart = {
 
 
 type PedidoContextType = {
+
   cart: Cart[]
   adicionarItem: (item: ItemPedido) => void
   removerItem: (itemParaRemover: Cart) => void
@@ -56,6 +57,8 @@ type PedidoContextType = {
 
   addAdicional: (adicional: ItemAdicional) => void
   adicionaisProduto: ItemAdicional[]
+  removeAdicionalItem: (addOnRemove: ItemAdicional) => void
+
 }
 
 
@@ -88,6 +91,87 @@ const PedidoProvider = ({ children }: PedidoProviderProps) => {
 
 
   
+
+  const addAdicional = (newAddOn: ItemAdicional) => {
+
+  setAdicionaisProdutos(prevAdd => {
+    // Garantir que prevAdd não seja undefined
+    if (!prevAdd) {
+      prevAdd = [];
+    }
+
+    const existeAdicional = prevAdd.find(item => item.id === newAddOn.id);
+
+    if (!existeAdicional) {
+      // Se o item ainda não existe, adiciona com os adicionais
+      const novoAdicional = [
+        ...prevAdd,
+        {
+          id: newAddOn.id,
+          nomeComplemento: newAddOn.nomeComplemento,            
+          quantidade: 1,
+          preco: Number(newAddOn.preco),
+        },
+      ];
+
+      return novoAdicional;
+
+    } else {
+      // Se já existe o adicional, percorre para aumentar a quantidade
+      const novosAdicionais = prevAdd.map(item => {
+        if (item.id === newAddOn.id) {
+
+          const novaQuantidade = item.quantidade + 1;
+
+          return {
+            ...item,
+            quantidade: novaQuantidade,
+          };
+        }
+
+        // Retorna o item original se não for o que precisa ser atualizado
+        return item;
+      });
+
+      return novosAdicionais;
+    }
+  });
+  };
+
+  const removeAdicionalItem = (addOnRemove: ItemAdicional) => {
+
+    setAdicionaisProdutos((prevAdd) => {
+      // Garantir que prevAdd não seja undefined
+      if (!prevAdd) {
+        prevAdd = [];
+      }
+
+      const itemExistente = prevAdd.find((item) => item.id === addOnRemove.id);
+
+      if (!itemExistente) return prevAdd;
+
+      if(itemExistente.quantidade > 1) {
+
+        return prevAdd.map((item) => 
+          item.id === addOnRemove.id
+            ? 
+              {
+                ...item,
+                quantidade: item.quantidade - 1,
+                preco: ( item.preco - 1) * item.preco
+              }
+
+            : item
+        );
+
+
+      } else{
+        return prevAdd.filter((item) => item.id !== addOnRemove.id);
+      }
+
+    })
+
+  }
 
 
   const adicionarItem = (newItem: ItemPedido) => {
@@ -135,52 +219,7 @@ const PedidoProvider = ({ children }: PedidoProviderProps) => {
   };
 
 
-const addAdicional = (newAddOn: ItemAdicional) => {
 
-  setAdicionaisProdutos(prevAdd => {
-    // Garantir que prevAdd não seja undefined
-    if (!prevAdd) {
-      prevAdd = [];
-    }
-
-    const existeAdicional = prevAdd.find(item => item.id === newAddOn.id);
-
-    if (!existeAdicional) {
-      // Se o item ainda não existe, adiciona com os adicionais
-      const novoAdicional = [
-        ...prevAdd,
-        {
-          id: newAddOn.id,
-          nomeComplemento: newAddOn.nomeComplemento,            
-          quantidade: 1,
-          preco: Number(newAddOn.preco),
-        },
-      ];
-
-      return novoAdicional;
-
-    } else {
-      // Se já existe o adicional, percorre para aumentar a quantidade
-      const novosAdicionais = prevAdd.map(item => {
-        if (item.id === newAddOn.id) {
-          console.log('Entrei aqui, existe o adicional');
-          const novaQuantidade = item.quantidade + 1;
-          console.log('Nova quantidade', novaQuantidade);
-
-          return {
-            ...item,
-            quantidade: novaQuantidade,
-          };
-        }
-
-        // Retorna o item original se não for o que precisa ser atualizado
-        return item;
-      });
-
-      return novosAdicionais;
-    }
-  });
-};
 
 
   const removerItem = (itemParaRemover: Cart) => {
@@ -202,6 +241,7 @@ const addAdicional = (newAddOn: ItemAdicional) => {
               }
             : item
         );
+
       } else {
         // Remove o item se a quantidade for 1
         return prevCart.filter((item) => item.id !== itemParaRemover.id);
@@ -227,11 +267,22 @@ const addAdicional = (newAddOn: ItemAdicional) => {
 
   };
 
-  console.log("Como fica os adicionais?", adicionaisProduto);
 
+  
   return (
     <PedidoVendaContext.Provider
-      value={{ adicionarItem, removerItem, limparPedido, cart, valorTotalPedido, addAdicional, adicionaisProduto }}
+      value={{ 
+        adicionarItem, 
+        removerItem, 
+        limparPedido, 
+        cart, 
+        valorTotalPedido, 
+        
+        // Adicionais
+        addAdicional, 
+        adicionaisProduto, 
+        removeAdicionalItem
+      }}
     >
       {children}
     </PedidoVendaContext.Provider>

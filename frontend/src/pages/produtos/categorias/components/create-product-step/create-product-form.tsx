@@ -12,7 +12,7 @@ import { useState } from "react";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import LoadingSpinner from "@/components/loading-spinner";
-import { CircleAlert, CircleCheck } from "lucide-react";
+import { CircleAlert, CircleCheck, Copy } from "lucide-react";
 import type { Category } from "@/types/produtos/category";
 import { useCreateProductWithAddons } from "@/hooks/products/useCreateProductWithAddons";
 
@@ -245,16 +245,22 @@ const CreateProductForm = ({ category } : {category: Category}) => {
                             {checkedComplementos === "" && (<p className=" text-red-500">selecione uma opção</p>)}
                           </div>
                           {temComplementos && (
-                            <button
-                              type="button"
-                              className="bg-green-500 hover:bg-green-400 text-white py-1 px-2 rounded cursor-pointer"
-                              onClick={() => {
-                                setOpenFormAddOns(true)
-                                setHabilitaBtnProx(true)
-                              }}
-                            >
-                              + Criar grupo de complementos
-                            </button>
+                            <div className="w-full flex justify-between"> 
+                              <Button
+                                className="bg-green-500 hover:bg-green-400 text-white py-1 px-2"
+                                onClick={() => {
+                                  setOpenFormAddOns(true)
+                                  setHabilitaBtnProx(true)
+                                }}
+                              >
+                                + Criar grupo de complementos
+                              </Button>
+                              <Button variant='outline' className="text-blue-500 border-blue-500  hover:bg-blue-400 hover:text-white cursor-pointer">
+                                <Copy/>
+                                Copiar de outro produto
+                              </Button>
+
+                            </div>
                           )}
                         </>
                       )}

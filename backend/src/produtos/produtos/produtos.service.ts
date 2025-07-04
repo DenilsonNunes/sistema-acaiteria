@@ -161,9 +161,25 @@ export class ProdutosService {
         },
       });
 
-      // Se não encontrar o produto, retorna mensagem
+      // Se encontrar o produto o produto, retorna mensagem
       if (productSold.length > 0) {
         throw new HttpException(`Não é possível deletar o produto pois ele já foi vendido, [PEDIDO]: ${productSold[0].idPedido}`, HttpStatus.CONFLICT);
+      }
+
+      // Verificar se o produto esta em um grupo de complementos
+      const productInTheComplementsGroup = await this.prisma.grupoComplementos.findMany({
+        where: {
+          idProduto: id,
+        },
+      });
+
+      // Se não encontrar o produto, retorna mensagem
+      if (productInTheComplementsGroup.length > 0) {
+        console.log('Aqui', productInTheComplementsGroup);
+        throw new HttpException(
+          `Não é possível deletar o produto, pertence ao grupo de complementos: ID: ${productInTheComplementsGroup[0].id} - ${productInTheComplementsGroup[0].nomeGrupoComplementos}`,
+          HttpStatus.CONFLICT,
+        );
       }
 
       // Deleta o produto
@@ -175,11 +191,102 @@ export class ProdutosService {
 
       return { message: 'Produto deletado com sucesso.' };
     } catch (err) {
+      console.log('Qual foi o erro?', err);
       // Verifica se o erro é uma HttpException
       if (err instanceof HttpException) {
         throw err; // Propaga a HttpException original
       }
-      throw new HttpException('Falha ao deletar o produto', HttpStatus.BAD_REQUEST);
+      throw new HttpException('Falha ao deletar o produto', HttpStatus.BAD_REQUEST, { cause: err });
+    }
+  }
+
+  async duplicateProduct(id: number, nomeProduto: string) {
+    const nomeProduct = nomeProduto;
+
+    try {
+      // Procurar o tem a ser duplicado
+      const productOrig = await this.prisma.produtos.findUnique({
+        where: {
+          id: id,
+        },
+        include: {
+          GrupoComplementos: {
+            include: {
+              Complementos: true,
+            },
+          },
+        },
+      });
+
+      // Se não encontrar o produto, retorna mensagem
+      if (!productOrig) {
+        throw new HttpException('Produto não encontrado.', HttpStatus.NOT_FOUND);
+      }
+
+      // Verificar se existe o produto com essa mesma descrição
+      if (productOrig.nomeProduto.toUpperCase().trim() === nomeProduct.toUpperCase().trim()) {
+        throw new HttpException(`Já existe um produto cadastrado com este mesmo nome`, HttpStatus.CONFLICT);
+      }
+
+      const { idCategoria, status, preco, descricao, imagemUrl, GrupoComplementos } = productOrig;
+
+      const newProduct = await this.prisma.produtos.create({
+        data: {
+          nomeProduto: nomeProduct,
+          idCategoria: idCategoria,
+          descricao: descricao,
+          preco: preco,
+          status: status,
+          imagemUrl,
+        },
+      });
+
+      // Se tiver grupo de complemtos insere
+      if (GrupoComplementos.length) {
+        await Promise.all(
+          GrupoComplementos.map(async (groupOrig) => {
+            // 1. cria o novo grupo
+            const newGroup = await this.prisma.grupoComplementos.create({
+              data: {
+                idProduto: groupOrig.idProduto,
+                nomeGrupoComplementos: groupOrig.nomeGrupoComplementos,
+                descricao: groupOrig.descricao,
+                obrigatorio: groupOrig.obrigatorio,
+                qtdMaxComplemento: groupOrig.qtdMaxComplemento,
+                qtdMinComplemento: groupOrig.qtdMinComplemento,
+              },
+            });
+
+            // 2. cria todos os complementos do grupo recém‑criado
+            if (groupOrig.Complementos?.length) {
+              await Promise.all(
+                groupOrig.Complementos.map((compOrig) =>
+                  this.prisma.complementos.create({
+                    data: {
+                      nomeComplemento: compOrig.nomeComplemento,
+                      idGrupoComplementos: newGroup.id, // usa o id do grupo novo!
+                      descricao: compOrig.descricao,
+                      imagemUrl: compOrig.imagemUrl,
+                      preco: compOrig.preco,
+                      status: compOrig.status,
+                    },
+                  }),
+                ),
+              );
+            }
+            return newGroup;
+          }),
+        );
+      }
+
+      return newProduct;
+    } catch (err) {
+      console.log('Qual foi o erro?', err);
+      // Verifica se o erro é uma HttpException
+      if (err instanceof HttpException) {
+        throw err; // Propaga a HttpException original
+      }
+      throw new HttpException('Falha ao deletar o produto', HttpStatus.BAD_REQUEST, { cause: err });
     }
   }
 }
