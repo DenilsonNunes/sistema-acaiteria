@@ -17,7 +17,7 @@ export type Product = {
   categoria: Category;
   imagemUrl: string;
 
-  GrupoComplementos: AddOnGroup[];
+  grupoComplementos: AddOnGroup[];
 
   data_criacao: string;
   data_alteracao: string;

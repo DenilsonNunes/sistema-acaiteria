@@ -31,19 +31,17 @@ type SignInSchema = z.infer<typeof signInSchema>
 
 
 
-
-
 const Login = () => {
 
   const [ isLoading, setIsLoading] =  useState(false);
 
 
-  const naviate = useNavigate();
+  const navigate = useNavigate();
 
   const  { login } = useContext(AuthContext);
 
 
-  const {register, handleSubmit, formState: {errors}, reset, watch} = useForm({
+  const {register, handleSubmit, formState: {errors}, reset} = useForm({
     resolver: zodResolver(signInSchema),
   })
 
@@ -68,7 +66,7 @@ const Login = () => {
 
         setIsLoading(false);
 
-        naviate('/home');
+        navigate('/home');
     
       }, 2000)
       
@@ -89,56 +87,6 @@ const Login = () => {
       reset();
 
     }
-
-
- 
-
-
-    /*
-    
-  
-    
-    
-    try {
- 
-      setIsLoading(true);
- 
-      await login(data.user, data.password);
-      toast.success("Login realizado com sucesso!", {
-        richColors: true,
-        closeButton: true
-      })
- 
- 
-      setTimeout(()=>{
- 
-        naviate('/home');
- 
-      }, 1000)
- 
- 
-    } catch (error) {
- 
-      console.log('Qual o erro', error);
- 
-      /*
-      
-      
-            reset();
-      
-            toast.error("Usuário/Senha inválidos!", {
-              richColors: true,
-              closeButton: true
-            })
-      
-            setIsLoading(false);
-      
-      
-      */
-  
- 
-
-
 
   }
   

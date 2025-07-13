@@ -13,6 +13,6 @@ export function PrivateRoute() {
     return <></>
   }
 
-  return isAuthenticated ? <Outlet /> : <Navigate to="/auth/login" replace />;
+  return isAuthenticated ? <Outlet/> : <Navigate to="/auth/login" replace/>;
 
 }

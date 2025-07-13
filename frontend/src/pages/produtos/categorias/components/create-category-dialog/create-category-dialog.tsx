@@ -17,7 +17,6 @@ import { Separator } from "@/components/ui/separator"
 
 import {  useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useQueryClient } from "@tanstack/react-query"
 import LoadingSpinner from "@/components/loading-spinner"
 import { CircleAlert, CircleCheck } from "lucide-react"
 
@@ -38,11 +37,9 @@ import { createCategorySchema, type CreateCategorySchema } from "@/schemas/produ
 
 const CreateCategoryDialog = () => {
 
-  const queryClient = useQueryClient();
 
   const {  createCategory } = useCategories();
   const {  isPending, reset: mutateReset, isSuccess, isError} = createCategory;
-
 
 
 
@@ -52,13 +49,10 @@ const CreateCategoryDialog = () => {
 
   const descricao = watch('descricao')
 
-
-
   
   const handleCreateCategory = (data: CreateCategorySchema) => {
     createCategory.mutate(data);
   }
-
 
 
   

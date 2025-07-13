@@ -28,6 +28,8 @@ const StepAddOnsGroup = () => {
 
   const alterarValor = (campo: "qtdMinComplemento" | "qtdMaxComplemento", valor: number) => {
 
+    
+
     setValue(`grupoComplementos.${campo}`, Math.max(0, valor), { shouldValidate: true })
 
   }
@@ -81,6 +83,7 @@ const StepAddOnsGroup = () => {
             <RadioGroupItem value="ob" id="ob" />
             <Label htmlFor="ob">Obrigatório</Label>
           </div>
+          
         </RadioGroup>
 
       </div>
@@ -97,27 +100,28 @@ const StepAddOnsGroup = () => {
 
           <div className="grid gap-1">
 
-          <Label>Mínimo</Label>
-          <div className="w-25 px-2 flex items-center justify-between gap-4 border border-gray-300-500 rounded-lg">
-            <button
-              type="button"
-              onClick={() => alterarValor("qtdMinComplemento", qtdMinComplemento - 1)}
-              className="font-bold cursor-pointer"
-            >
-              <Minus size={16} />
-            </button>
+            <Label>Mínimo</Label>
+            <div className="w-25 px-2 flex items-center justify-between gap-4 border border-gray-300-500 rounded-lg">
+              <button
+                type="button"
+                onClick={() => alterarValor("qtdMinComplemento", qtdMinComplemento - 1)}
+                className="font-bold cursor-pointer"
+              >
+                <Minus size={16} />
+              </button>
 
-            <span>{qtdMinComplemento}</span>
+              <span>{qtdMinComplemento}</span>
 
-            <button
-              type="button"
-              onClick={() => alterarValor("qtdMinComplemento", qtdMinComplemento + 1)}
-              className="font-bold cursor-pointer"
-            >
-              <Plus size={16} />
-            </button>
-          </div>
-          {errors.grupoComplementos?.qtdMinComplemento && <span className="text-sm text-red-500">{errors.grupoComplementos.qtdMinComplemento.message}</span>}
+              <button
+                type="button"
+                onClick={() => alterarValor("qtdMinComplemento", qtdMinComplemento + 1)}
+                className="font-bold cursor-pointer"
+              >
+                <Plus size={16} />
+              </button>
+            </div>        
+            {errors.grupoComplementos?.qtdMinComplemento && <span className="text-sm text-red-500">{errors.grupoComplementos.qtdMinComplemento.message}</span>}
+
           </div>
 
           <div className="grid gap-1">

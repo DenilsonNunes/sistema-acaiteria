@@ -1,33 +1,31 @@
 import api from "@/api/axios";
-import type { CreateGrupoComplementosSchema, FullCreateProducSchema } from "@/pages/produtos/categorias/components/create-product-step/schema";
-import { useMutation, useQueryClient } from "@tanstack/react-query"
+import type { CreateGrupoComplementosSchema } from "@/pages/produtos/categorias/components/create-product-step/schema";
+import { useMutation } from "@tanstack/react-query";
+
+
+export const useCreateGroupAddOn = () => {
+
+  // A função agora recebe um array de objetos
+  const createGroupAddOn = async (data: CreateGrupoComplementosSchema[]) => {
 
 
 
-  export const useCreateGroupAddOn = () => {
+    // fazer um requisição para cada grupo de complementos
+    const addOns = await Promise.all(
 
-    const queryClient = useQueryClient()
+      data.map(async (addOn)=> {
 
+        await api.post('/grupo-complementos', addOn);
 
-    const createGroupAddOn = async (data: CreateGrupoComplementosSchema) => {
+      })
 
-      const response = await api.post('/grupo-complementos', data);
+    )
 
-      return response.data;
-      
-    };
+    return addOns;
+    
+  };
 
-
-
-    return useMutation({
-
-      mutationFn: createGroupAddOn,
-      onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: [''] }) // adicionar a chave que atualiza grupo de complementos.
-        
-      },
-
-    })
-
-
-  }
+  return useMutation({
+    mutationFn: createGroupAddOn,
+  });
+};

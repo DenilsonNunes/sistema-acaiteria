@@ -3,7 +3,6 @@ import { z } from "zod";
 
 
 const createProductSchema = z.object({
-
   nomeProduto: z.string().nonempty({message: 'O nome do produto não pode ser vazio'}).max(80, {message: 'Não poder ser maior que 80 caracteres.'}),
   descricao: z.string().max(1000, {message: 'Não poder ser maior que 1000 caracteres.'}),
 

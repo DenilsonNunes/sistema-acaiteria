@@ -18,7 +18,6 @@ export const useCreateProductWithAddons = () => {
     mutationFn: async (data: FullCreateProducSchema) => {
 
 
-      console.log('Chegou os dados para criar', data);
 
       // Salva o produto primeiro
       const productResponse = await createProduct(data.produto);
@@ -29,10 +28,15 @@ export const useCreateProductWithAddons = () => {
       if (data.grupoComplementos && data.complementos) {
 
         // Salva o grupo de complementos, associando ao produto
-        const groupResponse = await createGroupAddOn({
-          ...data.grupoComplementos,
+        const addOns = data.grupoComplementos.map((addOns) => ({
+            ...addOns,
           idProduto: productId
-        });
+        }))
+
+      
+        
+        const groupResponse = await createGroupAddOn(addOns);
+
         const groupId = groupResponse.id; 
 
         
@@ -42,6 +46,9 @@ export const useCreateProductWithAddons = () => {
           idGrupoComplementos: groupId,
         }));
 
+        console.log('Como fica', complementosWithGrupoId);
+
+        
         await createAddOns(complementosWithGrupoId);
         
       }

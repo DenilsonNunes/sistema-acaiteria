@@ -9,6 +9,7 @@ export class GrupoComplementosController {
 
   @Post()
   create(@Body() createGrupoComplementoDto: CreateGrupoComplementoDto) {
+    console.log('Como chega no back', createGrupoComplementoDto);
     return this.grupoComplementosService.create(createGrupoComplementoDto);
   }
 

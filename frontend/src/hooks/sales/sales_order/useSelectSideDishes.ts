@@ -8,8 +8,6 @@ import type { Product } from "@/types/produtos/product";
 
 export const useSelectSideDishes = (id?: number | string) => {
 
-  console.log('Fui chamado no USE', id);
-
   const fetchAddOnGroup = useQuery<Product>({
     queryKey: ['Dados'],
     enabled: !!id, // impede requisição se `id` for undefined

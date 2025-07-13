@@ -191,7 +191,6 @@ export class ProdutosService {
 
       return { message: 'Produto deletado com sucesso.' };
     } catch (err) {
-      console.log('Qual foi o erro?', err);
       // Verifica se o erro é uma HttpException
       if (err instanceof HttpException) {
         throw err; // Propaga a HttpException original
@@ -281,7 +280,6 @@ export class ProdutosService {
 
       return newProduct;
     } catch (err) {
-      console.log('Qual foi o erro?', err);
       // Verifica se o erro é uma HttpException
       if (err instanceof HttpException) {
         throw err; // Propaga a HttpException original

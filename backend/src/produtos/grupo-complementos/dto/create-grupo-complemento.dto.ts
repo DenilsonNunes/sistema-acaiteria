@@ -3,7 +3,7 @@ import { Transform, Type } from 'class-transformer';
 
 export class CreateGrupoComplementoDto {
   @Type(() => Number)
-  @IsNumber({}, { message: 'O ID do produto deve ser um numero.' })
+  @IsNumber({}, { message: 'O ID do produto deve ser um numero.....' })
   idProduto: number;
 
   @Transform(({ value }: { value: unknown }): string => (typeof value === 'string' ? value.trim() : ''))
