@@ -1,6 +1,3 @@
-
-
-
 import { Link } from "react-router-dom";
 import LoadingSpinner from "@/components/loading-spinner";
 import { CloudAlert } from "lucide-react";
@@ -10,10 +7,6 @@ import { formatarMoedaBRL } from "@/utils/formataMoedaBRL";
 import { useCategories } from "@/hooks/categories/useCategories";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { TabsContent } from "@radix-ui/react-tabs";
-
-
-
-
 
 
 
@@ -58,21 +51,21 @@ const PedidoDeVenda = () => {
 
   return (
 
-    <section className="flex w-full">
+    <section className="flex w-full gap-2 max-w-7xl">
 
 
       {/* SELEÇÃO DOS PRODUTOS */}
       <div className="flex w-full lg:w-[70%] flex-col">
       
-        <div className="py-2 px-2">
+        <div>
 
           <Tabs defaultValue={categories?.length ? String(categories[0].id) : undefined}>
-            <TabsList className="h-12 flex justify-start  w-full overflow-x-auto scrollbar-hide whitespace-nowrap shadow">
+            <TabsList className="h-12 flex justify-start  w-full overflow-x-auto scrollbar-hide whitespace-nowrap shadow bg-gray-200">
               {categories && categories.map((category, index) => (
                 <TabsTrigger 
                   key={index} 
                   value={String(category.id)}
-                  className={"data-[state=active]:text-fuchsia-600"}
+                  className={"data-[state=active]:text-fuchsia-600 cursor-pointer"}
                 >
                   {category.descricao}
                 </TabsTrigger>
@@ -85,11 +78,11 @@ const PedidoDeVenda = () => {
 
                 {category.produtos.length ? (   
 
-                  <div className="w-full bg-gray-100 h-screen pt-4 rounded-lg shadow">
+                  <div className="w-full bg-gray-100 h-full pt-4 rounded-lg shadow">
 
                     <p className="text-2xl font-medium ml-4 mb-4">{category.descricao}</p>
 
-                    <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-2 px-2">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-2 px-2">
 
                       {category.produtos.map((product, index) => (
 
@@ -147,7 +140,7 @@ const PedidoDeVenda = () => {
       </div>
 
       {/* PEDIDO ATUAL*/}
-      <div className="w-[30%] overflow-y-auto h-screen px-2 hidden lg:block">
+      <div className="w-[30%] overflow-y-auto h-screen hidden lg:block">
         <PedidoAtual/>
       </div>
 

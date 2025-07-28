@@ -1,6 +1,19 @@
 import api from "@/api/axios";
-import type { CreateComplementosSchema } from "@/pages/produtos/categorias/components/create-product-step/schema";
 import { useMutation, useQueryClient } from "@tanstack/react-query"
+
+
+
+
+type CreateAddOns = {
+
+  nomeComplemento: string;
+  descricao?: string;
+  status: boolean;
+  preco: number;
+  idGrupoComplementos?: number | undefined;
+  imagem?: File | null;
+
+}
 
 
 
@@ -8,10 +21,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query"
 
     const queryClient = useQueryClient()
 
-
-    
     // Criação dos complementos
-    const createAddOns = async (data: CreateComplementosSchema[]) => {
+    const createAddOns = async (data: CreateAddOns[]) => {
 
     // Faz uma requisição para cada complemento
     const responses = await Promise.all(

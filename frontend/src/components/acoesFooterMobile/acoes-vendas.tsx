@@ -9,23 +9,23 @@ const AcoesVendas = () => {
           <button>
             <House size={28}/>
           </button>
-          <p className="font-medium">Home</p>
+          <p className="font-bold">Home</p>
         </div>
 
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center transform -translate-y-5.5">
           <Link to='/vendas/pedido-de-venda'>
-            <button className="rounded-full h-16 w-16 flex items-center justify-center bg-fuchsia-700 shadow-lg border-4 border-fuchsia-200 text-white transform -translate-y-4">
+            <button className="rounded-full h-16 w-16 flex items-center justify-center bg-fuchsia-700 shadow-lg border-4 border-fuchsia-200 text-white mb-2">
               <Plus size={32} />
             </button>   
           </Link>
-          <p className="transform -translate-y-3.5 font-medium">Criar Pedido</p>
+          <p className="font-bold">Novo Pedido</p>
         </div>
 
         <div className="flex flex-col items-center">
           <button>
             <ReceiptText size={28}/>
           </button>
-          <p className="font-medium">Pedidos</p>
+          <p className="font-bold">Pedidos</p>
         </div>
 
 

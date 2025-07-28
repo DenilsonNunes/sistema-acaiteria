@@ -90,7 +90,7 @@ export class CategoriasService {
       const productSold = await this.prisma.produtos.findMany({
         where: {
           idCategoria: id,
-          itensPedidoVenda: {
+          pedidoProdutos: {
             some: {},
           },
         },

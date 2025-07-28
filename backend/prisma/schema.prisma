@@ -58,8 +58,8 @@ model Produtos {
 
   categoria Categorias? @relation(fields: [idCategoria], references: [id])
 
-  itensPedidoVenda  ItensPedido[]
-  GrupoComplementos GrupoComplementos[]
+  pedidoProdutos    PedidoProdutos[]
+  grupoComplementos GrupoComplementos[]
 
   @@map("produtos") // Força nome minúsculo na migration
 }
@@ -105,8 +105,9 @@ model Complementos {
 
   grupoComplementos GrupoComplementos? @relation(fields: [idGrupoComplementos], references: [id])
 
-  data_criacao   DateTime @default(now())
-  data_alteracao DateTime @default(now())
+  data_criacao              DateTime                    @default(now())
+  data_alteracao            DateTime                    @default(now())
+  PedidoProdutoComplementos PedidoProdutoComplementos[]
 
   @@map("complementos") // Força nome minúsculo na migration
 }
@@ -125,12 +126,12 @@ model Pedidos {
   cliente Clientes @relation(fields: [idCliente], references: [id])
   usuario Usuarios @relation(fields: [idUsuario], references: [id])
 
-  itensPedidoVenda ItensPedido[]
+  itensPedido PedidoProdutos[]
 
   @@map("pedidos") // Força nome minúsculo na migration
 }
 
-model ItensPedido {
+model PedidoProdutos {
   id        Int @id @default(autoincrement())
   idProduto Int // Chave estrangeira
   idPedido  Int // Chave estrangeira
@@ -138,8 +139,23 @@ model ItensPedido {
   precoUnitario Decimal @db.Decimal(10, 4)
   quantidade    Int
 
-  produtos Produtos @relation(fields: [idProduto], references: [id])
-  pedidos  Pedidos  @relation(fields: [idPedido], references: [id], onDelete: Cascade)
+  produtos         Produtos                    @relation(fields: [idProduto], references: [id])
+  pedidos          Pedidos                     @relation(fields: [idPedido], references: [id], onDelete: Cascade)
+  complementosItem PedidoProdutoComplementos[]
 
-  @@map("itenspedidovenda") // Força nome minúsculo na migration
+  @@map("pedido_produtos") // Força nome minúsculo na migration
+}
+
+model PedidoProdutoComplementos {
+  id              Int @id @default(autoincrement())
+  idComplemento   Int
+  idProdutoPedido Int
+
+  precoUnitario Decimal @db.Decimal(10, 4)
+  quantidade    Int
+
+  complementos  Complementos   @relation(fields: [idComplemento], references: [id])
+  pedidoProduto PedidoProdutos @relation(fields: [idProdutoPedido], references: [id], onDelete: Cascade)
+
+  @@map("pedido_produto_complementos")
 }

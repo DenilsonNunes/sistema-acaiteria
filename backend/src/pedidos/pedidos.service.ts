@@ -30,30 +30,65 @@ export class PedidosService {
         throw new HttpException('Cliente não existe', HttpStatus.NOT_FOUND);
       }
 
-      // Obtem os Ids dos produtos que veio na requisição
-      const idsProduct = createPedidoDto.itensPedidoVenda.map((item) => item.idProduto);
+      if (createPedidoDto.itensPedidoVenda) {
+        // Obtem os Ids dos produtos que veio na requisição
+        const idsProduct = createPedidoDto.itensPedidoVenda.map((item) => item.idProduto);
 
-      // Realiza consulta, e retorna somente os produtos que estão cadastrados
-      const existingProducts = await this.prisma.produtos.findMany({
-        where: {
-          id: {
-            in: idsProduct, // idsProdutos é um array de IDs de produtos
+        // Realiza consulta, e retorna somente os produtos que estão cadastrados
+        const existingProducts = await this.prisma.produtos.findMany({
+          where: {
+            id: {
+              in: idsProduct, // idsProdutos é um array de IDs de produtos
+            },
           },
-        },
-        select: {
-          id: true,
-        },
-      });
+          select: {
+            id: true,
+          },
+        });
 
-      // Obtem os Ids dos produtos que foram encontrados
-      const idsExistingProducts = existingProducts.map((produto) => produto.id);
+        // Obtem os Ids dos produtos que foram encontrados
+        const idsExistingProducts = existingProducts.map((produto) => produto.id);
 
-      // Verifica se há produtos que não existem
-      const productsNotFound = idsProduct.filter((id) => !idsExistingProducts.includes(id));
+        // Verifica se há produtos que não existem
+        const productsNotFound = idsProduct.filter((id) => !idsExistingProducts.includes(id));
 
-      // Retorna caso houver produtos que não foram encontrados
-      if (productsNotFound.length > 0) {
-        throw new HttpException(`Os seguintes produtos não foram encontrados: ${productsNotFound.join(', ')}`, HttpStatus.BAD_REQUEST);
+        // Retorna caso houver produtos que não foram encontrados
+        if (productsNotFound.length > 0) {
+          throw new HttpException(`Os seguintes produtos não foram encontrados: ${productsNotFound.join(', ')}`, HttpStatus.BAD_REQUEST);
+        }
+      }
+
+      // Verificar se existem complementos nos produtos do pedido
+      if (createPedidoDto.itensPedidoVenda) {
+        const idsAddOns = createPedidoDto.itensPedidoVenda.flatMap((item) => {
+          if (item.complementos) {
+            return item.complementos.map((compl) => compl.idComplemento);
+          }
+          return []; // se não tiver complementos
+        });
+
+        // Realiza consulta, e retorna somente os complementos que estão cadastrados
+        const existingAddOns = await this.prisma.complementos.findMany({
+          where: {
+            id: {
+              in: idsAddOns, // idsProdutos é um array de IDs de produtos
+            },
+          },
+          select: {
+            id: true,
+          },
+        });
+
+        // Obtem os Ids dos complementos que foram encontrados
+        const idsExistingAddOns = existingAddOns.map((addOns) => addOns.id);
+
+        // Verifica se há complementos que não existem
+        const addOnsNotFound = idsAddOns.filter((id) => !idsExistingAddOns.includes(id));
+
+        // Retorna caso houver produtos que não foram encontrados
+        if (addOnsNotFound.length > 0) {
+          throw new HttpException(`Os seguintes complementos não foram encontrados: ${addOnsNotFound.join(', ')}`, HttpStatus.BAD_REQUEST);
+        }
       }
 
       const order = await this.prisma.pedidos.create({
@@ -62,16 +97,31 @@ export class PedidosService {
           idUsuario: payloadParam.user,
           observacao: createPedidoDto.observacao,
           valorTotal: createPedidoDto.valorTotal,
-          itensPedidoVenda: {
-            create: createPedidoDto.itensPedidoVenda.map((item) => ({
-              idProduto: item.idProduto,
-              quantidade: item.quantidade,
-              precoUnitario: item.precoUnitario,
+          // Produtos do pedido
+          itensPedido: {
+            create: createPedidoDto.itensPedidoVenda.map((produto) => ({
+              idProduto: produto.idProduto,
+              quantidade: produto.quantidade,
+              precoUnitario: produto.precoUnitario,
+              complementosItem: produto.complementos?.length
+                ? // Caso houver complementos nos produtos, insere
+                  {
+                    create: produto.complementos.map((complemento) => ({
+                      idComplemento: complemento.idComplemento,
+                      quantidade: complemento.quantidade,
+                      precoUnitario: complemento.precoUnitario,
+                    })),
+                  }
+                : undefined,
             })),
           },
         },
         include: {
-          itensPedidoVenda: true,
+          itensPedido: {
+            include: {
+              complementosItem: true,
+            },
+          },
         },
       });
 
@@ -123,7 +173,7 @@ export class PedidosService {
 
       const updateOrder = this.prisma.$transaction(async (tx) => {
         // Deletar todos itens do pedido
-        await tx.itensPedido.deleteMany({
+        await tx.pedidoProdutos.deleteMany({
           where: {
             idPedido: id,
           },
@@ -142,7 +192,7 @@ export class PedidosService {
             observacao: updatePedidoDto.observacao,
             valorTotal: updatePedidoDto.valorTotal,
             data_alteracao: new Date(),
-            itensPedidoVenda: {
+            itensPedido: {
               create: itens.map((item) => ({
                 idProduto: item.idProduto,
                 quantidade: item.quantidade,
@@ -151,7 +201,7 @@ export class PedidosService {
             },
           },
           include: {
-            itensPedidoVenda: true,
+            itensPedido: true,
           },
         });
       });

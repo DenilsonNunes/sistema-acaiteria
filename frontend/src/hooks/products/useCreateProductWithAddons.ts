@@ -1,9 +1,8 @@
-import api from "@/api/axios";
-import type { FullCreateProducSchema } from "@/pages/produtos/categorias/components/create-product-step/schema";
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { useCreateAddOns } from "./useCreateAddOns";
 import { useCreateGroupAddOn } from "./useCreateGroupAddOn";
 import { useCreateProduct } from "./useCreateProduct";
+import type { CreateProductStepSchema } from "@/pages/produtos/produtos/create-product-step/schema";
 
 
 
@@ -15,42 +14,56 @@ export const useCreateProductWithAddons = () => {
 
   return useMutation({
 
-    mutationFn: async (data: FullCreateProducSchema) => {
+    mutationFn: async (data: CreateProductStepSchema) => {
 
+      console.log(data);
+      //throw new Error('Execução parada (dd)');
 
 
       // Salva o produto primeiro
-      const productResponse = await createProduct(data.produto);
-      const productId = productResponse.id; // Supõe que a API retorna o ID do produto
+      const productResponse = await createProduct({
+        nomeProduto: data.nomeProduto,
+        idCategoria: data.idCategoria,
+        preco: data.preco,
+        status: data.status,
+        descricao: data.descricao,
+        imagem: data.imagem
+      });
 
+      const productId = productResponse.id; //API retorna o ID do produto
 
-      // Se tem complementos, salva grupo e complementos
-      if (data.grupoComplementos && data.complementos) {
+      // 2. Se tem grupos de complementos
+      if (data.gruposComplementos && data.gruposComplementos.length > 0) {
 
-        // Salva o grupo de complementos, associando ao produto
-        const addOns = data.grupoComplementos.map((addOns) => ({
-            ...addOns,
+        // Prepara os grupos com idProduto
+        const gruposResponse = data.gruposComplementos.map((grupo) => ({
+          nomeGrupoComplementos: grupo.nomeGrupoComplementos,
+          obrigatorio: grupo.obrigatorio,
+          qtdMaxComplemento: grupo.qtdMaxComplemento,
+          qtdMinComplemento: grupo.qtdMinComplemento,
           idProduto: productId
-        }))
-
-      
-        
-        const groupResponse = await createGroupAddOn(addOns);
-
-        const groupId = groupResponse.id; 
-
-        
-        // Salva os complementos, associando ao grupo
-        const complementosWithGrupoId = data.complementos.map(complemento => ({
-          ...complemento,
-          idGrupoComplementos: groupId,
         }));
 
-        console.log('Como fica', complementosWithGrupoId);
+        // Cria todos os grupos de uma vez e recebe array com os grupos criados (com seus IDs)
+        const gruposCriados = await createGroupAddOn(gruposResponse);
 
-        
-        await createAddOns(complementosWithGrupoId);
-        
+        // Para cada grupo criado, cria seus complementos associados
+        for (let i = 0; i < gruposCriados.length; i++) {
+
+          const grupoCriado = gruposCriados[i];
+          const grupoOriginal = data.gruposComplementos[i];
+
+          if (grupoOriginal.complementos && grupoOriginal.complementos.length > 0) {
+            
+            const complementos = grupoOriginal.complementos.map((complemento) => ({
+              ...complemento,
+              idGrupoComplementos: grupoCriado.id,
+              descricao: complemento.descricao || ""
+            }));
+
+            await createAddOns(complementos);
+          }
+        }
       }
 
       return { productId };

@@ -1,4 +1,4 @@
-import { useState, type ChangeEvent } from "react";
+import { useEffect, useState, type ChangeEvent } from "react";
 import { useForm, useFieldArray, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -13,9 +13,15 @@ import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { createProductSchema, type CreateProductStepSchema } from "./schema";
 import type { Category } from "@/types/produtos/category";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useCategories } from "@/hooks/categories/useCategories";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useCreateProductWithAddons } from "@/hooks/products/useCreateProductWithAddons";
+import LoadingSpinner from "@/components/loading-spinner";
+import { toast } from "sonner";
+import { Separator } from "@/components/ui/separator";
+import { Badge } from "@/components/ui/badge";
+import { formatarMoedaBRL } from "@/utils/formataMoedaBRL";
 
 
 
@@ -25,12 +31,17 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 
 const ProductFormStep = () => {
 
+  const navigate = useNavigate();
+
   const { categoryId } = useParams();
 
   const [fileImage, setFileImage] = useState<File | null>(null);
   const [step, setStep] = useState(1);
+  const [temComplementos, setTemComplementos] = useState<string | null>(null);
+  const [accordionOpenIndex, setAccordionOpenIndex] = useState<string | undefined>("0");
 
 
+  const {mutate, reset: resetMutation, isPending, isSuccess} = useCreateProductWithAddons();
 
   const {fetchCategories} = useCategories();
   const { data: categories, isLoading, isError } = fetchCategories;
@@ -50,7 +61,10 @@ const ProductFormStep = () => {
       imagem: null,
       gruposComplementos: [],
     },
+    mode: "onChange"
   });
+
+  const dadosProduto = getValues();
 
   const status = watch('status');
   const selectedCategory = watch("idCategoria")
@@ -77,14 +91,16 @@ const ProductFormStep = () => {
 
 
 
-  const onSubmit = (data: CreateProductStepSchema) => {
+  const handleCreateProduct = (data: CreateProductStepSchema) => {
 
-    console.log(data);
+    mutate(data);
     // Aqui você pode enviar os dados para sua API
   };
 
   const nextStep = async () => {
+
     if (step === 1) {
+
       const isValidProduct = await trigger([
         "nomeProduto",
         "descricao",
@@ -93,20 +109,94 @@ const ProductFormStep = () => {
         "idCategoria",
         "imagem",
       ]);
+
       if (!isValidProduct) return;
+
       setStep(step + 1);
+
+    } else if(step === 2) {
+
+      if (temComplementos === "sim") {
+        const isValidGrupos = await trigger("gruposComplementos");
+
+        if (!isValidGrupos) return;
+      }
+
+      // Se for "nao", ou validou os grupos
+      setStep(3);
+
+    }
+  };
+
+
+  const prevStep = () =>  {
+
+    if(step === 3) {
+
+      setStep(2);
+
+    } else if (step === 2) {
+
+      setStep(1);
+
+    }
+
+  }
+
+
+  const handleValueTemComplementos = (value: string) => {
+
+    if(value === "sim"){
+
+      setTemComplementos(value);
+
+    } else {
+
+      setValue("gruposComplementos", []);
+      setTemComplementos(value);
+
+
     }
   };
 
 
 
-  const prevStep = () => setStep(step - 1);
+
+  if(isPending) {
+    return (
+      <div className='w-full max-w-5xl p-30 flex items-center justify-center'>
+        <LoadingSpinner size={100}/>
+      </div>
+    )
+  }
+
+  if(isError) {
+    return (
+      <div className='w-full max-w-5xl p-30 flex items-center justify-center'>
+        <p className='text-lg'>Houve um erro ao criar o produto</p>
+      </div>
+    )
+  }
+
+
+  if(isSuccess) {
+
+    toast.success("Produto criado com sucesso!", {
+      richColors: true,
+      closeButton: true,
+      position: "top-right"
+    })
+
+    navigate('/produtos/categorias');
+  }
+
+
 
 
 
   return (
 
-    <form onSubmit={handleSubmit(onSubmit)} className="flex w-full justify-center mt-4">
+    <form onSubmit={handleSubmit(handleCreateProduct)} className="flex w-full justify-center mt-4">
 
       <div className="w-full max-w-4xl justify-center">
 
@@ -128,15 +218,15 @@ const ProductFormStep = () => {
           </div>
 
           <div className="grid">
-            <p className={`${step === 4 ? 'text-fuchsia-700' : 'text-fuchsia-400 cursor-not-allowed'}`}>Revisão</p>
-            <div className={`h-1 bg-fuchsia-600 rounded-lg ${step !== 4 && 'hidden'}`}></div>
+            <p className={`${step === 3 ? 'text-fuchsia-700' : 'text-fuchsia-400 cursor-not-allowed'}`}>Revisão</p>
+            <div className={`h-1 bg-fuchsia-600 rounded-lg ${step !== 3 && 'hidden'}`}></div>
           </div>
 
         </div>
         
         {/* Step 1: Informações do Produto */}
         {step === 1 && (
-          <div className="grid max-w-2xl">
+          <div className="w-full max-w-2xl mx-auto">
 
             <div className="grid gap-4 border p-4 rounded-lg">
 
@@ -276,23 +366,30 @@ const ProductFormStep = () => {
 
             </div>
 
-            <div className="flex justify-end mt-4">
-              <Button
-                type="button"
-                onClick={nextStep}
-                className="cursor-pointer"
-              >
-                Próximo
-              </Button>
-            </div>
-
           </div>
         )}
 
+        {/* Step 2: Informações do Grupo de complementos/complementos */}
         {step === 2 && (
-          <div className="grid w-full">
 
+          <div className="grid w-full">
+  
+            <div className="flex flex-col gap-2 mb-6">
+              <label className="block font-medium mb-1">Este produto possui complementos?</label>
+              <RadioGroup onValueChange={handleValueTemComplementos}>
+                <div className="flex items-center gap-3">
+                  <RadioGroupItem value="sim" id="r1" />
+                  <Label htmlFor="r1">Sim</Label>
+                </div>
+                <div className="flex items-center gap-3">
+                  <RadioGroupItem value="nao" id="r2" />
+                  <Label htmlFor="r2">Não</Label>
+                </div>
+              </RadioGroup>
+            </div>
+                    
             {fields.map((grupo, index) => {
+              
               const nomeGrupo = watch(`gruposComplementos.${index}.nomeGrupoComplementos`);
 
               return (
@@ -300,16 +397,28 @@ const ProductFormStep = () => {
                   type="single"
                   collapsible
                   className="w-full"
+                  value={accordionOpenIndex} // ← controlado
+                  onValueChange={setAccordionOpenIndex} // ← atualiza ao abrir/fechar
                   key={grupo.id}
                 >
                   <AccordionItem value={String(index)} className="mb-2">
                     <AccordionTrigger
                       className="flex items-center py-2 px-4 bg-gray-300 hover:no-underline rounded-none"
                     >
-                      <div className="flex w-full justify-between">
+                      <div className="flex w-full items-center justify-between">
+
                         <p className="text-xl">
                           {nomeGrupo || `Grupo ${index + 1}`}
                         </p>
+      
+                        {errors.gruposComplementos?.[index]?.complementos?.message && (
+
+                          <Badge className="bg-red-200 border border-red-300 text-red-500">
+                            {errors.gruposComplementos[index].complementos.message}
+                          </Badge>
+
+                        )}                
+
                         <button
                           type="button"
                           className="cursor-pointer p-1 text-red-600 hover:bg-red-200 rounded-lg"
@@ -324,7 +433,7 @@ const ProductFormStep = () => {
 
                     </AccordionTrigger>
 
-                   <AccordionContent className="w-full flex flex-col items-center justify-center border-x border-b px-4 pt-4">
+                  <AccordionContent className="w-full flex flex-col items-center justify-center border-x border-b px-4 pt-4">
                     
                       <div className="grid gap-8 w-full max-w-2xl border p-4 rounded-lg mb-4">
                         <div className="flex w-full items-center gap-2">
@@ -461,29 +570,129 @@ const ProductFormStep = () => {
               );
             })}
 
-            <div className="flex justify-end mb-2">
-              <Button
-                type="button"
-                className="bg-blue-600 hover:bg-blue-700 cursor-pointer rounded"
-                onClick={() =>
-                  append({
-                    nomeGrupoComplementos: "",
-                    obrigatorio: false,
-                    qtdMaxComplemento: 0,
-                    qtdMinComplemento: 0,
-                    complementos: [],
-                  })
-                }
-              >
-                <Plus />
-                Criar grupo de complementos
-              </Button>
-            </div>
+            {temComplementos === "sim" && (
+
+              <div className="flex justify-end mb-2">
+                <Button
+                  type="button"
+                  className="bg-blue-600 hover:bg-blue-700 cursor-pointer rounded"
+                  onClick={() =>
+                    append({
+                      nomeGrupoComplementos: "",
+                      obrigatorio: false,
+                      qtdMaxComplemento: 0,
+                      qtdMinComplemento: 0,
+                      complementos: [],
+                    })
+                  }
+                >
+                  <Plus />
+
+                  {watch('gruposComplementos').length === 0 ? "Criar grupo de complementos" : "Criar outro grupo"}
+                </Button>
+              </div>
+
+            )}
+                  
+          </div>
+        )}
+
+        {/* Step 3: Revisão salvar */}
+        {step === 3 && (
+     
+          <div className="grid w-full">
+
+
+
+            {dadosProduto.gruposComplementos?.length > 0 && (
+
+              <>
+              
+                <h2 className="text-lg font-semibold mb-2">Grupos de Complementos</h2>
+                
+
+                {dadosProduto.gruposComplementos.map((grupo, index) => (
+        
+                    <Accordion
+                      type="single"
+                      collapsible
+                      className="w-full"
+                      key={index}
+                    >
+                      <AccordionItem value="1" className="mb-2">
+                        <AccordionTrigger
+                          className="flex items-center py-2 px-4 bg-gray-300 hover:no-underline rounded-none"
+                        >
+                          <div className="flex w-full items-center justify-between">
+
+                            <div className="grid">
+                              <p className="text-lg">{grupo.nomeGrupoComplementos}</p>
+                              <p className="text-xs font-medium text-gray-700">{grupo.complementos.length} opções</p>
+                            </div>
+
+                            {grupo.obrigatorio ? (
+                              <Badge className="bg-blue-600 rounded">Obrigatório</Badge>
+                            ): (
+                              <Badge className="rounded" variant="secondary">Opcional</Badge>
+                            )}
+                      
+                          </div>
+                                                                                          
+                        </AccordionTrigger>
+        
+                      <AccordionContent className="w-full flex flex-col border-x border-b px-4 pt-4 gap-2">
+                        
+                        {grupo.complementos.map((complemento) => (
+                  
+                          <div className="flex items-center justify-between border-b pb-2">
+
+                            <div className="flex items-center gap-6">
+
+                              <div className="flex items-center justify-center border w-15 h-15 rounded-lg overflow-hidden bg-gray-100">
+                                {complemento.imagem ? (
+                                  <img
+                                    src={URL.createObjectURL(complemento.imagem)}
+                                    alt="Preview"
+                                    className="object-cover w-full h-full"
+                                  />
+                                ) : (
+                                  <span className="text-sm text-center text-gray-500">Sem Foto</span>
+                                )}
+                              </div>
+                              
+                              <p>{complemento.nomeComplemento}</p>
+
+                            </div>
+                        
+                            <p><span className="text-xs font-medium">R$</span> {formatarMoedaBRL(complemento.preco)}</p>
+
+                          </div>                                                                                                          
+
+                        ))}
+
+     
+                      </AccordionContent>
+        
+                      </AccordionItem>
+
+                    </Accordion>
+
+                ))}
+              
+              </>
+
+              
+            )}
+
+
+
 
             <div className="flex justify-between mb-8">
+              
               <Button variant="outline" onClick={prevStep} className="cursor-pointer rounded">
                 Voltar
               </Button>
+
               <Button
                 type="submit"
                 className="bg-green-500 hover:bg-green-600 cursor-pointer rounded"
@@ -492,8 +701,53 @@ const ProductFormStep = () => {
                 Salvar
               </Button>
             </div>
+
           </div>
         )}
+
+        <Separator className="mt-4 mb-2"/>
+
+
+        {step <= 2 && (
+          
+          <div className="flex justify-between mt-1">
+            <Button
+              disabled={step === 1}
+              variant="outline"
+              onClick={prevStep}
+              className="cursor-pointer rounded"
+            >
+              Voltar
+            </Button>
+
+            {step !== 2 && (
+
+              <Button
+                type="button"
+                onClick={nextStep}
+                className="cursor-pointer"
+              >
+                Próximo
+              </Button>
+
+            )}
+
+            {step === 2 && temComplementos === "sim" && watch('gruposComplementos').length > 0 && (
+            
+              <Button
+                type="button"
+                onClick={nextStep}
+                className="cursor-pointer"
+              >
+                Próximo
+              </Button>
+
+            )}
+
+     
+          </div>
+        )}
+
 
       </div>
 
@@ -533,7 +787,7 @@ function ComplementosFieldArray({ control, register, errors, grupoIndex }) {
           }
         >
           <Plus size={20}/>
-          Complementos
+          Adicionar complementos
         </button>
       
 

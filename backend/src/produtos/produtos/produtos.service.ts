@@ -87,7 +87,7 @@ export class ProdutosService {
         id: id,
       },
       include: {
-        GrupoComplementos: {
+        grupoComplementos: {
           include: {
             Complementos: true,
           },
@@ -155,7 +155,7 @@ export class ProdutosService {
       }
 
       // Verificar se o produto ja foi vendido
-      const productSold = await this.prisma.itensPedido.findMany({
+      const productSold = await this.prisma.pedidoProdutos.findMany({
         where: {
           idProduto: id,
         },
@@ -175,7 +175,6 @@ export class ProdutosService {
 
       // Se não encontrar o produto, retorna mensagem
       if (productInTheComplementsGroup.length > 0) {
-        console.log('Aqui', productInTheComplementsGroup);
         throw new HttpException(
           `Não é possível deletar o produto, pertence ao grupo de complementos: ID: ${productInTheComplementsGroup[0].id} - ${productInTheComplementsGroup[0].nomeGrupoComplementos}`,
           HttpStatus.CONFLICT,
@@ -203,13 +202,13 @@ export class ProdutosService {
     const nomeProduct = nomeProduto;
 
     try {
-      // Procurar o tem a ser duplicado
+      // Procurar o produto a ser duplicado
       const productOrig = await this.prisma.produtos.findUnique({
         where: {
           id: id,
         },
         include: {
-          GrupoComplementos: {
+          grupoComplementos: {
             include: {
               Complementos: true,
             },
@@ -227,7 +226,7 @@ export class ProdutosService {
         throw new HttpException(`Já existe um produto cadastrado com este mesmo nome`, HttpStatus.CONFLICT);
       }
 
-      const { idCategoria, status, preco, descricao, imagemUrl, GrupoComplementos } = productOrig;
+      const { idCategoria, status, preco, descricao, imagemUrl, grupoComplementos } = productOrig;
 
       const newProduct = await this.prisma.produtos.create({
         data: {
@@ -241,13 +240,13 @@ export class ProdutosService {
       });
 
       // Se tiver grupo de complemtos insere
-      if (GrupoComplementos.length) {
+      if (grupoComplementos.length) {
         await Promise.all(
-          GrupoComplementos.map(async (groupOrig) => {
+          grupoComplementos.map(async (groupOrig) => {
             // 1. cria o novo grupo
             const newGroup = await this.prisma.grupoComplementos.create({
               data: {
-                idProduto: groupOrig.idProduto,
+                idProduto: newProduct.id,
                 nomeGrupoComplementos: groupOrig.nomeGrupoComplementos,
                 descricao: groupOrig.descricao,
                 obrigatorio: groupOrig.obrigatorio,

@@ -16,7 +16,7 @@ const createComplementosSchema = z.object({
       required_error: "O preço é obrigatório",
       invalid_type_error: "Digite um número válido para o preço",
     })
-    .positive({ message: "O preço deve ser maior que zero" }),
+    .min(0, { message: "O preço deve ser maior ou igual a zero" }),
   imagem: z.any().optional(),
 });
 
@@ -33,8 +33,9 @@ const createGrupoComplementosSchema = z.object({
   qtdMinComplemento: z
     .number()
     .min(0, { message: "A quantidade mínima não pode ser menor que 0" }),
-  complementos: z.array(createComplementosSchema),
-
+   complementos: z
+    .array(createComplementosSchema)
+    .min(1, { message: "Cada grupo deve ter ao menos um complemento" }),
 
 }).refine((data) => data.qtdMinComplemento <= data.qtdMaxComplemento, {
   path: ["qtdMinComplemento"],

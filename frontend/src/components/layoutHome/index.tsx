@@ -14,9 +14,8 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar"
-import { PedidoVendaContext } from "@/contexts/PedidoContext"
+import { usePedidoStore } from "@/stores/usePedidoStore"
 import { ShoppingCart } from "lucide-react"
-import { useContext } from "react"
 
 import { Link, Outlet, useLocation } from "react-router-dom"
 
@@ -25,7 +24,7 @@ import { Link, Outlet, useLocation } from "react-router-dom"
 
 const LayoutHome = () => {
 
-  const {cart} =useContext(PedidoVendaContext)
+  const {cart} =usePedidoStore();
 
   const location = useLocation();
   const pathnames = location.pathname.split('/').filter((rota) => rota); // Divide a rota e remove entradas vazias
@@ -37,7 +36,7 @@ const LayoutHome = () => {
       <SidebarProvider>
         <AppSidebar />
         <SidebarInset>
-          <header className="flex h-14 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-10 border-b">
+          <header className="flex h-14 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-10 border-b mb-2">
             
             <div className="w-full flex items-center justify-between px-4 mr-2">
               <div className="flex items-center">
@@ -92,7 +91,7 @@ const LayoutHome = () => {
                 <ShoppingCart size={24} color="#121212"/>
 
                 {cart.length > 0 && (
-                    <span className="absolute -right-4 -top-3 bg-sky-500 rounded-full w-6 h-6 flex items-center justify-center text-white text-xs">
+                    <span className="absolute -right-4 -top-3 bg-fuchsia-600 rounded-full w-6 h-6 flex items-center justify-center text-white text-xs">
                       {cart.length}
                     </span>
                   ) 
@@ -102,7 +101,13 @@ const LayoutHome = () => {
             </div>
           </header>
 
-          <Outlet/>
+
+          <div className="p-2">
+
+            <Outlet/> 
+
+          </div>
+
 
         </SidebarInset>
       </SidebarProvider>

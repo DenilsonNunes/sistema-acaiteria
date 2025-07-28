@@ -1,15 +1,27 @@
-import { Button } from '@/components/ui/button'
-import { PedidoVendaContext } from '@/contexts/PedidoContext'
-import  { useContext } from 'react'
 
 
 
-
-import fotoAcai from '../../../../assets/acai.jpeg'
 import AcoesVendas from '@/components/acoesFooterMobile/acoes-vendas'
-import { ArrowLeft, Minus, Plus, Save, Trash2 } from 'lucide-react'
+import { CheckCircle2Icon, Minus, Plus, Save, Trash2 } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { formatarMoedaBRL } from '@/utils/formataMoedaBRL'
+import { usePedidoStore } from '@/stores/usePedidoStore'
+import { Separator } from '@/components/ui/separator'
+
+
+
+import { Button } from "@/components/ui/button"
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer"
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 
 
 
@@ -18,29 +30,19 @@ const PedidoAtual = () => {
 
   const navigate = useNavigate()
 
-  const {cart, adicionarItem, removerItem, valorTotalPedido} = useContext(PedidoVendaContext);
+  const {cart, adicionarItem, diminuirQtdItem, valorTotalPedido} = usePedidoStore();
 
 
   return (
 
 
-    <div>
+    <section>
 
       <div className='flex items-center mb-4'>
 
-        <button
-          onClick={() => navigate('/vendas/pedido-de-venda')}
-          className="md:hidden rounded-full h-10
-          
-          w-10 flex items-center justify-center bg-white shadow shadow-black/80 text-black mr-22"
-        >
-          <ArrowLeft size={26} />
-        </button>
-
-        <div className='flex justify-center items-center h-12 bg-gray-200 mt-2 w-full rounded-lg shadow'>
+        <div className='flex justify-center items-center h-12 bg-gray-200 w-full rounded-lg shadow'>
           <p className="text-2xl font-medium text-gray-800">Pedido atual</p>
         </div>
-
 
       </div>
 
@@ -48,17 +50,17 @@ const PedidoAtual = () => {
         <>
           {cart.map((item, index) => (
 
-            <div key={index} className="w-full mb-1 flex flex-col bg-gray-100 border border-gray-300 p-2 rounded-lg">
+            <div key={index} className="w-full mb-4 flex flex-col bg-gray-100 border border-gray-300 p-2 rounded-lg">
 
               <div className='flex justify-between'>
 
                 <div className='flex gap-2'>
 
-                  <div className="flex items-center justify-center border w-18 h-18 rounded-lg overflow-hidden bg-gray-100">
-                    {5 === 6? (
+                  <div className="flex items-center justify-center border border-gray-300 w-15 h-15 rounded-lg overflow-hidden bg-white">
+                    {item.imagemUrl ? (
                       <img
-                        src=""
-                        alt=""
+                        src={item.imagemUrl}
+                        alt={item.nomeProduto}
                         className="object-cover w-full h-full"
                       />
                     ) : (
@@ -73,25 +75,37 @@ const PedidoAtual = () => {
                       <p className="text-lg font-medium">{item.nomeProduto}</p>
                     </div>
 
-                    <div className='ml-4'>
-                      <p>acompanhamentos</p>
-                      {item.adicionais.map(( adicional)=> (
-                        <p><span className='font-medium'>{adicional.quantidade}x</span> {adicional.nomeComplemento}</p>
-                      ))}
-                    </div>
+                    <Separator/>
+
+
+                    {item.adicionais.length > 0 ? (
+
+                      <div>
+                        <p>acompanhamentos</p>
+                        <div className='ml-4'>
+                          {item.adicionais.map(( adicional )=> (
+                            <p><span className='font-medium'>{adicional.quantidade}x</span> {adicional.nomeComplemento}</p>
+                          ))}
+                        </div>
+                      </div>
+
+                    ) : (
+                      <p className='text-red-500'>s/acompanhamentos</p>
+                    )}
+
                   </div>
 
                 </div>
 
                 <div>
-                  <button className='text-red-500 p-1.5 bg-red-200 rounded-full cursor-pointer hover:border border-red-400'>
+                  <button className='text-red-500  cursor-pointer'>
                     <Trash2/>
                   </button>
                 </div>
 
               </div>
 
-              <div className="flex flex-col justify-between w-full">
+              <div className="flex flex-col justify-between w-full mt-4">
 
                 {/* Base */}
                 <div className="flex items-center justify-between">
@@ -99,29 +113,28 @@ const PedidoAtual = () => {
                   <div className='flex items-center gap-1'>
                     <p className='font-medium'>R$</p>
                     <p className="text-2xl font-bold">{formatarMoedaBRL(item.precoTotal)}</p>
-                  </div>
+                  </div>            
 
-
-                  <div className="flex items-center gap-4">
+                  <div className="w-28 flex items-center justify-between">
 
                     <button
-                      className="bg-fuchsia-700 text-white border-2 border-fuchsia-300 rounded-full cursor-pointer"
-                      onClick={() => removerItem(item)}
+                      type="button"
+                      onClick={() => diminuirQtdItem(item)}
+                      className="font-bold cursor-pointer text-fuchsia-700"
                     >
-                      <Minus size={24} />
+                      <Minus size={24} strokeWidth={3} />
                     </button>
-
-                    <span className="font-medium text-lg">{item.quantidade}</span>
-
-                      <button
-                        onClick={()=>adicionarItem(item)}
-                        className="bg-fuchsia-700 text-white border-2 border-fuchsia-300 rounded-full  cursor-pointer"
-                      >
-                        
-                        <Plus size={24} />
-                      </button>
-
+                    <span className="w-full font-medium text-center">{item.quantidade}</span>
+                    <button
+                      type="button"
+                      onClick={()=>adicionarItem(item)}
+                      className="font-bold cursor-pointer text-fuchsia-700"
+                    >
+                      <Plus size={24} strokeWidth={3}/>
+                    </button>
                   </div>
+
+
                 </div>
 
               </div>
@@ -154,7 +167,14 @@ const PedidoAtual = () => {
             </div>
           </div>
 
-          <div className='md:block flex w-full border'>
+          <button 
+            onClick={() => navigate('/vendas/pedido-de-venda')}
+            className='md:hidden w-full bg-fuchsia-200 rounded py-2 text-lg text-fuchsia-700 font-medium border border-fuchsia-400 mb-20'
+          >
+            Adicionar mais produtos
+          </button>
+
+          <div className='hidden sm:block w-full border'>
             <button 
               className='w-full cursor-pointer bg-green-500 text-white font-medium rounded py-3 text-lg hover:bg-green-600'
             >
@@ -163,30 +183,48 @@ const PedidoAtual = () => {
           </div>
 
 
+          <Drawer>
+            <DrawerTrigger asChild>
+              <Button variant="outline">Open Drawer</Button>
+            </DrawerTrigger>
+            <DrawerContent>
+
+              <div className="mx-auto w-full max-w-sm px-2">
+                <DrawerHeader className='p-0'>
+
+                </DrawerHeader>
+                <div>
+                  <Alert className='text-green-500  flex flex-col items-center text-xl border-0'>
+                    <CheckCircle2Icon style={{ width: "60px", height: "60px", flexShrink: 0 }}/>
+                    <AlertTitle>Pedido criado com sucesso !</AlertTitle>
+                  </Alert>
+                </div>
+                <DrawerFooter>
+                  <Button 
+                    className='bg-fuchsia-700 text-lg hover:bg-fuchsia-800'
+                    onClick={() => navigate('/vendas/pedido-de-venda')}
+                  >
+                    Criar novo pedido
+                  </Button>
+                </DrawerFooter>
+              </div>
+            </DrawerContent>
+  
+          </Drawer>
+
+
           <div className='md:hidden flex w-full h-15 fixed bottom-0 left-0 right-0'>
 
             <button 
-              className='w-full flex flex-col items-center justify-center bg-blue-500 text-white cursor-pointer'
-              onClick={() => navigate('/vendas/pedido-de-venda')}  
+              className='w-full flex flex-col items-center justify-center bg-green-500 text-white cursor-pointer'               
             >
-              <div className='flex items-center'>
-                <ArrowLeft size={26} />
-                <p className='text-lg font-medium'>Escolher mais itens</p>
-              </div>
-
-            </button>
-
-            <button 
-              className='w-full flex flex-col items-center justify-center bg-green-600 text-white cursor-pointer'               
-            >
-              <div className='flex items-center gap-2'>
+              <div className='flex items-start gap-2'>
+                <Save size={28}/>
                 <p className='text-2xl font-medium'>Salvar Pedido</p>
-                <Save size={30}/>
               </div>
             </button>
 
           </div>
-
 
 
         </>
@@ -202,9 +240,11 @@ const PedidoAtual = () => {
        )}
 
 
-    </div>
+    </section>
   
   )
 }
+
+
 
 export default PedidoAtual

@@ -58,7 +58,6 @@ export class ComplementosService {
         },
       });
     } catch (err) {
-      console.log('Error', err);
       // Verifica se o erro é uma HttpException
       if (err instanceof HttpException) {
         throw err; // Propaga a HttpException original

@@ -193,10 +193,18 @@ exports.Prisma.PedidosScalarFieldEnum = {
   data_alteracao: 'data_alteracao'
 };
 
-exports.Prisma.ItensPedidoScalarFieldEnum = {
+exports.Prisma.PedidoProdutosScalarFieldEnum = {
   id: 'id',
   idProduto: 'idProduto',
   idPedido: 'idPedido',
+  precoUnitario: 'precoUnitario',
+  quantidade: 'quantidade'
+};
+
+exports.Prisma.PedidoProdutoComplementosScalarFieldEnum = {
+  id: 'id',
+  idComplemento: 'idComplemento',
+  idProdutoPedido: 'idProdutoPedido',
   precoUnitario: 'precoUnitario',
   quantidade: 'quantidade'
 };
@@ -225,7 +233,8 @@ exports.Prisma.ModelName = {
   GrupoComplementos: 'GrupoComplementos',
   Complementos: 'Complementos',
   Pedidos: 'Pedidos',
-  ItensPedido: 'ItensPedido'
+  PedidoProdutos: 'PedidoProdutos',
+  PedidoProdutoComplementos: 'PedidoProdutoComplementos'
 };
 
 /**

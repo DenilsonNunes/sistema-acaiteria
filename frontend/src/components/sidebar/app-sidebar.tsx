@@ -36,7 +36,7 @@ const data = {
   
   companies: [
     {
-      name: "Açaiteria Tropical",
+      name: "Empresa teste",
       logo: GalleryVerticalEnd,
       plan: "Empresa 1",
     },
@@ -82,8 +82,8 @@ const data = {
       icon: UsersRound,
       items: [
         {
-          title: "Genesis",
-          url: "#",
+          title: "Clientes",
+          url: "/clientes",
         },
         {
           title: "Explorer",

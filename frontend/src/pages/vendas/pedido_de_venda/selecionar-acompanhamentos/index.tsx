@@ -20,6 +20,8 @@ import { useSelectSideDishes } from '@/hooks/sales/sales_order/useSelectSideDish
 import { formatarMoedaBRL } from '@/utils/formataMoedaBRL';
 import { PedidoVendaContext } from '@/contexts/PedidoContext';
 import { Badge } from '@/components/ui/badge';
+import { usePedidoStore } from '@/stores/usePedidoStore';
+import { Button } from '@/components/ui/button';
 
 
 
@@ -35,19 +37,16 @@ const SelecionarAcompanhamentos = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const idProduto = useMemo(() => id, [id]);
+  const [blockAddButton, setBlockAddButton ] = useState(false);
 
 
-
-  const {adicionarItem, addAdicional, adicionaisProduto, removeAdicionalItem} = useContext(PedidoVendaContext);
+  const {aumentarQtdAdicionalItem, adicionaisProduto, adicionarItem, diminuirQtdAdicionalItem} = usePedidoStore();
 
 
   const {data: addOnGroup, isLoading, isError} = useSelectSideDishes(idProduto);
 
-  console.log("Quai dados vem ?", addOnGroup);
+  console.log('Como fica o cart', adicionaisProduto);
 
-
-
-  
   
   /*
   
@@ -97,7 +96,8 @@ const SelecionarAcompanhamentos = () => {
 
 
   return (
-    <section className="flex px-2 w-full h-screen">
+    
+    <section className="flex px-2 w-full mt-4">
 
       <div className="w-full max-w-5xl">
 
@@ -123,7 +123,7 @@ const SelecionarAcompanhamentos = () => {
           className="w-full"
         >
 
-          {addOnGroup?.GrupoComplementos && addOnGroup.GrupoComplementos.map((addOnGroup, index)=> (
+          {addOnGroup?.grupoComplementos && addOnGroup.grupoComplementos.map((addOnGroup, index)=> (
             <AccordionItem key={index} value={String(addOnGroup.id)}>
 
               <AccordionTrigger className="flex items-center py-1 px-2 bg-fuchsia-700 hover:no-underline rounded-none text-white">
@@ -138,7 +138,7 @@ const SelecionarAcompanhamentos = () => {
                         Obrigatório
                       </Badge>
                     ) : (
-                      <Badge variant="secondary" className='bg-orange-500 text-white'>                      
+                      <Badge variant="secondary" className='bg-gray-300'>                      
                         Não obrigatório
                       </Badge>
                     )}
@@ -155,12 +155,22 @@ const SelecionarAcompanhamentos = () => {
                   const selecionado = adicionaisProduto.find((p) => p.id === addOn.id);
                   const quantidade  = selecionado?.quantidade ?? 0;
 
-                  console.log('Como esta o adicional ?')
+                  const totalSelecionadosDoGrupo = adicionaisProduto
+                    .filter((item) => item.idGrupoComplementos === addOnGroup.id)
+                    .reduce((acc, item) => acc + item.quantidade, 0);
+
+                  const atingiuMaximo = totalSelecionadosDoGrupo >= addOnGroup.qtdMaxComplemento;
+
+                  // Se atingiu o máximo e esse complemento ainda não foi selecionado, aplica opacidade
+                  const desabilita = atingiuMaximo && (!selecionado || quantidade === 0);
+
 
                   return (
                     <div
-                      key={addOn.id}    
-                      className="flex items-center justify-between border-b-2"
+                      key={addOn.id}
+                      className={`flex items-center justify-between border-b transition-opacity ${
+                        desabilita ? "opacity-50 pointer-events-none" : ""
+                      }`}
                     >
                       {/* ——— lado esquerdo: foto + nome ——— */}
                       <div className="flex items-center gap-2 mb-4">
@@ -176,7 +186,12 @@ const SelecionarAcompanhamentos = () => {
                             <span className="text-sm text-center text-gray-500">Sem Foto</span>
                           )}
                         </div>
-                        <p className="text-lg">{addOn.nomeComplemento}</p>
+
+                        <div>
+                          <p className="text-lg">{addOn.nomeComplemento}</p>
+                          <p className='font-medium text-fuchsia-700'>R$ {formatarMoedaBRL(addOn.preco)}</p>
+                        </div>
+
 
                       </div>
 
@@ -186,7 +201,13 @@ const SelecionarAcompanhamentos = () => {
                         {selecionado && (
                           <>
                             <button
-                              onClick={() => removeAdicionalItem(addOn)}
+                              onClick={() => diminuirQtdAdicionalItem({
+                                id: addOn.id,
+                                idGrupoComplementos: addOn.idGrupoComplementos,
+                                preco: Number(addOn.preco),
+                                nomeComplemento: addOn.nomeComplemento,
+                                quantidade: 1
+                              })}
                               className="text-fuchsia-700 cursor-pointer"
                             >
                               <Minus size={24} />
@@ -198,8 +219,15 @@ const SelecionarAcompanhamentos = () => {
 
                         {/* “+” sempre visível */}
                         <button
-                          onClick={() => addAdicional(addOn)}
-                          className="text-fuchsia-700 cursor-pointer"
+                          disabled={atingiuMaximo}                      
+                          onClick={() => aumentarQtdAdicionalItem({
+                            id: addOn.id,
+                            idGrupoComplementos: addOn.idGrupoComplementos,
+                            preco: Number(addOn.preco),
+                            nomeComplemento: addOn.nomeComplemento,
+                            quantidade: 1
+                          })}
+                          className={`text-fuchsia-700 ${atingiuMaximo ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'} `}
                         >
                           <Plus size={24} />
                         </button>
@@ -214,34 +242,48 @@ const SelecionarAcompanhamentos = () => {
             </AccordionItem>
           ))}
 
-
-          <div className='mt-1'>
-            <div className='h-15 bg-gray-300 flex items-center mb-1'>
-              <p className='ml-4 text-lg font-medium'>Observação</p>
-            </div>
-            <Textarea placeholder="Ex: Banana cortar em fatias grossas." />
-          </div>
-
         </Accordion>
 
-        <button 
-          className='w-full md:ml-12 h-15 flex justify-between items-center bg-green-500 pl-4 cursor-pointer fixed bottom-0 left-0 right-0 px-4'
-          onClick={() => {
-            adicionarItem({
-              id: addOnGroup?.id,
-              nomeProduto: addOnGroup?.nomeProduto,
-              preco: addOnGroup?.preco,
-              adicionais: [...adicionaisProduto]
-            });
-            navigate('/vendas/carrinho');
-          }}
-        >
-          <p className='text-2xl font-medium'>Avançar</p>
-          <div className='flex items-center'>
-            <p className='text-lg font-bold'>R$ {formatarMoedaBRL(String(addOnGroup?.preco))}</p>
-            <ChevronRight size={50}/>
+        <div className='mt-2 mb-24'>
+          <div className='h-15 bg-gray-300 flex items-center mb-1'>
+            <p className='ml-4 text-lg font-medium'>Observação</p>
           </div>
-        </button>
+          <Textarea placeholder="Ex: Banana cortar em fatias grossas." />
+        </div>
+
+       
+      
+        
+        <div className='fixed bottom-0 left-0 right-0 bg-white'>
+          <Button
+            className='w-full md:ml-12 h-18 bg-green-500 hover:bg-green-600 rounded-none cursor-pointer px-6'
+            onClick={() => {
+              if (!addOnGroup) return;
+              adicionarItem({
+                id: addOnGroup.id,
+                nomeProduto: addOnGroup.nomeProduto,
+                imagemUrl: addOnGroup.imagemUrl,
+                preco: Number(addOnGroup.preco),
+                adicionais: [...adicionaisProduto]
+              });
+              navigate('/vendas/carrinho');
+            }}
+          >
+            <div className='w-full justify-between flex items-center'>
+
+              <p className='text-2xl font-bold'>Avançar</p>
+              <div className='flex items-center'>
+                <p className='text-xl font-bold'>R$ {formatarMoedaBRL(String(addOnGroup?.preco))}</p>
+                <ChevronRight className="flex-shrink-0" style={{ width: '46px', height: '46px' }} />
+              </div>
+
+            </div>
+          </Button>
+
+        </div>
+        
+      
+
 
 
       </div>

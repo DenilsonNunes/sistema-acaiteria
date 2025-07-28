@@ -5,7 +5,7 @@ const Carrinho = () => {
 
   return (
 
-    <section className="px-2 pt-4">
+    <section>
       <PedidoAtual/>
     </section>
 
