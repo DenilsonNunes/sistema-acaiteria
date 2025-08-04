@@ -79,9 +79,10 @@ const CreateCategoryDialog = () => {
       <DialogContent className="sm:max-w-[425px]">
 
         {isPending && 
-          <div className="flex items-center justify-center">
+          <>
             <LoadingSpinner size={100}/>
-          </div>
+          </>
+      
         }
 
         {!isPending && !isSuccess && !isError &&

@@ -1,14 +1,14 @@
 
 
 
-type Complementos = {
+interface Complementos {
   idComplemento: number,
   precoUnitario: number,
   quantidade: number
 }
 
 
-type ItensPedidoVenda = {
+export interface ItemPedidoVenda {
   idProduto: number,
   precoUnitario: number,
   quantidade: number
@@ -17,9 +17,12 @@ type ItensPedidoVenda = {
 
 
 export type CreateSalesOrder = {
-  idCliente: number,
-  idUsuario: number,
+  idCliente?: number | null;
+  nomeCliente?: string;
   valorTotal: number,
   observacao?: string,
-  itensPedido: ItensPedidoVenda[]
+  itensPedido: ItemPedidoVenda[]
 }
+
+
+

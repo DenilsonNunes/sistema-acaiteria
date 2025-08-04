@@ -54,7 +54,7 @@ interface DataTableProps<TData, TValue> {
 }
 
 
-export function DataTableProducts<TData, TValue>({columns, data, isLoading, isError}: DataTableProps<TData, TValue>) {
+export function DataTablePedidos<TData, TValue>({columns, data, isLoading, isError}: DataTableProps<TData, TValue>) {
 
   const [sorting, setSorting] = useState<SortingState>([])
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
@@ -90,14 +90,14 @@ export function DataTableProducts<TData, TValue>({columns, data, isLoading, isEr
       <div className="flex items-center justify-between py-4">
 
 
-          <Input
-            placeholder="Filtrar Produtos..."
-            value={(table.getColumn("nomeProduto")?.getFilterValue() as string) ?? ""}
-            onChange={(event) =>
-              table.getColumn("nomeProduto")?.setFilterValue(event.target.value)
-            }
-            className="max-w-sm"
-          />
+        <Input
+          placeholder="Pesquise pelo cliente"
+          value={(table.getColumn("nomeProduto")?.getFilterValue() as string) ?? ""}
+          onChange={(event) =>
+            table.getColumn("nomeProduto")?.setFilterValue(event.target.value)
+          }
+          className="max-w-sm"
+        />
 
 
 

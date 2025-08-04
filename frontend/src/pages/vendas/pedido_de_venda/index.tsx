@@ -53,7 +53,6 @@ const PedidoDeVenda = () => {
 
     <section className="flex w-full gap-2 max-w-7xl">
 
-
       {/* SELEÇÃO DOS PRODUTOS */}
       <div className="flex w-full lg:w-[70%] flex-col">
       
@@ -78,7 +77,7 @@ const PedidoDeVenda = () => {
 
                 {category.produtos.length ? (   
 
-                  <div className="w-full bg-gray-100 h-full pt-4 rounded-lg shadow">
+                  <div className="w-full bg-gray-100 h-full pt-4 rounded-lg shadow pb-24">
 
                     <p className="text-2xl font-medium ml-4 mb-4">{category.descricao}</p>
 

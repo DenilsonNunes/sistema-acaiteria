@@ -1,7 +1,21 @@
 import api from "@/api/axios";
-import type { CreateCategorySchema } from "@/schemas/products/categories";
-import type { Category } from "@/types/produtos/category";
+import type { CreateSalesOrder } from "@/types/sales/sales_order/salesOrder";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -12,33 +26,31 @@ export const useSales = () => {
 
 
 
-  // Busca vendas
-  const fetchSales = useQuery<Category[]>({
-    queryKey: ['categories'],
+  const fetchOrders = useQuery({
+    queryKey: ['orders'],
     queryFn: async () => {
-      const response = await api.get('/categorias');
+      const response = await api.get('/pedidos');
       return response.data;
     },
   });
-
 
 
 
 
   // Cria um pedido de venda
   const createSalesOrder = useMutation({
-    mutationFn: async (data: CreateCategorySchema) => {
+    mutationFn: async (data: CreateSalesOrder) => {
+
       const response = await api.post('/pedidos', data);
       return response.data;
+
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['orders'] })
-    }
+
   });
 
 
   return {
-    fetchSales,
+    fetchOrders,
     createSalesOrder,
   }
 

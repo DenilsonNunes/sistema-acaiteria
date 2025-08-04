@@ -55,6 +55,30 @@ export class ClientesService {
     }
   }
 
+  async findByNameOrSurname(query: string) {
+    return this.prisma.clientes.findMany({
+      where: {
+        OR: [
+          {
+            nome: {
+              contains: query,
+              mode: 'insensitive', // ignora maiúsculas/minúsculas
+            },
+          },
+          {
+            apelido: {
+              contains: query,
+              mode: 'insensitive',
+            },
+          },
+        ],
+      },
+      orderBy: {
+        nome: 'asc',
+      },
+    });
+  }
+
   async update(id: number, updateClienteDto: UpdateClienteDto) {
     try {
       // Verificar se existe o cliente cadastrado

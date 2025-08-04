@@ -5,7 +5,6 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import './index.css'
 import { routes } from './routes/index.tsx'
-import PedidoProvider from './contexts/PedidoContext.tsx';
 import { AuthProvider } from './contexts/AuthContext.tsx';
 import { Toaster } from 'sonner';
 
@@ -17,15 +16,11 @@ createRoot(document.getElementById('root')!).render(
 
     <AuthProvider>
 
-      <PedidoProvider>
-
-        <QueryClientProvider client={queryClient}>
-          <Toaster/>
-          <RouterProvider router={routes} />
-        </QueryClientProvider>
-
-      </PedidoProvider>
-
+      <QueryClientProvider client={queryClient}>
+        <Toaster/>
+        <RouterProvider router={routes} />
+      </QueryClientProvider>
+      
     </AuthProvider>
 
 

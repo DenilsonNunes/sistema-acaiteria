@@ -60,11 +60,11 @@ const data = {
       items: [
         {
           title: "Vendas",
-          url: "/vendas",
+          url: "/vendas/home",
         },
         {
-          title: "Pedido de venda",
-          url: "/vendas/pedido-de-venda",
+          title: "Pedidos",
+          url: "/vendas/pedidos",
         },
         {
           title: "Histórico de venda",

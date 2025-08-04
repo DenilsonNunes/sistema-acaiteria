@@ -11,17 +11,17 @@ import {
 
 
 import { ArrowLeft, ChevronRight, Minus, Plus} from "lucide-react";
-import { useContext, useEffect, useMemo, useRef, useState } from 'react';
+import { useMemo } from 'react';
 import {  useNavigate, useParams } from "react-router-dom";
 
 import LoadingSpinner from '@/components/loading-spinner';
 import { useSelectSideDishes } from '@/hooks/sales/sales_order/useSelectSideDishes';
 
 import { formatarMoedaBRL } from '@/utils/formataMoedaBRL';
-import { PedidoVendaContext } from '@/contexts/PedidoContext';
 import { Badge } from '@/components/ui/badge';
 import { usePedidoStore } from '@/stores/usePedidoStore';
 import { Button } from '@/components/ui/button';
+import PedidoAtual from '../components/pedido-atual';
 
 
 
@@ -37,16 +37,15 @@ const SelecionarAcompanhamentos = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const idProduto = useMemo(() => id, [id]);
-  const [blockAddButton, setBlockAddButton ] = useState(false);
 
 
-  const {aumentarQtdAdicionalItem, adicionaisProduto, adicionarItem, diminuirQtdAdicionalItem} = usePedidoStore();
+  const {aumentarQtdComplementoItem, adicionaisProduto, adicionarItem, diminuirQtdComplementoItem} = usePedidoStore();
 
 
   const {data: addOnGroup, isLoading, isError} = useSelectSideDishes(idProduto);
 
-  console.log('Como fica o cart', adicionaisProduto);
-
+  const valorTotalComplementos = adicionaisProduto.reduce((total, item) => total + item.preco, 0);
+  
   
   /*
   
@@ -77,9 +76,9 @@ const SelecionarAcompanhamentos = () => {
 
   if(isLoading) {
     return (
-      <div className='w-full max-w-5xl p-30 flex items-center justify-center'>
-        <LoadingSpinner size={100}/>
-      </div>
+
+      <LoadingSpinner size={100}/>
+
     )
   }
 
@@ -96,17 +95,17 @@ const SelecionarAcompanhamentos = () => {
 
 
   return (
-    
-    <section className="flex px-2 w-full mt-4">
 
-      <div className="w-full max-w-5xl">
+    <section className="flex w-full gap-4 max-w-7xl">
+
+      <div className='flex flex-col w-full lg:w-[70%]'>
 
         <div className="relative">
           <img src={fotoAcai} alt="Copo açaí" className="w-full h-40 object-cover rounded" />
 
           <button
             onClick={() => navigate('/vendas/pedido-de-venda')}
-            className="md:hidden absolute top-2 left-2 rounded-full h-12 w-12 flex items-center justify-center bg-white shadow-lg shadow-black/80 text-black"
+            className="md:hidden absolute top-2 left-2 rounded-full h-12 w-12 flex items-center justify-center bg-white shadow-lg shadow-black/80 text-black cursor-pointer"
           >
             <ArrowLeft size={26} />
           </button>
@@ -150,6 +149,8 @@ const SelecionarAcompanhamentos = () => {
               <AccordionContent className="flex flex-col gap-4 text-balance py-4">
 
                 {addOnGroup.Complementos?.map((addOn) => {
+
+                  
 
                   // procura se o complemento já foi escolhido
                   const selecionado = adicionaisProduto.find((p) => p.id === addOn.id);
@@ -201,7 +202,7 @@ const SelecionarAcompanhamentos = () => {
                         {selecionado && (
                           <>
                             <button
-                              onClick={() => diminuirQtdAdicionalItem({
+                              onClick={() => diminuirQtdComplementoItem({
                                 id: addOn.id,
                                 idGrupoComplementos: addOn.idGrupoComplementos,
                                 preco: Number(addOn.preco),
@@ -220,7 +221,7 @@ const SelecionarAcompanhamentos = () => {
                         {/* “+” sempre visível */}
                         <button
                           disabled={atingiuMaximo}                      
-                          onClick={() => aumentarQtdAdicionalItem({
+                          onClick={() => aumentarQtdComplementoItem({
                             id: addOn.id,
                             idGrupoComplementos: addOn.idGrupoComplementos,
                             preco: Number(addOn.preco),
@@ -244,17 +245,41 @@ const SelecionarAcompanhamentos = () => {
 
         </Accordion>
 
-        <div className='mt-2 mb-24'>
-          <div className='h-15 bg-gray-300 flex items-center mb-1'>
+        <div className='mt-2 sm:mt-0.5 mb-24 sm:mb-2'>
+          <div className='h-15 sm:h-10 bg-gray-300 flex items-center mb-1'>
             <p className='ml-4 text-lg font-medium'>Observação</p>
           </div>
           <Textarea placeholder="Ex: Banana cortar em fatias grossas." />
         </div>
 
-       
-      
+        <div className='hidden sm:block'>
+          <Button
+            className='w-full h-14 bg-green-500 hover:bg-green-600 rounded-none cursor-pointer px-6'
+            onClick={() => {
+              if (!addOnGroup) return;
+              adicionarItem({
+                id: addOnGroup.id,
+                nomeProduto: addOnGroup.nomeProduto,
+                imagemUrl: addOnGroup.imagemUrl,
+                preco: Number(addOnGroup.preco),
+                adicionais: [...adicionaisProduto]
+              });
+              navigate('/vendas/pedido-de-venda');
+            }}
+          >
+            <div className='w-full justify-between flex items-center'>
+
+              <p className='text-2xl font-bold'>Avançar</p>
+              <div className='flex items-center'>
+                <p className='text-xl font-bold'>R$ {formatarMoedaBRL(String(Number(addOnGroup?.preco) + valorTotalComplementos))}</p>
+                <ChevronRight className="flex-shrink-0" style={{ width: '46px', height: '46px' }} />
+              </div>
+
+            </div>
+          </Button>
+        </div>
         
-        <div className='fixed bottom-0 left-0 right-0 bg-white'>
+        <div className='sm:hidden fixed bottom-0 left-0 right-0 bg-white'>
           <Button
             className='w-full md:ml-12 h-18 bg-green-500 hover:bg-green-600 rounded-none cursor-pointer px-6'
             onClick={() => {
@@ -273,7 +298,7 @@ const SelecionarAcompanhamentos = () => {
 
               <p className='text-2xl font-bold'>Avançar</p>
               <div className='flex items-center'>
-                <p className='text-xl font-bold'>R$ {formatarMoedaBRL(String(addOnGroup?.preco))}</p>
+                <p className='text-xl font-bold'>R$ {formatarMoedaBRL(String(Number(addOnGroup?.preco) + valorTotalComplementos))}</p>
                 <ChevronRight className="flex-shrink-0" style={{ width: '46px', height: '46px' }} />
               </div>
 
@@ -284,9 +309,12 @@ const SelecionarAcompanhamentos = () => {
         
       
 
-
-
       </div>
+
+      <div className="w-[30%] overflow-y-auto h-screen hidden lg:block">
+        <PedidoAtual/>
+      </div>
+
 
     </section>
   )

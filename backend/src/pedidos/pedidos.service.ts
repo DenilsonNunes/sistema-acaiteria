@@ -23,16 +23,16 @@ export class PedidosService {
       // Verifica se o cliente existe
       const customer = await this.prisma.clientes.findUnique({
         where: {
-          id: createPedidoDto.idCliente,
+          id: 1, //createPedidoDto.idCliente,
         },
       });
       if (!customer) {
         throw new HttpException('Cliente não existe', HttpStatus.NOT_FOUND);
       }
 
-      if (createPedidoDto.itensPedidoVenda) {
+      if (createPedidoDto.itensPedido) {
         // Obtem os Ids dos produtos que veio na requisição
-        const idsProduct = createPedidoDto.itensPedidoVenda.map((item) => item.idProduto);
+        const idsProduct = createPedidoDto.itensPedido.map((item) => item.idProduto);
 
         // Realiza consulta, e retorna somente os produtos que estão cadastrados
         const existingProducts = await this.prisma.produtos.findMany({
@@ -59,8 +59,8 @@ export class PedidosService {
       }
 
       // Verificar se existem complementos nos produtos do pedido
-      if (createPedidoDto.itensPedidoVenda) {
-        const idsAddOns = createPedidoDto.itensPedidoVenda.flatMap((item) => {
+      if (createPedidoDto.itensPedido) {
+        const idsAddOns = createPedidoDto.itensPedido.flatMap((item) => {
           if (item.complementos) {
             return item.complementos.map((compl) => compl.idComplemento);
           }
@@ -99,7 +99,7 @@ export class PedidosService {
           valorTotal: createPedidoDto.valorTotal,
           // Produtos do pedido
           itensPedido: {
-            create: createPedidoDto.itensPedidoVenda.map((produto) => ({
+            create: createPedidoDto.itensPedido.map((produto) => ({
               idProduto: produto.idProduto,
               quantidade: produto.quantidade,
               precoUnitario: produto.precoUnitario,
@@ -127,6 +127,7 @@ export class PedidosService {
 
       return order;
     } catch (err) {
+      console.log('Qual o erro?', err);
       // Verifica se o erro é uma HttpException
       if (err instanceof HttpException) {
         throw err; // Propaga a HttpException original
@@ -180,14 +181,14 @@ export class PedidosService {
         });
 
         // Verificar se 'itensPedidoVenda' foi fornecido
-        const itens = updatePedidoDto.itensPedidoVenda || []; // Valor padrão vazio caso não tenha sido enviado
+        const itens = updatePedidoDto.itensPedido || []; // Valor padrão vazio caso não tenha sido enviado
 
         return await tx.pedidos.update({
           where: {
             id: id,
           },
           data: {
-            idCliente: updatePedidoDto.idCliente,
+            idCliente: 1, //updatePedidoDto.idCliente,
             idUsuario: payloadParam.user,
             observacao: updatePedidoDto.observacao,
             valorTotal: updatePedidoDto.valorTotal,

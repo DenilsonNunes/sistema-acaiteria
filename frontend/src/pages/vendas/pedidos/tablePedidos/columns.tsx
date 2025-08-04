@@ -7,8 +7,6 @@ import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 
 import { Badge } from "@/components/ui/badge"
-import EditProductDialog from "../components/edit-product-dialog"
-import DeleteProductDialog from "../components/delete-product-dialog"
 
 import type { Product } from "@/types/produtos/product"
 import { formatarMoedaBRL } from "@/utils/formataMoedaBRL"
@@ -61,28 +59,6 @@ export const columns: ColumnDef<Omit<Product, 'descricao'>>[] = [
   },
 
   {
-    accessorKey: "status",
-    header: () => <div className="text-left">Status</div>,
-    cell: ({ row }) => {
-      const status = row.getValue("status")
-      return (
-        <div className="capitalize">
-          {status ? (
-            <Badge variant="outline" className="bg-green-100 text-green-500 px-1.5">
-              ativo
-            </Badge>
-          ): (
-            <Badge variant="outline" className="bg-red-100 text-red-500 px-1.5">
-              inativo
-            </Badge>
-          )}
-        </div>
-      )
-    }
-
-  },
-
-  {
     accessorKey: "",
     header: "Foto",
     cell: ({row}) => {
@@ -114,7 +90,7 @@ export const columns: ColumnDef<Omit<Product, 'descricao'>>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Descrição
+          Cliente
           <ArrowUpDown />
         </Button>
       )
@@ -137,7 +113,7 @@ export const columns: ColumnDef<Omit<Product, 'descricao'>>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Preço
+          Valor Total
           <ArrowUpDown />
         </Button>
       )
@@ -148,12 +124,45 @@ export const columns: ColumnDef<Omit<Product, 'descricao'>>[] = [
     },
   },
 
-  {
-    accessorKey: "categoria",
-    header: () => <div className="text-right">Categoria</div>,
+    {
+    accessorKey: "status",
+    header: () => <div className="text-left">Status</div>,
     cell: ({ row }) => {
-      const categoria = row.original.categoria?.descricao ?? '-'
-      return <div className="text-right">{categoria}</div>
+      const status = row.getValue("status")
+      return (
+        <div className="capitalize">
+          {status ? (
+            <Badge variant="outline" className="bg-green-100 text-green-500 px-1.5">
+              ativo
+            </Badge>
+          ): (
+            <Badge variant="outline" className="bg-red-100 text-red-500 px-1.5">
+              inativo
+            </Badge>
+          )}
+        </div>
+      )
+    }
+
+  },
+
+  {
+    accessorKey: "preco",
+    // <div className="text-center">Valor</div>,
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Data Criação
+          <ArrowUpDown />
+        </Button>
+      )
+    },
+    cell: ({ row }) => {
+      const preco = row.getValue("preco")
+      return <div className="text-left font-medium">{formatarMoedaBRL(Number(preco))}</div>
     },
   },
 
@@ -164,12 +173,10 @@ export const columns: ColumnDef<Omit<Product, 'descricao'>>[] = [
     header: () => <div className="text-center">Ações</div>,
     cell: ({ row }) => {
 
-      const product = row.original;
 
       return (
         <div className="flex items-center justify-center gap-1">
-          <EditProductDialog product={product}/>
-          <DeleteProductDialog product={product}/>
+
         </div>
       )
       

@@ -1,7 +1,8 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe, Search, Query } from '@nestjs/common';
 import { ClientesService } from './clientes.service';
 import { CreateClienteDto } from './dto/create-cliente.dto';
 import { UpdateClienteDto } from './dto/update-cliente.dto';
+import { SearchDto } from './dto/find-client.dto';
 
 @Controller('clientes')
 export class ClientesController {
@@ -15,6 +16,11 @@ export class ClientesController {
   @Get()
   findAll() {
     return this.clientesService.findAll();
+  }
+
+  @Get('search')
+  findByNameOrSurname(@Query() searchDto: SearchDto) {
+    return this.clientesService.findByNameOrSurname(searchDto.term);
   }
 
   @Get(':id')

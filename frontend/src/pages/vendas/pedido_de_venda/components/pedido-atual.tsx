@@ -2,8 +2,8 @@
 
 
 import AcoesVendas from '@/components/acoesFooterMobile/acoes-vendas'
-import { CheckCircle2Icon, Minus, Plus, Save, Trash2 } from 'lucide-react'
-import { useNavigate } from 'react-router-dom'
+import { AlertCircleIcon, ArrowLeft, CircleCheckBig, Loader2Icon, Minus, Plus, Save, ScrollText, Trash2 } from 'lucide-react'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { formatarMoedaBRL } from '@/utils/formataMoedaBRL'
 import { usePedidoStore } from '@/stores/usePedidoStore'
 import { Separator } from '@/components/ui/separator'
@@ -21,33 +21,103 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer"
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
+
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+
+
+import { useSales } from '@/hooks/sales/useSales'
+import { buildPedidoFromCart } from '@/utils/cartToSalesOrder'
+import { toast } from 'sonner'
+import { useState } from 'react'
+import { InputAutoCompleteCliente } from './input-autocomplete-cliente'
+import ResumoTotaisPedido from './resumo-totais-pedido'
+
 
 
 
 
 const PedidoAtual = () => {
+  const location = useLocation();
+  const pathnameCart = location.pathname.includes('vendas/carrinho')
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  const {cart, adicionarItem, diminuirQtdItem, valorTotalPedido} = usePedidoStore();
+
+  const {cart, adicionarItem, diminuirQtdItem, cliente, valorTotalCart, limparCart} = usePedidoStore();
+
+  const {createSalesOrder } = useSales();
+  const { isPending, isError, isSuccess } = createSalesOrder;
+
+
+  const [open, setOpen] = useState(false);
+  const [openDrawerSuccess, setOpenDrawerSuccess] = useState(false);
+
+
+
+  const handleCreateSalesOrder = async () => {
+
+    const salesOrder = buildPedidoFromCart(cart, valorTotalCart, cliente?.id || null,  "Pedido realizado via app");
+
+    try {
+
+      const response = await createSalesOrder.mutateAsync(salesOrder);
+
+      if(response.id) {
+        limparCart();
+        setOpen(false);
+        setOpenDrawerSuccess(true);
+      }
+
+      // usar o id para redirecionar, abrir modal, etc.
+    } catch (error) {
+
+      toast.error('Houve um erro ao criar o pedido!', {
+        richColors: true,
+        closeButton: true,
+        duration: 3000,
+        position: "top-right"
+      })
+
+    }
+
+  };
+
+
 
 
   return (
-
 
     <section>
 
       <div className='flex items-center mb-4'>
 
-        <div className='flex justify-center items-center h-12 bg-gray-200 w-full rounded-lg shadow'>
-          <p className="text-2xl font-medium text-gray-800">Pedido atual</p>
+        <div className="relative h-12 bg-gray-200 w-full rounded-lg shadow flex items-center justify-center">
+          {/* Ícone à esquerda */}
+          <button className="sm:hidden absolute left-3">
+            <ArrowLeft />
+          </button>
+
+          {/* Texto centralizado */}
+          <p className="text-2xl font-medium text-gray-800 text-center w-full">
+            {pathnameCart ?  "Resumo do pedido" : "Pedido atual"}
+          </p>
         </div>
 
       </div>
 
       {cart.length > 0 ? (
         <>
+
+          {/* Produtos do carrinho */}
           {cart.map((item, index) => (
 
             <div key={index} className="w-full mb-4 flex flex-col bg-gray-100 border border-gray-300 p-2 rounded-lg">
@@ -72,19 +142,26 @@ const PedidoAtual = () => {
                     {/* Topo */}
                     <div className='flex items-center gap-1'>
                       <p>{item.quantidade}x</p>
-                      <p className="text-lg font-medium">{item.nomeProduto}</p>
+                      <p className="text-lg font-medium">{item.nomeProduto} - </p>
+                      <p className='text-sm font-medium text-fuchsia-700'>{formatarMoedaBRL(item.preco)}</p>
                     </div>
 
                     <Separator/>
 
 
-                    {item.adicionais.length > 0 ? (
+                    {item.complementos.length > 0 ? (
 
                       <div>
                         <p>acompanhamentos</p>
                         <div className='ml-4'>
-                          {item.adicionais.map(( adicional )=> (
-                            <p><span className='font-medium'>{adicional.quantidade}x</span> {adicional.nomeComplemento}</p>
+                          {item.complementos.map(( adicional, index )=> (
+                            <div key={index} className='flex gap-2 items-center'>
+                              <span className='font-medium'>{adicional.quantidade}x</span>
+                              <p>{adicional.nomeComplemento}</p>
+                              {adicional.preco > 0 && (
+                                <span className='text-sm font-medium text-fuchsia-700'>{formatarMoedaBRL(adicional.preco)}</span>
+                              )}
+                            </div>
                           ))}
                         </div>
                       </div>
@@ -99,7 +176,7 @@ const PedidoAtual = () => {
 
                 <div>
                   <button className='text-red-500  cursor-pointer'>
-                    <Trash2/>
+                    <Trash2 size={26}/>
                   </button>
                 </div>
 
@@ -110,9 +187,9 @@ const PedidoAtual = () => {
                 {/* Base */}
                 <div className="flex items-center justify-between">
 
-                  <div className='flex items-center gap-1'>
+                  <div className='flex items-end gap-1'>
                     <p className='font-medium'>R$</p>
-                    <p className="text-2xl font-bold">{formatarMoedaBRL(item.precoTotal)}</p>
+                    <p className="text-2xl font-bold">{formatarMoedaBRL(item.valorTotal)}</p>
                   </div>            
 
                   <div className="w-28 flex items-center justify-between">
@@ -143,29 +220,11 @@ const PedidoAtual = () => {
 
           ))}
 
-          <div className="mt-2 bg-gray-300 rounded-lg p-4">
-
-            <div className="flex justify-between">
-              <p>SubTotal</p>
-              <p className="font-medium">R$ {valorTotalPedido}</p>
-            </div>
-
-            <div className="flex items-center justify-between">
-              <p>Desconto</p>
-              <p className="font-medium text-sm text-red-600">- R$ 20,00</p>
-            </div>
-
+          {/* Resumo totais */}
+          <div>
+            <ResumoTotaisPedido/>
           </div>
 
-          <div className="mx-2 border-t-2 border-dashed border-gray-500" />
-
-          <div className="flex justify-between bg-gray-300 rounded-lg p-4 mb-6">
-            <p className="font-bold text-lg">Total</p>
-            <div className='flex items-center gap-1'>
-              <p>R$</p>
-              <p className="font-bold text-2xl">{valorTotalPedido}</p>
-            </div>
-          </div>
 
           <button 
             onClick={() => navigate('/vendas/pedido-de-venda')}
@@ -173,59 +232,78 @@ const PedidoAtual = () => {
           >
             Adicionar mais produtos
           </button>
-
+          
+          {/* Ação salvar pedido DESKTOP */}
           <div className='hidden sm:block w-full border'>
             <button 
+              onClick={handleCreateSalesOrder}  
               className='w-full cursor-pointer bg-green-500 text-white font-medium rounded py-3 text-lg hover:bg-green-600'
             >
               Salvar pedido
             </button>
           </div>
 
-
-          <Drawer>
-            <DrawerTrigger asChild>
-              <Button variant="outline">Open Drawer</Button>
-            </DrawerTrigger>
-            <DrawerContent>
-
-              <div className="mx-auto w-full max-w-sm px-2">
-                <DrawerHeader className='p-0'>
-
-                </DrawerHeader>
-                <div>
-                  <Alert className='text-green-500  flex flex-col items-center text-xl border-0'>
-                    <CheckCircle2Icon style={{ width: "60px", height: "60px", flexShrink: 0 }}/>
-                    <AlertTitle>Pedido criado com sucesso !</AlertTitle>
-                  </Alert>
-                </div>
-                <DrawerFooter>
-                  <Button 
-                    className='bg-fuchsia-700 text-lg hover:bg-fuchsia-800'
-                    onClick={() => navigate('/vendas/pedido-de-venda')}
-                  >
-                    Criar novo pedido
-                  </Button>
-                </DrawerFooter>
-              </div>
-            </DrawerContent>
-  
-          </Drawer>
-
-
-          <div className='md:hidden flex w-full h-15 fixed bottom-0 left-0 right-0'>
-
-            <button 
-              className='w-full flex flex-col items-center justify-center bg-green-500 text-white cursor-pointer'               
+          {/* Ação salvar pedido MOBILE */}
+          <>
+                   
+            <Button
+              onClick={() => setOpen(true)}
+              className="md:hidden flex w-full fixed bottom-0 left-0 right-0 text-2xl bg-green-500 hover:bg-green-400  rounded-none h-15"
             >
-              <div className='flex items-start gap-2'>
-                <Save size={28}/>
-                <p className='text-2xl font-medium'>Salvar Pedido</p>
-              </div>
-            </button>
+              <Save style={{ width: "30px", height: "30px", flexShrink: 0 }} />
+              Salvar pedido
+            </Button>
 
-          </div>
+            <Drawer 
+              open={open} onOpenChange={setOpen}              
+            >
 
+              <DrawerContent className='px-4'>
+
+                <div className="mx-auto w-full max-w-sm">
+                                  
+                  <DrawerHeader className='p-0 my-4'>
+                    <DrawerTitle className='text-lg mb-4'>Selecionar cliente</DrawerTitle>
+
+                    <div className='flex gap-2 text-fuchsia-500 bg-fuchsia-100 p-2 rounded border border-fuchsia-400'>
+                      <AlertCircleIcon />
+                      <DrawerDescription className='p-0 text-left text-fuchsia-500'>selecione o cliente ou informe o nome para a identificação do pedido</DrawerDescription>
+                    </div>                    
+                  </DrawerHeader>
+
+                  <div className='w-full mb-4'>
+                    <InputAutoCompleteCliente/>
+                  </div>
+
+                  <div>
+                    <ResumoTotaisPedido/>
+                  </div>                                                 
+
+                  <DrawerFooter className='p-0'>
+                    <Button
+                      className='flex items-center mb-2 text-2xl bg-green-500 hover:bg-green-400  w-full h-12'
+                      disabled={isPending}
+                      //onClick={() => setOpen(false)}
+                      onClick={handleCreateSalesOrder}
+                    >
+                      {isPending && (
+                        <Loader2Icon
+                          className='animate-spin'
+                          style={{ width: 30, height: 30, flexShrink: 0 }}
+                        />
+                      )}
+                      Salvar pedido
+                    </Button>
+                  </DrawerFooter>                                                     
+
+                </div>
+
+              </DrawerContent>
+    
+            </Drawer>
+
+          </>
+        
 
         </>
 
@@ -234,10 +312,65 @@ const PedidoAtual = () => {
       (
         <>
           <p className='text-center'>Não existem itens</p>
-          <AcoesVendas/>
-        </>
 
-       )}
+            <AcoesVendas/>
+          
+            {/* Drawer sucesso */}
+            <Drawer 
+              open={openDrawerSuccess} onOpenChange={setOpenDrawerSuccess}                
+            >
+
+              <DrawerContent className='px-4'>
+
+                <div className="mx-auto w-full max-w-sm">
+                              
+                  <DrawerHeader className='p-0 my-4'>
+                    <DrawerTitle className='flex items-center justify-center gap-2 text-lg mb-2 text-green-600'>
+                      <CircleCheckBig />
+                      Pedido Criado com Sucesso!
+                    </DrawerTitle>
+                    <div className='flex flex-col items-start'>
+                      <p className='text-gray-700'><strong>Pedido Nº:</strong> {25}</p>
+                      <p className='text-gray-700'>
+                        <strong>Cliente: </strong>
+                        Denilson Nunes
+                      </p>
+                      <p className='text-gray-700'>
+                        <strong>Total: </strong>
+                        R$ 27,00
+                      </p>
+                    </div>
+                  </DrawerHeader>
+                  <DrawerFooter className='p-0 mb-4'>
+                    <Button
+                      className='rounded text-lg bg-fuchsia-600 hover:bg-fuchsia-500 w-full'
+                      onClick={() => { 
+                        navigate('/vendas/pedidos')  
+                      }}
+                    >
+                      <ScrollText style={{ width: "22px", height: "22px", flexShrink: 0 }}/>
+                      Ir para os pedidos
+                    </Button>
+                    <Button
+                      className='rounded text-lg bg-green-500 hover:bg-green-600 w-full'
+                      onClick={() => { 
+                        navigate('/vendas/pedido-de-venda')  
+                      }}
+                    >
+                      <Plus strokeWidth={3}  style={{ width: "22px", height: "22px", flexShrink: 0 }}/>
+                      Novo pedido
+                    </Button>
+                  </DrawerFooter>             
+
+              
+                </div>
+
+              </DrawerContent>
+    
+            </Drawer>                              
+                  
+        </>
+      )}
 
 
     </section>

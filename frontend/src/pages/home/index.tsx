@@ -1,12 +1,13 @@
-import { Button } from "@/components/ui/button"
-import { DollarSign, Plus, ReceiptText, ShoppingCart, UsersRound } from "lucide-react"
+import { DollarSign, ShoppingCart, UsersRound } from "lucide-react"
 
 
 
 const Home = () => {
 
+
   return (
-    <section className="flex flex-1 flex-col gap-4 p-4 pt-2 ">
+    
+    <section className="flex flex-1 flex-col gap-4">
 
       <div className="grid sm:grid-cols-2 gap-4  lg:grid-cols-3">
 
