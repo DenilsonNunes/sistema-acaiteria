@@ -36,7 +36,7 @@ const LayoutHome = () => {
       <SidebarProvider>
         <AppSidebar />
         <SidebarInset>
-          <header className="flex h-14 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-10 border-b mb-2">
+          <header className="flex h-14 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-10 border-b">
             
             <div className="w-full flex items-center justify-between px-4 mr-2">
               <div className="flex items-center">
@@ -102,7 +102,7 @@ const LayoutHome = () => {
           </header>
 
 
-          <div className="p-2">
+          <div className="p-4">
 
             <Outlet/> 
 

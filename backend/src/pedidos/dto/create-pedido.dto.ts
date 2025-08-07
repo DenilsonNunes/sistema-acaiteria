@@ -33,11 +33,20 @@ export class CreatePedidoDto {
   @IsNumber({}, { message: 'O código do cliente deve ser um numero' })
   idCliente: number;
 
+  @IsString({ message: 'O nome do cliente é obrigatório' })
+  nomeCliente: string;
+
   @IsString()
   observacao?: string; // Opcional
 
   @IsNumber()
   valorTotal: number;
+
+  @IsNumber({}, { message: 'O status do pedido deve ser um numero' })
+  status: number;
+
+  @IsNumber({}, { message: 'O código do local de consumo deve ser um numero' })
+  localConsumo: number;
 
   @IsArray()
   @ArrayNotEmpty({ message: 'É preciso enviar ao menos um item para criar o pedido.' })

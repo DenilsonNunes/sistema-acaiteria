@@ -113,12 +113,16 @@ model Complementos {
 }
 
 model Pedidos {
-  id        Int @id @default(autoincrement())
-  idCliente Int
-  idUsuario Int
+  id          Int    @id @default(autoincrement())
+  idCliente   Int
+  idUsuario   Int
+  nomeCliente String @db.VarChar(120)
 
   observacao String? @db.VarChar(250)
   valorTotal Decimal @db.Decimal(10, 4)
+
+  status       Int
+  localConsumo Int
 
   data_criacao   DateTime @default(now())
   data_alteracao DateTime @default(now())

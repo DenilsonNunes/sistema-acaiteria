@@ -67,6 +67,10 @@ const data = {
           url: "/vendas/pedidos",
         },
         {
+          title: "PDV (Ponto de venda)",
+          url: "/vendas/pedido-de-venda",
+        },
+        {
           title: "Histórico de venda",
           url: "#",
         },

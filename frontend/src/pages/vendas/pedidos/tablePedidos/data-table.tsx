@@ -5,6 +5,7 @@ import { useState } from "react"
 import {
   type ColumnDef,
   type ColumnFiltersState,
+  type ColumnMeta,
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
@@ -38,21 +39,26 @@ import {
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 
-import { ChevronDown, Trash2 } from "lucide-react"
+import { ChevronDown } from "lucide-react"
 import type { Product } from "@/types/produtos/product"
 import LoadingSpinner from "@/components/loading-spinner"
 import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination"
+import { DeleteButton } from "@/components/button/delete-button"
 
 
 
 
-interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[]
-  data: TData[]
-  isLoading?: boolean;
-  isError?: boolean;
+interface CustomColumnMeta<TData, TValue> {
+  label?: string;
 }
 
+// Atualize a interface DataTableProps
+interface DataTableProps<TData, TValue> {
+  columns: ColumnDef<TData, TValue>[];
+  data: TData[];
+  isLoading?: boolean;
+  isError?: boolean;
+} 
 
 export function DataTablePedidos<TData, TValue>({columns, data, isLoading, isError}: DataTableProps<TData, TValue>) {
 
@@ -92,9 +98,9 @@ export function DataTablePedidos<TData, TValue>({columns, data, isLoading, isErr
 
         <Input
           placeholder="Pesquise pelo cliente"
-          value={(table.getColumn("nomeProduto")?.getFilterValue() as string) ?? ""}
+          value={(table.getColumn("nomeCliente")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
-            table.getColumn("nomeProduto")?.setFilterValue(event.target.value)
+            table.getColumn("nomeCliente")?.setFilterValue(event.target.value)
           }
           className="max-w-sm"
         />
@@ -105,19 +111,16 @@ export function DataTablePedidos<TData, TValue>({columns, data, isLoading, isErr
           {selectedRows.length > 1 && (
             <div className="flex items-center gap-2">
               <p>Ações em lote:</p>
-              <Button
-                variant="destructive"
-                size="sm"
+
+              <DeleteButton
                 disabled={selectedRows.length === 0}
                 onClick={() => {
                   const selectedIds = table.getSelectedRowModel().rows.map(
                     (row) => (row.original as Product).id
                   );
                   // Aqui você pode chamar sua função de delete
-                }}
-              >
-                <Trash2/>
-              </Button>
+                }}                                                        
+              />
             </div>
           )}
 
@@ -137,11 +140,9 @@ export function DataTablePedidos<TData, TValue>({columns, data, isLoading, isErr
                       key={column.id}
                       className="capitalize"
                       checked={column.getIsVisible()}
-                      onCheckedChange={(value) =>
-                        column.toggleVisibility(!!value)
-                      }
+                      onCheckedChange={(value) => column.toggleVisibility(!!value)}
                     >
-                      {column.id}
+                      {(column.columnDef.meta as CustomColumnMeta<TData, TValue> | undefined)?.label ?? column.id}
                     </DropdownMenuCheckboxItem>
                   )
                 })}

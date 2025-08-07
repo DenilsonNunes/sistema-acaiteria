@@ -19,6 +19,9 @@ import { formatarMoedaBRL } from "@/utils/formataMoedaBRL"
 import TooltipCustom from "@/components/toolTip"
 import { Button } from "@/components/ui/button"
 import { useNavigate } from "react-router-dom"
+import { DeleteButton } from "@/components/button/delete-button"
+import { EditButton } from "@/components/button/edit-button"
+import { DuplicateButton } from "@/components/button/duplicate-button"
 
 
 
@@ -109,21 +112,15 @@ const HomeCategory = () => {
                           <TableCell className="flex gap-2 justify-center">
 
                             <TooltipCustom message="Editar produto">
-                              <button className="cursor-pointer p-0.5  text-orange-500 ">
-                                <SquarePen size={20}/>
-                              </button>
+                              <EditButton/>
                             </TooltipCustom>
 
                             <TooltipCustom message="Duplicar produto">
-                              <button className="cursor-pointer p-0.5  text-blue-600">
-                                <Copy size={20} />
-                              </button>
+                              <DuplicateButton/>
                             </TooltipCustom>
 
                             <TooltipCustom message="Excluir produto">
-                              <button className="cursor-pointer p-0.5  text-red-600">
-                                <Trash2 size={20} />
-                              </button>
+                              <DeleteButton/>
                             </TooltipCustom>
 
 

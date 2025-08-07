@@ -3,6 +3,7 @@ import { CreatePedidoDto } from './dto/create-pedido.dto';
 import { UpdatePedidoDto } from './dto/update-pedido.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { JwtPayload } from 'src/auth/interfaces/jwt-payload.interface';
+import { getLocalDate } from 'src/common/utils/date.util';
 
 @Injectable()
 export class PedidosService {
@@ -95,8 +96,12 @@ export class PedidosService {
         data: {
           idCliente: createPedidoDto.idCliente,
           idUsuario: payloadParam.user,
+          nomeCliente: createPedidoDto.nomeCliente,
           observacao: createPedidoDto.observacao,
+          status: createPedidoDto.status,
+          localConsumo: createPedidoDto.localConsumo,
           valorTotal: createPedidoDto.valorTotal,
+          data_criacao: getLocalDate(),
           // Produtos do pedido
           itensPedido: {
             create: createPedidoDto.itensPedido.map((produto) => ({
@@ -137,7 +142,16 @@ export class PedidosService {
   }
 
   async findAll() {
-    return await this.prisma.pedidos.findMany();
+    return await this.prisma.pedidos.findMany({
+      include: {
+        cliente: {
+          select: {
+            nome: true,
+            apelido: true,
+          },
+        },
+      },
+    });
   }
 
   async findOne(id: number) {

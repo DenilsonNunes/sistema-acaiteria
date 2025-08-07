@@ -187,8 +187,11 @@ exports.Prisma.PedidosScalarFieldEnum = {
   id: 'id',
   idCliente: 'idCliente',
   idUsuario: 'idUsuario',
+  nomeCliente: 'nomeCliente',
   observacao: 'observacao',
   valorTotal: 'valorTotal',
+  status: 'status',
+  localConsumo: 'localConsumo',
   data_criacao: 'data_criacao',
   data_alteracao: 'data_alteracao'
 };

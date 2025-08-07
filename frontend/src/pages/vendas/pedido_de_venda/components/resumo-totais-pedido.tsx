@@ -27,14 +27,13 @@ const ResumoTotaisPedido = () => {
 
       <div className="mx-2 border-t-2 border-dashed border-gray-500" />
 
-      <div className="flex justify-between bg-gray-300 rounded-lg p-4 mb-6">
+      <div className="flex justify-between bg-gray-300 rounded-lg p-4">
         <p className="font-bold text-lg">Total</p>
         <div className='flex items-center gap-1'>
           <p>R$</p>
           <p className="font-bold text-2xl">{formatarMoedaBRL(valorTotalCart)}</p>
         </div>
       </div>
-
 
     </>
   )

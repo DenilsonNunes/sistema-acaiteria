@@ -22,16 +22,6 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer"
 
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog"
 
 
 import { useSales } from '@/hooks/sales/useSales'
@@ -40,17 +30,21 @@ import { toast } from 'sonner'
 import { useState } from 'react'
 import { InputAutoCompleteCliente } from './input-autocomplete-cliente'
 import ResumoTotaisPedido from './resumo-totais-pedido'
+import { Label } from '@/components/ui/label'
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
+import { Textarea } from '@/components/ui/textarea'
+import { LocalConsumo as LocalConsumoEnum, LocalConsumo } from '@/types/sales/sales_order/salesOrder'
 
 
 
 
 
 const PedidoAtual = () => {
+
   const location = useLocation();
   const pathnameCart = location.pathname.includes('vendas/carrinho')
 
   const navigate = useNavigate();
-
 
   const {cart, adicionarItem, diminuirQtdItem, cliente, valorTotalCart, limparCart} = usePedidoStore();
 
@@ -61,11 +55,22 @@ const PedidoAtual = () => {
   const [open, setOpen] = useState(false);
   const [openDrawerSuccess, setOpenDrawerSuccess] = useState(false);
 
+  const [observacao, setObservacao] = useState('');
+  const [localConsumo, setLocalConsumo] = useState<LocalConsumo>(LocalConsumoEnum.ESTABELECIMENTO);
+
+
 
 
   const handleCreateSalesOrder = async () => {
 
-    const salesOrder = buildPedidoFromCart(cart, valorTotalCart, cliente?.id || null,  "Pedido realizado via app");
+    const salesOrder = buildPedidoFromCart(
+      cart, 
+      valorTotalCart, 
+      cliente!.id,  
+      cliente!.nome,
+      localConsumo,
+      observacao
+    );
 
     try {
 
@@ -221,14 +226,14 @@ const PedidoAtual = () => {
           ))}
 
           {/* Resumo totais */}
-          <div>
+          <div className='mb-6'>
             <ResumoTotaisPedido/>
           </div>
 
 
           <button 
             onClick={() => navigate('/vendas/pedido-de-venda')}
-            className='md:hidden w-full bg-fuchsia-200 rounded py-2 text-lg text-fuchsia-700 font-medium border border-fuchsia-400 mb-20'
+            className='md:hidden w-full bg-fuchsia-200 rounded py-2 text-lg text-fuchsia-700 font-medium border border-fuchsia-400 mb-20 cursor-pointer'
           >
             Adicionar mais produtos
           </button>
@@ -271,11 +276,55 @@ const PedidoAtual = () => {
                     </div>                    
                   </DrawerHeader>
 
-                  <div className='w-full mb-4'>
+                  <div className='grid w-full gap-4 mb-4'>
                     <InputAutoCompleteCliente/>
+
+                    <Separator/>
+
+                    <div className='grid gap-2'>
+                      <Label>Local de consumo</Label>
+                        
+                      <RadioGroup 
+                        className='flex' 
+                        defaultValue="1"
+                        value={String(localConsumo)}
+                        onValueChange={(value) => setLocalConsumo(Number(value) as LocalConsumo)}
+                      >
+
+                        <div className="w-full flex items-center gap-1 bg-green-100 p-2 rounded border border-green-600 whitespace-nowrap">
+                          <RadioGroupItem value={String(LocalConsumoEnum.ESTABELECIMENTO)} id="local"  className='bg-white' value="1" id="r1" />
+                          <Label htmlFor="local" className="whitespace-nowrap">Local</Label>
+                        </div>
+
+                        <div className="w-full flex items-center gap-1  bg-orange-100 p-2 rounded border border-orange-600">
+                          <RadioGroupItem value={String(LocalConsumoEnum.ENTREGA)} id="entrega"  className='bg-white' value="2" id="r2" />
+                          <Label htmlFor="entrega">Entrega</Label>
+                        </div>
+
+                        <div className="w-full flex items-center gap-1 bg-cyan-100 p-2 rounded border border-cyan-600">
+                          <RadioGroupItem value={String(LocalConsumoEnum.RETIRAR)} id="retirada" className='bg-white' value="3" id="r3" />
+                          <Label htmlFor="retirada">Retirada</Label>
+                        </div>
+
+                      </RadioGroup>
+
+                    </div>
+
+                    <Separator/>
+
+                    <div className='grid gap-2'>
+                      <Label>Observações</Label>
+                      <Textarea 
+                        value={observacao}
+                        onChange={(e) => setObservacao(e.target.value)}                    
+                      />
+                    </div>
+
                   </div>
 
-                  <div>
+                  <Separator/>
+
+                  <div className='my-4'>
                     <ResumoTotaisPedido/>
                   </div>                                                 
 

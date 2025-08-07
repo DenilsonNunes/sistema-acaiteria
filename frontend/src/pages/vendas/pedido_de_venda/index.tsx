@@ -14,7 +14,6 @@ import { TabsContent } from "@radix-ui/react-tabs";
 
 
 
-
 const PedidoDeVenda = () => {
 
   const { fetchCategories } = useCategories();

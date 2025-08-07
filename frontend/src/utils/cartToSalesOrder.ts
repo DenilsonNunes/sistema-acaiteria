@@ -1,13 +1,13 @@
 import type { Cart } from "@/types/sales/cart/cart";
-import type { CreateSalesOrder } from "@/types/sales/sales_order/salesOrder";
-
-
+import { LocalConsumo, PedidoStatus, type CreateSalesOrder } from "@/types/sales/sales_order/salesOrder";
 
 
 export const buildPedidoFromCart = (
   cart: Cart[], 
   valorTotalCart: number,  
   idCliente: number | null, 
+  nomeCliente: string,
+  localConsumo: LocalConsumo,
   observacao?: string
 ): CreateSalesOrder => {
 
@@ -29,7 +29,10 @@ export const buildPedidoFromCart = (
 
   return {
     idCliente: idCliente,
+    nomeCliente: nomeCliente,
     valorTotal: valorTotalCart,
+    status: PedidoStatus.AGUARDANDO_PRODUCAO,
+    localConsumo: localConsumo,
     observacao,
     itensPedido,
   };
