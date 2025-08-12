@@ -11,7 +11,7 @@ export const PedidoStatus = {
 
 export type PedidoStatus = typeof PedidoStatus[keyof typeof PedidoStatus];
 
-export const LocalConsumo = {
+export const PedidoLocalConsumo = {
   ESTABELECIMENTO: 1,
   ENTREGA: 2,
   RETIRAR: 3
@@ -19,7 +19,7 @@ export const LocalConsumo = {
 } as const;
 
 
-export type LocalConsumo = typeof LocalConsumo[keyof typeof LocalConsumo];
+export type PedidoLocalConsumo = typeof PedidoLocalConsumo[keyof typeof PedidoLocalConsumo];
 
 
 
@@ -44,7 +44,7 @@ export type CreateSalesOrder = {
   valorTotal: number,
 
   status: PedidoStatus;
-  localConsumo: LocalConsumo;
+  localConsumo: PedidoLocalConsumo;
 
   observacao?: string,
   itensPedido: ItemPedidoVenda[]

@@ -4,14 +4,13 @@ import { formatarMoedaBRL } from "@/utils/formataMoedaBRL";
 const ResumoTotaisPedido = () => {
 
 
-  const {valorTotalCart} = usePedidoStore();
-
-
+  const { valorTotalCart } = usePedidoStore();
 
   return (
-    <>
+   
+    <section>
 
-      <div className="bg-gray-300 rounded-lg p-4">
+      <div className="bg-gray-300 rounded-lg py-2 px-4 sm:py-4">
 
         <div className="flex justify-between">
           <p>SubTotal</p>
@@ -27,7 +26,7 @@ const ResumoTotaisPedido = () => {
 
       <div className="mx-2 border-t-2 border-dashed border-gray-500" />
 
-      <div className="flex justify-between bg-gray-300 rounded-lg p-4">
+      <div className="flex justify-between bg-gray-300 rounded-lg py-2 px-4 sm:py-4">
         <p className="font-bold text-lg">Total</p>
         <div className='flex items-center gap-1'>
           <p>R$</p>
@@ -35,7 +34,8 @@ const ResumoTotaisPedido = () => {
         </div>
       </div>
 
-    </>
+    </section>
+
   )
 }
 

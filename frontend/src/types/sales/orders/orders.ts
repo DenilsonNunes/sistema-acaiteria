@@ -1,3 +1,4 @@
+import type { PedidoLocalConsumo, PedidoStatus } from "../sales_order/salesOrder"
 
 
 export interface Orders {
@@ -7,6 +8,8 @@ export interface Orders {
   observacao: string | null,
   valorTotal: string,
   cliente: Cliente,
+  status: PedidoStatus,
+  localConsumo: PedidoLocalConsumo,
 
 
   data_criacao: string,

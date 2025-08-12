@@ -93,18 +93,7 @@ export function DataTablePedidos<TData, TValue>({columns, data, isLoading, isErr
   return (
     <div className="w-full">
 
-      <div className="flex items-center justify-between py-4">
-
-
-        <Input
-          placeholder="Pesquise pelo cliente"
-          value={(table.getColumn("nomeCliente")?.getFilterValue() as string) ?? ""}
-          onChange={(event) =>
-            table.getColumn("nomeCliente")?.setFilterValue(event.target.value)
-          }
-          className="max-w-sm"
-        />
-
+      <div className="flex items-center justify-between">
 
 
         <div className="flex items-center gap-2">
@@ -123,6 +112,25 @@ export function DataTablePedidos<TData, TValue>({columns, data, isLoading, isErr
               />
             </div>
           )}
+
+       
+
+        </div>
+
+      </div>
+
+      <div className="rounded-md border">
+
+        <div className="flex justify-between m-2">
+
+          <Input
+            placeholder="Pesquise pelo cliente"
+            value={(table.getColumn("nomeCliente")?.getFilterValue() as string) ?? ""}
+            onChange={(event) =>
+              table.getColumn("nomeCliente")?.setFilterValue(event.target.value)
+            }
+            className="max-w-sm"
+          />
 
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -149,13 +157,13 @@ export function DataTablePedidos<TData, TValue>({columns, data, isLoading, isErr
             </DropdownMenuContent>
           </DropdownMenu>
 
+
         </div>
 
-      </div>
 
-      <div className="rounded-md border">
+
         <Table>
-          <TableHeader>
+          <TableHeader className="border-t">
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {

@@ -1,5 +1,5 @@
 import type { Cart } from "@/types/sales/cart/cart";
-import { LocalConsumo, PedidoStatus, type CreateSalesOrder } from "@/types/sales/sales_order/salesOrder";
+import { PedidoLocalConsumo, PedidoStatus, type CreateSalesOrder } from "@/types/sales/sales_order/salesOrder";
 
 
 export const buildPedidoFromCart = (
@@ -7,13 +7,12 @@ export const buildPedidoFromCart = (
   valorTotalCart: number,  
   idCliente: number | null, 
   nomeCliente: string,
-  localConsumo: LocalConsumo,
+  localConsumo: PedidoLocalConsumo,
   observacao?: string
 ): CreateSalesOrder => {
 
   const itensPedido = cart.map((item) => ({
     idProduto: item.id,
-    //idCliente: 1,
     precoUnitario: item.preco,
     quantidade: item.quantidade,
 

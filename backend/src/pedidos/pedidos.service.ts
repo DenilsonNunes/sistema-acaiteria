@@ -144,10 +144,9 @@ export class PedidosService {
   async findAll() {
     return await this.prisma.pedidos.findMany({
       include: {
-        cliente: {
-          select: {
-            nome: true,
-            apelido: true,
+        itensPedido: {
+          include: {
+            complementosItem: true,
           },
         },
       },

@@ -1,4 +1,5 @@
 import api from "@/api/axios";
+import type { Orders } from "@/types/sales/orders/orders";
 import type { CreateSalesOrder } from "@/types/sales/sales_order/salesOrder";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
@@ -26,7 +27,7 @@ export const useSales = () => {
 
 
 
-  const fetchOrders = useQuery({
+  const fetchOrders = useQuery<Orders[]>({
     queryKey: ['orders'],
     queryFn: async () => {
       const response = await api.get('/pedidos');

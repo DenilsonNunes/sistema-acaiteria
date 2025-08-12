@@ -27,19 +27,28 @@ import {
 import { useSales } from '@/hooks/sales/useSales'
 import { buildPedidoFromCart } from '@/utils/cartToSalesOrder'
 import { toast } from 'sonner'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { InputAutoCompleteCliente } from './input-autocomplete-cliente'
 import ResumoTotaisPedido from './resumo-totais-pedido'
 import { Label } from '@/components/ui/label'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { Textarea } from '@/components/ui/textarea'
-import { LocalConsumo as LocalConsumoEnum, LocalConsumo } from '@/types/sales/sales_order/salesOrder'
+import { PedidoLocalConsumo as PedidoLocalConsumoEnum, PedidoLocalConsumo } from '@/types/sales/sales_order/salesOrder'
+import { z } from 'zod'
+import { Input } from '@/components/ui/input'
 
 
 
 
 
 const PedidoAtual = () => {
+
+  const [identificaCliente, setIdentificaCliente] = useState<boolean>();
+
+  const [clienteId, setClienteId] = useState<number>(1);
+  const [nomeCliente, setNomeCliente] = useState<string>('');
+
+
 
   const location = useLocation();
   const pathnameCart = location.pathname.includes('vendas/carrinho')
@@ -48,29 +57,58 @@ const PedidoAtual = () => {
 
   const {cart, adicionarItem, diminuirQtdItem, cliente, valorTotalCart, limparCart} = usePedidoStore();
 
-  const {createSalesOrder } = useSales();
+  const { createSalesOrder } = useSales();
   const { isPending, isError, isSuccess } = createSalesOrder;
 
 
-  const [open, setOpen] = useState(false);
+  const [openDrawerConfirmarPedido, setOpenDrawerConfirmarPedido] = useState(false);
   const [openDrawerSuccess, setOpenDrawerSuccess] = useState(false);
 
   const [observacao, setObservacao] = useState('');
-  const [localConsumo, setLocalConsumo] = useState<LocalConsumo>(LocalConsumoEnum.ESTABELECIMENTO);
+  const [localConsumo, setLocalConsumo] = useState<PedidoLocalConsumo>(PedidoLocalConsumoEnum.ESTABELECIMENTO);
+
+
+  const [inputSearch, setInputSearch] = useState('');
+  const [erro, setErro] = useState<string | null>(null);
+
+
+  const schema = z.string().nonempty('Por favor, informe o cliente.');
+
+
+
+
+
+
 
 
 
 
   const handleCreateSalesOrder = async () => {
 
+
+    const result = schema.safeParse(inputSearch);
+
+    if(identificaCliente) {
+
+      if (!result.success) {
+        setErro(result.error.errors[0].message);
+        return;
+      }
+
+    }
+
+    setErro(null);
+
+
     const salesOrder = buildPedidoFromCart(
       cart, 
       valorTotalCart, 
-      cliente!.id,  
-      cliente!.nome,
+      clienteId,  
+      nomeCliente,
       localConsumo,
       observacao
     );
+
 
     try {
 
@@ -78,7 +116,7 @@ const PedidoAtual = () => {
 
       if(response.id) {
         limparCart();
-        setOpen(false);
+        setOpenDrawerConfirmarPedido(false);
         setOpenDrawerSuccess(true);
       }
 
@@ -95,6 +133,26 @@ const PedidoAtual = () => {
     }
 
   };
+
+
+
+
+  useEffect(()=> {
+
+
+    if(identificaCliente) {
+
+      setClienteId(cliente?.id);
+      setNomeCliente(cliente?.nome);
+
+
+    } else {
+
+      setClienteId(1);
+
+    }
+
+  }, [identificaCliente, cliente])
 
 
 
@@ -230,7 +288,6 @@ const PedidoAtual = () => {
             <ResumoTotaisPedido/>
           </div>
 
-
           <button 
             onClick={() => navigate('/vendas/pedido-de-venda')}
             className='md:hidden w-full bg-fuchsia-200 rounded py-2 text-lg text-fuchsia-700 font-medium border border-fuchsia-400 mb-20 cursor-pointer'
@@ -249,10 +306,9 @@ const PedidoAtual = () => {
           </div>
 
           {/* Ação salvar pedido MOBILE */}
-          <>
-                   
+          <>                 
             <Button
-              onClick={() => setOpen(true)}
+              onClick={() => setOpenDrawerConfirmarPedido(true)}
               className="md:hidden flex w-full fixed bottom-0 left-0 right-0 text-2xl bg-green-500 hover:bg-green-400  rounded-none h-15"
             >
               <Save style={{ width: "30px", height: "30px", flexShrink: 0 }} />
@@ -260,93 +316,131 @@ const PedidoAtual = () => {
             </Button>
 
             <Drawer 
-              open={open} onOpenChange={setOpen}              
+              open={openDrawerConfirmarPedido} onOpenChange={setOpenDrawerConfirmarPedido}              
             >
 
               <DrawerContent className='px-4'>
+                               
+                <DrawerHeader className='p-0 my-4'>
+                  <DrawerTitle className='text-xl mb-2'>Confirmação do pedido</DrawerTitle>                   
+                </DrawerHeader>
 
-                <div className="mx-auto w-full max-w-sm">
-                                  
-                  <DrawerHeader className='p-0 my-4'>
-                    <DrawerTitle className='text-lg mb-4'>Selecionar cliente</DrawerTitle>
+                <div className='grid gap-2 w-full'>
 
-                    <div className='flex gap-2 text-fuchsia-500 bg-fuchsia-100 p-2 rounded border border-fuchsia-400'>
-                      <AlertCircleIcon />
-                      <DrawerDescription className='p-0 text-left text-fuchsia-500'>selecione o cliente ou informe o nome para a identificação do pedido</DrawerDescription>
-                    </div>                    
-                  </DrawerHeader>
+                  <div className='grid gap-2'>
+                    <Label className='text-md'>Identificar o cliente ?</Label>
+                    <div className="w-full flex gap-2">
 
-                  <div className='grid w-full gap-4 mb-4'>
-                    <InputAutoCompleteCliente/>
-
-                    <Separator/>
-
-                    <div className='grid gap-2'>
-                      <Label>Local de consumo</Label>
-                        
-                      <RadioGroup 
-                        className='flex' 
-                        defaultValue="1"
-                        value={String(localConsumo)}
-                        onValueChange={(value) => setLocalConsumo(Number(value) as LocalConsumo)}
+                      <button
+                        className={`
+                          cursor-pointer py-1 rounded w-full border
+                          ${!identificaCliente ? 'bg-red-500 text-white font-medium' : ''}
+                        `}
+                        onClick={() => {
+                          setIdentificaCliente(false);
+                        }}
                       >
-
-                        <div className="w-full flex items-center gap-1 bg-green-100 p-2 rounded border border-green-600 whitespace-nowrap">
-                          <RadioGroupItem value={String(LocalConsumoEnum.ESTABELECIMENTO)} id="local"  className='bg-white' value="1" id="r1" />
-                          <Label htmlFor="local" className="whitespace-nowrap">Local</Label>
-                        </div>
-
-                        <div className="w-full flex items-center gap-1  bg-orange-100 p-2 rounded border border-orange-600">
-                          <RadioGroupItem value={String(LocalConsumoEnum.ENTREGA)} id="entrega"  className='bg-white' value="2" id="r2" />
-                          <Label htmlFor="entrega">Entrega</Label>
-                        </div>
-
-                        <div className="w-full flex items-center gap-1 bg-cyan-100 p-2 rounded border border-cyan-600">
-                          <RadioGroupItem value={String(LocalConsumoEnum.RETIRAR)} id="retirada" className='bg-white' value="3" id="r3" />
-                          <Label htmlFor="retirada">Retirada</Label>
-                        </div>
-
-                      </RadioGroup>
+                        Não
+                      </button>
+                      <button 
+                        className={`
+                          cursor-pointer py-1 rounded w-full border font-medium
+                          ${identificaCliente ? 'bg-green-500 text-white' : ''}
+                        `}
+                        onClick={() => {
+                          setIdentificaCliente(true);
+                        }}
+                      >
+                        Sim
+                      </button>
 
                     </div>
 
-                    <Separator/>
+                  </div>
 
-                    <div className='grid gap-2'>
-                      <Label>Observações</Label>
-                      <Textarea 
-                        value={observacao}
-                        onChange={(e) => setObservacao(e.target.value)}                    
+                  {identificaCliente ? (
+                    <div>
+                      <InputAutoCompleteCliente  
+                        onChange={setInputSearch}  
+                        limparErro={() => erro && setErro(null)}
+                        erro={erro}
                       />
+                      {erro && <p className="text-red-500 text-sm">{erro}</p>}
                     </div>
+
+                  ) : (
+                    <Input 
+                      placeholder='informe o nome do cliente para controle...'
+                      onChange={(e)=> setNomeCliente(e.target.value)}
+                      
+                    />
+                  )}                          
+
+                  <Separator/>
+
+                  <div className='grid gap-2'>
+                    <Label className='text-md'>Local de consumo</Label>
+                      
+                    <RadioGroup 
+                      className='flex' 
+                      defaultValue="1"
+                      value={String(localConsumo)}
+                      onValueChange={(value) => setLocalConsumo(Number(value) as PedidoLocalConsumo)}
+                    >
+
+                      <div className="w-full flex items-center gap-1 bg-green-100 p-2 rounded border border-green-600 whitespace-nowrap">
+                        <RadioGroupItem value={String(PedidoLocalConsumoEnum.ESTABELECIMENTO)} id="local"  className='bg-white'/>
+                        <Label htmlFor="local" className="whitespace-nowrap">Local</Label>
+                      </div>
+
+                      <div className="w-full flex items-center gap-1  bg-orange-100 p-2 rounded border border-orange-600">
+                        <RadioGroupItem value={String(PedidoLocalConsumoEnum.ENTREGA)} id="entrega"  className='bg-white'/>
+                        <Label htmlFor="entrega">Entrega</Label>
+                      </div>
+
+                      <div className="w-full flex items-center gap-1 bg-cyan-100 p-2 rounded border border-cyan-600">
+                        <RadioGroupItem value={String(PedidoLocalConsumoEnum.RETIRAR)} id="retirada" className='bg-white'/>
+                        <Label htmlFor="retirada">Retirada</Label>
+                      </div>
+
+                    </RadioGroup>
 
                   </div>
 
                   <Separator/>
 
-                  <div className='my-4'>
-                    <ResumoTotaisPedido/>
-                  </div>                                                 
-
-                  <DrawerFooter className='p-0'>
-                    <Button
-                      className='flex items-center mb-2 text-2xl bg-green-500 hover:bg-green-400  w-full h-12'
-                      disabled={isPending}
-                      //onClick={() => setOpen(false)}
-                      onClick={handleCreateSalesOrder}
-                    >
-                      {isPending && (
-                        <Loader2Icon
-                          className='animate-spin'
-                          style={{ width: 30, height: 30, flexShrink: 0 }}
-                        />
-                      )}
-                      Salvar pedido
-                    </Button>
-                  </DrawerFooter>                                                     
+                  <div className='grid gap-2'>
+                    <Label className='text-md'>Observações</Label>
+                    <Textarea 
+                      value={observacao}
+                      onChange={(e) => setObservacao(e.target.value)}                    
+                    />
+                  </div>
 
                 </div>
 
+                <div className='my-4'>
+                  <ResumoTotaisPedido/>
+                </div>                                                 
+
+                <DrawerFooter className='p-0 mb-4'>
+                  <Button
+                    className='flex items-center text-2xl bg-green-500 hover:bg-green-400 w-full h-12'
+                    disabled={isPending}
+                    //onClick={() => setOpen(false)}
+                    onClick={handleCreateSalesOrder}
+                  >
+                    {isPending && (
+                      <Loader2Icon
+                        className='animate-spin'
+                        style={{ width: 30, height: 30, flexShrink: 0 }}
+                      />
+                    )}
+                    Salvar pedido
+                  </Button>
+                </DrawerFooter>                                                     
+
+      
               </DrawerContent>
     
             </Drawer>
@@ -356,15 +450,13 @@ const PedidoAtual = () => {
 
         </>
 
-      )
-      :
-      (
+      ) : (
         <>
           <p className='text-center'>Não existem itens</p>
 
             <AcoesVendas/>
           
-            {/* Drawer sucesso */}
+            {/* Drawer sucesso criar pedido */}
             <Drawer 
               open={openDrawerSuccess} onOpenChange={setOpenDrawerSuccess}                
             >

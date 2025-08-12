@@ -10,14 +10,14 @@ import { toast } from "sonner";
 
 
 
-export function useFetchCustomersByNameOrSurname(term: string) {
+export function useFetchCustomersByNameOrSurname(term: string, enabled: boolean) {
   return useQuery<Customer[]>({
     queryKey: ['customers', term],
     queryFn: async () => {
       const response = await api.get(`/clientes/search?term=${encodeURIComponent(term)}`);
       return response.data;
     },
-    enabled: !!term,
+    enabled: !!term && enabled,
       refetchOnWindowFocus: false,
   });
 }
