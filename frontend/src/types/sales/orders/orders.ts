@@ -10,7 +10,7 @@ export interface Orders {
   cliente: Cliente,
   status: PedidoStatus,
   localConsumo: PedidoLocalConsumo,
-
+  itensPedido: ItensPedido[],
 
   data_criacao: string,
   data_alteracao: string
@@ -20,4 +20,34 @@ export interface Orders {
 interface Cliente {
   nome: string,
   apelido: string,
+}
+
+
+interface ItensPedido {
+  id: number,
+  idPedido: number,
+  precoUnitario: string,
+  produtos: Produtos,
+  quantidade: number,
+  complementosItem: ComplementosItem[]
+}
+
+interface ComplementosItem {
+  id: number,
+  idComplemento: number,
+  idProdutoPedido: number,
+  precoUnitario: string,
+  quantidade: number,
+  complementos: Complementos
+}
+
+
+
+interface Produtos {
+  nomeProduto: string,
+}
+
+
+interface Complementos {
+  nomeComplemento: string,
 }

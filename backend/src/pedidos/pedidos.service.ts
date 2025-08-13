@@ -146,7 +146,21 @@ export class PedidosService {
       include: {
         itensPedido: {
           include: {
-            complementosItem: true,
+            produtos: {
+              // inclui os dados do produto
+              select: {
+                nomeProduto: true,
+              },
+            },
+            complementosItem: {
+              include: {
+                complementos: {
+                  select: {
+                    nomeComplemento: true,
+                  },
+                },
+              },
+            },
           },
         },
       },

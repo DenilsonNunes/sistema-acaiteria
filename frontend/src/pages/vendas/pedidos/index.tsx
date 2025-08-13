@@ -1,6 +1,21 @@
+import { HandHelping, Plus, Store, Truck } from "lucide-react"
+
+
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
+
+
 import AcoesVendas from "@/components/acoesFooterMobile/acoes-vendas"
 import { Button } from "@/components/ui/button"
-import { HandHelping, Plus, Store, Truck } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 import TablePedidos from "./tablePedidos/table"
 import { useSales } from "@/hooks/sales/useSales"
@@ -11,6 +26,10 @@ import { Badge } from "@/components/ui/badge"
 import { PedidoLocalConsumo, PedidoStatus } from "@/types/sales/sales_order/salesOrder"
 import { Separator } from "@/components/ui/separator"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
+import { formatDateTime } from "@/utils/formateDateTime"
+import { DeleteButton } from "@/components/button/delete-button"
+import { useState } from "react"
+import LoadingSpinner from "@/components/loading-spinner"
 
 
 
@@ -20,13 +39,34 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 const Pedidos = () => {
 
   const navigate = useNavigate();
+
+
+  const { fetchOrders } = useSales();
+  const {data: orders, isLoading, isError} = fetchOrders;
+
+
+  const [openModalDelteOrder, setOpenModalDelteOrder] = useState(false);
   
 
 
-    const { fetchOrders } = useSales();
-    const {data: orders, isLoading, isError} = fetchOrders;
+  console.log('Os dados', orders)
 
+  const handleDeleteOrder = () => {
 
+  }
+
+  if(isLoading){
+    return (
+      <LoadingSpinner fullScreen={true} size={120}/>
+    )
+  }
+
+  if(isError) {
+    return (
+      <div>Tente novamente mais tarde</div>
+    )
+  }
+  
 
 
 
@@ -58,11 +98,22 @@ const Pedidos = () => {
       <div className="sm:hidden mb-25">
     
         {orders && orders.map((order) => (   
-          <div className="grid p-4 border rounded-xl shadow-md mb-3 bg-white">
+          <div className="grid px-4 pb-4 border rounded-xl shadow-md mb-3 bg-white">
+
+            <div className="flex my-2 justify-end">
+              <DeleteButton onClick={()=> {
+                setOpenModalDelteOrder(true);
+              }} />
+            </div>
 
             <div className="flex items-center justify-between">
               <span className="text-md text-gray-500">Nº Pedido</span>
               <span className="font-bold text-fuchsia-700">#{order.id}</span>
+            </div>
+
+            <div className="flex items-center justify-between">
+              <span className="text-md text-gray-500">Data/hora</span>
+              <span className="text-gray-500">{formatDateTime(order.data_criacao)}</span>
             </div>
 
             <div className="flex items-center gap-2">
@@ -78,7 +129,7 @@ const Pedidos = () => {
             </div>
 
             <div className="flex justify-between">
-
+              {/* Local consumo */}
               <div className="flex w-full">
       
                 {order.localConsumo === PedidoLocalConsumo.ESTABELECIMENTO ? (
@@ -99,7 +150,8 @@ const Pedidos = () => {
                 )}
       
               </div>
-            
+
+              {/* Status do pedido */}
               <div>
                 {order.status === PedidoStatus.AGUARDANDO_PRODUCAO ? (
                   <Badge className="w-48 text-md bg-yellow-100 text-yellow-600  px-1.5 rounded">
@@ -145,8 +197,7 @@ const Pedidos = () => {
             <Accordion
               type="single"
               collapsible
-              className="w-full mt-2"
-              defaultValue="item-1"
+              className="w-full mt-2 shadow"
             >
           
               <AccordionItem value="item-1">
@@ -157,10 +208,44 @@ const Pedidos = () => {
                   </div>
                 </AccordionTrigger>
 
-                <AccordionContent className="flex flex-col gap-4 text-balance py-4 border-x border-b">
+                <AccordionContent className="flex flex-col text-balance border-x border-b px-2">
+                  <>
+                    {order.itensPedido && order.itensPedido.map((item) => (
+                      <div 
+                        className={`grid mb-4 ${order.itensPedido.length > 1 && 'border-b'}`}
+                      >
+
+                        <div className="grid">
+                          <div className="flex gap-2">
+                            <p className="font-medium text-lg">{item.quantidade}x </p>
+                            <p className="text-lg">{item.produtos.nomeProduto}</p>
+                          </div>
+                      
+                          <p className="text-md font-medium text-fuchsia-700">R${formatarMoedaBRL(Number(item.precoUnitario))}</p>
+                        
+                        </div>
+
+                        <div className="grid mb-2">
+
+                          {item.complementosItem && item.complementosItem.map((compl) => (
+                            <div key={compl.id} className="flex ml-8 gap-2">
+                              <p className="font-medium">{compl.quantidade}x</p>
+                              <p>{compl.complementos.nomeComplemento}</p>
+                              {Number(compl.precoUnitario) > 0 && (
+                                <p className="text-fuchsia-700">R$ {formatarMoedaBRL(Number(compl.precoUnitario))}</p>
+                              )}
+                            </div>
+                          ))}
+
+                        </div>
+
+                      </div>
+                
+                    ))}
+                
+                  </>
                   
-                  <p>TEste</p>
-             
+          
                 </AccordionContent>
 
 
@@ -175,11 +260,33 @@ const Pedidos = () => {
           </div>
         ))}
 
+        <AlertDialog open={openModalDelteOrder} onOpenChange={setOpenModalDelteOrder}>
+
+          <AlertDialogContent className="grid gap-20">
+
+            <AlertDialogHeader className="p-0">
+              <AlertDialogTitle className="text-2xl">Confirmação</AlertDialogTitle>
+              <AlertDialogDescription className="text-lg">
+               Deseja realmente deletar o pedido ?
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+
+
+            <AlertDialogFooter>
+              <AlertDialogCancel >Cancelar</AlertDialogCancel>
+              <AlertDialogAction 
+                className="bg-fuchsia-700 hover:bg-fuchsia-800"
+                onClick={handleDeleteOrder}
+              >
+                Confirmar
+              </AlertDialogAction>
+            </AlertDialogFooter>
+
+          </AlertDialogContent>
+        </AlertDialog>
+
 
       </div>
-
-
-
 
 
       <AcoesVendas/>

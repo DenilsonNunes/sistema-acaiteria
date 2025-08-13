@@ -11,7 +11,7 @@ export interface ItemCart {
   nomeProduto: string;
   imagemUrl?: string;
   preco: number;
-  complementos?: ItemComplemento[];
+  adicionais?: ItemComplemento[];
 };
 
 export interface Cart {
