@@ -1,4 +1,4 @@
-import PedidoAtual from "../pedido_de_venda/components/pedido-atual"
+import PedidoAtual from "../pedido_de_venda/components/resumo_pedido"
 
 const Carrinho = () => {
 

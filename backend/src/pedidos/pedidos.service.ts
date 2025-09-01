@@ -17,6 +17,7 @@ export class PedidosService {
           id: payloadParam.user,
         },
       });
+
       if (!user) {
         throw new HttpException('Usuário não existe', HttpStatus.NOT_FOUND);
       }
@@ -24,7 +25,7 @@ export class PedidosService {
       // Verifica se o cliente existe
       const customer = await this.prisma.clientes.findUnique({
         where: {
-          id: 1, //createPedidoDto.idCliente,
+          id: createPedidoDto.idCliente,
         },
       });
       if (!customer) {
@@ -102,6 +103,7 @@ export class PedidosService {
           localConsumo: createPedidoDto.localConsumo,
           valorTotal: createPedidoDto.valorTotal,
           data_criacao: getLocalDate(),
+          data_alteracao: getLocalDate(),
           // Produtos do pedido
           itensPedido: {
             create: createPedidoDto.itensPedido.map((produto) => ({
@@ -132,7 +134,6 @@ export class PedidosService {
 
       return order;
     } catch (err) {
-      console.log('Qual o erro?', err);
       // Verifica se o erro é uma HttpException
       if (err instanceof HttpException) {
         throw err; // Propaga a HttpException original
@@ -150,12 +151,14 @@ export class PedidosService {
               // inclui os dados do produto
               select: {
                 nomeProduto: true,
+                imagemUrl: true,
               },
             },
             complementosItem: {
               include: {
                 complementos: {
                   select: {
+                    idGrupoComplementos: true,
                     nomeComplemento: true,
                   },
                 },
@@ -163,6 +166,9 @@ export class PedidosService {
             },
           },
         },
+      },
+      orderBy: {
+        id: 'desc',
       },
     });
   }
@@ -172,6 +178,27 @@ export class PedidosService {
       const order = await this.prisma.pedidos.findUnique({
         where: {
           id: id,
+        },
+        include: {
+          itensPedido: {
+            include: {
+              produtos: {
+                // inclui os dados do produto
+                select: {
+                  nomeProduto: true,
+                },
+              },
+              complementosItem: {
+                include: {
+                  complementos: {
+                    select: {
+                      nomeComplemento: true,
+                    },
+                  },
+                },
+              },
+            },
+          },
         },
       });
 
@@ -215,16 +242,27 @@ export class PedidosService {
             id: id,
           },
           data: {
-            idCliente: 1, //updatePedidoDto.idCliente,
+            idCliente: updatePedidoDto.idCliente,
+            nomeCliente: updatePedidoDto.nomeCliente,
             idUsuario: payloadParam.user,
             observacao: updatePedidoDto.observacao,
             valorTotal: updatePedidoDto.valorTotal,
-            data_alteracao: new Date(),
+            data_alteracao: getLocalDate(),
             itensPedido: {
               create: itens.map((item) => ({
                 idProduto: item.idProduto,
                 quantidade: item.quantidade,
                 precoUnitario: item.precoUnitario,
+                complementosItem: item.complementos?.length
+                  ? // Caso houver complementos nos produtos, insere
+                    {
+                      create: item.complementos.map((complemento) => ({
+                        idComplemento: complemento.idComplemento,
+                        quantidade: complemento.quantidade,
+                        precoUnitario: complemento.precoUnitario,
+                      })),
+                    }
+                  : undefined,
               })),
             },
           },
@@ -254,7 +292,7 @@ export class PedidosService {
       });
       // Se não existir retorna mensagem
       if (!findOrder) {
-        throw new HttpException('O Pedido não foi encontrado', HttpStatus.NOT_FOUND);
+        throw new HttpException(`O Pedido ${id} não foi encontrado`, HttpStatus.NOT_FOUND);
       }
       //Deleta o pedido caso exista
       await this.prisma.pedidos.delete({

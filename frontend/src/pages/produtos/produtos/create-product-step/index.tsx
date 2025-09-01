@@ -198,31 +198,61 @@ const ProductFormStep = () => {
 
     <form onSubmit={handleSubmit(handleCreateProduct)} className="flex w-full justify-center mt-4">
 
-      <div className="w-full max-w-4xl justify-center">
+      <div className="w-full max-w-5xl justify-center shadow-lg p-6">
 
-        <div 
-          className={
-            `w-full flex justify-start  bg-gray-300 py-2 px-4 gap-8 font-medium rounded mb-4 
-            shadow  overflow-x-auto whitespace-nowrap scrollbar-hide
-          `}
-        >
+        <div className="flex justify-between w-full">
 
-          <div className="grid">
-            <p className={`${step === 1 ? 'text-fuchsia-700' : 'text-fuchsia-400 cursor-not-allowed'}`}>Produto</p>
-            <div className={`h-1 bg-fuchsia-600 rounded-lg ${step !== 1 && 'hidden'}`}></div>
+          <div className="flex flex-col gap-2 items-center flex-1">
+            <div 
+              className={`
+                flex items-center justify-center p-2 w-12 h-12 
+                border-2 border-fuchsia-700 ${step === 1 && "bg-fuchsia-700 text-white"} 
+                rounded-full font-medium text-fuchsia-700`
+              }
+            >
+              1              
+            </div>
+            <p className={`${step === 1 && "text-fuchsia-700"} font-medium text-center`}>
+              Detalhes do produto
+            </p>
           </div>
 
-          <div className="grid">
-            <p className={`${step === 2 ? 'text-fuchsia-700' : 'text-fuchsia-400 cursor-not-allowed'}`}>Grupo de complementos</p>
-            <div className={`h-1 bg-fuchsia-600 rounded-lg ${step !== 2 && 'hidden'}`}></div>
+          <div className="flex flex-col gap-2 items-center flex-1">
+            <div 
+              className={`
+                flex items-center justify-center p-2 w-12 h-12 
+                border-2 border-fuchsia-700 ${step === 2 && "bg-fuchsia-700 text-white"} 
+                rounded-full font-medium text-fuchsia-700`
+              }
+            >
+              2              
+            </div>
+            <p className={`${step === 2 && "text-fuchsia-700"} font-medium text-center`}>
+              Grupo de complementos
+            </p>
           </div>
 
-          <div className="grid">
-            <p className={`${step === 3 ? 'text-fuchsia-700' : 'text-fuchsia-400 cursor-not-allowed'}`}>Revisão</p>
-            <div className={`h-1 bg-fuchsia-600 rounded-lg ${step !== 3 && 'hidden'}`}></div>
+          <div className="flex flex-col gap-2 items-center flex-1">
+            <div 
+              className={`
+                flex items-center justify-center p-2 w-12 h-12 
+                border-2 border-fuchsia-700 ${step === 3 && "bg-fuchsia-700 text-white"} 
+                rounded-full font-medium text-fuchsia-700`
+              }
+            >
+              3              
+            </div>
+            <p className={`${step === 3 && "text-fuchsia-700"} font-medium text-center`}>
+              Revisão
+            </p>
           </div>
 
         </div>
+
+
+        <Separator className="my-6"/>
+
+      
         
         {/* Step 1: Informações do Produto */}
         {step === 1 && (

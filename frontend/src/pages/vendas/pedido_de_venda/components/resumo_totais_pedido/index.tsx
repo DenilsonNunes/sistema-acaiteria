@@ -4,7 +4,7 @@ import { formatarMoedaBRL } from "@/utils/formataMoedaBRL";
 const ResumoTotaisPedido = () => {
 
 
-  const { valorTotalCart } = usePedidoStore();
+  const { cart } = usePedidoStore();
 
   return (
    
@@ -14,7 +14,7 @@ const ResumoTotaisPedido = () => {
 
         <div className="flex justify-between">
           <p>SubTotal</p>
-          <p className="font-medium">R$ {formatarMoedaBRL(valorTotalCart)}</p>
+          <p className="font-medium">R$ {formatarMoedaBRL(cart.valorTotalCart)}</p>
         </div>
 
         <div className="flex items-center justify-between">
@@ -30,7 +30,7 @@ const ResumoTotaisPedido = () => {
         <p className="font-bold text-lg">Total</p>
         <div className='flex items-center gap-1'>
           <p>R$</p>
-          <p className="font-bold text-2xl">{formatarMoedaBRL(valorTotalCart)}</p>
+          <p className="font-bold text-2xl">{formatarMoedaBRL(cart.valorTotalCart)}</p>
         </div>
       </div>
 

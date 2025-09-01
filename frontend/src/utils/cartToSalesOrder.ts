@@ -3,35 +3,28 @@ import { PedidoLocalConsumo, PedidoStatus, type CreateSalesOrder } from "@/types
 
 
 export const buildPedidoFromCart = (
-  cart: Cart[], 
-  valorTotalCart: number,  
-  idCliente: number | null, 
-  nomeCliente: string,
-  localConsumo: PedidoLocalConsumo,
+  cart: Cart, 
   observacao?: string
 ): CreateSalesOrder => {
 
-  const itensPedido = cart.map((item) => ({
+  const itensPedido = cart.itens.map((item) => ({
     idProduto: item.id,
-    precoUnitario: item.preco,
+    precoUnitario: item.precoUnitario,
     quantidade: item.quantidade,
-
-    complementos: item.complementos.length > 0
-      ? item.complementos.map((add) => ({
-          idComplemento: add.id,
-          precoUnitario: add.preco,
-          quantidade: add.quantidade,
-        }))
-      : undefined,
+    complementos: item.complementos?.map((add) => ({
+      idComplemento: add.id,
+      precoUnitario: add.precoUnitario,
+      quantidade: add.quantidade,
+    })),
   }));
 
 
   return {
-    idCliente: idCliente,
-    nomeCliente: nomeCliente,
-    valorTotal: valorTotalCart,
+    idCliente: cart.idCliente,
+    nomeCliente: cart.nomeCliente,
+    valorTotal: cart.valorTotalCart,
     status: PedidoStatus.AGUARDANDO_PRODUCAO,
-    localConsumo: localConsumo,
+    localConsumo: cart.localConsumo as PedidoLocalConsumo,
     observacao,
     itensPedido,
   };

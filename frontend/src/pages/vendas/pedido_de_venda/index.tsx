@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import LoadingSpinner from "@/components/loading-spinner";
 import { CloudAlert } from "lucide-react";
-import PedidoAtual from "./components/pedido-atual";
+import PedidoAtual from "./components/resumo_pedido";
 import AcoesVendas from "@/components/acoesFooterMobile/acoes-vendas";
 import { formatarMoedaBRL } from "@/utils/formataMoedaBRL";
 import { useCategories } from "@/hooks/categories/useCategories";

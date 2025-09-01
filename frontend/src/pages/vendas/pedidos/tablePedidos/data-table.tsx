@@ -26,6 +26,16 @@ import {
   TableRow,
 } from "@/components/ui/table"
 
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet"
 
 
 import {
@@ -44,6 +54,8 @@ import type { Product } from "@/types/produtos/product"
 import LoadingSpinner from "@/components/loading-spinner"
 import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination"
 import { DeleteButton } from "@/components/button/delete-button"
+import { FilterButton } from "@/components/button/filter-button"
+import { Label } from "@/components/ui/label"
 
 
 
@@ -123,14 +135,60 @@ export function DataTablePedidos<TData, TValue>({columns, data, isLoading, isErr
 
         <div className="flex justify-between m-2">
 
-          <Input
-            placeholder="Pesquise pelo cliente"
-            value={(table.getColumn("nomeCliente")?.getFilterValue() as string) ?? ""}
-            onChange={(event) =>
-              table.getColumn("nomeCliente")?.setFilterValue(event.target.value)
-            }
-            className="max-w-sm"
-          />
+          <div className="flex w-full gap-2">
+
+            <Input
+              placeholder="Pesquise pelo cliente"
+              value={(table.getColumn("nomeCliente")?.getFilterValue() as string) ?? ""}
+              onChange={(event) =>
+                table.getColumn("nomeCliente")?.setFilterValue(event.target.value)
+              }
+              className="max-w-sm"
+            />
+
+
+
+
+
+            
+            <Sheet>
+              <SheetTrigger asChild>
+                <FilterButton/>
+              </SheetTrigger>
+              <SheetContent>
+                <SheetHeader>
+                  <SheetTitle>Filtros</SheetTitle>
+                  <SheetDescription>
+                   
+                  </SheetDescription>
+                </SheetHeader>
+
+                <div className="grid flex-1 auto-rows-min gap-6 px-4">
+                  <div className="grid gap-3">
+                    <Label htmlFor="sheet-demo-name">Local consumo</Label>
+                    <Input id="sheet-demo-name" defaultValue="Pedro Duarte" />
+                  </div>
+                  <div className="grid gap-3">
+                    <Label htmlFor="sheet-demo-username">Username</Label>
+                    <Input id="sheet-demo-username" defaultValue="@peduarte" />
+                  </div>
+                </div>
+
+
+                <SheetFooter>
+                  <Button type="submit">Aplicar</Button>
+                  <SheetClose asChild>
+                    <Button variant="outline">Fechar</Button>
+                  </SheetClose>
+                </SheetFooter>
+              </SheetContent>
+            </Sheet>
+
+
+          </div>
+
+
+
 
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -226,6 +284,8 @@ export function DataTablePedidos<TData, TValue>({columns, data, isLoading, isErr
           </TableBody>
 
         </Table>
+
+
       </div>
       <div className="flex items-center justify-end space-x-2 py-4">
         <div className="text-muted-foreground flex-1 text-sm">

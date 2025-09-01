@@ -11,7 +11,7 @@ import {
 
 
 import { ArrowLeft, ChevronRight, Minus, Plus} from "lucide-react";
-import { useMemo } from 'react';
+import {  useMemo } from 'react';
 import {  useNavigate, useParams } from "react-router-dom";
 
 import LoadingSpinner from '@/components/loading-spinner';
@@ -21,7 +21,7 @@ import { formatarMoedaBRL } from '@/utils/formataMoedaBRL';
 import { Badge } from '@/components/ui/badge';
 import { usePedidoStore } from '@/stores/usePedidoStore';
 import { Button } from '@/components/ui/button';
-import PedidoAtual from '../components/pedido-atual';
+import PedidoAtual from '../components/resumo_pedido';
 
 
 
@@ -39,36 +39,23 @@ const SelecionarAcompanhamentos = () => {
   const idProduto = useMemo(() => id, [id]);
 
 
-  const {aumentarQtdComplementoItem, adicionaisProduto, adicionarItem, diminuirQtdComplementoItem} = usePedidoStore();
+  const {
+    complementosItem, 
+    aumentarQtdComplementoItem, 
+    adicionarItem, 
+    diminuirQtdComplementoItem, 
+    salvarEdicaoItem,
+    pedidoEmEdicao,
+    itemEditando
+
+  } = usePedidoStore();
 
 
   const {data: addOnGroup, isLoading, isError} = useSelectSideDishes(idProduto);
 
-  const valorTotalComplementos = adicionaisProduto.reduce((total, item) => total + item.preco, 0);
-  
-  
-  /*
-  
-  
-    useEffect(()=>{
-  
-      if(5 >= 4) {
-  
-        // Rola até o item 2 após o estado atualizar
-        setTimeout(() => {
-          //Fecha o item 1 e abre o item 2
-          setAccordionValue("item-2")
-  
-          itemRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })
-        }, 200) // Delay pequeno para garantir que o DOM foi atualizado
-  
-      }
-  
-  
-    },[count])
-  
-  
-  */
+  const valorTotalComplementos = complementosItem.reduce((total, item) => total + item.precoUnitario, 0);
+
+
 
 
 
@@ -76,9 +63,7 @@ const SelecionarAcompanhamentos = () => {
 
   if(isLoading) {
     return (
-
       <LoadingSpinner size={100}/>
-
     )
   }
 
@@ -104,8 +89,16 @@ const SelecionarAcompanhamentos = () => {
           <img src={fotoAcai} alt="Copo açaí" className="w-full h-40 object-cover rounded" />
 
           <button
-            onClick={() => navigate('/vendas/pedido-de-venda')}
             className="md:hidden absolute top-2 left-2 rounded-full h-12 w-12 flex items-center justify-center bg-white shadow-lg shadow-black/80 text-black cursor-pointer"
+            onClick={() => {
+              if(pedidoEmEdicao){
+                navigate(`/vendas/pedidos/${pedidoEmEdicao}/editar`)
+
+              } else {
+                navigate('/vendas/pedido-de-venda')
+
+              }
+            }}
           >
             <ArrowLeft size={26} />
           </button>
@@ -149,14 +142,14 @@ const SelecionarAcompanhamentos = () => {
               <AccordionContent className="flex flex-col gap-4 text-balance py-4">
 
                 {addOnGroup.Complementos?.map((addOn) => {
-
-                  
-
+           
                   // procura se o complemento já foi escolhido
-                  const selecionado = adicionaisProduto.find((p) => p.id === addOn.id);
+                  const selecionado = complementosItem.find((p) => p.id == addOn.id);
+
                   const quantidade  = selecionado?.quantidade ?? 0;
 
-                  const totalSelecionadosDoGrupo = adicionaisProduto
+
+                  const totalSelecionadosDoGrupo = complementosItem
                     .filter((item) => item.idGrupoComplementos === addOnGroup.id)
                     .reduce((acc, item) => acc + item.quantidade, 0);
 
@@ -205,7 +198,7 @@ const SelecionarAcompanhamentos = () => {
                               onClick={() => diminuirQtdComplementoItem({
                                 id: addOn.id,
                                 idGrupoComplementos: addOn.idGrupoComplementos,
-                                preco: Number(addOn.preco),
+                                precoUnitario: Number(addOn.preco),
                                 nomeComplemento: addOn.nomeComplemento,
                                 quantidade: 1
                               })}
@@ -224,7 +217,7 @@ const SelecionarAcompanhamentos = () => {
                           onClick={() => aumentarQtdComplementoItem({
                             id: addOn.id,
                             idGrupoComplementos: addOn.idGrupoComplementos,
-                            preco: Number(addOn.preco),
+                            precoUnitario: Number(addOn.preco),
                             nomeComplemento: addOn.nomeComplemento,
                             quantidade: 1
                           })}
@@ -261,8 +254,9 @@ const SelecionarAcompanhamentos = () => {
                 id: addOnGroup.id,
                 nomeProduto: addOnGroup.nomeProduto,
                 imagemUrl: addOnGroup.imagemUrl,
-                preco: Number(addOnGroup.preco),
-                adicionais: [...adicionaisProduto]
+                precoUnitario: Number(addOnGroup.preco),
+                quantidade: 1,
+                complementos: [...complementosItem]
               });
               navigate('/vendas/pedido-de-venda');
             }}
@@ -284,19 +278,51 @@ const SelecionarAcompanhamentos = () => {
             className='w-full md:ml-12 h-18 bg-green-500 hover:bg-green-600 rounded-none cursor-pointer px-6'
             onClick={() => {
               if (!addOnGroup) return;
-              adicionarItem({
-                id: addOnGroup.id,
-                nomeProduto: addOnGroup.nomeProduto,
-                imagemUrl: addOnGroup.imagemUrl,
-                preco: Number(addOnGroup.preco),
-                adicionais: [...adicionaisProduto]
-              });
-              navigate('/vendas/carrinho');
+
+              if (pedidoEmEdicao) {
+
+                if(itemEditando){
+                  salvarEdicaoItem();            
+                  navigate(`/vendas/pedidos/${pedidoEmEdicao}/editar`);
+                } else {
+
+                  adicionarItem({
+                    id: addOnGroup.id,
+                    nomeProduto: addOnGroup.nomeProduto,
+                    imagemUrl: addOnGroup.imagemUrl,
+                    precoUnitario: Number(addOnGroup.preco),
+                    quantidade: 1,
+                    complementos: [...complementosItem],
+                  });
+
+                  navigate(`/vendas/pedidos/${pedidoEmEdicao}/editar`);
+
+
+                }
+
+
+              } else {
+                adicionarItem({
+                  id: addOnGroup.id,
+                  nomeProduto: addOnGroup.nomeProduto,
+                  imagemUrl: addOnGroup.imagemUrl,
+                  precoUnitario: Number(addOnGroup.preco),
+                  quantidade: 1,
+                  complementos: [...complementosItem],
+                });
+
+                navigate('/vendas/carrinho');
+              }
+              
             }}
           >
             <div className='w-full justify-between flex items-center'>
 
-              <p className='text-2xl font-bold'>Avançar</p>
+              <p className='text-2xl font-bold'>
+                Avançar
+              </p>
+              
+
               <div className='flex items-center'>
                 <p className='text-xl font-bold'>R$ {formatarMoedaBRL(String(Number(addOnGroup?.preco) + valorTotalComplementos))}</p>
                 <ChevronRight className="flex-shrink-0" style={{ width: '46px', height: '46px' }} />

@@ -50,5 +50,5 @@ export type CreateSalesOrder = {
   itensPedido: ItemPedidoVenda[]
 }
 
-
+export type UpdateSalesOrder = CreateSalesOrder;
 

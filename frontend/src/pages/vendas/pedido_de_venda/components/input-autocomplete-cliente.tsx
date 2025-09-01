@@ -28,14 +28,22 @@ export function InputAutoCompleteCliente({ onChange, limparErro, erro }: Props) 
 
 
   const { data: clientes = [] } = useFetchCustomersByNameOrSurname(searchName, habilitarBusca);
-  const { identificarCliente, removerCliente } = usePedidoStore();
+  const { identificarCliente, removerCliente, pedidoEmEdicao, cart } = usePedidoStore();
 
 
 
 
 
-  
 
+
+  useEffect(() => {
+
+    if(pedidoEmEdicao && cart.idCliente !== 1) {
+      setInputSearch(cart?.nomeCliente)
+
+    }
+
+  }, [pedidoEmEdicao, cart]);
 
 
 
@@ -105,6 +113,7 @@ export function InputAutoCompleteCliente({ onChange, limparErro, erro }: Props) 
                   key={item.id}
                   className="w-full text-left px-2 py-1 hover:bg-gray-100 cursor-pointer"
                   onClick={() => {
+                    
                     setInputSearch(item.nome);
                     setSearchName('');
                     setHabilitarBusca(false); // bloqueia nova busca

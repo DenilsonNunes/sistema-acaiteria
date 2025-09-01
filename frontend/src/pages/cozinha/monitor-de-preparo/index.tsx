@@ -40,7 +40,7 @@ const pedidos = [
 const HomeMonitorPreparo = () => {
 
   return (
-    <section className="p-2 w-full h-screen bg-gray-100">
+    <section className="w-full h-screen">
 
       <h1 className="text-2xl mb-4">Monitor de preparação</h1>
 

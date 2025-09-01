@@ -88,11 +88,11 @@ const LayoutHome = () => {
 
               <Link className="relative" to='/vendas/carrinho'>
 
-                <ShoppingCart size={24} color="#121212"/>
+                <ShoppingCart size={24}/>
 
-                {cart.length > 0 && (
+                {cart.itens.length > 0 && (
                     <span className="absolute -right-4 -top-3 bg-fuchsia-600 rounded-full w-6 h-6 flex items-center justify-center text-white text-xs">
-                      {cart.length}
+                      {cart.itens.length}
                     </span>
                   ) 
                 }

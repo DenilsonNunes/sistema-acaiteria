@@ -1,7 +1,12 @@
 // stores/usePedidoStore.ts
 import type { Customer } from "@/types/customer/customer";
-import type { Cart, ItemCart, ItemComplemento } from "@/types/sales/cart/cart";
+import type { Cart, ComplementoItemCart, ItemCart } from "@/types/sales/cart/cart";
+import type { Orders } from "@/types/sales/orders/orders";
+
+
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
+
 
 
 
@@ -9,249 +14,435 @@ import { create } from "zustand";
 
 
 interface PedidoState {
-  cart: Cart[];
-  cliente: Pick<Customer, 'id' | 'nome'> | null;
-  adicionaisProduto: ItemComplemento[];
-  valorTotalCart: number;
+  cart: Cart;
+  complementosItem: ComplementoItemCart[];
 
+  itemEditando?: ItemCart;
+  pedidoEmEdicao: number | null;
+  
+  
+  adicionaLocalConsumo: (localConsumo: number) => void;
   identificarCliente: (cliente: Pick<Customer, 'id' | 'nome'>) => void;
   removerCliente: () => void;
 
   adicionarItem: (item: ItemCart) => void;
-  diminuirQtdItem: (item: Cart) => void;
+  diminuirQtdItem: (item: ItemCart) => void;
 
   limparCart: () => void;
 
-  aumentarQtdComplementoItem: (item: ItemComplemento) => void;
-  diminuirQtdComplementoItem: (item: ItemComplemento) => void;
+  aumentarQtdComplementoItem: (item: ComplementoItemCart) => void;
+  diminuirQtdComplementoItem: (item: ComplementoItemCart) => void;
+
+  selecionarItemParaEditar: (item: ItemCart, idOrder: number) => void;
+  salvarEdicaoItem: () => void;
+
+  carregarPedidoExistente: (order: Orders) => void;
+
 }
 
 
 
 
 
-// função fora do create
-const calcularValorTotal = (cart: Cart[]): number => {
-  return cart.reduce((acc, item) => {
-    const valorUnitarioTotal = (item.preco + (item.precoTotalComplementos || 0));
-    return acc + valorUnitarioTotal * item.quantidade;
-  }, 0);
-};
 
 
+export const usePedidoStore = create(
+  
+  persist<PedidoState>(
+
+    (set, get) => ({
+
+      cart: { 
+        cartItemId: '',
+        localConsumo: 1,
+        valorTotalCart: 0,
+        itens: [],
+      },
+
+      complementosItem: [],
+      itemEditando: undefined,
+      pedidoEmEdicao: null,
 
 
-export const usePedidoStore = create<PedidoState>((set, get) => ({
-  cart: [],
-  cliente: null,
-  adicionaisProduto: [],
-  valorTotalCart: 0,
-
-  identificarCliente: ({ id, nome }) =>
-    set(() => ({
-      cliente: { id, nome }
-    })),
-
-  removerCliente: () =>
-    set(() => ({
-      cliente: null
-    })),
-
-  adicionarItem: (newItem) => {
-    const { cart } = get();
-
-    const isSameCartItem = (item1, item2) => {
-      if (item1.id !== item2.id || item1.nomeProduto !== item2.nomeProduto) {
-        return false;
-      }
-
-      const comps1 = item1.complementos || [];
-      const comps2 = item2.complementos || item2.adicionais || []; // garante compatibilidade
-
-      if (comps1.length !== comps2.length) return false;
-
-      const sorted1 = [...comps1].sort((a, b) => a.id - b.id);
-      const sorted2 = [...comps2].sort((a, b) => a.id - b.id);
-
-      return sorted1.every((c1, index) => {
-        const c2 = sorted2[index];
-        return (
-          c1.id === c2.id &&
-          c1.nomeComplemento === c2.nomeComplemento &&
-          c1.quantidade === c2.quantidade &&
-          c1.preco === c2.preco &&
-          c1.idGrupoComplementos === c2.idGrupoComplementos
-        );
-      });
-    };
-
-    // Valor total unitário dos complementos
-    const precoComplementosUnitario = (newItem.adicionais || []).reduce(
-      (acc, item) => acc + item.preco * (item.quantidade || 1),
-      0
-    );
-
-    const precoProdutoUnitario = Number(newItem.preco);
-    const valorUnitarioTotal = precoProdutoUnitario + precoComplementosUnitario;
-
-    const itemExistente = cart.find((item) => isSameCartItem(item, newItem));
-
-   let novoCarrinho;
-
-    if (!itemExistente) {
-      // Novo item
-      novoCarrinho = [
-        ...cart,
-        {
-          id: newItem.id,
-          nomeProduto: newItem.nomeProduto,
-          imagemUrl: newItem.imagemUrl,
-          quantidade: 1,
-          preco: precoProdutoUnitario, // unitário
-          precoTotalComplementos: precoComplementosUnitario, // unitário
-          valorTotal: valorUnitarioTotal, // unitário
-          complementos: newItem.adicionais || [],
-        },
-      ];
-    } else {
-
-    // Incrementa quantidade
-    const novaQtd = itemExistente.quantidade + 1;
-
-    novoCarrinho = cart.map((item) =>
-      isSameCartItem(item, newItem)
-        ? {
-            ...item,
-            quantidade: novaQtd,
-            valorTotal: (item.preco + item.precoTotalComplementos) * novaQtd,
+      adicionaLocalConsumo: (localConsumo: number) => {
+        set((state) => ({
+          cart: {
+            ...state.cart,
+            localConsumo,
+          },
+        }));
+      },
+        
+      identificarCliente: ({ id, nome }) => {
+        const { cart } = get();
+        set({
+          cart: {
+            ...cart,
+            idCliente: id,
+            nomeCliente: nome,
           }
-        : item
-    );
+        });
+      },
 
-  }
+      removerCliente: () => {
+        const { cart } = get();
+        set({
+          cart: {
+            ...cart,
+            idCliente: undefined,
+            nomeCliente: undefined,
+          }
+        });
+      },
+          
+      adicionarItem: (newItem: ItemCart) => {
+        const { cart } = get();
 
-  // Atualiza estado
-  set({
-    cart: novoCarrinho,
-    valorTotalCart: calcularValorTotal(novoCarrinho),
-    adicionaisProduto: [],
-  });
+        // Função para verificar se dois itens são "iguais"
+        const isSameCartItem = (item1: ItemCart, item2: ItemCart) => {
+          if (item1.id !== item2.id || item1.nomeProduto !== item2.nomeProduto) return false;
 
-  },
+          const comps1 = item1.complementos || [];
+          const comps2 = item2.complementos || [];
 
+          if (comps1.length !== comps2.length) return false;
 
-  diminuirQtdItem: (itemParaRemover) => {
-    const { cart } = get();
+          const sorted1 = [...comps1].sort((a, b) => a.id - b.id);
+          const sorted2 = [...comps2].sort((a, b) => a.id - b.id);
 
-    const isSameCartItem = (item1, item2) => {
-      if (item1.id !== item2.id || item1.nomeProduto !== item2.nomeProduto) {
-        return false;
-      }
+          return sorted1.every((c1, idx) => {
+            const c2 = sorted2[idx];
+            return (
+              c1.id === c2.id &&
+              c1.nomeComplemento === c2.nomeComplemento &&
+              c1.quantidade === c2.quantidade &&
+              c1.precoUnitario === c2.precoUnitario &&
+              c1.idGrupoComplementos === c2.idGrupoComplementos
+            );
+          });
+        };
 
-      const comps1 = item1.complementos || [];
-      const comps2 = item2.complementos || [];
-
-      if (comps1.length !== comps2.length) return false;
-
-      const sorted1 = [...comps1].sort((a, b) => a.id - b.id);
-      const sorted2 = [...comps2].sort((a, b) => a.id - b.id);
-
-      return sorted1.every((c1, index) => {
-        const c2 = sorted2[index];
-        return (
-          c1.id === c2.id &&
-          c1.nomeComplemento === c2.nomeComplemento &&
-          c1.quantidade === c2.quantidade &&
-          c1.preco === c2.preco &&
-          c1.idGrupoComplementos === c2.idGrupoComplementos
-        );
-      });
-    };
-
-    const itemExistente = cart.find((item) => isSameCartItem(item, itemParaRemover));
-    if (!itemExistente) return;
-
-    let novoCarrinho;
-
-    if (itemExistente.quantidade > 1) {
-      const novaQtd = itemExistente.quantidade - 1;
-
-      novoCarrinho = cart.map((item) =>
-        isSameCartItem(item, itemParaRemover)
-          ? {
-              ...item,
-              quantidade: novaQtd,
-              valorTotal: (item.preco + (item.precoTotalComplementos || 0)) * novaQtd,
-            }
-          : item
-      );
-    } else {
-      novoCarrinho = cart.filter((item) => !isSameCartItem(item, itemParaRemover));
-    }
-
-    set({
-      cart: novoCarrinho,
-      valorTotalCart: calcularValorTotal(novoCarrinho),
-    });
-  },
-
-
-  limparCart: () => set({ cart: [], valorTotalCart: 0 }),
-
-  aumentarQtdComplementoItem: (newAddOn) => {
-
-    const { adicionaisProduto } = get();
-
-    const existente = adicionaisProduto.find((item) => item.id === newAddOn.id);
-    let novos;
-
-    if (!existente) {
-      novos = [
-        ...adicionaisProduto,
-        {
-          id: newAddOn.id,
-          idGrupoComplementos: newAddOn.idGrupoComplementos,
-          nomeComplemento: newAddOn.nomeComplemento,
+        // Inicializa quantidade do novo item
+        const itemParaAdicionar: ItemCart & { quantidade: number } = {
+          ...newItem,
+          complementos: newItem.complementos || [],
           quantidade: 1,
-          preco: Number(newAddOn.preco),
-        },
-      ];
-    } else {
-      novos = adicionaisProduto.map((item) =>
-        item.id === newAddOn.id
-          ? { ...item, quantidade: item.quantidade + 1 }
-          : item
-      );
+        };
+
+        let novoCart: Cart;
+
+        if (!cart) {
+          // Cria carrinho novo
+          const valorTotalCart =
+            itemParaAdicionar.precoUnitario +
+            (itemParaAdicionar.complementos || []).reduce(
+              (acc, c) => acc + c.precoUnitario * (c.quantidade || 1),
+              0
+            );
+
+          novoCart = {
+            localConsumo: 1,
+            valorTotalCart,
+            itens: [itemParaAdicionar],
+          };
+
+        } else {
+          // Verifica se já existe item igual
+          const itemExistente = cart.itens.find((item) => isSameCartItem(item, newItem));
+
+          let novosItens: (ItemCart & { quantidade: number })[];
+          if (!itemExistente) {
+            // Novo item
+            novosItens = [...cart.itens, itemParaAdicionar];
+          } else {
+            // Incrementa quantidade do item existente
+            novosItens = cart.itens.map((item) =>
+              isSameCartItem(item, newItem)
+                ? { ...item, quantidade: (item.quantidade || 1) + 1 }
+                : item
+            );
+          }
+
+          // Recalcula valor total do carrinho
+          const valorTotalCart = novosItens.reduce((acc, item) => {
+            const totalComplementos = (item.complementos || []).reduce(
+              (soma, c) => soma + c.precoUnitario * (c.quantidade || 1),
+              0
+            );
+            return acc + (item.precoUnitario + totalComplementos) * (item.quantidade || 1);
+          }, 0);
+
+          novoCart = {
+            localConsumo: cart.localConsumo,
+            itens: novosItens,
+            valorTotalCart,
+          };
+        }
+
+        set({
+          cart: novoCart,
+          complementosItem: [],
+        });
+      },
+
+
+      diminuirQtdItem: (itemParaRemover: ItemCart) => {
+
+        const { cart,  } = get();
+        if (!cart) return;
+
+        // Função para verificar se dois itens são "iguais"
+        const isSameCartItem = (item1: ItemCart, item2: ItemCart) => {
+          if (item1.id !== item2.id || item1.nomeProduto !== item2.nomeProduto) return false;
+
+          const comps1 = item1.complementos || [];
+          const comps2 = item2.complementos || [];
+
+          if (comps1.length !== comps2.length) return false;
+
+          const sorted1 = [...comps1].sort((a, b) => a.id - b.id);
+          const sorted2 = [...comps2].sort((a, b) => a.id - b.id);
+
+          return sorted1.every((c1, idx) => {
+            const c2 = sorted2[idx];
+            return (
+              c1.id === c2.id &&
+              c1.nomeComplemento === c2.nomeComplemento &&
+              c1.quantidade === c2.quantidade &&
+              c1.precoUnitario === c2.precoUnitario &&
+              c1.idGrupoComplementos === c2.idGrupoComplementos
+            );
+          });
+        };
+
+        // Verifica se o item existe
+        const itemExistente = cart.itens.find((item) => isSameCartItem(item, itemParaRemover));
+        if (!itemExistente) return;
+
+        let novosItens: (ItemCart & { quantidade: number })[];
+
+        if ((itemExistente.quantidade || 1) > 1) {
+          // Decrementa quantidade
+          novosItens = cart.itens.map((item) =>
+            isSameCartItem(item, itemParaRemover)
+              ? { ...item, quantidade: (item.quantidade || 1) - 1 }
+              : item
+          );
+        } else {
+          // Remove item do carrinho
+          novosItens = cart.itens.filter((item) => !isSameCartItem(item, itemParaRemover));
+        }
+
+        // Recalcula o valor total do carrinho
+        const valorTotalCart = novosItens.reduce((acc, item) => {
+          const totalComplementos = (item.complementos || []).reduce(
+            (soma, c) => soma + c.precoUnitario * (c.quantidade || 1),
+            0
+          );
+          return acc + (item.precoUnitario + totalComplementos) * (item.quantidade || 1);
+        }, 0);
+
+        set({
+          cart: {
+            idCliente: cart.idCliente,
+            nomeCliente: cart.nomeCliente,
+            localConsumo: cart.localConsumo,
+            itens: novosItens,
+            valorTotalCart,
+          },
+        });
+      },
+
+    
+    
+      limparCart: () =>
+        set({
+          cart: {
+            valorTotalCart: 0,
+            itens: [],
+            localConsumo: 1
+          },
+          complementosItem: [],
+        }),
+          
+      aumentarQtdComplementoItem: (newAddOn: ComplementoItemCart) => {
+        const { complementosItem } = get();
+
+        const existente = complementosItem.find((item) => item.id === newAddOn.id);
+        let novos: ComplementoItemCart[];
+
+        if (!existente) {
+          novos = [
+            ...complementosItem,
+            {
+              id: newAddOn.id,
+              idGrupoComplementos: newAddOn.idGrupoComplementos,
+              nomeComplemento: newAddOn.nomeComplemento,
+              quantidade: 1,
+              precoUnitario: Number(newAddOn.precoUnitario), // <-- corrigido
+            },
+          ];
+        } else {
+          novos = complementosItem.map((item) =>
+            item.id === newAddOn.id
+              ? { ...item, quantidade: item.quantidade + 1 }
+              : item
+          );
+        }
+
+        set({ complementosItem: novos });
+      },
+
+    
+      diminuirQtdComplementoItem: (itemRemover) => {
+        const { complementosItem } = get();
+
+        const existente = complementosItem.find((item) => item.id === itemRemover.id);
+        if (!existente) return;
+
+        let novos: ComplementoItemCart[];
+
+        if (existente.quantidade > 1) {
+          novos = complementosItem.map((item) =>
+            item.id === itemRemover.id
+              ? { ...item, quantidade: item.quantidade - 1 }
+              : item
+          );
+        } else {
+          novos = complementosItem.filter((item) => item.id !== itemRemover.id);
+        }
+
+        set({ complementosItem: novos });
+      },
+
+      
+      salvarEdicaoItem: () => {
+        const { cart, itemEditando, complementosItem } = get();
+        if (!itemEditando) return;
+
+        const isSameCartItem = (item1: ItemCart, item2: ItemCart) => {
+          if (item1.id !== item2.id || item1.nomeProduto !== item2.nomeProduto) return false;
+
+          const comps1 = item1.complementos || [];
+          const comps2 = item2.complementos || [];
+
+          if (comps1.length !== comps2.length) return false;
+
+          const sorted1 = [...comps1].sort((a, b) => a.id - b.id);
+          const sorted2 = [...comps2].sort((a, b) => a.id - b.id);
+
+          return sorted1.every((c1, idx) => {
+            const c2 = sorted2[idx];
+            return (
+              c1.id === c2.id &&
+              c1.nomeComplemento === c2.nomeComplemento &&
+              c1.quantidade === c2.quantidade &&
+              c1.precoUnitario === c2.precoUnitario &&
+              c1.idGrupoComplementos === c2.idGrupoComplementos
+            );
+          });
+        };
+
+        const novosItens = cart.itens.map((item) =>
+          isSameCartItem(item, itemEditando)
+            ? {
+                ...itemEditando,
+                complementos: complementosItem,
+                valorTotal:
+                  (itemEditando.precoUnitario +
+                    complementosItem.reduce(
+                      (acc, c) => acc + c.precoUnitario * (c.quantidade || 1),
+                      0
+                    )) * itemEditando.quantidade,
+              }
+            : item
+        );
+
+        const novoValorTotalCart = novosItens.reduce((acc, item) => {
+          const totalComplementos = (item.complementos || []).reduce(
+            (soma, c) => soma + c.precoUnitario * (c.quantidade || 1),
+            0
+          );
+          return acc + (item.precoUnitario + totalComplementos) * (item.quantidade || 1);
+        }, 0);
+
+        set({
+          cart: {
+            ...cart,
+            itens: novosItens,
+            valorTotalCart: novoValorTotalCart,
+          },
+          itemEditando: undefined,
+          pedidoEmEdicao: null,
+          complementosItem: [],
+        });
+      },
+
+      selecionarItemParaEditar: (item: ItemCart) => {
+        set({
+          itemEditando: item,
+          complementosItem: item.complementos || [],
+        });
+      },
+
+
+      // NOVO: carregar pedido existente do backend
+      carregarPedidoExistente: (order: Orders) => {
+
+        console.log('Como chega no store ', order.idCliente);
+
+        const itens = order.itensPedido.map((i) => {
+          const precoComplementos = i.complementosItem.reduce(
+            (acc, c) => acc + Number(c.precoUnitario) * c.quantidade,
+            0
+          );
+
+          return {
+            id: i.idProduto,
+            nomeProduto: i.produtos.nomeProduto,
+            imagemUrl: i.produtos.imagemUrl,
+            quantidade: i.quantidade,
+            precoUnitario: Number(i.precoUnitario),
+            precoTotalComplementos: precoComplementos,
+            valorTotal: (Number(i.precoUnitario) + precoComplementos) * i.quantidade,
+            complementos: i.complementosItem.map((c) => ({
+              id: c.idComplemento,
+              idGrupoComplementos: c.complementos.idGrupoComplementos,
+              nomeComplemento: c.complementos.nomeComplemento,
+              quantidade: c.quantidade,
+              precoUnitario: Number(c.precoUnitario),
+            })),
+          };
+        });
+
+        // soma do carrinho (produtos + complementos)
+        const valorTotalCart = itens.reduce((acc, item) => acc + item.valorTotal, 0);
+
+        set({
+          cart: {
+            idCliente: order.idCliente ?? undefined,
+            nomeCliente: order.nomeCliente ?? undefined,
+            localConsumo: order.localConsumo,
+            valorTotalCart,
+            itens,
+          },
+          pedidoEmEdicao: order.id
+        });
+
+
+      },
+
+    
+    }),
+    {
+      name: '@CartStorage'
     }
 
-    set({ adicionaisProduto: novos });
-  },
-
-  diminuirQtdComplementoItem: (itemRemover) => {
-
-    const { adicionaisProduto } = get();
-
-    const existente = adicionaisProduto.find((item) => item.id === itemRemover.id);
-    if (!existente) return;
-
-    let novos;
-
-    if (existente.quantidade > 1) {
-      novos = adicionaisProduto.map((item) =>
-        item.id === itemRemover.id
-          ? { ...item, quantidade: item.quantidade - 1 }
-          : item
-      );
-    } else {
-      novos = adicionaisProduto.filter((item) => item.id !== itemRemover.id);
-    }
-
-    set({ adicionaisProduto: novos });
-  },
+  )
 
 
+);
 
-}));
 
 
 

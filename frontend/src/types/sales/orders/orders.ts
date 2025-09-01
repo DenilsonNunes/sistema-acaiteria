@@ -25,6 +25,7 @@ interface Cliente {
 
 interface ItensPedido {
   id: number,
+  idProduto: number,
   idPedido: number,
   precoUnitario: string,
   produtos: Produtos,
@@ -45,9 +46,11 @@ interface ComplementosItem {
 
 interface Produtos {
   nomeProduto: string,
+  imagemUrl: string
 }
 
 
 interface Complementos {
-  nomeComplemento: string,
+  idGrupoComplementos: number,
+  nomeComplemento: string
 }

@@ -9,7 +9,8 @@ import {
   PieChart,
   ShoppingCart,
   PackageSearch,
-  CookingPot
+  CookingPot,
+  BadgeDollarSign 
 } from "lucide-react"
 
 
@@ -52,6 +53,26 @@ const data = {
     },
   ],
   navMain: [
+    {
+      title: "Financeiro",
+      url: "#",
+      icon: BadgeDollarSign,
+      isActive: true,
+      items: [
+        {
+          title: "Financeiro",
+          url: "/financeiro/home",
+        },
+        {
+          title: "Contas a receber",
+          url: "/finceiro/contas-a-receber",
+        },
+        {
+          title: "Contas a pagar",
+          url: "/finceiro/contas-a-pagar",
+        }
+      ],
+    },
     {
       title: "Vendas",
       url: "#",
