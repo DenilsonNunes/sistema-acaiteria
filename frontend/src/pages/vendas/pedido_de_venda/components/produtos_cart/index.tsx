@@ -1,6 +1,6 @@
 import { EditButton } from "@/components/button/edit-button"
 import { Separator } from "@/components/ui/separator"
-import { usePedidoStore } from "@/stores/usePedidoStore"
+import { useCartStore } from "@/stores/useCartStore"
 import { formatarMoedaBRL } from "@/utils/formataMoedaBRL"
 import { Minus, Plus, Trash2 } from "lucide-react"
 
@@ -14,10 +14,8 @@ import { Minus, Plus, Trash2 } from "lucide-react"
 const ProdutosCart = () => {
 
 
-  const {cart, adicionarItem, diminuirQtdItem} = usePedidoStore();
+  const {cart, adicionarItemCart, diminuirQtdItemCart} = useCartStore();
   
-
-
 
 
 
@@ -104,7 +102,7 @@ const ProdutosCart = () => {
               <div className="w-28 flex items-center justify-between">
                 <button
                   type="button"
-                  onClick={() => diminuirQtdItem(item)}
+                  onClick={() => diminuirQtdItemCart(item)}
                   className="font-bold cursor-pointer text-fuchsia-700"
                 >
                   <Minus size={24} strokeWidth={3} />
@@ -112,7 +110,7 @@ const ProdutosCart = () => {
                 <span className="w-full font-medium text-center">{item.quantidade}</span>
                 <button
                   type="button"
-                  onClick={() => adicionarItem(item)}
+                  onClick={() => adicionarItemCart(item)}
                   className="font-bold cursor-pointer text-fuchsia-700"
                 >
                   <Plus size={24} strokeWidth={3} />

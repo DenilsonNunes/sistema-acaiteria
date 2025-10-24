@@ -2,6 +2,8 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateClienteDto } from './dto/create-cliente.dto';
 import { UpdateClienteDto } from './dto/update-cliente.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { getLocalDate } from 'src/common/utils/date.util';
+import { PaginationDto } from 'src/common/dto/pagination.dto';
 
 @Injectable()
 export class ClientesService {
@@ -9,30 +11,39 @@ export class ClientesService {
 
   async create(createClienteDto: CreateClienteDto) {
     try {
-      const customer = await this.prisma.clientes.create({
+      await this.prisma.clientes.create({
         data: {
           nome: createClienteDto.nome,
           apelido: createClienteDto.apelido,
           endereco: createClienteDto.endereco,
           fone: createClienteDto.fone,
           status: createClienteDto.status,
-        },
-        select: {
-          id: true,
-          nome: true,
-          apelido: true,
-          status: true,
+          limiteCredito: createClienteDto.limiteCredito,
+          data_nascimento: createClienteDto.data_nascimento ? new Date(createClienteDto.data_nascimento) : null,
+          data_criacao: getLocalDate(),
+          data_alteracao: getLocalDate(),
         },
       });
 
-      return customer;
+      return {
+        success: true,
+        message: 'Cliente cadastrado com sucesso',
+      };
     } catch (err) {
+      console.log('qual o erro', err);
       throw new HttpException('Houve um erro ao cadastrar o cliente', HttpStatus.BAD_REQUEST, { cause: err });
     }
   }
 
-  async findAll() {
-    return await this.prisma.clientes.findMany();
+  async findAll(paginationDto: PaginationDto) {
+    const { limit = 10, offset = 0 } = paginationDto;
+    return await this.prisma.clientes.findMany({
+      take: limit,
+      skip: offset,
+      orderBy: {
+        data_criacao: 'desc',
+      },
+    });
   }
 
   async findOne(id: number) {
@@ -102,6 +113,10 @@ export class ClientesService {
           endereco: updateClienteDto?.endereco ? updateClienteDto.endereco : findCustomer.endereco,
           fone: updateClienteDto?.fone ? updateClienteDto.fone : findCustomer.fone,
           status: updateClienteDto?.status !== undefined ? updateClienteDto.status : findCustomer.status,
+          limiteCredito: updateClienteDto?.limiteCredito ? updateClienteDto.limiteCredito : findCustomer.limiteCredito,
+          ...(updateClienteDto.data_nascimento && {
+            data_nascimento: new Date(updateClienteDto.data_nascimento),
+          }),
           data_alteracao: new Date(),
         },
       });
@@ -129,13 +144,26 @@ export class ClientesService {
         throw new HttpException('Cliente não encontrado', HttpStatus.NOT_FOUND);
       }
 
+      const customerForSales = await this.prisma.pedidos.findMany({
+        where: {
+          idCliente: findCustomer.id,
+        },
+      });
+
+      if (customerForSales.length) {
+        throw new HttpException(`Não é possível excluir o cliente, pois já existem vendas associadas a ele.`, HttpStatus.CONFLICT);
+      }
+
       await this.prisma.clientes.delete({
         where: {
           id: id,
         },
       });
 
-      return { message: 'Cliente deletado com sucesso.' };
+      return {
+        status: true,
+        message: 'Cliente deletado com sucesso.',
+      };
     } catch (err) {
       // Verifica se o erro é uma HttpException
       if (err instanceof HttpException) {

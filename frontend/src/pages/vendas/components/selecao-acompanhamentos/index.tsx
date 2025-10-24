@@ -19,9 +19,9 @@ import { useSelectSideDishes } from '@/hooks/sales/sales_order/useSelectSideDish
 
 import { formatarMoedaBRL } from '@/utils/formataMoedaBRL';
 import { Badge } from '@/components/ui/badge';
-import { usePedidoStore } from '@/stores/usePedidoStore';
 import { Button } from '@/components/ui/button';
-import PedidoAtual from '../components/resumo_pedido';
+import PedidoAtual from '../resumo_cart';
+import { useCartStore } from '@/stores/useCartStore';
 
 
 
@@ -32,7 +32,7 @@ import PedidoAtual from '../components/resumo_pedido';
 
 
 
-const SelecionarAcompanhamentos = () => {
+const SelecaoAcompanhamentos = () => {
 
   const { id } = useParams();
   const navigate = useNavigate();
@@ -40,20 +40,17 @@ const SelecionarAcompanhamentos = () => {
 
 
   const {
-    complementosItem, 
-    aumentarQtdComplementoItem, 
-    adicionarItem, 
-    diminuirQtdComplementoItem, 
-    salvarEdicaoItem,
-    pedidoEmEdicao,
-    itemEditando
+    complementosItemCart, 
+    aumentarQtdComplementoItemCart, 
+    adicionarItemCart, 
+    diminuirQtdComplementoItemCart, 
 
-  } = usePedidoStore();
+  } = useCartStore();
 
 
   const {data: addOnGroup, isLoading, isError} = useSelectSideDishes(idProduto);
 
-  const valorTotalComplementos = complementosItem.reduce((total, item) => total + item.precoUnitario, 0);
+  const valorTotalComplementos = complementosItemCart.reduce((total, item) => total + item.precoUnitario, 0);
 
 
 
@@ -91,13 +88,7 @@ const SelecionarAcompanhamentos = () => {
           <button
             className="md:hidden absolute top-2 left-2 rounded-full h-12 w-12 flex items-center justify-center bg-white shadow-lg shadow-black/80 text-black cursor-pointer"
             onClick={() => {
-              if(pedidoEmEdicao){
-                navigate(`/vendas/pedidos/${pedidoEmEdicao}/editar`)
-
-              } else {
-                navigate('/vendas/pedido-de-venda')
-
-              }
+              navigate('/vendas/pdv')
             }}
           >
             <ArrowLeft size={26} />
@@ -144,12 +135,12 @@ const SelecionarAcompanhamentos = () => {
                 {addOnGroup.Complementos?.map((addOn) => {
            
                   // procura se o complemento já foi escolhido
-                  const selecionado = complementosItem.find((p) => p.id == addOn.id);
+                  const selecionado = complementosItemCart.find((p) => p.id == addOn.id);
 
                   const quantidade  = selecionado?.quantidade ?? 0;
 
 
-                  const totalSelecionadosDoGrupo = complementosItem
+                  const totalSelecionadosDoGrupo = complementosItemCart
                     .filter((item) => item.idGrupoComplementos === addOnGroup.id)
                     .reduce((acc, item) => acc + item.quantidade, 0);
 
@@ -195,7 +186,7 @@ const SelecionarAcompanhamentos = () => {
                         {selecionado && (
                           <>
                             <button
-                              onClick={() => diminuirQtdComplementoItem({
+                              onClick={() => diminuirQtdComplementoItemCart({
                                 id: addOn.id,
                                 idGrupoComplementos: addOn.idGrupoComplementos,
                                 precoUnitario: Number(addOn.preco),
@@ -214,7 +205,7 @@ const SelecionarAcompanhamentos = () => {
                         {/* “+” sempre visível */}
                         <button
                           disabled={atingiuMaximo}                      
-                          onClick={() => aumentarQtdComplementoItem({
+                          onClick={() => aumentarQtdComplementoItemCart({
                             id: addOn.id,
                             idGrupoComplementos: addOn.idGrupoComplementos,
                             precoUnitario: Number(addOn.preco),
@@ -250,13 +241,13 @@ const SelecionarAcompanhamentos = () => {
             className='w-full h-14 bg-green-500 hover:bg-green-600 rounded-none cursor-pointer px-6'
             onClick={() => {
               if (!addOnGroup) return;
-              adicionarItem({
+              adicionarItemCart({
                 id: addOnGroup.id,
                 nomeProduto: addOnGroup.nomeProduto,
                 imagemUrl: addOnGroup.imagemUrl,
                 precoUnitario: Number(addOnGroup.preco),
                 quantidade: 1,
-                complementos: [...complementosItem]
+                complementos: [...complementosItemCart]
               });
               navigate('/vendas/pedido-de-venda');
             }}
@@ -279,47 +270,24 @@ const SelecionarAcompanhamentos = () => {
             onClick={() => {
               if (!addOnGroup) return;
 
-              if (pedidoEmEdicao) {
-
-                if(itemEditando){
-                  salvarEdicaoItem();            
-                  navigate(`/vendas/pedidos/${pedidoEmEdicao}/editar`);
-                } else {
-
-                  adicionarItem({
-                    id: addOnGroup.id,
-                    nomeProduto: addOnGroup.nomeProduto,
-                    imagemUrl: addOnGroup.imagemUrl,
-                    precoUnitario: Number(addOnGroup.preco),
-                    quantidade: 1,
-                    complementos: [...complementosItem],
-                  });
-
-                  navigate(`/vendas/pedidos/${pedidoEmEdicao}/editar`);
-
-
-                }
-
-
-              } else {
-                adicionarItem({
+                adicionarItemCart({
                   id: addOnGroup.id,
                   nomeProduto: addOnGroup.nomeProduto,
                   imagemUrl: addOnGroup.imagemUrl,
                   precoUnitario: Number(addOnGroup.preco),
                   quantidade: 1,
-                  complementos: [...complementosItem],
+                  complementos: [...complementosItemCart],
                 });
-
                 navigate('/vendas/carrinho');
+              
               }
               
-            }}
+            }
           >
             <div className='w-full justify-between flex items-center'>
 
               <p className='text-2xl font-bold'>
-                Avançar
+                AvançarT
               </p>
               
 
@@ -333,8 +301,7 @@ const SelecionarAcompanhamentos = () => {
 
         </div>
         
-      
-
+    
       </div>
 
       <div className="w-[30%] overflow-y-auto h-screen hidden lg:block">
@@ -349,7 +316,7 @@ const SelecionarAcompanhamentos = () => {
   
 }
 
-export default SelecionarAcompanhamentos
+export default SelecaoAcompanhamentos
 
 
 

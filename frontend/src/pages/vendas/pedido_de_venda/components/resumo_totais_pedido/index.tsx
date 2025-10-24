@@ -1,10 +1,10 @@
-import { usePedidoStore } from "@/stores/usePedidoStore"
+import { useCartStore } from "@/stores/useCartStore";
 import { formatarMoedaBRL } from "@/utils/formataMoedaBRL";
 
-const ResumoTotaisPedido = () => {
+const ResumoTotaisCart = () => {
 
 
-  const { cart } = usePedidoStore();
+  const { cart } = useCartStore();
 
   return (
    
@@ -39,4 +39,4 @@ const ResumoTotaisPedido = () => {
   )
 }
 
-export default ResumoTotaisPedido
+export default ResumoTotaisCart

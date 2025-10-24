@@ -11,6 +11,9 @@ import { PrivateRoute } from "./private-routes";
 import { vendasRoutes } from "./rotinas/vendas.routes";
 import { produtosRoutes } from "./rotinas/produtos.routes";
 import { cozinhaRoutes } from "./rotinas/cozinha.routes";
+import { clientesRoutes } from "./rotinas/clientes.routes";
+import { financeiroRoutes } from "./rotinas/financeiro.routes";
+
 
 
 const routes = createBrowserRouter([
@@ -23,8 +26,10 @@ const routes = createBrowserRouter([
         children: [
           { path: '/home', element: <Home /> },
           ...vendasRoutes,
+          ...financeiroRoutes,
           ...produtosRoutes,
-          ...cozinhaRoutes
+          ...cozinhaRoutes,
+          ...clientesRoutes
         ],
       },
     ],

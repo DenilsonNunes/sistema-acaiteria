@@ -15,10 +15,10 @@ import {  PedidoLocalConsumo as PedidoLocalConsumoEnum } from '@/types/sales/sal
 import { Button } from '@/components/ui/button'
 import { CircleCheckBig, Loader2Icon, Plus, Save, ScrollText } from 'lucide-react'
 import { useEffect, useState } from 'react'
-import { InputAutoCompleteCliente } from '../input-autocomplete-cliente'
+import { InputAutoCompleteCliente } from '../../../pedido_de_venda/components/input-autocomplete-cliente'
 import { usePedidoStore } from '@/stores/usePedidoStore'
 import { Separator } from '@/components/ui/separator'
-import ResumoTotaisPedido from '../resumo_totais_pedido'
+import ResumoTotaisPedido from '../../../pedido_de_venda/components/resumo_totais_pedido'
 import { buildPedidoFromCart } from '@/utils/cartToSalesOrder'
 import { z } from 'zod'
 import { useSales } from '@/hooks/sales/useSales'
@@ -26,6 +26,8 @@ import { Input } from '@/components/ui/input'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
 import { useCreateOrder, useUpdateOrder } from '@/hooks/sales/useOrders'
+import DrawerSucessPedido from '../../../pedido_de_venda/components/drawer_sucess_pedido'
+import { useCartStore } from '@/stores/useCartStore'
 
 
 
@@ -48,15 +50,15 @@ const AcaoSalvarPedido = () => {
   
 
 
-  const {cart, adicionaLocalConsumo, identificarCliente, limparCart, pedidoEmEdicao } = usePedidoStore();
+  const {cart, adicionaLocalConsumoCart, identificarClienteCart, limparCart } = useCartStore();
   const { mutateAsync: createOrder, isError, isPending, isSuccess } = useCreateOrder();
   const updateOrder = useUpdateOrder();
 
 
   const [openDrawerConfirmarPedido, setOpenDrawerConfirmarPedido] = useState(false);
-  const [openDrawerSuccess, setOpenDrawerSuccess] = useState(false);
+  const [openDrawerSuccessOrder, setOpenDrawerSuccessOrder] = useState(false);
 
-  const [identificaCliente, setIdentificaCliente] = useState<boolean>( cart.idCliente !== 1 && pedidoEmEdicao ? true : false);
+  const [identificaCliente, setIdentificaCliente] = useState<boolean>( cart.idCliente !== 1);
 
 
   
@@ -69,17 +71,6 @@ const AcaoSalvarPedido = () => {
 
 
 
-  useEffect(()=> {
-
-    if(!identificaCliente && !pedidoEmEdicao) {
-
-      identificarCliente({id: 1, nome: nomeCliente})
-
-    } 
-
-  }, [identificaCliente, nomeCliente, identificarCliente, pedidoEmEdicao])
-
-  
 
 
   const handleCreateSalesOrder = async () => {
@@ -106,9 +97,10 @@ const AcaoSalvarPedido = () => {
       const response = await createOrder(salesOrder);
 
       if(response.id) {
+  
         limparCart();
         setOpenDrawerConfirmarPedido(false);
-        setOpenDrawerSuccess(true);
+        setOpenDrawerSuccessOrder(true);
         localStorage.removeItem("@CartStorage");
 
       }
@@ -116,7 +108,7 @@ const AcaoSalvarPedido = () => {
       // usar o id para redirecionar, abrir modal, etc.
     } catch (error) {
 
-      toast.error('Criar Pedido', {
+      toast.error('Erro', {
         description: 'Houve um erro ao criar o pedido.', 
         richColors: true,
         closeButton: true,
@@ -129,58 +121,6 @@ const AcaoSalvarPedido = () => {
   };
 
 
-  const handleUpdateSalesOrder = async () => {
-
-
-    const result = schema.safeParse(inputSearch);
-
-    if(identificaCliente) {
-
-      if (!result.success) {
-        setErro(result.error.errors[0].message);
-        return;
-      }
-
-    } 
-
-    setErro(null);
-
-    const dataOrder = buildPedidoFromCart( cart, observacao );
-
-
-    try {
-
-      if (pedidoEmEdicao !== null) {
-
-        const response = await updateOrder.mutateAsync({
-          idPedido: pedidoEmEdicao,
-          data: dataOrder,
-        });
-
-        if(response.id) {
-          limparCart();
-          setOpenDrawerConfirmarPedido(false);
-          setOpenDrawerSuccess(true);
-          localStorage.removeItem("@CartStorage");
-        }
-
-      }
-
-
-      // usar o id para redirecionar, abrir modal, etc.
-    } catch (error) {
-
-      toast.error('Alterar Pedido', {
-        description: 'Houve um erro ao alterar o pedido.', 
-        richColors: true,
-        closeButton: true,
-        duration: 3000,
-        position: "top-right"
-      })
-
-    }
-
-  };
 
   
   
@@ -204,22 +144,16 @@ const AcaoSalvarPedido = () => {
       <>                 
         <Button
           onClick={() => {
-            
-            if(pedidoEmEdicao) {
-              setOpenDrawerConfirmarPedido(true); 
-
-            } else {
-              setOpenDrawerConfirmarPedido(true); 
-              adicionaLocalConsumo(1);
-              identificarCliente({id: 1, nome: nomeCliente})
-            }
-
-
+  
+            setOpenDrawerConfirmarPedido(true); 
+            adicionaLocalConsumoCart(1);
+            identificarClienteCart({id: 1, nome: nomeCliente})
+        
           }}
           className="md:hidden flex w-full fixed bottom-0 left-0 right-0 text-2xl bg-green-500 hover:bg-green-400  rounded-none h-15"
         >
           <Save style={{ width: "30px", height: "30px", flexShrink: 0 }} />
-          {pedidoEmEdicao ? "Salvar AAlterações" : "Salvar Pedido"}
+          Salvar Pedido
         </Button>
 
         <Drawer 
@@ -294,20 +228,20 @@ const AcaoSalvarPedido = () => {
                   className='flex' 
                   defaultValue="1"
                   value={String(cart.localConsumo ? cart.localConsumo : 1)}
-                  onValueChange={(value) => adicionaLocalConsumo(Number(value))}
+                  onValueChange={(value) => adicionaLocalConsumoCart(Number(value))}
                 >
 
-                  <div className="w-full flex items-center gap-1 bg-green-100 p-2 rounded border border-green-600 whitespace-nowrap">
+                  <div className="w-full flex items-center gap-1 bg-fuchsia-600 p-2 rounded text-white">
                     <RadioGroupItem value={String(PedidoLocalConsumoEnum.ESTABELECIMENTO)} id="local"  className='bg-white'/>
                     <Label htmlFor="local" className="whitespace-nowrap">Local</Label>
                   </div>
 
-                  <div className="w-full flex items-center gap-1  bg-orange-100 p-2 rounded border border-orange-600">
+                  <div className="w-full flex items-center gap-1 bg-green-500 text-white p-2 rounded">
                     <RadioGroupItem value={String(PedidoLocalConsumoEnum.ENTREGA)} id="entrega"  className='bg-white'/>
                     <Label htmlFor="entrega">Entrega</Label>
                   </div>
 
-                  <div className="w-full flex items-center gap-1 bg-cyan-100 p-2 rounded border border-cyan-600">
+                  <div className="w-full flex items-center gap-1 bg-orange-500 p-2 rounded text-white">
                     <RadioGroupItem value={String(PedidoLocalConsumoEnum.RETIRAR)} id="retirada" className='bg-white'/>
                     <Label htmlFor="retirada">Retirada</Label>
                   </div>
@@ -336,13 +270,9 @@ const AcaoSalvarPedido = () => {
               <Button
                 className='flex items-center text-2xl bg-green-500 hover:bg-green-400 w-full h-12'
                 disabled={isPending}
-                //onClick={() => setOpen(false)}
+ 
                 onClick={()=> {
-                  if(pedidoEmEdicao){
-                    handleUpdateSalesOrder();
-                  } else {
-                    handleCreateSalesOrder();
-                  }
+                  handleCreateSalesOrder();            
                 }}
               >
                 {isPending && (
@@ -351,8 +281,7 @@ const AcaoSalvarPedido = () => {
                     style={{ width: 30, height: 30, flexShrink: 0 }}
                   />
                 )}
-
-                {pedidoEmEdicao ? "Salvar Alteraçõessss" : "Salvar Pedido"}
+                Salvar Pedido
               </Button>
             </DrawerFooter>                                                     
 
@@ -364,58 +293,11 @@ const AcaoSalvarPedido = () => {
       </>
 
       {/* Drawer sucesso criar pedido */}
-      <Drawer 
-        open={openDrawerSuccess} onOpenChange={setOpenDrawerSuccess}                
-      >
+      <DrawerSucessPedido 
+        open={openDrawerSuccessOrder} 
+        onOpenChange={setOpenDrawerSuccessOrder} 
+      />
 
-        <DrawerContent className='px-4'>
-
-          <div className="mx-auto w-full max-w-sm">
-                        
-            <DrawerHeader className='p-0 my-4'>
-              <DrawerTitle className='flex items-center justify-center gap-2 text-lg mb-2 text-green-600'>
-                <CircleCheckBig />
-                Pedido Criado com Sucesso!
-              </DrawerTitle>
-              <div className='flex flex-col items-start'>
-                <p className='text-gray-700'><strong>Pedido Nº:</strong> {25}</p>
-                <p className='text-gray-700'>
-                  <strong>Cliente: </strong>
-                  Denilson Nunes
-                </p>
-                <p className='text-gray-700'>
-                  <strong>Total: </strong>
-                  R$ 27,00
-                </p>
-              </div>
-            </DrawerHeader>
-            <DrawerFooter className='p-0 mb-4'>
-              <Button
-                className='rounded text-lg bg-fuchsia-600 hover:bg-fuchsia-500 w-full'
-                onClick={() => { 
-                  navigate('/vendas/pedidos')  
-                }}
-              >
-                <ScrollText style={{ width: "22px", height: "22px", flexShrink: 0 }}/>
-                Ir para os pedidos
-              </Button>
-              <Button
-                className='rounded text-lg bg-green-500 hover:bg-green-600 w-full'
-                onClick={() => { 
-                  navigate('/vendas/pedido-de-venda')  
-                }}
-              >
-                <Plus strokeWidth={3}  style={{ width: "22px", height: "22px", flexShrink: 0 }}/>
-                Novo pedido
-              </Button>
-            </DrawerFooter>             
-
-        
-          </div>
-
-        </DrawerContent>
-
-      </Drawer>    
         
     </div>
   )

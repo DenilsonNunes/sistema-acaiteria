@@ -3,6 +3,7 @@ import { ClientesService } from './clientes.service';
 import { CreateClienteDto } from './dto/create-cliente.dto';
 import { UpdateClienteDto } from './dto/update-cliente.dto';
 import { SearchDto } from './dto/find-client.dto';
+import { PaginationDto } from 'src/common/dto/pagination.dto';
 
 @Controller('clientes')
 export class ClientesController {
@@ -14,8 +15,8 @@ export class ClientesController {
   }
 
   @Get()
-  findAll() {
-    return this.clientesService.findAll();
+  findAll(@Query() paginationDto: PaginationDto) {
+    return this.clientesService.findAll(paginationDto);
   }
 
   @Get('search')

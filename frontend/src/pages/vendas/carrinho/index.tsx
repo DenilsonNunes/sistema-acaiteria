@@ -1,4 +1,4 @@
-import PedidoAtual from "../pedido_de_venda/components/resumo_pedido"
+import ResumoCart from "../components/resumo_cart"
 
 const Carrinho = () => {
 
@@ -6,7 +6,7 @@ const Carrinho = () => {
   return (
 
     <section>
-      <PedidoAtual/>
+      <ResumoCart/>
     </section>
 
   )

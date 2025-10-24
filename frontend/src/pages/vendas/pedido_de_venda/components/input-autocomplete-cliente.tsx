@@ -39,8 +39,7 @@ export function InputAutoCompleteCliente({ onChange, limparErro, erro }: Props) 
   useEffect(() => {
 
     if(pedidoEmEdicao && cart.idCliente !== 1) {
-      setInputSearch(cart?.nomeCliente)
-
+      setInputSearch(cart?.nomeCliente || "Consumidor final")
     }
 
   }, [pedidoEmEdicao, cart]);

@@ -3010,10 +3010,12 @@ export namespace Prisma {
 
   export type ClientesAvgAggregateOutputType = {
     id: number | null
+    limiteCredito: Decimal | null
   }
 
   export type ClientesSumAggregateOutputType = {
     id: number | null
+    limiteCredito: Decimal | null
   }
 
   export type ClientesMinAggregateOutputType = {
@@ -3023,6 +3025,8 @@ export namespace Prisma {
     endereco: string | null
     fone: string | null
     status: boolean | null
+    limiteCredito: Decimal | null
+    data_nascimento: Date | null
     data_criacao: Date | null
     data_alteracao: Date | null
   }
@@ -3034,6 +3038,8 @@ export namespace Prisma {
     endereco: string | null
     fone: string | null
     status: boolean | null
+    limiteCredito: Decimal | null
+    data_nascimento: Date | null
     data_criacao: Date | null
     data_alteracao: Date | null
   }
@@ -3045,6 +3051,8 @@ export namespace Prisma {
     endereco: number
     fone: number
     status: number
+    limiteCredito: number
+    data_nascimento: number
     data_criacao: number
     data_alteracao: number
     _all: number
@@ -3053,10 +3061,12 @@ export namespace Prisma {
 
   export type ClientesAvgAggregateInputType = {
     id?: true
+    limiteCredito?: true
   }
 
   export type ClientesSumAggregateInputType = {
     id?: true
+    limiteCredito?: true
   }
 
   export type ClientesMinAggregateInputType = {
@@ -3066,6 +3076,8 @@ export namespace Prisma {
     endereco?: true
     fone?: true
     status?: true
+    limiteCredito?: true
+    data_nascimento?: true
     data_criacao?: true
     data_alteracao?: true
   }
@@ -3077,6 +3089,8 @@ export namespace Prisma {
     endereco?: true
     fone?: true
     status?: true
+    limiteCredito?: true
+    data_nascimento?: true
     data_criacao?: true
     data_alteracao?: true
   }
@@ -3088,6 +3102,8 @@ export namespace Prisma {
     endereco?: true
     fone?: true
     status?: true
+    limiteCredito?: true
+    data_nascimento?: true
     data_criacao?: true
     data_alteracao?: true
     _all?: true
@@ -3186,6 +3202,8 @@ export namespace Prisma {
     endereco: string | null
     fone: string | null
     status: boolean
+    limiteCredito: Decimal
+    data_nascimento: Date | null
     data_criacao: Date
     data_alteracao: Date
     _count: ClientesCountAggregateOutputType | null
@@ -3216,6 +3234,8 @@ export namespace Prisma {
     endereco?: boolean
     fone?: boolean
     status?: boolean
+    limiteCredito?: boolean
+    data_nascimento?: boolean
     data_criacao?: boolean
     data_alteracao?: boolean
     Pedidos?: boolean | Clientes$PedidosArgs<ExtArgs>
@@ -3229,6 +3249,8 @@ export namespace Prisma {
     endereco?: boolean
     fone?: boolean
     status?: boolean
+    limiteCredito?: boolean
+    data_nascimento?: boolean
     data_criacao?: boolean
     data_alteracao?: boolean
   }, ExtArgs["result"]["clientes"]>
@@ -3240,6 +3262,8 @@ export namespace Prisma {
     endereco?: boolean
     fone?: boolean
     status?: boolean
+    limiteCredito?: boolean
+    data_nascimento?: boolean
     data_criacao?: boolean
     data_alteracao?: boolean
   }, ExtArgs["result"]["clientes"]>
@@ -3251,11 +3275,13 @@ export namespace Prisma {
     endereco?: boolean
     fone?: boolean
     status?: boolean
+    limiteCredito?: boolean
+    data_nascimento?: boolean
     data_criacao?: boolean
     data_alteracao?: boolean
   }
 
-  export type ClientesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nome" | "apelido" | "endereco" | "fone" | "status" | "data_criacao" | "data_alteracao", ExtArgs["result"]["clientes"]>
+  export type ClientesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nome" | "apelido" | "endereco" | "fone" | "status" | "limiteCredito" | "data_nascimento" | "data_criacao" | "data_alteracao", ExtArgs["result"]["clientes"]>
   export type ClientesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     Pedidos?: boolean | Clientes$PedidosArgs<ExtArgs>
     _count?: boolean | ClientesCountOutputTypeDefaultArgs<ExtArgs>
@@ -3275,6 +3301,8 @@ export namespace Prisma {
       endereco: string | null
       fone: string | null
       status: boolean
+      limiteCredito: Prisma.Decimal
+      data_nascimento: Date | null
       data_criacao: Date
       data_alteracao: Date
     }, ExtArgs["result"]["clientes"]>
@@ -3707,6 +3735,8 @@ export namespace Prisma {
     readonly endereco: FieldRef<"Clientes", 'String'>
     readonly fone: FieldRef<"Clientes", 'String'>
     readonly status: FieldRef<"Clientes", 'Boolean'>
+    readonly limiteCredito: FieldRef<"Clientes", 'Decimal'>
+    readonly data_nascimento: FieldRef<"Clientes", 'DateTime'>
     readonly data_criacao: FieldRef<"Clientes", 'DateTime'>
     readonly data_alteracao: FieldRef<"Clientes", 'DateTime'>
   }
@@ -12351,6 +12381,8 @@ export namespace Prisma {
     endereco: 'endereco',
     fone: 'fone',
     status: 'status',
+    limiteCredito: 'limiteCredito',
+    data_nascimento: 'data_nascimento',
     data_criacao: 'data_criacao',
     data_alteracao: 'data_alteracao'
   };
@@ -12640,6 +12672,8 @@ export namespace Prisma {
     endereco?: StringNullableFilter<"Clientes"> | string | null
     fone?: StringNullableFilter<"Clientes"> | string | null
     status?: BoolFilter<"Clientes"> | boolean
+    limiteCredito?: DecimalFilter<"Clientes"> | Decimal | DecimalJsLike | number | string
+    data_nascimento?: DateTimeNullableFilter<"Clientes"> | Date | string | null
     data_criacao?: DateTimeFilter<"Clientes"> | Date | string
     data_alteracao?: DateTimeFilter<"Clientes"> | Date | string
     Pedidos?: PedidosListRelationFilter
@@ -12652,6 +12686,8 @@ export namespace Prisma {
     endereco?: SortOrderInput | SortOrder
     fone?: SortOrderInput | SortOrder
     status?: SortOrder
+    limiteCredito?: SortOrder
+    data_nascimento?: SortOrderInput | SortOrder
     data_criacao?: SortOrder
     data_alteracao?: SortOrder
     Pedidos?: PedidosOrderByRelationAggregateInput
@@ -12667,6 +12703,8 @@ export namespace Prisma {
     endereco?: StringNullableFilter<"Clientes"> | string | null
     fone?: StringNullableFilter<"Clientes"> | string | null
     status?: BoolFilter<"Clientes"> | boolean
+    limiteCredito?: DecimalFilter<"Clientes"> | Decimal | DecimalJsLike | number | string
+    data_nascimento?: DateTimeNullableFilter<"Clientes"> | Date | string | null
     data_criacao?: DateTimeFilter<"Clientes"> | Date | string
     data_alteracao?: DateTimeFilter<"Clientes"> | Date | string
     Pedidos?: PedidosListRelationFilter
@@ -12679,6 +12717,8 @@ export namespace Prisma {
     endereco?: SortOrderInput | SortOrder
     fone?: SortOrderInput | SortOrder
     status?: SortOrder
+    limiteCredito?: SortOrder
+    data_nascimento?: SortOrderInput | SortOrder
     data_criacao?: SortOrder
     data_alteracao?: SortOrder
     _count?: ClientesCountOrderByAggregateInput
@@ -12698,6 +12738,8 @@ export namespace Prisma {
     endereco?: StringNullableWithAggregatesFilter<"Clientes"> | string | null
     fone?: StringNullableWithAggregatesFilter<"Clientes"> | string | null
     status?: BoolWithAggregatesFilter<"Clientes"> | boolean
+    limiteCredito?: DecimalWithAggregatesFilter<"Clientes"> | Decimal | DecimalJsLike | number | string
+    data_nascimento?: DateTimeNullableWithAggregatesFilter<"Clientes"> | Date | string | null
     data_criacao?: DateTimeWithAggregatesFilter<"Clientes"> | Date | string
     data_alteracao?: DateTimeWithAggregatesFilter<"Clientes"> | Date | string
   }
@@ -13282,6 +13324,8 @@ export namespace Prisma {
     endereco?: string | null
     fone?: string | null
     status?: boolean
+    limiteCredito?: Decimal | DecimalJsLike | number | string
+    data_nascimento?: Date | string | null
     data_criacao?: Date | string
     data_alteracao?: Date | string
     Pedidos?: PedidosCreateNestedManyWithoutClienteInput
@@ -13294,6 +13338,8 @@ export namespace Prisma {
     endereco?: string | null
     fone?: string | null
     status?: boolean
+    limiteCredito?: Decimal | DecimalJsLike | number | string
+    data_nascimento?: Date | string | null
     data_criacao?: Date | string
     data_alteracao?: Date | string
     Pedidos?: PedidosUncheckedCreateNestedManyWithoutClienteInput
@@ -13305,6 +13351,8 @@ export namespace Prisma {
     endereco?: NullableStringFieldUpdateOperationsInput | string | null
     fone?: NullableStringFieldUpdateOperationsInput | string | null
     status?: BoolFieldUpdateOperationsInput | boolean
+    limiteCredito?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    data_nascimento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
     data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
     Pedidos?: PedidosUpdateManyWithoutClienteNestedInput
@@ -13317,6 +13365,8 @@ export namespace Prisma {
     endereco?: NullableStringFieldUpdateOperationsInput | string | null
     fone?: NullableStringFieldUpdateOperationsInput | string | null
     status?: BoolFieldUpdateOperationsInput | boolean
+    limiteCredito?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    data_nascimento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
     data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
     Pedidos?: PedidosUncheckedUpdateManyWithoutClienteNestedInput
@@ -13329,6 +13379,8 @@ export namespace Prisma {
     endereco?: string | null
     fone?: string | null
     status?: boolean
+    limiteCredito?: Decimal | DecimalJsLike | number | string
+    data_nascimento?: Date | string | null
     data_criacao?: Date | string
     data_alteracao?: Date | string
   }
@@ -13339,6 +13391,8 @@ export namespace Prisma {
     endereco?: NullableStringFieldUpdateOperationsInput | string | null
     fone?: NullableStringFieldUpdateOperationsInput | string | null
     status?: BoolFieldUpdateOperationsInput | boolean
+    limiteCredito?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    data_nascimento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
     data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -13350,6 +13404,8 @@ export namespace Prisma {
     endereco?: NullableStringFieldUpdateOperationsInput | string | null
     fone?: NullableStringFieldUpdateOperationsInput | string | null
     status?: BoolFieldUpdateOperationsInput | boolean
+    limiteCredito?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    data_nascimento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
     data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -14006,6 +14062,28 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
+  export type DecimalFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+  }
+
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -14018,12 +14096,15 @@ export namespace Prisma {
     endereco?: SortOrder
     fone?: SortOrder
     status?: SortOrder
+    limiteCredito?: SortOrder
+    data_nascimento?: SortOrder
     data_criacao?: SortOrder
     data_alteracao?: SortOrder
   }
 
   export type ClientesAvgOrderByAggregateInput = {
     id?: SortOrder
+    limiteCredito?: SortOrder
   }
 
   export type ClientesMaxOrderByAggregateInput = {
@@ -14033,6 +14114,8 @@ export namespace Prisma {
     endereco?: SortOrder
     fone?: SortOrder
     status?: SortOrder
+    limiteCredito?: SortOrder
+    data_nascimento?: SortOrder
     data_criacao?: SortOrder
     data_alteracao?: SortOrder
   }
@@ -14044,12 +14127,15 @@ export namespace Prisma {
     endereco?: SortOrder
     fone?: SortOrder
     status?: SortOrder
+    limiteCredito?: SortOrder
+    data_nascimento?: SortOrder
     data_criacao?: SortOrder
     data_alteracao?: SortOrder
   }
 
   export type ClientesSumOrderByAggregateInput = {
     id?: SortOrder
+    limiteCredito?: SortOrder
   }
 
   export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -14070,6 +14156,36 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
+  export type DecimalWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedDecimalFilter<$PrismaModel>
+    _sum?: NestedDecimalFilter<$PrismaModel>
+    _min?: NestedDecimalFilter<$PrismaModel>
+    _max?: NestedDecimalFilter<$PrismaModel>
+  }
+
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
   export type IntNullableFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
@@ -14079,17 +14195,6 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
-  }
-
-  export type DecimalFilter<$PrismaModel = never> = {
-    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
   }
 
   export type CategoriasNullableScalarRelationFilter = {
@@ -14179,22 +14284,6 @@ export namespace Prisma {
     _sum?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedIntNullableFilter<$PrismaModel>
     _max?: NestedIntNullableFilter<$PrismaModel>
-  }
-
-  export type DecimalWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedDecimalFilter<$PrismaModel>
-    _sum?: NestedDecimalFilter<$PrismaModel>
-    _min?: NestedDecimalFilter<$PrismaModel>
-    _max?: NestedDecimalFilter<$PrismaModel>
   }
 
   export type ProdutosListRelationFilter = {
@@ -14605,6 +14694,18 @@ export namespace Prisma {
     set?: string | null
   }
 
+  export type DecimalFieldUpdateOperationsInput = {
+    set?: Decimal | DecimalJsLike | number | string
+    increment?: Decimal | DecimalJsLike | number | string
+    decrement?: Decimal | DecimalJsLike | number | string
+    multiply?: Decimal | DecimalJsLike | number | string
+    divide?: Decimal | DecimalJsLike | number | string
+  }
+
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
+  }
+
   export type PedidosUpdateManyWithoutClienteNestedInput = {
     create?: XOR<PedidosCreateWithoutClienteInput, PedidosUncheckedCreateWithoutClienteInput> | PedidosCreateWithoutClienteInput[] | PedidosUncheckedCreateWithoutClienteInput[]
     connectOrCreate?: PedidosCreateOrConnectWithoutClienteInput | PedidosCreateOrConnectWithoutClienteInput[]
@@ -14665,14 +14766,6 @@ export namespace Prisma {
     connectOrCreate?: GrupoComplementosCreateOrConnectWithoutProdutosInput | GrupoComplementosCreateOrConnectWithoutProdutosInput[]
     createMany?: GrupoComplementosCreateManyProdutosInputEnvelope
     connect?: GrupoComplementosWhereUniqueInput | GrupoComplementosWhereUniqueInput[]
-  }
-
-  export type DecimalFieldUpdateOperationsInput = {
-    set?: Decimal | DecimalJsLike | number | string
-    increment?: Decimal | DecimalJsLike | number | string
-    decrement?: Decimal | DecimalJsLike | number | string
-    multiply?: Decimal | DecimalJsLike | number | string
-    divide?: Decimal | DecimalJsLike | number | string
   }
 
   export type CategoriasUpdateOneWithoutProdutosNestedInput = {
@@ -15196,6 +15289,28 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
+  export type NestedDecimalFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+  }
+
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -15224,7 +15339,7 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
-  export type NestedDecimalFilter<$PrismaModel = never> = {
+  export type NestedDecimalWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
     notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
@@ -15232,7 +15347,26 @@ export namespace Prisma {
     lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedDecimalFilter<$PrismaModel>
+    _sum?: NestedDecimalFilter<$PrismaModel>
+    _min?: NestedDecimalFilter<$PrismaModel>
+    _max?: NestedDecimalFilter<$PrismaModel>
+  }
+
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -15260,22 +15394,6 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
-  }
-
-  export type NestedDecimalWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedDecimalFilter<$PrismaModel>
-    _sum?: NestedDecimalFilter<$PrismaModel>
-    _min?: NestedDecimalFilter<$PrismaModel>
-    _max?: NestedDecimalFilter<$PrismaModel>
   }
 
   export type PedidosCreateWithoutUsuarioInput = {
@@ -15860,6 +15978,8 @@ export namespace Prisma {
     endereco?: string | null
     fone?: string | null
     status?: boolean
+    limiteCredito?: Decimal | DecimalJsLike | number | string
+    data_nascimento?: Date | string | null
     data_criacao?: Date | string
     data_alteracao?: Date | string
   }
@@ -15871,6 +15991,8 @@ export namespace Prisma {
     endereco?: string | null
     fone?: string | null
     status?: boolean
+    limiteCredito?: Decimal | DecimalJsLike | number | string
+    data_nascimento?: Date | string | null
     data_criacao?: Date | string
     data_alteracao?: Date | string
   }
@@ -15948,6 +16070,8 @@ export namespace Prisma {
     endereco?: NullableStringFieldUpdateOperationsInput | string | null
     fone?: NullableStringFieldUpdateOperationsInput | string | null
     status?: BoolFieldUpdateOperationsInput | boolean
+    limiteCredito?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    data_nascimento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
     data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -15959,6 +16083,8 @@ export namespace Prisma {
     endereco?: NullableStringFieldUpdateOperationsInput | string | null
     fone?: NullableStringFieldUpdateOperationsInput | string | null
     status?: BoolFieldUpdateOperationsInput | boolean
+    limiteCredito?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    data_nascimento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
     data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
   }

@@ -5,8 +5,7 @@ import ProdutosPedido from "../../pedido_de_venda/components/produtos_pedido";
 import { useFetchOrderById } from "@/hooks/sales/useOrders";
 import LoadingSpinner from "@/components/loading-spinner";
 import ResumoTotaisPedido from "../../pedido_de_venda/components/resumo_totais_pedido";
-import AcaoSalvarPedido from "../../pedido_de_venda/components/acao_salvar_pedido";
-import { usePedidoStore } from "@/stores/usePedidoStore";
+import AcaoSalvarPedido from "../../pdv/components/acao_salvar_pedido";
 
 
 const EditOrder = () => {
@@ -20,30 +19,13 @@ const EditOrder = () => {
 
 
 
-  const {} = usePedidoStore();
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   if(isLoading) {
     return (
       <LoadingSpinner fullScreen={true} size={120}/>
     )
   }
+
 
   if(isError) {
     return (
@@ -53,9 +35,12 @@ const EditOrder = () => {
     )
   }
 
+
+
   if (!order) {
     return <p>Pedido não encontrado</p>;
   }
+
 
 
   return (
@@ -83,15 +68,14 @@ const EditOrder = () => {
 
       <ProdutosPedido/>
 
-          <button 
-            onClick={() => {
- 
-              navigate('/vendas/pedido-de-venda')
-            }}
-            className='md:hidden w-full bg-fuchsia-200 rounded py-2 text-lg text-fuchsia-700 font-medium border border-fuchsia-400 mb-20 cursor-pointer'
-          >
-            Adicionar mais produtos
-          </button>
+      <button 
+        onClick={() => {
+          navigate('/vendas/pdv');
+        }}
+        className='md:hidden w-full bg-fuchsia-200 rounded py-2 text-lg text-fuchsia-700 font-medium border border-fuchsia-400 mb-20 cursor-pointer'
+      >
+        Adicionar mais produtos
+      </button>
   
 
       {/* Resumo totais pedido */}

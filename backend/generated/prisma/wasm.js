@@ -138,6 +138,8 @@ exports.Prisma.ClientesScalarFieldEnum = {
   endereco: 'endereco',
   fone: 'fone',
   status: 'status',
+  limiteCredito: 'limiteCredito',
+  data_nascimento: 'data_nascimento',
   data_criacao: 'data_criacao',
   data_alteracao: 'data_alteracao'
 };

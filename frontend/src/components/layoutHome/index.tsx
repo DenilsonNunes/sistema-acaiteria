@@ -24,7 +24,7 @@ import { Link, Outlet, useLocation } from "react-router-dom"
 
 const LayoutHome = () => {
 
-  const {cart} =usePedidoStore();
+  const {cart, pedidoEmEdicao} =usePedidoStore();
 
   const location = useLocation();
   const pathnames = location.pathname.split('/').filter((rota) => rota); // Divide a rota e remove entradas vazias
@@ -86,17 +86,22 @@ const LayoutHome = () => {
 
               </div>
 
-              <Link className="relative" to='/vendas/carrinho'>
+              {!pedidoEmEdicao && (
+                
+                <Link className="relative" to='/vendas/carrinho'>
 
-                <ShoppingCart size={24}/>
+                  <ShoppingCart size={24}/>
 
-                {cart.itens.length > 0 && (
-                    <span className="absolute -right-4 -top-3 bg-fuchsia-600 rounded-full w-6 h-6 flex items-center justify-center text-white text-xs">
-                      {cart.itens.length}
-                    </span>
-                  ) 
-                }
-              </Link>
+                  { cart.itens.length > 0 && (
+                      <span className="absolute -right-4 -top-3 bg-fuchsia-600 rounded-full w-6 h-6 flex items-center justify-center text-white text-xs">
+                        {cart.itens.length}
+                      </span>
+                    ) 
+                  }
+                </Link>
+
+              )}
+
 
             </div>
           </header>

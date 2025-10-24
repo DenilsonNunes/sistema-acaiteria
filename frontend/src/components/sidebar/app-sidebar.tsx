@@ -64,6 +64,10 @@ const data = {
           url: "/financeiro/home",
         },
         {
+          title: "Frente de caixa",
+          url: "/financeiro/frente-de-caixa",
+        },
+        {
           title: "Contas a receber",
           url: "/finceiro/contas-a-receber",
         },
@@ -108,7 +112,7 @@ const data = {
       items: [
         {
           title: "Clientes",
-          url: "/clientes",
+          url: "/clientes/home",
         },
         {
           title: "Explorer",

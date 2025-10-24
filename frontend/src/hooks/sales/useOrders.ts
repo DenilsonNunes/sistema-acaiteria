@@ -10,17 +10,17 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 
 
-// Hook para listar todos os pedidos
-export const useFetchAllOrders = () => {
-
+// Hook para listar pedidos (com ou sem filtros)
+export const useFetchAllOrders = (filters?: { status?: string }) => {
   return useQuery<Orders[]>({
-    queryKey: ["orders"],
+    queryKey: ["orders", filters], // chave muda se o filtro mudar
     queryFn: async () => {
-      const response = await api.get("/pedidos");
+      const response = await api.get("/pedidos", {
+        params: filters, // envia os filtros como query params
+      });
       return response.data;
     },
   });
-
 };
 
 
@@ -37,6 +37,8 @@ export const useFetchOrderById = (id: number) => {
   });
 
 };
+
+
 
 
 export const useCreateOrder = () => {
@@ -86,6 +88,23 @@ export const useUpdateOrder = () => {
     },
   });
 };
+
+
+
+export const useChangeKitchenOrderStatus = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({ idOrder, status }: { idOrder: number; status: number }) => {
+      const response = await api.patch(`/pedidos/${idOrder}/status-pedido-cozinha`, { status });
+      return response.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["orders"] });
+    },
+  });
+};
+
 
 
 

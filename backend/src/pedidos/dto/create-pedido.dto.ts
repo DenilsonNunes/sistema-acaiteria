@@ -12,7 +12,7 @@ class ComplementosProdutoPedido {
   precoUnitario: number;
 }
 
-class ItensPedido {
+export class ItensPedido {
   @IsNumber({}, { message: 'O código do produto deve ser um numero' })
   idProduto: number;
 

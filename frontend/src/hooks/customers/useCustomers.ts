@@ -1,8 +1,9 @@
 import api from "@/api/axios";
+import type { CreateCustomerSchema, UpdateCustomerSchema } from "@/pages/clientes/schemas/customer.schema";
 import type { Customer } from "@/types/customer/customer";
-import type { CreateSalesOrder } from "@/types/sales/sales_order/salesOrder";
+
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { toast } from "sonner";
+
 
 
 
@@ -21,59 +22,84 @@ export function useFetchCustomersByNameOrSurname(term: string, enabled: boolean)
       refetchOnWindowFocus: false,
   });
 }
+
+// Hook para buscar pedido por ID
+export const useFetchCustomerById = (id: number) => {
+
+  return useQuery<Customer>({
+    queryKey: ["customers", id],
+    queryFn: async () => {
+      const response = await api.get(`/clientes/${id}`);
+      return response.data;
+    },
+    enabled: !!id, // só executa se o id for válido
+  });
+
+};
     
+export const useFetchCustomer = (limit: number) => {
+  return useQuery<Customer[]>({
+    queryKey: ["customers", limit], // refaz a query quando o limit mudar
+    queryFn: async () => {
+      const response = await api.get("/clientes", {
+        params: { limit }, // só envia o limite
+      });
+      return response.data;
+    },
+  });
+};
 
-
-
-//Busca as categorias dos produtos
-export const useCustomers = () => {
+export const useCreateCustomer = () => {
 
   const queryClient = useQueryClient();
 
- 
+  return useMutation({
+    mutationFn: async (data: CreateCustomerSchema) => {
+      const response = await api.post("/clientes", data);
+      return response.data;
+    },
+    onSuccess: () => {
+      // invalida cache para atualizar lista de clientes
+      queryClient.invalidateQueries({ queryKey: ["customers"] });
+    },
+  });
+
 
   
-  const fetchCustomers = useQuery({
-    queryKey: ['customers'],
-    queryFn: async () => {
-      const response = await api.get('/clientes');
+};
+export const useUpdateCustomer = (id: number) => {
+
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (data: UpdateCustomerSchema) => {
+      const response = await api.patch(`/clientes${id}`, data);
       return response.data;
+    },
+    onSuccess: () => {
+      // invalida cache para atualizar lista de clientes
+      queryClient.invalidateQueries({ queryKey: ["customers"] });
     },
   });
 
 
+  
+};
 
+export const useDeleteCustomer = () => {
 
+  const queryClient = useQueryClient();
 
-  // Cria cliente
-  const createCustomer = useMutation({
-    mutationFn: async (data: CreateSalesOrder) => {
-
-      const response = await api.post('/clientes', data);
+  return useMutation({
+    mutationFn: async (id: number) => {
+      const response = await api.delete(`/clientes/${id}`);
       return response.data;
-
     },
-    onSuccess: (data) => {
-
-    toast.success('Pedido criado com sucesso!', {
-      description: `Nº do pedido: `,
-      richColors: true,
-      duration: 5000,
-      position: 'top-right',
-    });
-
-    queryClient.invalidateQueries({ queryKey: ['customers'] });
-      
-    }
+    onSuccess: () => {
+      // invalida cache para atualizar lista de clientes
+      queryClient.invalidateQueries({ queryKey: ["customers"] });
+    },
   });
 
-
-  return {
-    fetchCustomers,
-    createCustomer,
-    fetchCustomersByIdOrSurname
-  }
-
- 
-}
-
+  
+};

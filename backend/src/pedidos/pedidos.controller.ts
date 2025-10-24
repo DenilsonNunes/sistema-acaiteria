@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe, Query } from '@nestjs/common';
 import { PedidosService } from './pedidos.service';
 import { CreatePedidoDto } from './dto/create-pedido.dto';
 import { UpdatePedidoDto } from './dto/update-pedido.dto';
@@ -15,8 +15,8 @@ export class PedidosController {
   }
 
   @Get()
-  findAll() {
-    return this.pedidosService.findAll();
+  findAll(@Query('status') status?: string) {
+    return this.pedidosService.findAll({ status });
   }
 
   @Get(':id')
@@ -32,5 +32,10 @@ export class PedidosController {
   @Delete(':id')
   remove(@Param('id', ParseIntPipe) id: number) {
     return this.pedidosService.remove(id);
+  }
+
+  @Patch(':id/status-pedido-cozinha')
+  updateKitchenOrderStatus(@Param('id', ParseIntPipe) id: number, @Body('status') status: number, @PayloadParam() payloadParam: JwtPayload) {
+    return this.pedidosService.updateKitchenOrderStatus(id, status, payloadParam);
   }
 }

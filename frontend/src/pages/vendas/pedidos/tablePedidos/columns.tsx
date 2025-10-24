@@ -14,7 +14,7 @@ import { DeleteButton } from "@/components/button/delete-button"
 import { EditButton } from "@/components/button/edit-button"
 import { DuplicateButton } from "@/components/button/duplicate-button"
 import { PedidoLocalConsumo, PedidoStatus } from "@/types/sales/sales_order/salesOrder"
-import { formatDateTime } from "@/utils/formateDateTime"
+import { formatDateTime } from "@/utils/formateDateAndTime"
 
 
 

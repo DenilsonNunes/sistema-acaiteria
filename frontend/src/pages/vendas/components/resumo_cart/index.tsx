@@ -4,23 +4,23 @@
 import AcoesVendas from '@/components/acoesFooterMobile/acoes-vendas'
 import { ArrowLeft } from 'lucide-react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { usePedidoStore } from '@/stores/usePedidoStore'
-
-import ResumoTotaisPedido from '../resumo_totais_pedido'
-
-
-
-import ProdutosCart from '../produtos_cart'
-import AcaoSalvarPedido from '../acao_salvar_pedido'
 
 
 
 
+import ProdutosCart from '../../pedido_de_venda/components/produtos_cart'
+import AcaoSalvarPedido from '../../pdv/components/acao_salvar_pedido'
+import { useCartStore } from '@/stores/useCartStore'
+import ResumoTotaisCart from '../../pedido_de_venda/components/resumo_totais_pedido'
 
-const ResumoPedido = () => {
+
+
+
+
+const ResumoCart = () => {
 
   const navigate = useNavigate();
-  const {cart } = usePedidoStore();
+  const { cart } = useCartStore();
 
 
 
@@ -65,7 +65,7 @@ const ResumoPedido = () => {
 
           {/* Resumo totais */}
           <div className='mb-6'>
-            <ResumoTotaisPedido/>
+            <ResumoTotaisCart/>
           </div>
 
           <button 
@@ -96,4 +96,4 @@ const ResumoPedido = () => {
 
 
 
-export default ResumoPedido
+export default ResumoCart

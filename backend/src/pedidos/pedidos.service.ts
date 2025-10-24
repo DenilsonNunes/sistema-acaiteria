@@ -32,33 +32,8 @@ export class PedidosService {
         throw new HttpException('Cliente não existe', HttpStatus.NOT_FOUND);
       }
 
-      if (createPedidoDto.itensPedido) {
-        // Obtem os Ids dos produtos que veio na requisição
-        const idsProduct = createPedidoDto.itensPedido.map((item) => item.idProduto);
-
-        // Realiza consulta, e retorna somente os produtos que estão cadastrados
-        const existingProducts = await this.prisma.produtos.findMany({
-          where: {
-            id: {
-              in: idsProduct, // idsProdutos é um array de IDs de produtos
-            },
-          },
-          select: {
-            id: true,
-          },
-        });
-
-        // Obtem os Ids dos produtos que foram encontrados
-        const idsExistingProducts = existingProducts.map((produto) => produto.id);
-
-        // Verifica se há produtos que não existem
-        const productsNotFound = idsProduct.filter((id) => !idsExistingProducts.includes(id));
-
-        // Retorna caso houver produtos que não foram encontrados
-        if (productsNotFound.length > 0) {
-          throw new HttpException(`Os seguintes produtos não foram encontrados: ${productsNotFound.join(', ')}`, HttpStatus.BAD_REQUEST);
-        }
-      }
+      // Valida se existe os produtos estão cadastrados
+      await this.validateOrderProducts(createPedidoDto.itensPedido);
 
       // Verificar se existem complementos nos produtos do pedido
       if (createPedidoDto.itensPedido) {
@@ -132,7 +107,13 @@ export class PedidosService {
         },
       });
 
-      return order;
+      // Realiza impressão do pedido
+      //const print = await this.printer.printOrder(order);
+
+      return {
+        success: true,
+        message: 'Pedido criado com sucesso',
+      };
     } catch (err) {
       // Verifica se o erro é uma HttpException
       if (err instanceof HttpException) {
@@ -142,8 +123,11 @@ export class PedidosService {
     }
   }
 
-  async findAll() {
+  async findAll(filters: { status?: string }) {
     return await this.prisma.pedidos.findMany({
+      where: {
+        ...(filters.status && { status: Number(filters.status) }),
+      },
       include: {
         itensPedido: {
           include: {
@@ -223,8 +207,14 @@ export class PedidosService {
       });
 
       if (!findOrder) {
-        throw new HttpException('O Pedido não foi encontrado', HttpStatus.NOT_FOUND);
+        throw new HttpException('O Pedido não foi encontrado.', HttpStatus.NOT_FOUND);
       }
+
+      if (findOrder.status !== 1) {
+        throw new HttpException('Pedido com esse status não pode ser alterado.', HttpStatus.UNAUTHORIZED);
+      }
+
+      await this.validateOrderProducts(updatePedidoDto.itensPedido);
 
       const updateOrder = this.prisma.$transaction(async (tx) => {
         // Deletar todos itens do pedido
@@ -247,6 +237,7 @@ export class PedidosService {
             idUsuario: payloadParam.user,
             observacao: updatePedidoDto.observacao,
             valorTotal: updatePedidoDto.valorTotal,
+            localConsumo: updatePedidoDto.localConsumo,
             data_alteracao: getLocalDate(),
             itensPedido: {
               create: itens.map((item) => ({
@@ -294,6 +285,11 @@ export class PedidosService {
       if (!findOrder) {
         throw new HttpException(`O Pedido ${id} não foi encontrado`, HttpStatus.NOT_FOUND);
       }
+
+      if (findOrder.status !== 1) {
+        throw new HttpException('Pedido com esse status não pode ser deletado.', HttpStatus.UNAUTHORIZED);
+      }
+
       //Deleta o pedido caso exista
       await this.prisma.pedidos.delete({
         where: {
@@ -307,6 +303,60 @@ export class PedidosService {
         throw err; // Propaga a HttpException original
       }
       throw new HttpException('Houve um erro ao deletar pedido', HttpStatus.INTERNAL_SERVER_ERROR, { cause: err });
+    }
+  }
+
+  async updateKitchenOrderStatus(id: number, status: number, payloadParam: JwtPayload) {
+    try {
+      const findOrder = await this.prisma.pedidos.findUnique({
+        where: {
+          id: id,
+        },
+      });
+
+      if (!findOrder) {
+        throw new HttpException('O Pedido não foi encontrado.', HttpStatus.NOT_FOUND);
+      }
+
+      const updateOrder = await this.prisma.pedidos.update({
+        where: {
+          id: id,
+        },
+        data: {
+          status,
+          idUsuario: payloadParam.user,
+          data_alteracao: getLocalDate(),
+        },
+      });
+
+      return updateOrder;
+    } catch (err) {
+      // Verifica se o erro é uma HttpException
+      if (err instanceof HttpException) {
+        throw err; // Propaga a HttpException original
+      }
+      throw new HttpException('Houve um erro ao alterar o pedido.', HttpStatus.INTERNAL_SERVER_ERROR, { cause: err });
+    }
+  }
+
+  private async validateOrderProducts(itensPedido: { idProduto: number }[]) {
+    if (!itensPedido || itensPedido.length === 0) return;
+
+    const idsProduct = itensPedido.map((item) => item.idProduto);
+
+    const existingProducts = await this.prisma.produtos.findMany({
+      where: {
+        id: { in: idsProduct },
+      },
+      select: { id: true },
+    });
+
+    const idsExistingProducts = existingProducts.map((produto) => produto.id);
+
+    const productsNotFound = idsProduct.filter((id) => !idsExistingProducts.includes(id));
+
+    if (productsNotFound.length > 0) {
+      throw new HttpException(`Os seguintes produtos não foram encontrados: ${productsNotFound.join(', ')}`, HttpStatus.BAD_REQUEST);
     }
   }
 }

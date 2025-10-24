@@ -33,7 +33,7 @@ interface PedidoState {
   aumentarQtdComplementoItem: (item: ComplementoItemCart) => void;
   diminuirQtdComplementoItem: (item: ComplementoItemCart) => void;
 
-  selecionarItemParaEditar: (item: ItemCart, idOrder: number) => void;
+  selecionarItemParaEditar: (item: ItemCart) => void;
   salvarEdicaoItem: () => void;
 
   carregarPedidoExistente: (order: Orders) => void;
@@ -251,18 +251,18 @@ export const usePedidoStore = create(
             valorTotalCart,
           },
         });
+        
       },
-
-    
     
       limparCart: () =>
         set({
           cart: {
             valorTotalCart: 0,
             itens: [],
-            localConsumo: 1
+            localConsumo: 1,
           },
-          complementosItem: [],
+          pedidoEmEdicao: null,
+          complementosItem: []
         }),
           
       aumentarQtdComplementoItem: (newAddOn: ComplementoItemCart) => {
@@ -366,14 +366,14 @@ export const usePedidoStore = create(
           return acc + (item.precoUnitario + totalComplementos) * (item.quantidade || 1);
         }, 0);
 
-        set({
+
+        set({  
           cart: {
             ...cart,
             itens: novosItens,
             valorTotalCart: novoValorTotalCart,
           },
           itemEditando: undefined,
-          pedidoEmEdicao: null,
           complementosItem: [],
         });
       },
@@ -385,11 +385,10 @@ export const usePedidoStore = create(
         });
       },
 
-
       // NOVO: carregar pedido existente do backend
       carregarPedidoExistente: (order: Orders) => {
 
-        console.log('Como chega no store ', order.idCliente);
+        localStorage.removeItem("@CartStorage");
 
         const itens = order.itensPedido.map((i) => {
           const precoComplementos = i.complementosItem.reduce(
@@ -431,11 +430,10 @@ export const usePedidoStore = create(
 
 
       },
-
     
     }),
     {
-      name: '@CartStorage'
+      name: '@OrderStorage'
     }
 
   )
