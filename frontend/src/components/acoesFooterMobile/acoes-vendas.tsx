@@ -38,7 +38,7 @@ const AcoesVendas = () => {
         </div>
 
         <div className="flex flex-col items-center transform -translate-y-6">
-          <Link to='/vendas/pedido-de-venda'>
+          <Link to='/vendas/pdv'>
             <button className="rounded-full h-16 w-16 flex items-center justify-center bg-fuchsia-700 shadow-lg border-4 border-fuchsia-200 text-white mb-2">
               <Plus size={32} />
             </button>   

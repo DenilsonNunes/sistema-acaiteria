@@ -34,6 +34,8 @@ export const useFetchOrderById = (id: number) => {
       return response.data;
     },
     enabled: !!id, // só executa se o id for válido
+    retry: false,    // desativa tentativas automáticas
+    refetchOnWindowFocus: false, // evita recarregar ao focar a aba
   });
 
 };
@@ -74,7 +76,7 @@ export const useDeleteSalesOrder = () => {
   });
 };
 
-
+// Editar pedido
 export const useUpdateOrder = () => {
   const queryClient = useQueryClient();
 

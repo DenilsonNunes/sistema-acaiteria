@@ -1,10 +1,20 @@
 import { useCartStore } from "@/stores/useCartStore";
 import { formatarMoedaBRL } from "@/utils/formataMoedaBRL";
 
+
+
+
+
 const ResumoTotaisCart = () => {
 
 
+
+
   const { cart } = useCartStore();
+
+
+
+
 
   return (
    

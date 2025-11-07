@@ -11,15 +11,15 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 
 
-export function useFetchCustomersByNameOrSurname(term: string, enabled: boolean) {
+export function useFetchCustomersByNameOrSurname(term: string) { // enabled: boolean
   return useQuery<Customer[]>({
     queryKey: ['customers', term],
     queryFn: async () => {
       const response = await api.get(`/clientes/search?term=${encodeURIComponent(term)}`);
       return response.data;
     },
-    enabled: !!term && enabled,
-      refetchOnWindowFocus: false,
+    enabled: !!term, //&& enabled,
+    refetchOnWindowFocus: false,
   });
 }
 

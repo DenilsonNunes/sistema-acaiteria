@@ -83,6 +83,7 @@ export class ClientesService {
             },
           },
         ],
+        status: true, // Somente cliente ativo
       },
       orderBy: {
         nome: 'asc',

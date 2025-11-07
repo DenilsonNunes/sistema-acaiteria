@@ -360,6 +360,7 @@ const ProductFormStep = () => {
                       <div className="relative w-full max-w-32">
                         <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground text-sm">R$</span>
                         <Input
+                          inputMode="numeric"
                           type="number"
                           placeholder="0,00"
                           className="pl-10"

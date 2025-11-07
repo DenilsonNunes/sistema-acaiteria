@@ -15,6 +15,7 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'node:path';
 import { ComplementosModule } from 'src/produtos/complementos/complementos.module';
 import { PrinterModule } from 'src/printer/printer.module';
+import { TefModule } from 'src/tef/tef.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { PrinterModule } from 'src/printer/printer.module';
     PedidosModule,
     AuthModule,
     PrinterModule,
+    TefModule,
     // Caminho de arquivo staticos do meu projeto, como images.
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', '..', 'files', 'products', 'images'), // caminho que vai salvar as imagens.

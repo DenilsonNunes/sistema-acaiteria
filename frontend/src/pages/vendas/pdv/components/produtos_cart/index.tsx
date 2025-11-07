@@ -1,8 +1,10 @@
 import { EditButton } from "@/components/button/edit-button"
 import { Separator } from "@/components/ui/separator"
-import { usePedidoStore } from "@/stores/usePedidoStore"
+import { useCartStore } from "@/stores/useCartStore"
+import type { ItemCart } from "@/types/sales/cart/cart"
 import { formatarMoedaBRL } from "@/utils/formataMoedaBRL"
 import { Minus, Plus, Trash2 } from "lucide-react"
+import { useNavigate } from "react-router-dom"
 
 
 
@@ -13,12 +15,18 @@ import { Minus, Plus, Trash2 } from "lucide-react"
 
 const ProdutosCart = () => {
 
+  const navigate = useNavigate();
 
-  const {cart, adicionarItem, diminuirQtdItem} = usePedidoStore();
+
+  const { cart, diminuirQtdItemCart, adicionarItemCart, selecionarItemParaEditarCart, removerItemCart } = useCartStore();
   
 
 
-
+  const handleEditarItemCart = (item: ItemCart) => {
+    selecionarItemParaEditarCart(item);
+    // Redireciona para a página de produto
+    navigate(`/vendas/pdv/produto/${item.id}/selecao-acompanhamentos`);
+  }
 
 
   return (
@@ -85,9 +93,12 @@ const ProdutosCart = () => {
             {/* Ações */}
             <div>
               <button className='text-red-500 cursor-pointer'>
-                <Trash2 size={26} />
+                <Trash2 size={26} onClick={()=> removerItemCart(item.uuid)}/>
               </button>
-              <EditButton size={26} />
+              <EditButton 
+                size={26} 
+                onClick={() => handleEditarItemCart(item)}
+              />
             </div>
           </div>
 
@@ -104,7 +115,7 @@ const ProdutosCart = () => {
               <div className="w-28 flex items-center justify-between">
                 <button
                   type="button"
-                  onClick={() => diminuirQtdItem(item)}
+                  onClick={() => diminuirQtdItemCart(item)}
                   className="font-bold cursor-pointer text-fuchsia-700"
                 >
                   <Minus size={24} strokeWidth={3} />
@@ -112,7 +123,7 @@ const ProdutosCart = () => {
                 <span className="w-full font-medium text-center">{item.quantidade}</span>
                 <button
                   type="button"
-                  onClick={() => adicionarItem(item)}
+                  onClick={() => adicionarItemCart(item)}
                   className="font-bold cursor-pointer text-fuchsia-700"
                 >
                   <Plus size={24} strokeWidth={3} />

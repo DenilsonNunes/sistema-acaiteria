@@ -3,6 +3,7 @@ import type { Customer } from "@/types/customer/customer";
 import type { Cart, ComplementoItemCart, ItemCart } from "@/types/sales/cart/cart";
 import type { Orders } from "@/types/sales/orders/orders";
 
+import { v4 as uuidv4 } from "uuid";
 
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
@@ -14,24 +15,26 @@ import { persist } from "zustand/middleware";
 
 
 interface PedidoState {
-  cart: Cart;
-  complementosItem: ComplementoItemCart[];
+  orderEdit: Cart;
+  complementosItemPedido: ComplementoItemCart[];
 
-  itemEditando?: ItemCart;
-  pedidoEmEdicao: number | null;
+  itemPedidoEditando?: ItemCart;
+  idPedidoEmEdicao: number | null;
   
   
-  adicionaLocalConsumo: (localConsumo: number) => void;
-  identificarCliente: (cliente: Pick<Customer, 'id' | 'nome'>) => void;
-  removerCliente: () => void;
+  adicionaLocalConsumoPedido: (localConsumo: number) => void;
+  identificarClientePedido: (cliente: Pick<Customer, 'id' | 'nome'>) => void;
+  removerClientePedido: () => void;
 
-  adicionarItem: (item: ItemCart) => void;
-  diminuirQtdItem: (item: ItemCart) => void;
+  adicionarItemPedido: (item: ItemCart) => void;
+  diminuirQtdItemPedido: (item: ItemCart) => void;
 
   limparCart: () => void;
+  removerItemPedido: (item: string) => void;
 
-  aumentarQtdComplementoItem: (item: ComplementoItemCart) => void;
-  diminuirQtdComplementoItem: (item: ComplementoItemCart) => void;
+
+  aumentarQtdComplementoItemPedido: (item: ComplementoItemCart) => void;
+  diminuirQtdComplementoItemPedido: (item: ComplementoItemCart) => void;
 
   selecionarItemParaEditar: (item: ItemCart) => void;
   salvarEdicaoItem: () => void;
@@ -52,51 +55,51 @@ export const usePedidoStore = create(
 
     (set, get) => ({
 
-      cart: { 
+      orderEdit: { 
         cartItemId: '',
         localConsumo: 1,
         valorTotalCart: 0,
         itens: [],
       },
 
-      complementosItem: [],
-      itemEditando: undefined,
-      pedidoEmEdicao: null,
+      complementosItemPedido: [],
+      itemPedidoEditando: undefined,
+      idPedidoEmEdicao: null,
 
 
-      adicionaLocalConsumo: (localConsumo: number) => {
+      adicionaLocalConsumoPedido: (localConsumo: number) => {
         set((state) => ({
-          cart: {
-            ...state.cart,
+          orderEdit: {
+            ...state.orderEdit,
             localConsumo,
           },
         }));
       },
         
-      identificarCliente: ({ id, nome }) => {
-        const { cart } = get();
+      identificarClientePedido: ({ id, nome }) => {
+        const { orderEdit } = get();
         set({
-          cart: {
-            ...cart,
+          orderEdit: {
+            ...orderEdit,
             idCliente: id,
             nomeCliente: nome,
           }
         });
       },
 
-      removerCliente: () => {
-        const { cart } = get();
+      removerClientePedido: () => {
+        const { orderEdit } = get();
         set({
-          cart: {
-            ...cart,
+          orderEdit: {
+            ...orderEdit,
             idCliente: undefined,
             nomeCliente: undefined,
           }
         });
       },
           
-      adicionarItem: (newItem: ItemCart) => {
-        const { cart } = get();
+      adicionarItemPedido: (newItem: ItemCart) => {
+        const { orderEdit } = get();
 
         // Função para verificar se dois itens são "iguais"
         const isSameCartItem = (item1: ItemCart, item2: ItemCart) => {
@@ -131,7 +134,7 @@ export const usePedidoStore = create(
 
         let novoCart: Cart;
 
-        if (!cart) {
+        if (!orderEdit) {
           // Cria carrinho novo
           const valorTotalCart =
             itemParaAdicionar.precoUnitario +
@@ -148,15 +151,15 @@ export const usePedidoStore = create(
 
         } else {
           // Verifica se já existe item igual
-          const itemExistente = cart.itens.find((item) => isSameCartItem(item, newItem));
+          const itemExistente = orderEdit.itens.find((item) => isSameCartItem(item, newItem));
 
           let novosItens: (ItemCart & { quantidade: number })[];
           if (!itemExistente) {
             // Novo item
-            novosItens = [...cart.itens, itemParaAdicionar];
+            novosItens = [...orderEdit.itens, itemParaAdicionar];
           } else {
             // Incrementa quantidade do item existente
-            novosItens = cart.itens.map((item) =>
+            novosItens = orderEdit.itens.map((item) =>
               isSameCartItem(item, newItem)
                 ? { ...item, quantidade: (item.quantidade || 1) + 1 }
                 : item
@@ -173,23 +176,23 @@ export const usePedidoStore = create(
           }, 0);
 
           novoCart = {
-            localConsumo: cart.localConsumo,
+            ...orderEdit, // <-- mantém idCliente, nomeCliente e outras infos do pedido
             itens: novosItens,
             valorTotalCart,
           };
         }
 
         set({
-          cart: novoCart,
-          complementosItem: [],
+          orderEdit: novoCart,
+          complementosItemPedido: [],
         });
       },
 
 
-      diminuirQtdItem: (itemParaRemover: ItemCart) => {
+      diminuirQtdItemPedido: (itemParaRemover: ItemCart) => {
 
-        const { cart,  } = get();
-        if (!cart) return;
+        const { orderEdit,  } = get();
+        if (!orderEdit) return;
 
         // Função para verificar se dois itens são "iguais"
         const isSameCartItem = (item1: ItemCart, item2: ItemCart) => {
@@ -216,21 +219,21 @@ export const usePedidoStore = create(
         };
 
         // Verifica se o item existe
-        const itemExistente = cart.itens.find((item) => isSameCartItem(item, itemParaRemover));
+        const itemExistente = orderEdit.itens.find((item) => isSameCartItem(item, itemParaRemover));
         if (!itemExistente) return;
 
         let novosItens: (ItemCart & { quantidade: number })[];
 
         if ((itemExistente.quantidade || 1) > 1) {
           // Decrementa quantidade
-          novosItens = cart.itens.map((item) =>
+          novosItens = orderEdit.itens.map((item) =>
             isSameCartItem(item, itemParaRemover)
               ? { ...item, quantidade: (item.quantidade || 1) - 1 }
               : item
           );
         } else {
           // Remove item do carrinho
-          novosItens = cart.itens.filter((item) => !isSameCartItem(item, itemParaRemover));
+          novosItens = orderEdit.itens.filter((item) => !isSameCartItem(item, itemParaRemover));
         }
 
         // Recalcula o valor total do carrinho
@@ -243,10 +246,10 @@ export const usePedidoStore = create(
         }, 0);
 
         set({
-          cart: {
-            idCliente: cart.idCliente,
-            nomeCliente: cart.nomeCliente,
-            localConsumo: cart.localConsumo,
+          orderEdit: {
+            idCliente: orderEdit.idCliente,
+            nomeCliente: orderEdit.nomeCliente,
+            localConsumo: orderEdit.localConsumo,
             itens: novosItens,
             valorTotalCart,
           },
@@ -256,24 +259,57 @@ export const usePedidoStore = create(
     
       limparCart: () =>
         set({
-          cart: {
+          orderEdit: {
             valorTotalCart: 0,
             itens: [],
             localConsumo: 1,
           },
-          pedidoEmEdicao: null,
-          complementosItem: []
+          idPedidoEmEdicao: null,
+          complementosItemPedido: []
         }),
-          
-      aumentarQtdComplementoItem: (newAddOn: ComplementoItemCart) => {
-        const { complementosItem } = get();
 
-        const existente = complementosItem.find((item) => item.id === newAddOn.id);
+      removerItemPedido: (uuid: string) => {
+        const { orderEdit } = get();
+        if (!orderEdit) return;
+
+        // Remove o item do carrinho
+        const itens = orderEdit.itens.filter(item => item.uuid !== uuid);
+
+        // Se nenhum item sobrou → limpar carrinho e localStorage
+        if (itens.length === 0) {
+          localStorage.removeItem("@OrderStorage"); // limpa o localStorage
+          set({ orderEdit: undefined, complementosItemPedido: [] }); // limpa estado do carrinho
+          return;
+        }
+
+        // Recalcula valor total
+        const valorTotalCart = itens.reduce((acc, item) => {
+          const totalComplementos = (item.complementos || []).reduce(
+            (soma, c) => soma + c.precoUnitario * (c.quantidade || 1),
+            0
+          );
+          return acc + (item.precoUnitario + totalComplementos) * (item.quantidade || 1);
+        }, 0);
+
+        // Atualiza estado do carrinho
+        set({
+          orderEdit: {
+            ...orderEdit,
+            itens,
+            valorTotalCart,
+          },
+        });
+      },
+          
+      aumentarQtdComplementoItemPedido: (newAddOn: ComplementoItemCart) => {
+        const { complementosItemPedido } = get();
+
+        const existente = complementosItemPedido.find((item) => item.id === newAddOn.id);
         let novos: ComplementoItemCart[];
 
         if (!existente) {
           novos = [
-            ...complementosItem,
+            ...complementosItemPedido,
             {
               id: newAddOn.id,
               idGrupoComplementos: newAddOn.idGrupoComplementos,
@@ -283,77 +319,55 @@ export const usePedidoStore = create(
             },
           ];
         } else {
-          novos = complementosItem.map((item) =>
+          novos = complementosItemPedido.map((item) =>
             item.id === newAddOn.id
               ? { ...item, quantidade: item.quantidade + 1 }
               : item
           );
         }
 
-        set({ complementosItem: novos });
+        set({ complementosItemPedido: novos });
       },
 
     
-      diminuirQtdComplementoItem: (itemRemover) => {
-        const { complementosItem } = get();
+      diminuirQtdComplementoItemPedido: (itemRemover) => {
+        const { complementosItemPedido } = get();
 
-        const existente = complementosItem.find((item) => item.id === itemRemover.id);
+        const existente = complementosItemPedido.find((item) => item.id === itemRemover.id);
         if (!existente) return;
 
         let novos: ComplementoItemCart[];
 
         if (existente.quantidade > 1) {
-          novos = complementosItem.map((item) =>
+          novos = complementosItemPedido.map((item) =>
             item.id === itemRemover.id
               ? { ...item, quantidade: item.quantidade - 1 }
               : item
           );
         } else {
-          novos = complementosItem.filter((item) => item.id !== itemRemover.id);
+          novos = complementosItemPedido.filter((item) => item.id !== itemRemover.id);
         }
 
-        set({ complementosItem: novos });
+        set({ complementosItemPedido: novos });
       },
 
       
       salvarEdicaoItem: () => {
-        const { cart, itemEditando, complementosItem } = get();
-        if (!itemEditando) return;
+        const { orderEdit, itemPedidoEditando, complementosItemPedido } = get();
+        if (!orderEdit || !itemPedidoEditando) return;
 
-        const isSameCartItem = (item1: ItemCart, item2: ItemCart) => {
-          if (item1.id !== item2.id || item1.nomeProduto !== item2.nomeProduto) return false;
-
-          const comps1 = item1.complementos || [];
-          const comps2 = item2.complementos || [];
-
-          if (comps1.length !== comps2.length) return false;
-
-          const sorted1 = [...comps1].sort((a, b) => a.id - b.id);
-          const sorted2 = [...comps2].sort((a, b) => a.id - b.id);
-
-          return sorted1.every((c1, idx) => {
-            const c2 = sorted2[idx];
-            return (
-              c1.id === c2.id &&
-              c1.nomeComplemento === c2.nomeComplemento &&
-              c1.quantidade === c2.quantidade &&
-              c1.precoUnitario === c2.precoUnitario &&
-              c1.idGrupoComplementos === c2.idGrupoComplementos
-            );
-          });
-        };
-
-        const novosItens = cart.itens.map((item) =>
-          isSameCartItem(item, itemEditando)
+        const novosItens = orderEdit.itens.map(item =>
+          item.uuid === itemPedidoEditando.uuid
             ? {
-                ...itemEditando,
-                complementos: complementosItem,
+                ...item,
+                quantidade: itemPedidoEditando.quantidade, // mantém quantidade editada
+                complementos: complementosItemPedido, // novos complementos
                 valorTotal:
-                  (itemEditando.precoUnitario +
-                    complementosItem.reduce(
+                  (item.precoUnitario +
+                    complementosItemPedido.reduce(
                       (acc, c) => acc + c.precoUnitario * (c.quantidade || 1),
                       0
-                    )) * itemEditando.quantidade,
+                    )) * itemPedidoEditando.quantidade,
               }
             : item
         );
@@ -366,29 +380,31 @@ export const usePedidoStore = create(
           return acc + (item.precoUnitario + totalComplementos) * (item.quantidade || 1);
         }, 0);
 
-
-        set({  
-          cart: {
-            ...cart,
+        set({
+          orderEdit: {
+            ...orderEdit,
             itens: novosItens,
             valorTotalCart: novoValorTotalCart,
           },
-          itemEditando: undefined,
-          complementosItem: [],
+          itemPedidoEditando: undefined,
+          complementosItemPedido: [],
         });
       },
 
       selecionarItemParaEditar: (item: ItemCart) => {
         set({
-          itemEditando: item,
-          complementosItem: item.complementos || [],
+          itemPedidoEditando: item,
+          complementosItemPedido: item.complementos || [],
         });
       },
 
       // NOVO: carregar pedido existente do backend
       carregarPedidoExistente: (order: Orders) => {
-
+        
         localStorage.removeItem("@CartStorage");
+
+        localStorage.removeItem("@OrderStorage");
+
 
         const itens = order.itensPedido.map((i) => {
           const precoComplementos = i.complementosItem.reduce(
@@ -398,6 +414,7 @@ export const usePedidoStore = create(
 
           return {
             id: i.idProduto,
+            uuid: uuidv4(), // gera id único pra cada item do carrinho
             nomeProduto: i.produtos.nomeProduto,
             imagemUrl: i.produtos.imagemUrl,
             quantidade: i.quantidade,
@@ -418,14 +435,14 @@ export const usePedidoStore = create(
         const valorTotalCart = itens.reduce((acc, item) => acc + item.valorTotal, 0);
 
         set({
-          cart: {
+          orderEdit: {
             idCliente: order.idCliente ?? undefined,
             nomeCliente: order.nomeCliente ?? undefined,
             localConsumo: order.localConsumo,
             valorTotalCart,
             itens,
           },
-          pedidoEmEdicao: order.id
+          idPedidoEmEdicao: order.id
         });
 
 

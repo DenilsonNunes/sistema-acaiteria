@@ -11,7 +11,7 @@ import {
 
 
 import { ArrowLeft, ChevronRight, Minus, Plus} from "lucide-react";
-import {  useMemo } from 'react';
+import {  useEffect, useMemo, useState } from 'react';
 import {  useNavigate, useParams } from "react-router-dom";
 
 import LoadingSpinner from '@/components/loading-spinner';
@@ -20,8 +20,10 @@ import { useSelectSideDishes } from '@/hooks/sales/sales_order/useSelectSideDish
 import { formatarMoedaBRL } from '@/utils/formataMoedaBRL';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import PedidoAtual from '../resumo_cart';
 import { useCartStore } from '@/stores/useCartStore';
+import { usePedidoStore } from '@/stores/usePedidoStore';
+import { pedidoEmEdicao } from '@/utils/pedidoUtils';
+import ResumoCart from '../../carrinho';
 
 
 
@@ -38,22 +40,46 @@ const SelecaoAcompanhamentos = () => {
   const navigate = useNavigate();
   const idProduto = useMemo(() => id, [id]);
 
+  const [valorTotalComplementos, setValorTotalComplementos] = useState<number>(0);
+
 
   const {
     complementosItemCart, 
     aumentarQtdComplementoItemCart, 
     adicionarItemCart, 
-    diminuirQtdComplementoItemCart, 
+    diminuirQtdComplementoItemCart,
+    itemCartEditando,
+    salvarEdicaoItemCart
 
   } = useCartStore();
+
+  const { 
+    complementosItemPedido,
+    salvarEdicaoItem,
+    aumentarQtdComplementoItemPedido,
+    diminuirQtdComplementoItemPedido,
+    idPedidoEmEdicao,
+    itemPedidoEditando,
+    adicionarItemPedido
+  } = usePedidoStore();
 
 
   const {data: addOnGroup, isLoading, isError} = useSelectSideDishes(idProduto);
 
-  const valorTotalComplementos = complementosItemCart.reduce((total, item) => total + item.precoUnitario, 0);
 
+  useEffect(()=> {
 
+    if(localStorage.getItem('@OrderStorage')){
 
+      setValorTotalComplementos(complementosItemPedido.reduce((total, item) => total + item.precoUnitario * item.quantidade, 0));
+ 
+    } else {
+
+      setValorTotalComplementos(complementosItemCart.reduce((total, item) => total + item.precoUnitario * item.quantidade, 0));
+
+    }
+
+  }, [complementosItemPedido, complementosItemCart])
 
 
 
@@ -134,21 +160,37 @@ const SelecaoAcompanhamentos = () => {
 
                 {addOnGroup.Complementos?.map((addOn) => {
            
-                  // procura se o complemento já foi escolhido
-                  const selecionado = complementosItemCart.find((p) => p.id == addOn.id);
 
-                  const quantidade  = selecionado?.quantidade ?? 0;
+                let selecionado: any = null;
+                let quantidade = 0;
+                let totalSelecionadosDoGrupo = 0;
+                let atingiuMaximo = false;
+                let desabilita = false;
 
+                // Se o pedido está em edição
+                if (pedidoEmEdicao()) {
+                  selecionado = complementosItemPedido.find((p) => p.id === addOn.id);
+                  quantidade = selecionado?.quantidade ?? 0;
 
-                  const totalSelecionadosDoGrupo = complementosItemCart
+                  totalSelecionadosDoGrupo = complementosItemPedido
                     .filter((item) => item.idGrupoComplementos === addOnGroup.id)
                     .reduce((acc, item) => acc + item.quantidade, 0);
 
-                  const atingiuMaximo = totalSelecionadosDoGrupo >= addOnGroup.qtdMaxComplemento;
+                  atingiuMaximo = totalSelecionadosDoGrupo >= addOnGroup.qtdMaxComplemento;
+                  desabilita = atingiuMaximo && (!selecionado || quantidade === 0);
+                } 
+                // Se é um novo pedido (não em edição)
+                else {
+                  selecionado = complementosItemCart.find((p) => p.id === addOn.id);
+                  quantidade = selecionado?.quantidade ?? 0;
 
-                  // Se atingiu o máximo e esse complemento ainda não foi selecionado, aplica opacidade
-                  const desabilita = atingiuMaximo && (!selecionado || quantidade === 0);
+                  totalSelecionadosDoGrupo = complementosItemCart
+                    .filter((item) => item.idGrupoComplementos === addOnGroup.id)
+                    .reduce((acc, item) => acc + item.quantidade, 0);
 
+                  atingiuMaximo = totalSelecionadosDoGrupo >= addOnGroup.qtdMaxComplemento;
+                  desabilita = atingiuMaximo && (!selecionado || quantidade === 0);
+                }
 
                   return (
                     <div
@@ -186,13 +228,27 @@ const SelecaoAcompanhamentos = () => {
                         {selecionado && (
                           <>
                             <button
-                              onClick={() => diminuirQtdComplementoItemCart({
-                                id: addOn.id,
-                                idGrupoComplementos: addOn.idGrupoComplementos,
-                                precoUnitario: Number(addOn.preco),
-                                nomeComplemento: addOn.nomeComplemento,
-                                quantidade: 1
-                              })}
+                              onClick={() => {
+                                if (pedidoEmEdicao()) {
+                                  // Se estiver editando pedido
+                                  diminuirQtdComplementoItemPedido({
+                                    id: addOn.id,
+                                    idGrupoComplementos: addOn.idGrupoComplementos,
+                                    precoUnitario: Number(addOn.preco),
+                                    nomeComplemento: addOn.nomeComplemento,
+                                    quantidade: 1,
+                                  });
+                                } else {
+                                  // Se for inclusão (novo pedido)
+                                  diminuirQtdComplementoItemCart({
+                                    id: addOn.id,
+                                    idGrupoComplementos: addOn.idGrupoComplementos,
+                                    precoUnitario: Number(addOn.preco),
+                                    nomeComplemento: addOn.nomeComplemento,
+                                    quantidade: 1,
+                                  });
+                                }
+                              }}
                               className="text-fuchsia-700 cursor-pointer"
                             >
                               <Minus size={24} />
@@ -205,13 +261,26 @@ const SelecaoAcompanhamentos = () => {
                         {/* “+” sempre visível */}
                         <button
                           disabled={atingiuMaximo}                      
-                          onClick={() => aumentarQtdComplementoItemCart({
-                            id: addOn.id,
-                            idGrupoComplementos: addOn.idGrupoComplementos,
-                            precoUnitario: Number(addOn.preco),
-                            nomeComplemento: addOn.nomeComplemento,
-                            quantidade: 1
-                          })}
+                          onClick={() => {
+                            
+                            if(pedidoEmEdicao()){
+                              aumentarQtdComplementoItemPedido({
+                                id: addOn.id,
+                                idGrupoComplementos: addOn.idGrupoComplementos,
+                                precoUnitario: Number(addOn.preco),
+                                nomeComplemento: addOn.nomeComplemento,
+                                quantidade: 1
+                              })
+                            } else {
+                              aumentarQtdComplementoItemCart({
+                                id: addOn.id,
+                                idGrupoComplementos: addOn.idGrupoComplementos,
+                                precoUnitario: Number(addOn.preco),
+                                nomeComplemento: addOn.nomeComplemento,
+                                quantidade: 1
+                              })
+                            }       
+                          }}
                           className={`text-fuchsia-700 ${atingiuMaximo ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'} `}
                         >
                           <Plus size={24} />
@@ -264,40 +333,111 @@ const SelecaoAcompanhamentos = () => {
           </Button>
         </div>
         
-        <div className='sm:hidden fixed bottom-0 left-0 right-0 bg-white'>
-          <Button
-            className='w-full md:ml-12 h-18 bg-green-500 hover:bg-green-600 rounded-none cursor-pointer px-6'
-            onClick={() => {
-              if (!addOnGroup) return;
+        <div className='sm:hidden fixed bottom-0 left-0 right-0 h-18 w-full bg-white border-t'>
+          
+          {pedidoEmEdicao() ? (
 
-                adicionarItemCart({
-                  id: addOnGroup.id,
-                  nomeProduto: addOnGroup.nomeProduto,
-                  imagemUrl: addOnGroup.imagemUrl,
-                  precoUnitario: Number(addOnGroup.preco),
-                  quantidade: 1,
-                  complementos: [...complementosItemCart],
-                });
-                navigate('/vendas/carrinho');
-              
-              }
-              
-            }
-          >
-            <div className='w-full justify-between flex items-center'>
+            <div className='flex h-full items-center gap-2 px-4'>
 
-              <p className='text-2xl font-bold'>
-                AvançarT
-              </p>
-              
+              <Button variant='destructive' className='rounded-none w-[50%] text-lg'>
+                Cancelar Edição
+              </Button>
 
-              <div className='flex items-center'>
-                <p className='text-xl font-bold'>R$ {formatarMoedaBRL(String(Number(addOnGroup?.preco) + valorTotalComplementos))}</p>
-                <ChevronRight className="flex-shrink-0" style={{ width: '46px', height: '46px' }} />
-              </div>
+
+              <Button
+                className='w-[50%] bg-green-500 hover:bg-green-600 rounded cursor-pointer'
+                onClick={() => {
+
+                  if (!addOnGroup) return;
+
+                    // Se ti ver um item do pedido em edição
+                    if(itemPedidoEditando){
+
+                      salvarEdicaoItem();
+                      
+                    // Se for edição de um item do carrinho
+                    } else if (itemCartEditando) {
+                      salvarEdicaoItemCart()
+
+                    // Se for novo pedido
+                    } else {
+
+                      adicionarItemPedido({
+                        id: addOnGroup.id,
+                        nomeProduto: addOnGroup.nomeProduto,
+                        imagemUrl: addOnGroup.imagemUrl,
+                        precoUnitario: Number(addOnGroup.preco),
+                        quantidade: 1,
+                        complementos: [...complementosItemPedido],
+                      });
+
+                    }
+
+                    navigate(`/vendas/pedidos/${idPedidoEmEdicao}/editar`);              
+                  }
+                                                                                                                              
+                }
+              >
+                <div className='w-full justify-between flex items-center'>
+
+                  <div className='flex items-center justify-between w-full'>
+
+                    <p className='text-lg font-bold'>
+                      Avançar
+                    </p>
+
+                    <p className='text-md font-bold'>R$ {formatarMoedaBRL(String(Number(addOnGroup?.preco) + valorTotalComplementos))}</p>
+
+                  </div>
+          
+                  <div className='flex items-center'>
+                    <ChevronRight className="flex-shrink-0" style={{ width: '36px', height: '36px' }} />
+                  </div>
+
+                </div>
+              </Button>
 
             </div>
-          </Button>
+
+          ) : (
+            
+            <Button
+              className='w-full bg-green-500 hover:bg-green-600 rounded-none cursor-pointer px-6 h-full'
+              onClick={() => {
+
+                if (!addOnGroup) return;
+
+                  adicionarItemCart({
+                    id: addOnGroup.id,
+                    nomeProduto: addOnGroup.nomeProduto,
+                    imagemUrl: addOnGroup.imagemUrl,
+                    precoUnitario: Number(addOnGroup.preco),
+                    quantidade: 1,
+                    complementos: [...complementosItemCart],
+                  });
+
+                  navigate('/vendas/carrinho');
+                
+                }
+                                                                                                                            
+              }
+            >
+              <div className='w-full justify-between flex items-center'>
+
+                <p className='text-2xl font-bold'>
+                  Avançar
+                </p>
+                
+
+                <div className='flex items-center'>
+                  <p className='text-xl font-bold'>R$ {formatarMoedaBRL(String(Number(addOnGroup?.preco) + valorTotalComplementos))}</p>
+                  <ChevronRight className="flex-shrink-0" style={{ width: '46px', height: '46px' }} />
+                </div>
+
+              </div>
+            </Button>
+
+          )}
 
         </div>
         
@@ -305,7 +445,7 @@ const SelecaoAcompanhamentos = () => {
       </div>
 
       <div className="w-[30%] overflow-y-auto h-screen hidden lg:block">
-        <PedidoAtual/>
+        <ResumoCart/>
       </div>
 
 

@@ -3,6 +3,7 @@ import { useFetchCustomersByNameOrSurname } from "@/hooks/customers/useCustomers
 import { User, X } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { usePedidoStore } from "@/stores/usePedidoStore";
+import { useCartStore } from "@/stores/useCartStore";
 
 
 
@@ -28,7 +29,9 @@ export function InputAutoCompleteCliente({ onChange, limparErro, erro }: Props) 
 
 
   const { data: clientes = [] } = useFetchCustomersByNameOrSurname(searchName, habilitarBusca);
-  const { identificarCliente, removerCliente, pedidoEmEdicao, cart } = usePedidoStore();
+  const { identificarClientePedido, removerClientePedido, idPedidoEmEdicao, cart } = usePedidoStore();
+  const { identificarClienteCart, removerClienteCart } = useCartStore();
+
 
 
 
@@ -38,11 +41,11 @@ export function InputAutoCompleteCliente({ onChange, limparErro, erro }: Props) 
 
   useEffect(() => {
 
-    if(pedidoEmEdicao && cart.idCliente !== 1) {
-      setInputSearch(cart?.nomeCliente || "Consumidor final")
+    if(idPedidoEmEdicao) {
+      setInputSearch(cart?.nomeCliente)
     }
 
-  }, [pedidoEmEdicao, cart]);
+  }, [idPedidoEmEdicao, cart]);
 
 
 
@@ -92,7 +95,13 @@ export function InputAutoCompleteCliente({ onChange, limparErro, erro }: Props) 
               type="button"
               onClick={() => {
                 setInputSearch("");
-                removerCliente();
+
+                if(idPedidoEmEdicao){
+                  removerClientePedido();
+                } else{
+                  removerClienteCart();            
+                }
+
               }}
               className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-gray-900"
             >
@@ -116,7 +125,13 @@ export function InputAutoCompleteCliente({ onChange, limparErro, erro }: Props) 
                     setInputSearch(item.nome);
                     setSearchName('');
                     setHabilitarBusca(false); // bloqueia nova busca
-                    identificarCliente({ id: item.id, nome: item.nome });
+
+                    if(idPedidoEmEdicao){
+                      identificarClientePedido({ id: item.id, nome: item.nome });
+                    } else {
+                      identificarClienteCart({ id: item.id, nome: item.nome });
+                    }
+
                   }}
                 >
                   {item.nome} - <span className="text-sm text-gray-600">{item.apelido}</span>

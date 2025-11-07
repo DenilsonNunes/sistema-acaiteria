@@ -6,6 +6,7 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from "@/components/ui/drawer"
+import { formatarMoedaBRL } from "@/utils/formataMoedaBRL"
 import { CircleCheckBig, Plus, ScrollText } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 
@@ -13,17 +14,21 @@ import { useNavigate } from "react-router-dom"
 
 
 
-interface DrawerSucessPedidoProps {
+interface DrawerSucessSaveOrderProps {
   open: boolean
   onOpenChange: (open: boolean) => void
-  message?: string
-  redirectTo?: string
+  pedidoInfo: {
+    idPedido?: number;
+    nomeCliente?: string;
+    valorTotal?: string;
+    message?: string;
+  } | null;
 }
 
 
 
 
-export default function DrawerSucessPedido({ open, onOpenChange, message = "Pedido realizado com sucesso!" }: DrawerSucessPedidoProps) {
+export default function DrawerSucessSaveOrder({ open, onOpenChange, pedidoInfo}: DrawerSucessSaveOrderProps) {
 
   const navigate = useNavigate();
 
@@ -42,17 +47,17 @@ export default function DrawerSucessPedido({ open, onOpenChange, message = "Pedi
             <DrawerHeader className='p-0 my-4'>
               <DrawerTitle className='flex items-center justify-center gap-2 text-lg mb-2 text-green-600'>
                 <CircleCheckBig />
-                {message}
+                {pedidoInfo?.message}
               </DrawerTitle>
               <div className='flex flex-col items-start'>
-                <p className='text-gray-700'><strong>Pedido Nº:</strong> {25}</p>
+                <p className='text-gray-700'><strong>Pedido Nº:</strong>{pedidoInfo?.idPedido}</p>
                 <p className='text-gray-700'>
                   <strong>Cliente: </strong>
-                  Denilson Nunes
+                  {pedidoInfo?.nomeCliente}
                 </p>
                 <p className='text-gray-700'>
                   <strong>Total: </strong>
-                  R$ 27,00
+                  R$ {formatarMoedaBRL(Number(pedidoInfo?.valorTotal))}
                 </p>
               </div>
             </DrawerHeader>
@@ -69,7 +74,7 @@ export default function DrawerSucessPedido({ open, onOpenChange, message = "Pedi
               <Button
                 className='rounded text-lg bg-green-500 hover:bg-green-600 w-full'
                 onClick={() => { 
-                  navigate('/vendas/pedido-de-venda')  
+                  navigate('/vendas/pdv')  
                 }}
               >
                 <Plus strokeWidth={3}  style={{ width: "22px", height: "22px", flexShrink: 0 }}/>

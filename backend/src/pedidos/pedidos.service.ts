@@ -113,6 +113,11 @@ export class PedidosService {
       return {
         success: true,
         message: 'Pedido criado com sucesso',
+        data: {
+          idPedido: order.id,
+          nomeCliente: order.nomeCliente,
+          valorTotal: order.valorTotal,
+        },
       };
     } catch (err) {
       // Verifica se o erro é uma HttpException
@@ -263,7 +268,15 @@ export class PedidosService {
         });
       });
 
-      return updateOrder;
+      return {
+        success: true,
+        message: 'Pedido alterado com sucesso',
+        data: {
+          idPedido: (await updateOrder).id,
+          nomeCliente: (await updateOrder).nomeCliente,
+          valorTotal: (await updateOrder).valorTotal,
+        },
+      };
     } catch (err) {
       // Verifica se o erro é uma HttpException
       if (err instanceof HttpException) {

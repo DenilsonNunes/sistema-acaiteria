@@ -1,14 +1,18 @@
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { useNavigate, useParams } from "react-router-dom";
-import ProdutosPedido from "../../pedido_de_venda/components/produtos_pedido";
+import ProdutosPedido from "../components/produtos_pedido";
 import { useFetchOrderById } from "@/hooks/sales/useOrders";
 import LoadingSpinner from "@/components/loading-spinner";
-import ResumoTotaisPedido from "../../pedido_de_venda/components/resumo_totais_pedido";
-import AcaoSalvarPedido from "../../pdv/components/acao_salvar_pedido";
+import AcaoSalvarEdicaoPedido from "../components/acao_salvar_edicao_pedido";
+import ResumoTotaisPedido from "../components/resumo_totais_pedido";
+import { usePedidoStore } from "@/stores/usePedidoStore";
+import { useEffect } from "react";
+import { Button } from "@/components/ui/button";
+import { IdentificarCliente } from "../../components/identificar_cliente";
 
 
 const EditOrder = () => {
+
+  const { carregarPedidoExistente, idPedidoEmEdicao} = usePedidoStore(); 
 
   const navigate = useNavigate();
 
@@ -17,6 +21,34 @@ const EditOrder = () => {
 
   const { data: order, isLoading, isError, error } = useFetchOrderById(id as number);
 
+
+
+
+  // carregar apenas quando "order" for obtido
+  useEffect(() => {
+    if (order && !idPedidoEmEdicao) {
+      carregarPedidoExistente(order);
+    }
+  }, [order, idPedidoEmEdicao, carregarPedidoExistente]);
+  
+
+  if (!order && !isLoading) {
+
+    return ( 
+      <div className="flex flex-col gap-4 items-center mt-12">
+        <p className="text-2xl">Pedido não encontrado</p>
+        <Button 
+          variant='outline' 
+          onClick={() => {
+            navigate(`/vendas/pedidos`);
+          }}
+        >
+          Voltar para os pedidos
+        </Button>
+      </div>
+    
+    );
+  }
 
 
 
@@ -30,16 +62,12 @@ const EditOrder = () => {
   if(isError) {
     return (
       <div>
-        <p>Erro ao buscar pedido: {(error as any)?.response?.data?.message ?? "Pedido não encontrado"}</p>
+        <p>Erro ao buscar pedido</p>
       </div>
     )
   }
 
 
-
-  if (!order) {
-    return <p>Pedido não encontrado</p>;
-  }
 
 
 
@@ -47,21 +75,8 @@ const EditOrder = () => {
 
     <section>
 
-      <div className="flex justify-center items-center bg-gray-200 rounded-lg h-12">
-        <p className="font-medium text-2xl">Pedido #{order?.id}</p>
-      </div>
-
-      <div className="flex w-full gap-2 mt-4">
-
-        <div className="grid gap-1 w-20">
-          <Label>Cod</Label>
-          <Input disabled value={order?.idCliente}/>
-        </div>
-
-        <div className="grid gap-1 w-full">
-          <Label>Cliente</Label>
-          <Input disabled type="text" value={order?.nomeCliente}/>
-        </div>
+      <div className="grid w-full">
+        <IdentificarCliente/>
       </div>
 
       <p className="font-medium text-2xl my-2">Itens</p>
@@ -72,7 +87,7 @@ const EditOrder = () => {
         onClick={() => {
           navigate('/vendas/pdv');
         }}
-        className='md:hidden w-full bg-fuchsia-200 rounded py-2 text-lg text-fuchsia-700 font-medium border border-fuchsia-400 mb-20 cursor-pointer'
+        className='md:hidden w-full bg-fuchsia-200 rounded py-2 text-lg text-fuchsia-700 font-medium border border-fuchsia-400 mb-6 cursor-pointer'
       >
         Adicionar mais produtos
       </button>
@@ -84,9 +99,7 @@ const EditOrder = () => {
       </div>
 
       {/* Ação Salvar Pedido */}
-      <AcaoSalvarPedido/>
-
-
+      <AcaoSalvarEdicaoPedido/>
 
     </section>
   )

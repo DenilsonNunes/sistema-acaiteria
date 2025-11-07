@@ -1,13 +1,12 @@
 import { Link } from "react-router-dom";
 import LoadingSpinner from "@/components/loading-spinner";
 import { CloudAlert } from "lucide-react";
-import PedidoAtual from "../components/resumo_cart";
 import AcoesVendas from "@/components/acoesFooterMobile/acoes-vendas";
 import { formatarMoedaBRL } from "@/utils/formataMoedaBRL";
 import { useCategories } from "@/hooks/categories/useCategories";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { TabsContent } from "@radix-ui/react-tabs";
-import { usePedidoStore } from "@/stores/usePedidoStore";
+import ResumoCart from "../carrinho";
 
 
 
@@ -139,7 +138,7 @@ const Pdv = () => {
 
       {/* PEDIDO ATUAL*/}
       <div className="w-[30%] overflow-y-auto h-screen hidden lg:block">
-        <PedidoAtual/>
+        <ResumoCart/>
       </div>
 
       <AcoesVendas/>

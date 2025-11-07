@@ -7,6 +7,7 @@ export interface ComplementoItemCart {
 }
 
 export interface ItemCart {
+  uuid: string;
   id: number;
   nomeProduto: string;
   imagemUrl?: string;

@@ -13,16 +13,17 @@ import {
 
 import {  PedidoLocalConsumo as PedidoLocalConsumoEnum } from '@/types/sales/sales_order/salesOrder'
 import { Button } from '@/components/ui/button'
-import { ChevronRight, Loader2Icon, Save, } from 'lucide-react'
+import { Loader2Icon, Save, } from 'lucide-react'
 import { useState } from 'react'
-import ResumoTotaisPedido from '../resumo_totais_cart'
+import { usePedidoStore } from '@/stores/usePedidoStore'
 import { buildPedidoFromCart } from '@/utils/cartToSalesOrder'
 import { Input } from '@/components/ui/input'
+import { useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
-import { useCreateOrder } from '@/hooks/sales/useOrders'
-import { useCartStore } from '@/stores/useCartStore'
+import { useUpdateOrder } from '@/hooks/sales/useOrders'
 import { pedidoEmEdicao } from '@/utils/pedidoUtils'
 import DrawerSucessSaveOrder from '@/pages/vendas/components/drawer_sucess_save_order'
+import ResumoTotaisPedido from '../resumo_totais_pedido'
 
 
 
@@ -32,19 +33,22 @@ import DrawerSucessSaveOrder from '@/pages/vendas/components/drawer_sucess_save_
 
 
 
-const AcaoSalvarPedido = () => {
+const AcaoSalvarEdicaoPedido = () => {
+
+  const navigate = useNavigate();
+  const [dataSuccessEditOrder, setDataSuccessEditOrder] = useState({});
 
 
   const [observacao, setObservacao] = useState('');
-  const [dataSuccessoPedido, setDataSuccessoPedido] = useState({});
   
 
 
-  const {cart, adicionaLocalConsumoCart, limparCart, identificarClienteCart } = useCartStore();
-  const { mutateAsync: createOrder, isPending} = useCreateOrder();
+  const { orderEdit, idPedidoEmEdicao, adicionaLocalConsumoPedido } = usePedidoStore();
+
+  const { mutateAsync: updateOrder, isPending } = useUpdateOrder();
 
 
-  const [openDrawerConfirmarPedido, setOpenDrawerConfirmarPedido] = useState(false);
+  const [openDrawerConfirmarAlteracaoPedido, setOpenDrawerConfirmarAlteracaoPedido] = useState(false);
   const [openDrawerSuccessOrder, setOpenDrawerSuccessOrder] = useState(false);
 
 
@@ -61,28 +65,32 @@ const AcaoSalvarPedido = () => {
 
 
 
-  const handleCreateSalesOrder = async () => {
+  const handleSaveEditOrder = async () => {
 
-    const salesOrder = buildPedidoFromCart( cart, observacao );
+    const salesOrder = buildPedidoFromCart( orderEdit, observacao );
 
 
     try {
 
-      const response = await createOrder(salesOrder);
+      const response = await updateOrder({
+        idPedido: Number(idPedidoEmEdicao),
+        data: salesOrder,
+      });
+
 
       if(response.success) {
-        
-        setDataSuccessoPedido({
+
+        setDataSuccessEditOrder({
           idPedido: response.data.idPedido,
           nomeCliente: response.data.nomeCliente,
           valorTotal: response.data.valorTotal,
           message: response.message
         });
 
-        limparCart();
-        setOpenDrawerConfirmarPedido(false);
+  
+        setOpenDrawerConfirmarAlteracaoPedido(false);
         setOpenDrawerSuccessOrder(true);
-        localStorage.removeItem("@CartStorage");
+        localStorage.removeItem("@OrderStorage");
 
       }
 
@@ -90,7 +98,7 @@ const AcaoSalvarPedido = () => {
     } catch (error) {
 
       toast.error('Erro', {
-        description: 'Houve um erro ao criar o pedido.', 
+        description: 'Houve um erro ao editar o pedido.', 
         richColors: true,
         closeButton: true,
         duration: 3000,
@@ -108,93 +116,79 @@ const AcaoSalvarPedido = () => {
       {/* Ação salvar pedido DESKTOP */}
       <div className='hidden sm:block w-full border'>
         <button 
-          onClick={handleCreateSalesOrder}  
+          onClick={handleSaveEditOrder}  
           className='w-full cursor-pointer bg-green-500 text-white font-medium rounded py-3 text-lg hover:bg-green-600'
         >
-          Salvar pedido
+          Salvar altereção
         </button>
       </div>
 
 
-
-
       {/* Ação salvar pedido MOBILE */}
-      {pedidoEmEdicao() ? (
-        <div>
-          <Button
-            onClick={() => {
-              setOpenDrawerConfirmarPedido(true); 
-              adicionaLocalConsumoCart(1);
-            }}
-            className="md:hidden flex w-full fixed bottom-0 left-0 right-0 text-2xl bg-green-500 hover:bg-green-400  rounded-none h-15"
-          >
-            <Save style={{ width: "30px", height: "30px", flexShrink: 0 }} />
-            Salvar alterações
-          </Button>
-        </div>
-      ) :(
-        <>
-          <Button
-            onClick={() => {
-              setOpenDrawerConfirmarPedido(true); 
-              adicionaLocalConsumoCart(1);
-              if(!cart.idCliente){
-                identificarClienteCart({id: 1, nome: 'Consumidor Final'})
-              }
-            }}
-            className="md:hidden flex w-full justify-between fixed bottom-0 left-0 right-0 text-2xl bg-green-500 hover:bg-green-400 rounded-none h-15"
-          >
-            Avançar
-            <ChevronRight className="flex-shrink-0" style={{ width: '46px', height: '46px' }} />
-          </Button>
-        </>
-      )}     
+      {pedidoEmEdicao() && (
+        <div className='md:hidden flex items-center w-full gap-2 fixed bottom-0 left-0 right-0 h-15 bg-white px-4'>
 
-      {/* Drawer confirmação do pedido */}
+          <Button 
+            variant='destructive' className='w-[50%] text-lg'
+            onClick={() => {
+              localStorage.removeItem('@OrderStorage')
+              navigate('/vendas/pedidos')
+            }}
+          >
+            Cancelar alteração
+          </Button>
+
+          <Button
+            onClick={() => {
+              setOpenDrawerConfirmarAlteracaoPedido(true); 
+            }}
+            className="w-[50%] text-lg bg-green-500 hover:bg-green-400"
+          >
+            <Save style={{ width: "24px", height: "24px", flexShrink: 0 }} />
+            Salvar alteração
+          </Button>
+
+        </div>
+      )}
+
+      {/* Drawer confirmação alteração do pedido */}
       <Drawer 
-        open={openDrawerConfirmarPedido} onOpenChange={setOpenDrawerConfirmarPedido}              
+        open={openDrawerConfirmarAlteracaoPedido} onOpenChange={setOpenDrawerConfirmarAlteracaoPedido}              
       >
 
         <DrawerContent className='px-4'>
                           
           <DrawerHeader className='p-0 my-4'>
-            <DrawerTitle className='text-xl mb-2'>Confirmação do pedido</DrawerTitle>                   
+            <DrawerTitle className='text-xl mb-2'>Confirmação de alteração</DrawerTitle>                   
           </DrawerHeader>
 
           <div className='grid gap-6 w-full'>
 
+            {/* Identificação cliente */}
             <div className='grid gap-2'>
+
               <Label className='text-md'>
-                {cart?.idCliente && cart.idCliente !== 1
+                {orderEdit?.idCliente && orderEdit.idCliente !== 1
                   ? 'Cliente'
                   : 'Nome para identificação do pedido'}
               </Label>
 
-              {cart?.idCliente !== 1 && (
-                <Input 
-                  readOnly  
-                  value={cart?.nomeCliente}          
-                />
-              )}
-
-              {cart?.idCliente === 1 && (
-                <Input   
-                  defaultValue={cart?.nomeCliente}
-                   onChange={(e) => identificarClienteCart({id: 1, nome:e.target.value})}         
-                />
-              )}
+              <Input 
+                readOnly  
+                value={orderEdit?.nomeCliente}          
+              />
 
             </div>
-
           
+            {/* Seleção local de consumo */}
             <div className='grid gap-2'>
               <Label className='text-md'>Local de consumo</Label>
                 
               <RadioGroup 
                 className='flex' 
                 defaultValue="1"
-                value={String(cart?.localConsumo ? cart.localConsumo : 1)}
-                onValueChange={(value) => adicionaLocalConsumoCart(Number(value))}
+                value={String(orderEdit.localConsumo ? orderEdit.localConsumo : 1)}
+                onValueChange={(value) => adicionaLocalConsumoPedido(Number(value))}
               >
 
                 <div className="w-full flex items-center gap-1 bg-fuchsia-600 p-2 rounded text-white">
@@ -216,6 +210,7 @@ const AcaoSalvarPedido = () => {
 
             </div>
 
+            {/* Observação do pedido */}
             <div className='grid gap-2'>
               <Label className='text-md'>Observações</Label>
               <Textarea 
@@ -236,7 +231,7 @@ const AcaoSalvarPedido = () => {
               disabled={isPending}
 
               onClick={()=> {
-                handleCreateSalesOrder();            
+                handleSaveEditOrder();            
               }}
             >
               {isPending && (
@@ -245,7 +240,7 @@ const AcaoSalvarPedido = () => {
                   style={{ width: 30, height: 30, flexShrink: 0 }}
                 />
               )}
-              Salvar Pedido
+              Confirmar alteração
             </Button>
           </DrawerFooter>                                                     
 
@@ -254,11 +249,12 @@ const AcaoSalvarPedido = () => {
 
       </Drawer>
 
-      {/* Drawer sucesso criar pedido */}
+      
+      {/* Drawer sucesso alterar pedido */}
       <DrawerSucessSaveOrder
         open={openDrawerSuccessOrder} 
         onOpenChange={setOpenDrawerSuccessOrder}
-        pedidoInfo={dataSuccessoPedido} 
+        pedidoInfo={dataSuccessEditOrder} 
       />
 
         
@@ -266,4 +262,4 @@ const AcaoSalvarPedido = () => {
   )
 }
 
-export default AcaoSalvarPedido
+export default AcaoSalvarEdicaoPedido

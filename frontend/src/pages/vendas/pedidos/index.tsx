@@ -1,4 +1,4 @@
-import { HandHelping, Plus, SlidersHorizontal, Store, Truck } from "lucide-react"
+import { HandHelping, Plus, Store, Truck } from "lucide-react"
 
 
 import {
@@ -17,7 +17,6 @@ import AcoesVendas from "@/components/acoesFooterMobile/acoes-vendas"
 import { Button } from "@/components/ui/button"
 import { useLocation, useNavigate } from "react-router-dom"
 import TablePedidos from "./tablePedidos/table"
-import { useSales } from "@/hooks/sales/useSales"
 import { formatarMoedaBRL } from "@/utils/formataMoedaBRL"
 
 import { Badge } from "@/components/ui/badge"
@@ -29,9 +28,7 @@ import { useEffect, useState } from "react"
 import LoadingSpinner from "@/components/loading-spinner"
 import { toast } from "sonner"
 import { EditButton } from "@/components/button/edit-button"
-import { usePedidoStore } from "@/stores/usePedidoStore"
 import { useDeleteSalesOrder, useFetchAllOrders } from "@/hooks/sales/useOrders"
-import DrawerSucessPedido from "../pedido_de_venda/components/drawer_sucess_pedido"
 import { AxiosError } from "axios"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { StatusBadge } from "./components/status-badge"
@@ -71,7 +68,7 @@ const Pedidos = () => {
   } = useDeleteSalesOrder();
 
 
-  const { carregarPedidoExistente } = usePedidoStore();
+
 
   const [openModalDelteOrder, setOpenModalDelteOrder] = useState(false);
   const [openDrawerSuccess, setOpenDrawerSuccess] = useState(false);
@@ -262,9 +259,7 @@ const Pedidos = () => {
                       size={26}
                       disabled={order.status != 1}
                       onClick={()=> {
-                        carregarPedidoExistente(order);
                         navigate(`/vendas/pedidos/${order.id}/editar`);
-                    
                       }} 
                     />
                   </div>
@@ -477,12 +472,6 @@ const Pedidos = () => {
 
       </div>
 
-      {/* Sucesso ao editar pedido*/}
-      <DrawerSucessPedido 
-        open={openDrawerSuccess} 
-        onOpenChange={setOpenDrawerSuccess} 
-      />
-      
 
       <AcoesVendas/>
     </section>
