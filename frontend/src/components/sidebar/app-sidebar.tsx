@@ -15,7 +15,7 @@ import {
 
 
 import { Routines } from "@/components/sidebar/nav-routines"
-import { NavProjects } from "@/components/sidebar/nav-projects"
+import { NavSettings } from "@/components/sidebar/nav-settings"
 import { NavUser } from "@/components/sidebar/nav-user"
 import { Companies } from "@/components/sidebar/companies"
 
@@ -152,10 +152,10 @@ const data = {
     },
 
   ],
-  projects: [
+  settings: [
     {
-      name: "Implementação futura...",
-      url: "#",
+      name: "taxas de entrega",
+      url: "configuracoes/taxas-de-entrega",
       icon: Frame,
     },
     {
@@ -182,7 +182,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
       <SidebarContent>
         <Routines items={data.navMain} />
-        <NavProjects projects={data.projects} />
+        <NavSettings settings={data.settings} />
       </SidebarContent>
 
       <SidebarFooter>

@@ -186,7 +186,7 @@ export function IdentificarCliente() {
 
       <SheetContent
         side="bottom"
-        className="h-[100vh] md:h-auto md:max-w-md"
+        className="h-160 md:h-auto md:max-w-md"
       >
 
         <SheetHeader>
@@ -204,7 +204,7 @@ export function IdentificarCliente() {
             }}
           />
 
-          <div className="max-h-100 overflow-y-auto">
+          <div className="max-h-110 overflow-y-auto">
 
             {clientes.length > 0 && (
               clientes.map((item, index) => (
@@ -300,7 +300,7 @@ export function IdentificarCliente() {
 
         <SheetFooter>
           <SheetClose asChild>
-            <Button variant="outline">Fechar</Button>
+            <Button>Fechar</Button>
           </SheetClose>
         </SheetFooter>
 

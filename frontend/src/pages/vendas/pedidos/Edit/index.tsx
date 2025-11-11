@@ -19,17 +19,16 @@ const EditOrder = () => {
   const { idPedido } = useParams();
   const id = idPedido ? Number(idPedido) : undefined;
 
-  const { data: order, isLoading, isError, error } = useFetchOrderById(id as number);
-
+  const { data: order, isLoading, isError} = useFetchOrderById(id as number);
 
 
 
   // carregar apenas quando "order" for obtido
   useEffect(() => {
-    if (order && !idPedidoEmEdicao) {
+    if (order) {
       carregarPedidoExistente(order);
     }
-  }, [order, idPedidoEmEdicao, carregarPedidoExistente]);
+  }, [order, carregarPedidoExistente]);
   
 
   if (!order && !isLoading) {
@@ -73,7 +72,7 @@ const EditOrder = () => {
 
   return (
 
-    <section>
+    <section className="w-full">
 
       <div className="grid w-full">
         <IdentificarCliente/>

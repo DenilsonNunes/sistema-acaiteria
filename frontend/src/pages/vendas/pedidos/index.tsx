@@ -32,6 +32,11 @@ import { useDeleteSalesOrder, useFetchAllOrders } from "@/hooks/sales/useOrders"
 import { AxiosError } from "axios"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { StatusBadge } from "./components/status-badge"
+import { usePedidoStore } from "@/stores/usePedidoStore"
+import type { Orders } from "@/types/sales/orders/orders"
+import { Separator } from "@/components/ui/separator"
+import { Textarea } from "@/components/ui/textarea"
+import { Label } from "@/components/ui/label"
 
 
 
@@ -56,16 +61,21 @@ const Pedidos = () => {
   const navigate = useNavigate();
   const location = useLocation()
   const [status, setStatus] = useState("all")
+  const [loading, setLoading] = useState(false);
+
 
 
   const { data: orders, isLoading, isError } = useFetchAllOrders(
       status && status !== "all" ? { status } : undefined
   );
+
   const {
     mutateAsync: deleteOrder, 
     isPending: isPendingDeleteOrder, 
     isError: isErrorDeleleteOrder
   } = useDeleteSalesOrder();
+
+  const { carregarPedidoExistente } = usePedidoStore();
 
 
 
@@ -76,6 +86,14 @@ const Pedidos = () => {
   const [pedidoSelecionado, setPedidoSelecionado] = useState<number | null>(null);
   
 
+  const handleEditarPedido = (order: Orders) => {
+
+    setLoading(true);
+    carregarPedidoExistente(order);
+
+    setLoading(false);
+    navigate(`/vendas/pedidos/${order.id}/editar`);
+  }
 
 
 
@@ -160,6 +178,12 @@ const Pedidos = () => {
     )
   }
 
+  if(loading){
+    return(
+      <LoadingSpinner fullScreen={true} size={120}/>
+    )
+  }
+
 
   if(isError) {
     return (
@@ -182,7 +206,7 @@ const Pedidos = () => {
   return (
 
 
-    <section>
+    <section className="w-full">
 
       <div className="flex justify-between mb-4">
         
@@ -259,7 +283,7 @@ const Pedidos = () => {
                       size={26}
                       disabled={order.status != 1}
                       onClick={()=> {
-                        navigate(`/vendas/pedidos/${order.id}/editar`);
+                        handleEditarPedido(order)
                       }} 
                     />
                   </div>
@@ -267,29 +291,50 @@ const Pedidos = () => {
     
                 </div>
     
-                <div className="flex items-center justify-between">
-                  <span className="text-md text-gray-500">Nº Pedido</span>
-                  <span className="font-bold text-fuchsia-700">#{order.id}</span>
-                </div>
+
     
-                <div className="flex items-center justify-between">
-                  <span className="text-md text-gray-500">Data/hora</span>
-                  <span className="text-gray-500">{formatDateTime(order.data_criacao)}</span>
+
+                <div className="flex justify-between">
+
+                  <div className="flex gap-2 items-center justify-between">
+                    <span className="text-md text-gray-500">Nº Pedido</span>
+                    <span className="font-bold text-fuchsia-700">#{order.id}</span>
+                  </div>
+       
+
+                  <div className="flex gap-2 items-center justify-between">
+                    <span className="text-md text-gray-500">Data/hora</span>
+                    <span className="text-gray-500">{formatDateTime(order.data_criacao)}</span>
+                  </div>
+
                 </div>
+
     
                 <div className="flex items-center gap-2">
                   <span className="text-md text-gray-500">Cliente</span>
                   <p className="font-medium">{order.nomeCliente}</p>            
                 </div>
-    
-                <div className="flex items-center justify-between mb-4">
+
+                <div className="flex gap-2 items-center justify-between">
                   <span className="text-md text-gray-500">Valor total</span>
                   <span className="font-bold text-lg text-fuchsia-700">
                     R$ {formatarMoedaBRL(order.valorTotal)}
                   </span>
                 </div>
+
+                <Separator/>
+
+                {order.observacao && (
+
+                  <div className="grid mt-4">
+                    <Label className="text-md">Observação</Label>
+                    <Textarea value={order.observacao ?? ''} readOnly disabled/>
+                  </div>
+                )}
+
     
-                <div className="flex justify-between">
+                {/* Local consumo / Status do pedido */}
+                <div className="flex justify-between mt-4">
                   {/* Local consumo */}
                   <div className="flex">
           
@@ -363,8 +408,8 @@ const Pedidos = () => {
                       </div>
     
                     )}
-                  </div>             
-    
+                  </div>  
+                        
                 </div>
                 
                 <Accordion
@@ -381,38 +426,42 @@ const Pedidos = () => {
                       </div>
                     </AccordionTrigger>
     
-                    <AccordionContent className="flex flex-col text-balance border-x border-b px-2">
+                    <AccordionContent className="flex flex-col text-balance border-x border-b px-4">
                       <>
                         {order.itensPedido && order.itensPedido.map((item) => (
-                          <div 
-                            className={`grid  ${order.itensPedido.length > 1 && 'border-b'}`}
-                          >
-    
-                            <div className="grid mx-4 mt-2">
-                              <div className="flex items-center gap-2">
-                                <p className="font-medium text-lg">{item.quantidade}x </p>
-                                <p className="text-lg">{item.produtos.nomeProduto}</p>
-                                <p className="text-md font-medium text-fuchsia-700">R$ {formatarMoedaBRL(Number(item.precoUnitario))}</p>
-                              </div>
-                          
-                            
-                            </div>
-    
-                            <div className="grid mb-2">
-    
-                              {item.complementosItem && item.complementosItem.map((compl) => (
-                                <div key={compl.id} className="flex ml-12 gap-2">
-                                  <p className="font-medium">{compl.quantidade}x</p>
-                                  <p>{compl.complementos.nomeComplemento}</p>
-                                  {Number(compl.precoUnitario) > 0 && (
-                                    <p className="text-fuchsia-700">R$ {formatarMoedaBRL(Number(compl.precoUnitario))}</p>
-                                  )}
+                          <>
+                        
+                            <div className='grid'>
+      
+                              <div className="grid mt-2">
+                                <div className="flex items-center gap-2">
+                                  <p className="font-medium text-lg">{item.quantidade}x </p>
+                                  <p className="text-lg">{item.produtos.nomeProduto}</p>
+                                  <p className="text-md font-medium text-fuchsia-700">R$ {formatarMoedaBRL(Number(item.precoUnitario))}</p>
                                 </div>
-                              ))}
-    
+                                                        
+                              </div>
+      
+                              <div className="grid gap-1 mb-2">
+      
+                                {item.complementosItem && item.complementosItem.map((compl) => (
+                                  <div key={compl.id} className="flex ml-12 gap-2">
+                                    <p className="font-medium bg-gray-200 rounded px-1">{compl.quantidade}x</p>
+                                    <p>{compl.complementos.nomeComplemento}</p>
+                                    {Number(compl.precoUnitario) > 0 && (
+                                      <p className="text-fuchsia-700">R$ {formatarMoedaBRL(Number(compl.precoUnitario))}</p>
+                                    )}
+                                  </div>
+                                ))}
+      
+                              </div>
+
+                              {item.observacaoItem && (<p className="text-muted-foreground">Obs: {item.observacaoItem}</p>)}
+                                    
                             </div>
-    
-                          </div>
+                            <Separator/>
+                          
+                          </>
                     
                         ))}
                     
@@ -427,9 +476,7 @@ const Pedidos = () => {
               
     
                 </Accordion>
-    
-              
-              
+
               </div>
             ))}
           </>

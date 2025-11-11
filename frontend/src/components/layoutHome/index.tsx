@@ -63,13 +63,13 @@ const LayoutHome = () => {
 
 
 
-              {!idPedidoEmEdicao && (
+              {!idPedidoEmEdicao && !pathnameCart && (
                 
                 <Link className="relative" to='/vendas/carrinho'>
 
                   <ShoppingCart size={24}/>
 
-                  { cart?.itens?.length > 0 && (
+                  {cart?.itens?.length > 0 && (
                       <span className="absolute -right-4 -top-3 bg-fuchsia-600 rounded-full w-6 h-6 flex items-center justify-center text-white text-xs">
                         {cart.itens.length}
                       </span>
@@ -84,7 +84,7 @@ const LayoutHome = () => {
           </header>
 
 
-          <div className="p-4">
+          <div className="p-4 w-full flex justify-center">
 
             <Outlet/> 
 
@@ -93,8 +93,9 @@ const LayoutHome = () => {
 
         </SidebarInset>
       </SidebarProvider>
-      
 
+      
+      
     </>
   )
 }

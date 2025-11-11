@@ -1,7 +1,6 @@
 
 import type { Customer } from "@/types/customer/customer";
 import type { Cart, ComplementoItemCart, ItemCart } from "@/types/sales/cart/cart";
-import { v4 as uuidv4 } from "uuid";
 
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
@@ -29,7 +28,7 @@ interface CartState {
   removerItemCart: (item: string) => void;
 
   selecionarItemParaEditarCart: (item: ItemCart) => void;
-  salvarEdicaoItemCart: () => void;
+  salvarEdicaoItemCart: (observacaoItem: string) => void;
 
 
 
@@ -121,7 +120,6 @@ export const useCartStore = create(
         // Inicializa quantidade do novo item
         const itemParaAdicionar: ItemCart & { quantidade: number } = {
           ...newItem,
-          uuid: uuidv4(), // gera id único pra cada item do carrinho
           complementos: newItem.complementos || [],
           quantidade: 1,
         };
@@ -353,7 +351,7 @@ export const useCartStore = create(
         set({ complementosItemCart: novos });
       },
 
-      salvarEdicaoItemCart: () => {
+      salvarEdicaoItemCart: (observacaoItem) => {
         const { cart, itemCartEditando, complementosItemCart } = get();
         if (!itemCartEditando) return;
 
@@ -385,6 +383,7 @@ export const useCartStore = create(
             ? {
                 ...itemCartEditando,
                 complementos: complementosItemCart,
+                observacaoItem: observacaoItem,
                 valorTotal:
                   (itemCartEditando.precoUnitario +
                     complementosItemCart.reduce(

@@ -121,14 +121,20 @@ const ProdutosPedido = () => {
 
               <div className="w-28 flex items-center justify-between">
 
+    
                 <button
                   type="button"
+                  disabled={orderEdit?.itens?.length === 1 && orderEdit.itens[0].quantidade === 1 }
                   onClick={() => diminuirQtdItemPedido(item)}
                   className="font-bold cursor-pointer text-fuchsia-700"
                 >
                   <Minus size={24} strokeWidth={3} />
                 </button>
+
+
+
                 <span className="w-full font-medium text-center">{item.quantidade}</span>
+
                 <button
                   type="button"
                   onClick={()=>adicionarItemPedido(item)}
@@ -136,6 +142,7 @@ const ProdutosPedido = () => {
                 >
                   <Plus size={24} strokeWidth={3}/>
                 </button>
+
               </div>
 
 

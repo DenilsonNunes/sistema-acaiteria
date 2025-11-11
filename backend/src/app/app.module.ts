@@ -16,6 +16,7 @@ import { join } from 'node:path';
 import { ComplementosModule } from 'src/produtos/complementos/complementos.module';
 import { PrinterModule } from 'src/printer/printer.module';
 import { TefModule } from 'src/tef/tef.module';
+import { TaxasDeEntregaModule } from 'src/configuracoes/taxas-de-entrega/taxas-de-entrega.module';
 
 @Module({
   imports: [
@@ -31,6 +32,10 @@ import { TefModule } from 'src/tef/tef.module';
     AuthModule,
     PrinterModule,
     TefModule,
+    /*-----------Configurações---------------*/
+    TaxasDeEntregaModule,
+    /*----------------Fim-------------------*/
+
     // Caminho de arquivo staticos do meu projeto, como images.
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', '..', 'files', 'products', 'images'), // caminho que vai salvar as imagens.

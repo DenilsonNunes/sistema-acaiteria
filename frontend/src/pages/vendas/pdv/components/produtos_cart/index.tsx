@@ -37,26 +37,36 @@ const ProdutosCart = () => {
 
         <div key={index} className="w-full mb-4 flex flex-col bg-gray-100 border border-gray-300 p-2 rounded-lg">
 
-          <div className='flex justify-between'>
+          <div className='flex justify-between mt-2'>
+
             <div className='flex gap-2'>
 
               {/* Foto */}
-              <div className="flex items-center justify-center border border-gray-300 w-15 h-15 rounded-lg overflow-hidden bg-white">
-                {item.imagemUrl ? (
-                  <img
-                    src={item.imagemUrl}
-                    alt={item.nomeProduto}
-                    className="object-cover w-full h-full"
-                  />
-                ) : (
-                  <span className="text-sm text-center text-gray-500">Sem Foto</span>
-                )}
+              <div className="relative w-15 h-15">
+                
+                {/* Container da imagem */}
+                <div className="flex items-center justify-center border border-gray-300 w-full h-full rounded-lg overflow-hidden bg-white">
+                  {item.imagemUrl ? (
+                    <img
+                      src={item.imagemUrl}
+                      alt={item.nomeProduto}
+                      className="object-cover w-full h-full"
+                    />
+                  ) : (
+                    <span className="text-sm text-center text-gray-500">Sem Foto</span>
+                  )}
+                </div>
+
+                {/* Badge fora da imagem */}
+                <span className="absolute -top-2 -right-2 bg-fuchsia-600 rounded-full w-6 h-6 flex items-center justify-center text-white text-xs">
+                  {item.quantidade}
+                </span>
               </div>
 
               {/* Detalhes */}
-              <div>
+              <div className="ml-2">
+
                 <div className='flex items-center gap-1'>
-                  <p>{item.quantidade}x</p>
                   <p className="text-lg font-medium">{item.nomeProduto} - </p>
                   <p className='text-sm font-medium text-fuchsia-700'>
                     {formatarMoedaBRL(item.precoUnitario)}
@@ -88,6 +98,7 @@ const ProdutosCart = () => {
 
 
               </div>
+
             </div>
 
             {/* Ações */}
@@ -100,7 +111,15 @@ const ProdutosCart = () => {
                 onClick={() => handleEditarItemCart(item)}
               />
             </div>
+            
           </div>
+
+          {item.observacaoItem && (
+            <div>
+              <p className="text-foreground font-normal">Obs: {item.observacaoItem}</p>
+            </div>
+          )}
+
 
           {/* Rodapé */}
           <div className="flex flex-col justify-between w-full mt-4">
@@ -131,6 +150,8 @@ const ProdutosCart = () => {
               </div>
             </div>
           </div>
+
+
         </div>
 
       ))}

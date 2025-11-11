@@ -16,7 +16,7 @@ const ResumoCart = () => {
   
   return (
 
-    <section>
+    <section className="w-full">
 
       {/* Produtos do carrinho */}
       {cart?.itens?.length > 0 ? (
@@ -53,7 +53,6 @@ const ResumoCart = () => {
                                               
         </>
       )}
-
 
       <AcaoSalvarPedido/>
 

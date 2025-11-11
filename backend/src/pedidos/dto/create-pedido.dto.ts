@@ -19,6 +19,9 @@ export class ItensPedido {
   @IsNumber({}, { message: 'A quantidade informada deve ser um numero' })
   quantidade: number;
 
+  @IsString()
+  observacaoItem?: string;
+
   @IsNumber()
   precoUnitario: number;
 

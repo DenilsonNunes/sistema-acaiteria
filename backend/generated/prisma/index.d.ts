@@ -58,6 +58,12 @@ export type PedidoProdutos = $Result.DefaultSelection<Prisma.$PedidoProdutosPayl
  * 
  */
 export type PedidoProdutoComplementos = $Result.DefaultSelection<Prisma.$PedidoProdutoComplementosPayload>
+/**
+ * Model TaxasDeEntrega
+ * *
+ *  * ------------- Configuarações --------------------
+ */
+export type TaxasDeEntrega = $Result.DefaultSelection<Prisma.$TaxasDeEntregaPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -273,6 +279,16 @@ export class PrismaClient<
     * ```
     */
   get pedidoProdutoComplementos(): Prisma.PedidoProdutoComplementosDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.taxasDeEntrega`: Exposes CRUD operations for the **TaxasDeEntrega** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more TaxasDeEntregas
+    * const taxasDeEntregas = await prisma.taxasDeEntrega.findMany()
+    * ```
+    */
+  get taxasDeEntrega(): Prisma.TaxasDeEntregaDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -721,7 +737,8 @@ export namespace Prisma {
     Complementos: 'Complementos',
     Pedidos: 'Pedidos',
     PedidoProdutos: 'PedidoProdutos',
-    PedidoProdutoComplementos: 'PedidoProdutoComplementos'
+    PedidoProdutoComplementos: 'PedidoProdutoComplementos',
+    TaxasDeEntrega: 'TaxasDeEntrega'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -740,7 +757,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "usuarios" | "clientes" | "produtos" | "categorias" | "grupoComplementos" | "complementos" | "pedidos" | "pedidoProdutos" | "pedidoProdutoComplementos"
+      modelProps: "usuarios" | "clientes" | "produtos" | "categorias" | "grupoComplementos" | "complementos" | "pedidos" | "pedidoProdutos" | "pedidoProdutoComplementos" | "taxasDeEntrega"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1410,6 +1427,80 @@ export namespace Prisma {
           }
         }
       }
+      TaxasDeEntrega: {
+        payload: Prisma.$TaxasDeEntregaPayload<ExtArgs>
+        fields: Prisma.TaxasDeEntregaFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.TaxasDeEntregaFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaxasDeEntregaPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.TaxasDeEntregaFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaxasDeEntregaPayload>
+          }
+          findFirst: {
+            args: Prisma.TaxasDeEntregaFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaxasDeEntregaPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.TaxasDeEntregaFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaxasDeEntregaPayload>
+          }
+          findMany: {
+            args: Prisma.TaxasDeEntregaFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaxasDeEntregaPayload>[]
+          }
+          create: {
+            args: Prisma.TaxasDeEntregaCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaxasDeEntregaPayload>
+          }
+          createMany: {
+            args: Prisma.TaxasDeEntregaCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.TaxasDeEntregaCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaxasDeEntregaPayload>[]
+          }
+          delete: {
+            args: Prisma.TaxasDeEntregaDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaxasDeEntregaPayload>
+          }
+          update: {
+            args: Prisma.TaxasDeEntregaUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaxasDeEntregaPayload>
+          }
+          deleteMany: {
+            args: Prisma.TaxasDeEntregaDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.TaxasDeEntregaUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.TaxasDeEntregaUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaxasDeEntregaPayload>[]
+          }
+          upsert: {
+            args: Prisma.TaxasDeEntregaUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaxasDeEntregaPayload>
+          }
+          aggregate: {
+            args: Prisma.TaxasDeEntregaAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTaxasDeEntrega>
+          }
+          groupBy: {
+            args: Prisma.TaxasDeEntregaGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TaxasDeEntregaGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.TaxasDeEntregaCountArgs<ExtArgs>
+            result: $Utils.Optional<TaxasDeEntregaCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1503,6 +1594,7 @@ export namespace Prisma {
     pedidos?: PedidosOmit
     pedidoProdutos?: PedidoProdutosOmit
     pedidoProdutoComplementos?: PedidoProdutoComplementosOmit
+    taxasDeEntrega?: TaxasDeEntregaOmit
   }
 
   /* Types for Logging */
@@ -10118,6 +10210,7 @@ export namespace Prisma {
     idPedido: number | null
     precoUnitario: Decimal | null
     quantidade: number | null
+    observacaoItem: string | null
   }
 
   export type PedidoProdutosMaxAggregateOutputType = {
@@ -10126,6 +10219,7 @@ export namespace Prisma {
     idPedido: number | null
     precoUnitario: Decimal | null
     quantidade: number | null
+    observacaoItem: string | null
   }
 
   export type PedidoProdutosCountAggregateOutputType = {
@@ -10134,6 +10228,7 @@ export namespace Prisma {
     idPedido: number
     precoUnitario: number
     quantidade: number
+    observacaoItem: number
     _all: number
   }
 
@@ -10160,6 +10255,7 @@ export namespace Prisma {
     idPedido?: true
     precoUnitario?: true
     quantidade?: true
+    observacaoItem?: true
   }
 
   export type PedidoProdutosMaxAggregateInputType = {
@@ -10168,6 +10264,7 @@ export namespace Prisma {
     idPedido?: true
     precoUnitario?: true
     quantidade?: true
+    observacaoItem?: true
   }
 
   export type PedidoProdutosCountAggregateInputType = {
@@ -10176,6 +10273,7 @@ export namespace Prisma {
     idPedido?: true
     precoUnitario?: true
     quantidade?: true
+    observacaoItem?: true
     _all?: true
   }
 
@@ -10271,6 +10369,7 @@ export namespace Prisma {
     idPedido: number
     precoUnitario: Decimal
     quantidade: number
+    observacaoItem: string | null
     _count: PedidoProdutosCountAggregateOutputType | null
     _avg: PedidoProdutosAvgAggregateOutputType | null
     _sum: PedidoProdutosSumAggregateOutputType | null
@@ -10298,6 +10397,7 @@ export namespace Prisma {
     idPedido?: boolean
     precoUnitario?: boolean
     quantidade?: boolean
+    observacaoItem?: boolean
     produtos?: boolean | ProdutosDefaultArgs<ExtArgs>
     pedidos?: boolean | PedidosDefaultArgs<ExtArgs>
     complementosItem?: boolean | PedidoProdutos$complementosItemArgs<ExtArgs>
@@ -10310,6 +10410,7 @@ export namespace Prisma {
     idPedido?: boolean
     precoUnitario?: boolean
     quantidade?: boolean
+    observacaoItem?: boolean
     produtos?: boolean | ProdutosDefaultArgs<ExtArgs>
     pedidos?: boolean | PedidosDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["pedidoProdutos"]>
@@ -10320,6 +10421,7 @@ export namespace Prisma {
     idPedido?: boolean
     precoUnitario?: boolean
     quantidade?: boolean
+    observacaoItem?: boolean
     produtos?: boolean | ProdutosDefaultArgs<ExtArgs>
     pedidos?: boolean | PedidosDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["pedidoProdutos"]>
@@ -10330,9 +10432,10 @@ export namespace Prisma {
     idPedido?: boolean
     precoUnitario?: boolean
     quantidade?: boolean
+    observacaoItem?: boolean
   }
 
-  export type PedidoProdutosOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "idProduto" | "idPedido" | "precoUnitario" | "quantidade", ExtArgs["result"]["pedidoProdutos"]>
+  export type PedidoProdutosOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "idProduto" | "idPedido" | "precoUnitario" | "quantidade" | "observacaoItem", ExtArgs["result"]["pedidoProdutos"]>
   export type PedidoProdutosInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     produtos?: boolean | ProdutosDefaultArgs<ExtArgs>
     pedidos?: boolean | PedidosDefaultArgs<ExtArgs>
@@ -10361,6 +10464,7 @@ export namespace Prisma {
       idPedido: number
       precoUnitario: Prisma.Decimal
       quantidade: number
+      observacaoItem: string | null
     }, ExtArgs["result"]["pedidoProdutos"]>
     composites: {}
   }
@@ -10792,6 +10896,7 @@ export namespace Prisma {
     readonly idPedido: FieldRef<"PedidoProdutos", 'Int'>
     readonly precoUnitario: FieldRef<"PedidoProdutos", 'Decimal'>
     readonly quantidade: FieldRef<"PedidoProdutos", 'Int'>
+    readonly observacaoItem: FieldRef<"PedidoProdutos", 'String'>
   }
     
 
@@ -12347,6 +12452,1039 @@ export namespace Prisma {
 
 
   /**
+   * Model TaxasDeEntrega
+   */
+
+  export type AggregateTaxasDeEntrega = {
+    _count: TaxasDeEntregaCountAggregateOutputType | null
+    _avg: TaxasDeEntregaAvgAggregateOutputType | null
+    _sum: TaxasDeEntregaSumAggregateOutputType | null
+    _min: TaxasDeEntregaMinAggregateOutputType | null
+    _max: TaxasDeEntregaMaxAggregateOutputType | null
+  }
+
+  export type TaxasDeEntregaAvgAggregateOutputType = {
+    id: number | null
+    valor: Decimal | null
+  }
+
+  export type TaxasDeEntregaSumAggregateOutputType = {
+    id: number | null
+    valor: Decimal | null
+  }
+
+  export type TaxasDeEntregaMinAggregateOutputType = {
+    id: number | null
+    bairroRegiao: string | null
+    valor: Decimal | null
+    data_criacao: Date | null
+    data_alteracao: Date | null
+  }
+
+  export type TaxasDeEntregaMaxAggregateOutputType = {
+    id: number | null
+    bairroRegiao: string | null
+    valor: Decimal | null
+    data_criacao: Date | null
+    data_alteracao: Date | null
+  }
+
+  export type TaxasDeEntregaCountAggregateOutputType = {
+    id: number
+    bairroRegiao: number
+    valor: number
+    data_criacao: number
+    data_alteracao: number
+    _all: number
+  }
+
+
+  export type TaxasDeEntregaAvgAggregateInputType = {
+    id?: true
+    valor?: true
+  }
+
+  export type TaxasDeEntregaSumAggregateInputType = {
+    id?: true
+    valor?: true
+  }
+
+  export type TaxasDeEntregaMinAggregateInputType = {
+    id?: true
+    bairroRegiao?: true
+    valor?: true
+    data_criacao?: true
+    data_alteracao?: true
+  }
+
+  export type TaxasDeEntregaMaxAggregateInputType = {
+    id?: true
+    bairroRegiao?: true
+    valor?: true
+    data_criacao?: true
+    data_alteracao?: true
+  }
+
+  export type TaxasDeEntregaCountAggregateInputType = {
+    id?: true
+    bairroRegiao?: true
+    valor?: true
+    data_criacao?: true
+    data_alteracao?: true
+    _all?: true
+  }
+
+  export type TaxasDeEntregaAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TaxasDeEntrega to aggregate.
+     */
+    where?: TaxasDeEntregaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TaxasDeEntregas to fetch.
+     */
+    orderBy?: TaxasDeEntregaOrderByWithRelationInput | TaxasDeEntregaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: TaxasDeEntregaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TaxasDeEntregas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TaxasDeEntregas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned TaxasDeEntregas
+    **/
+    _count?: true | TaxasDeEntregaCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: TaxasDeEntregaAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: TaxasDeEntregaSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TaxasDeEntregaMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TaxasDeEntregaMaxAggregateInputType
+  }
+
+  export type GetTaxasDeEntregaAggregateType<T extends TaxasDeEntregaAggregateArgs> = {
+        [P in keyof T & keyof AggregateTaxasDeEntrega]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTaxasDeEntrega[P]>
+      : GetScalarType<T[P], AggregateTaxasDeEntrega[P]>
+  }
+
+
+
+
+  export type TaxasDeEntregaGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TaxasDeEntregaWhereInput
+    orderBy?: TaxasDeEntregaOrderByWithAggregationInput | TaxasDeEntregaOrderByWithAggregationInput[]
+    by: TaxasDeEntregaScalarFieldEnum[] | TaxasDeEntregaScalarFieldEnum
+    having?: TaxasDeEntregaScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TaxasDeEntregaCountAggregateInputType | true
+    _avg?: TaxasDeEntregaAvgAggregateInputType
+    _sum?: TaxasDeEntregaSumAggregateInputType
+    _min?: TaxasDeEntregaMinAggregateInputType
+    _max?: TaxasDeEntregaMaxAggregateInputType
+  }
+
+  export type TaxasDeEntregaGroupByOutputType = {
+    id: number
+    bairroRegiao: string
+    valor: Decimal
+    data_criacao: Date
+    data_alteracao: Date
+    _count: TaxasDeEntregaCountAggregateOutputType | null
+    _avg: TaxasDeEntregaAvgAggregateOutputType | null
+    _sum: TaxasDeEntregaSumAggregateOutputType | null
+    _min: TaxasDeEntregaMinAggregateOutputType | null
+    _max: TaxasDeEntregaMaxAggregateOutputType | null
+  }
+
+  type GetTaxasDeEntregaGroupByPayload<T extends TaxasDeEntregaGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TaxasDeEntregaGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TaxasDeEntregaGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TaxasDeEntregaGroupByOutputType[P]>
+            : GetScalarType<T[P], TaxasDeEntregaGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type TaxasDeEntregaSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    bairroRegiao?: boolean
+    valor?: boolean
+    data_criacao?: boolean
+    data_alteracao?: boolean
+  }, ExtArgs["result"]["taxasDeEntrega"]>
+
+  export type TaxasDeEntregaSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    bairroRegiao?: boolean
+    valor?: boolean
+    data_criacao?: boolean
+    data_alteracao?: boolean
+  }, ExtArgs["result"]["taxasDeEntrega"]>
+
+  export type TaxasDeEntregaSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    bairroRegiao?: boolean
+    valor?: boolean
+    data_criacao?: boolean
+    data_alteracao?: boolean
+  }, ExtArgs["result"]["taxasDeEntrega"]>
+
+  export type TaxasDeEntregaSelectScalar = {
+    id?: boolean
+    bairroRegiao?: boolean
+    valor?: boolean
+    data_criacao?: boolean
+    data_alteracao?: boolean
+  }
+
+  export type TaxasDeEntregaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "bairroRegiao" | "valor" | "data_criacao" | "data_alteracao", ExtArgs["result"]["taxasDeEntrega"]>
+
+  export type $TaxasDeEntregaPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "TaxasDeEntrega"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      bairroRegiao: string
+      valor: Prisma.Decimal
+      data_criacao: Date
+      data_alteracao: Date
+    }, ExtArgs["result"]["taxasDeEntrega"]>
+    composites: {}
+  }
+
+  type TaxasDeEntregaGetPayload<S extends boolean | null | undefined | TaxasDeEntregaDefaultArgs> = $Result.GetResult<Prisma.$TaxasDeEntregaPayload, S>
+
+  type TaxasDeEntregaCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<TaxasDeEntregaFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: TaxasDeEntregaCountAggregateInputType | true
+    }
+
+  export interface TaxasDeEntregaDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['TaxasDeEntrega'], meta: { name: 'TaxasDeEntrega' } }
+    /**
+     * Find zero or one TaxasDeEntrega that matches the filter.
+     * @param {TaxasDeEntregaFindUniqueArgs} args - Arguments to find a TaxasDeEntrega
+     * @example
+     * // Get one TaxasDeEntrega
+     * const taxasDeEntrega = await prisma.taxasDeEntrega.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends TaxasDeEntregaFindUniqueArgs>(args: SelectSubset<T, TaxasDeEntregaFindUniqueArgs<ExtArgs>>): Prisma__TaxasDeEntregaClient<$Result.GetResult<Prisma.$TaxasDeEntregaPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one TaxasDeEntrega that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {TaxasDeEntregaFindUniqueOrThrowArgs} args - Arguments to find a TaxasDeEntrega
+     * @example
+     * // Get one TaxasDeEntrega
+     * const taxasDeEntrega = await prisma.taxasDeEntrega.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends TaxasDeEntregaFindUniqueOrThrowArgs>(args: SelectSubset<T, TaxasDeEntregaFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TaxasDeEntregaClient<$Result.GetResult<Prisma.$TaxasDeEntregaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TaxasDeEntrega that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TaxasDeEntregaFindFirstArgs} args - Arguments to find a TaxasDeEntrega
+     * @example
+     * // Get one TaxasDeEntrega
+     * const taxasDeEntrega = await prisma.taxasDeEntrega.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends TaxasDeEntregaFindFirstArgs>(args?: SelectSubset<T, TaxasDeEntregaFindFirstArgs<ExtArgs>>): Prisma__TaxasDeEntregaClient<$Result.GetResult<Prisma.$TaxasDeEntregaPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TaxasDeEntrega that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TaxasDeEntregaFindFirstOrThrowArgs} args - Arguments to find a TaxasDeEntrega
+     * @example
+     * // Get one TaxasDeEntrega
+     * const taxasDeEntrega = await prisma.taxasDeEntrega.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends TaxasDeEntregaFindFirstOrThrowArgs>(args?: SelectSubset<T, TaxasDeEntregaFindFirstOrThrowArgs<ExtArgs>>): Prisma__TaxasDeEntregaClient<$Result.GetResult<Prisma.$TaxasDeEntregaPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more TaxasDeEntregas that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TaxasDeEntregaFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all TaxasDeEntregas
+     * const taxasDeEntregas = await prisma.taxasDeEntrega.findMany()
+     * 
+     * // Get first 10 TaxasDeEntregas
+     * const taxasDeEntregas = await prisma.taxasDeEntrega.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const taxasDeEntregaWithIdOnly = await prisma.taxasDeEntrega.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends TaxasDeEntregaFindManyArgs>(args?: SelectSubset<T, TaxasDeEntregaFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TaxasDeEntregaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a TaxasDeEntrega.
+     * @param {TaxasDeEntregaCreateArgs} args - Arguments to create a TaxasDeEntrega.
+     * @example
+     * // Create one TaxasDeEntrega
+     * const TaxasDeEntrega = await prisma.taxasDeEntrega.create({
+     *   data: {
+     *     // ... data to create a TaxasDeEntrega
+     *   }
+     * })
+     * 
+     */
+    create<T extends TaxasDeEntregaCreateArgs>(args: SelectSubset<T, TaxasDeEntregaCreateArgs<ExtArgs>>): Prisma__TaxasDeEntregaClient<$Result.GetResult<Prisma.$TaxasDeEntregaPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many TaxasDeEntregas.
+     * @param {TaxasDeEntregaCreateManyArgs} args - Arguments to create many TaxasDeEntregas.
+     * @example
+     * // Create many TaxasDeEntregas
+     * const taxasDeEntrega = await prisma.taxasDeEntrega.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends TaxasDeEntregaCreateManyArgs>(args?: SelectSubset<T, TaxasDeEntregaCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many TaxasDeEntregas and returns the data saved in the database.
+     * @param {TaxasDeEntregaCreateManyAndReturnArgs} args - Arguments to create many TaxasDeEntregas.
+     * @example
+     * // Create many TaxasDeEntregas
+     * const taxasDeEntrega = await prisma.taxasDeEntrega.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many TaxasDeEntregas and only return the `id`
+     * const taxasDeEntregaWithIdOnly = await prisma.taxasDeEntrega.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends TaxasDeEntregaCreateManyAndReturnArgs>(args?: SelectSubset<T, TaxasDeEntregaCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TaxasDeEntregaPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a TaxasDeEntrega.
+     * @param {TaxasDeEntregaDeleteArgs} args - Arguments to delete one TaxasDeEntrega.
+     * @example
+     * // Delete one TaxasDeEntrega
+     * const TaxasDeEntrega = await prisma.taxasDeEntrega.delete({
+     *   where: {
+     *     // ... filter to delete one TaxasDeEntrega
+     *   }
+     * })
+     * 
+     */
+    delete<T extends TaxasDeEntregaDeleteArgs>(args: SelectSubset<T, TaxasDeEntregaDeleteArgs<ExtArgs>>): Prisma__TaxasDeEntregaClient<$Result.GetResult<Prisma.$TaxasDeEntregaPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one TaxasDeEntrega.
+     * @param {TaxasDeEntregaUpdateArgs} args - Arguments to update one TaxasDeEntrega.
+     * @example
+     * // Update one TaxasDeEntrega
+     * const taxasDeEntrega = await prisma.taxasDeEntrega.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends TaxasDeEntregaUpdateArgs>(args: SelectSubset<T, TaxasDeEntregaUpdateArgs<ExtArgs>>): Prisma__TaxasDeEntregaClient<$Result.GetResult<Prisma.$TaxasDeEntregaPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more TaxasDeEntregas.
+     * @param {TaxasDeEntregaDeleteManyArgs} args - Arguments to filter TaxasDeEntregas to delete.
+     * @example
+     * // Delete a few TaxasDeEntregas
+     * const { count } = await prisma.taxasDeEntrega.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends TaxasDeEntregaDeleteManyArgs>(args?: SelectSubset<T, TaxasDeEntregaDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TaxasDeEntregas.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TaxasDeEntregaUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many TaxasDeEntregas
+     * const taxasDeEntrega = await prisma.taxasDeEntrega.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends TaxasDeEntregaUpdateManyArgs>(args: SelectSubset<T, TaxasDeEntregaUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TaxasDeEntregas and returns the data updated in the database.
+     * @param {TaxasDeEntregaUpdateManyAndReturnArgs} args - Arguments to update many TaxasDeEntregas.
+     * @example
+     * // Update many TaxasDeEntregas
+     * const taxasDeEntrega = await prisma.taxasDeEntrega.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more TaxasDeEntregas and only return the `id`
+     * const taxasDeEntregaWithIdOnly = await prisma.taxasDeEntrega.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends TaxasDeEntregaUpdateManyAndReturnArgs>(args: SelectSubset<T, TaxasDeEntregaUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TaxasDeEntregaPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one TaxasDeEntrega.
+     * @param {TaxasDeEntregaUpsertArgs} args - Arguments to update or create a TaxasDeEntrega.
+     * @example
+     * // Update or create a TaxasDeEntrega
+     * const taxasDeEntrega = await prisma.taxasDeEntrega.upsert({
+     *   create: {
+     *     // ... data to create a TaxasDeEntrega
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the TaxasDeEntrega we want to update
+     *   }
+     * })
+     */
+    upsert<T extends TaxasDeEntregaUpsertArgs>(args: SelectSubset<T, TaxasDeEntregaUpsertArgs<ExtArgs>>): Prisma__TaxasDeEntregaClient<$Result.GetResult<Prisma.$TaxasDeEntregaPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of TaxasDeEntregas.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TaxasDeEntregaCountArgs} args - Arguments to filter TaxasDeEntregas to count.
+     * @example
+     * // Count the number of TaxasDeEntregas
+     * const count = await prisma.taxasDeEntrega.count({
+     *   where: {
+     *     // ... the filter for the TaxasDeEntregas we want to count
+     *   }
+     * })
+    **/
+    count<T extends TaxasDeEntregaCountArgs>(
+      args?: Subset<T, TaxasDeEntregaCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TaxasDeEntregaCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a TaxasDeEntrega.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TaxasDeEntregaAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TaxasDeEntregaAggregateArgs>(args: Subset<T, TaxasDeEntregaAggregateArgs>): Prisma.PrismaPromise<GetTaxasDeEntregaAggregateType<T>>
+
+    /**
+     * Group by TaxasDeEntrega.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TaxasDeEntregaGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends TaxasDeEntregaGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: TaxasDeEntregaGroupByArgs['orderBy'] }
+        : { orderBy?: TaxasDeEntregaGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, TaxasDeEntregaGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTaxasDeEntregaGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the TaxasDeEntrega model
+   */
+  readonly fields: TaxasDeEntregaFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for TaxasDeEntrega.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__TaxasDeEntregaClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the TaxasDeEntrega model
+   */
+  interface TaxasDeEntregaFieldRefs {
+    readonly id: FieldRef<"TaxasDeEntrega", 'Int'>
+    readonly bairroRegiao: FieldRef<"TaxasDeEntrega", 'String'>
+    readonly valor: FieldRef<"TaxasDeEntrega", 'Decimal'>
+    readonly data_criacao: FieldRef<"TaxasDeEntrega", 'DateTime'>
+    readonly data_alteracao: FieldRef<"TaxasDeEntrega", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * TaxasDeEntrega findUnique
+   */
+  export type TaxasDeEntregaFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaxasDeEntrega
+     */
+    select?: TaxasDeEntregaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaxasDeEntrega
+     */
+    omit?: TaxasDeEntregaOmit<ExtArgs> | null
+    /**
+     * Filter, which TaxasDeEntrega to fetch.
+     */
+    where: TaxasDeEntregaWhereUniqueInput
+  }
+
+  /**
+   * TaxasDeEntrega findUniqueOrThrow
+   */
+  export type TaxasDeEntregaFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaxasDeEntrega
+     */
+    select?: TaxasDeEntregaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaxasDeEntrega
+     */
+    omit?: TaxasDeEntregaOmit<ExtArgs> | null
+    /**
+     * Filter, which TaxasDeEntrega to fetch.
+     */
+    where: TaxasDeEntregaWhereUniqueInput
+  }
+
+  /**
+   * TaxasDeEntrega findFirst
+   */
+  export type TaxasDeEntregaFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaxasDeEntrega
+     */
+    select?: TaxasDeEntregaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaxasDeEntrega
+     */
+    omit?: TaxasDeEntregaOmit<ExtArgs> | null
+    /**
+     * Filter, which TaxasDeEntrega to fetch.
+     */
+    where?: TaxasDeEntregaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TaxasDeEntregas to fetch.
+     */
+    orderBy?: TaxasDeEntregaOrderByWithRelationInput | TaxasDeEntregaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TaxasDeEntregas.
+     */
+    cursor?: TaxasDeEntregaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TaxasDeEntregas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TaxasDeEntregas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TaxasDeEntregas.
+     */
+    distinct?: TaxasDeEntregaScalarFieldEnum | TaxasDeEntregaScalarFieldEnum[]
+  }
+
+  /**
+   * TaxasDeEntrega findFirstOrThrow
+   */
+  export type TaxasDeEntregaFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaxasDeEntrega
+     */
+    select?: TaxasDeEntregaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaxasDeEntrega
+     */
+    omit?: TaxasDeEntregaOmit<ExtArgs> | null
+    /**
+     * Filter, which TaxasDeEntrega to fetch.
+     */
+    where?: TaxasDeEntregaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TaxasDeEntregas to fetch.
+     */
+    orderBy?: TaxasDeEntregaOrderByWithRelationInput | TaxasDeEntregaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TaxasDeEntregas.
+     */
+    cursor?: TaxasDeEntregaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TaxasDeEntregas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TaxasDeEntregas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TaxasDeEntregas.
+     */
+    distinct?: TaxasDeEntregaScalarFieldEnum | TaxasDeEntregaScalarFieldEnum[]
+  }
+
+  /**
+   * TaxasDeEntrega findMany
+   */
+  export type TaxasDeEntregaFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaxasDeEntrega
+     */
+    select?: TaxasDeEntregaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaxasDeEntrega
+     */
+    omit?: TaxasDeEntregaOmit<ExtArgs> | null
+    /**
+     * Filter, which TaxasDeEntregas to fetch.
+     */
+    where?: TaxasDeEntregaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TaxasDeEntregas to fetch.
+     */
+    orderBy?: TaxasDeEntregaOrderByWithRelationInput | TaxasDeEntregaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing TaxasDeEntregas.
+     */
+    cursor?: TaxasDeEntregaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TaxasDeEntregas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TaxasDeEntregas.
+     */
+    skip?: number
+    distinct?: TaxasDeEntregaScalarFieldEnum | TaxasDeEntregaScalarFieldEnum[]
+  }
+
+  /**
+   * TaxasDeEntrega create
+   */
+  export type TaxasDeEntregaCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaxasDeEntrega
+     */
+    select?: TaxasDeEntregaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaxasDeEntrega
+     */
+    omit?: TaxasDeEntregaOmit<ExtArgs> | null
+    /**
+     * The data needed to create a TaxasDeEntrega.
+     */
+    data: XOR<TaxasDeEntregaCreateInput, TaxasDeEntregaUncheckedCreateInput>
+  }
+
+  /**
+   * TaxasDeEntrega createMany
+   */
+  export type TaxasDeEntregaCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many TaxasDeEntregas.
+     */
+    data: TaxasDeEntregaCreateManyInput | TaxasDeEntregaCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * TaxasDeEntrega createManyAndReturn
+   */
+  export type TaxasDeEntregaCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaxasDeEntrega
+     */
+    select?: TaxasDeEntregaSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaxasDeEntrega
+     */
+    omit?: TaxasDeEntregaOmit<ExtArgs> | null
+    /**
+     * The data used to create many TaxasDeEntregas.
+     */
+    data: TaxasDeEntregaCreateManyInput | TaxasDeEntregaCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * TaxasDeEntrega update
+   */
+  export type TaxasDeEntregaUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaxasDeEntrega
+     */
+    select?: TaxasDeEntregaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaxasDeEntrega
+     */
+    omit?: TaxasDeEntregaOmit<ExtArgs> | null
+    /**
+     * The data needed to update a TaxasDeEntrega.
+     */
+    data: XOR<TaxasDeEntregaUpdateInput, TaxasDeEntregaUncheckedUpdateInput>
+    /**
+     * Choose, which TaxasDeEntrega to update.
+     */
+    where: TaxasDeEntregaWhereUniqueInput
+  }
+
+  /**
+   * TaxasDeEntrega updateMany
+   */
+  export type TaxasDeEntregaUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update TaxasDeEntregas.
+     */
+    data: XOR<TaxasDeEntregaUpdateManyMutationInput, TaxasDeEntregaUncheckedUpdateManyInput>
+    /**
+     * Filter which TaxasDeEntregas to update
+     */
+    where?: TaxasDeEntregaWhereInput
+    /**
+     * Limit how many TaxasDeEntregas to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * TaxasDeEntrega updateManyAndReturn
+   */
+  export type TaxasDeEntregaUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaxasDeEntrega
+     */
+    select?: TaxasDeEntregaSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaxasDeEntrega
+     */
+    omit?: TaxasDeEntregaOmit<ExtArgs> | null
+    /**
+     * The data used to update TaxasDeEntregas.
+     */
+    data: XOR<TaxasDeEntregaUpdateManyMutationInput, TaxasDeEntregaUncheckedUpdateManyInput>
+    /**
+     * Filter which TaxasDeEntregas to update
+     */
+    where?: TaxasDeEntregaWhereInput
+    /**
+     * Limit how many TaxasDeEntregas to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * TaxasDeEntrega upsert
+   */
+  export type TaxasDeEntregaUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaxasDeEntrega
+     */
+    select?: TaxasDeEntregaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaxasDeEntrega
+     */
+    omit?: TaxasDeEntregaOmit<ExtArgs> | null
+    /**
+     * The filter to search for the TaxasDeEntrega to update in case it exists.
+     */
+    where: TaxasDeEntregaWhereUniqueInput
+    /**
+     * In case the TaxasDeEntrega found by the `where` argument doesn't exist, create a new TaxasDeEntrega with this data.
+     */
+    create: XOR<TaxasDeEntregaCreateInput, TaxasDeEntregaUncheckedCreateInput>
+    /**
+     * In case the TaxasDeEntrega was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<TaxasDeEntregaUpdateInput, TaxasDeEntregaUncheckedUpdateInput>
+  }
+
+  /**
+   * TaxasDeEntrega delete
+   */
+  export type TaxasDeEntregaDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaxasDeEntrega
+     */
+    select?: TaxasDeEntregaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaxasDeEntrega
+     */
+    omit?: TaxasDeEntregaOmit<ExtArgs> | null
+    /**
+     * Filter which TaxasDeEntrega to delete.
+     */
+    where: TaxasDeEntregaWhereUniqueInput
+  }
+
+  /**
+   * TaxasDeEntrega deleteMany
+   */
+  export type TaxasDeEntregaDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TaxasDeEntregas to delete
+     */
+    where?: TaxasDeEntregaWhereInput
+    /**
+     * Limit how many TaxasDeEntregas to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * TaxasDeEntrega without action
+   */
+  export type TaxasDeEntregaDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaxasDeEntrega
+     */
+    select?: TaxasDeEntregaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaxasDeEntrega
+     */
+    omit?: TaxasDeEntregaOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -12464,7 +13602,8 @@ export namespace Prisma {
     idProduto: 'idProduto',
     idPedido: 'idPedido',
     precoUnitario: 'precoUnitario',
-    quantidade: 'quantidade'
+    quantidade: 'quantidade',
+    observacaoItem: 'observacaoItem'
   };
 
   export type PedidoProdutosScalarFieldEnum = (typeof PedidoProdutosScalarFieldEnum)[keyof typeof PedidoProdutosScalarFieldEnum]
@@ -12479,6 +13618,17 @@ export namespace Prisma {
   };
 
   export type PedidoProdutoComplementosScalarFieldEnum = (typeof PedidoProdutoComplementosScalarFieldEnum)[keyof typeof PedidoProdutoComplementosScalarFieldEnum]
+
+
+  export const TaxasDeEntregaScalarFieldEnum: {
+    id: 'id',
+    bairroRegiao: 'bairroRegiao',
+    valor: 'valor',
+    data_criacao: 'data_criacao',
+    data_alteracao: 'data_alteracao'
+  };
+
+  export type TaxasDeEntregaScalarFieldEnum = (typeof TaxasDeEntregaScalarFieldEnum)[keyof typeof TaxasDeEntregaScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -13126,6 +14276,7 @@ export namespace Prisma {
     idPedido?: IntFilter<"PedidoProdutos"> | number
     precoUnitario?: DecimalFilter<"PedidoProdutos"> | Decimal | DecimalJsLike | number | string
     quantidade?: IntFilter<"PedidoProdutos"> | number
+    observacaoItem?: StringNullableFilter<"PedidoProdutos"> | string | null
     produtos?: XOR<ProdutosScalarRelationFilter, ProdutosWhereInput>
     pedidos?: XOR<PedidosScalarRelationFilter, PedidosWhereInput>
     complementosItem?: PedidoProdutoComplementosListRelationFilter
@@ -13137,6 +14288,7 @@ export namespace Prisma {
     idPedido?: SortOrder
     precoUnitario?: SortOrder
     quantidade?: SortOrder
+    observacaoItem?: SortOrderInput | SortOrder
     produtos?: ProdutosOrderByWithRelationInput
     pedidos?: PedidosOrderByWithRelationInput
     complementosItem?: PedidoProdutoComplementosOrderByRelationAggregateInput
@@ -13151,6 +14303,7 @@ export namespace Prisma {
     idPedido?: IntFilter<"PedidoProdutos"> | number
     precoUnitario?: DecimalFilter<"PedidoProdutos"> | Decimal | DecimalJsLike | number | string
     quantidade?: IntFilter<"PedidoProdutos"> | number
+    observacaoItem?: StringNullableFilter<"PedidoProdutos"> | string | null
     produtos?: XOR<ProdutosScalarRelationFilter, ProdutosWhereInput>
     pedidos?: XOR<PedidosScalarRelationFilter, PedidosWhereInput>
     complementosItem?: PedidoProdutoComplementosListRelationFilter
@@ -13162,6 +14315,7 @@ export namespace Prisma {
     idPedido?: SortOrder
     precoUnitario?: SortOrder
     quantidade?: SortOrder
+    observacaoItem?: SortOrderInput | SortOrder
     _count?: PedidoProdutosCountOrderByAggregateInput
     _avg?: PedidoProdutosAvgOrderByAggregateInput
     _max?: PedidoProdutosMaxOrderByAggregateInput
@@ -13178,6 +14332,7 @@ export namespace Prisma {
     idPedido?: IntWithAggregatesFilter<"PedidoProdutos"> | number
     precoUnitario?: DecimalWithAggregatesFilter<"PedidoProdutos"> | Decimal | DecimalJsLike | number | string
     quantidade?: IntWithAggregatesFilter<"PedidoProdutos"> | number
+    observacaoItem?: StringNullableWithAggregatesFilter<"PedidoProdutos"> | string | null
   }
 
   export type PedidoProdutoComplementosWhereInput = {
@@ -13238,6 +14393,60 @@ export namespace Prisma {
     idProdutoPedido?: IntWithAggregatesFilter<"PedidoProdutoComplementos"> | number
     precoUnitario?: DecimalWithAggregatesFilter<"PedidoProdutoComplementos"> | Decimal | DecimalJsLike | number | string
     quantidade?: IntWithAggregatesFilter<"PedidoProdutoComplementos"> | number
+  }
+
+  export type TaxasDeEntregaWhereInput = {
+    AND?: TaxasDeEntregaWhereInput | TaxasDeEntregaWhereInput[]
+    OR?: TaxasDeEntregaWhereInput[]
+    NOT?: TaxasDeEntregaWhereInput | TaxasDeEntregaWhereInput[]
+    id?: IntFilter<"TaxasDeEntrega"> | number
+    bairroRegiao?: StringFilter<"TaxasDeEntrega"> | string
+    valor?: DecimalFilter<"TaxasDeEntrega"> | Decimal | DecimalJsLike | number | string
+    data_criacao?: DateTimeFilter<"TaxasDeEntrega"> | Date | string
+    data_alteracao?: DateTimeFilter<"TaxasDeEntrega"> | Date | string
+  }
+
+  export type TaxasDeEntregaOrderByWithRelationInput = {
+    id?: SortOrder
+    bairroRegiao?: SortOrder
+    valor?: SortOrder
+    data_criacao?: SortOrder
+    data_alteracao?: SortOrder
+  }
+
+  export type TaxasDeEntregaWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: TaxasDeEntregaWhereInput | TaxasDeEntregaWhereInput[]
+    OR?: TaxasDeEntregaWhereInput[]
+    NOT?: TaxasDeEntregaWhereInput | TaxasDeEntregaWhereInput[]
+    bairroRegiao?: StringFilter<"TaxasDeEntrega"> | string
+    valor?: DecimalFilter<"TaxasDeEntrega"> | Decimal | DecimalJsLike | number | string
+    data_criacao?: DateTimeFilter<"TaxasDeEntrega"> | Date | string
+    data_alteracao?: DateTimeFilter<"TaxasDeEntrega"> | Date | string
+  }, "id">
+
+  export type TaxasDeEntregaOrderByWithAggregationInput = {
+    id?: SortOrder
+    bairroRegiao?: SortOrder
+    valor?: SortOrder
+    data_criacao?: SortOrder
+    data_alteracao?: SortOrder
+    _count?: TaxasDeEntregaCountOrderByAggregateInput
+    _avg?: TaxasDeEntregaAvgOrderByAggregateInput
+    _max?: TaxasDeEntregaMaxOrderByAggregateInput
+    _min?: TaxasDeEntregaMinOrderByAggregateInput
+    _sum?: TaxasDeEntregaSumOrderByAggregateInput
+  }
+
+  export type TaxasDeEntregaScalarWhereWithAggregatesInput = {
+    AND?: TaxasDeEntregaScalarWhereWithAggregatesInput | TaxasDeEntregaScalarWhereWithAggregatesInput[]
+    OR?: TaxasDeEntregaScalarWhereWithAggregatesInput[]
+    NOT?: TaxasDeEntregaScalarWhereWithAggregatesInput | TaxasDeEntregaScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"TaxasDeEntrega"> | number
+    bairroRegiao?: StringWithAggregatesFilter<"TaxasDeEntrega"> | string
+    valor?: DecimalWithAggregatesFilter<"TaxasDeEntrega"> | Decimal | DecimalJsLike | number | string
+    data_criacao?: DateTimeWithAggregatesFilter<"TaxasDeEntrega"> | Date | string
+    data_alteracao?: DateTimeWithAggregatesFilter<"TaxasDeEntrega"> | Date | string
   }
 
   export type UsuariosCreateInput = {
@@ -13795,6 +15004,7 @@ export namespace Prisma {
   export type PedidoProdutosCreateInput = {
     precoUnitario: Decimal | DecimalJsLike | number | string
     quantidade: number
+    observacaoItem?: string | null
     produtos: ProdutosCreateNestedOneWithoutPedidoProdutosInput
     pedidos: PedidosCreateNestedOneWithoutItensPedidoInput
     complementosItem?: PedidoProdutoComplementosCreateNestedManyWithoutPedidoProdutoInput
@@ -13806,12 +15016,14 @@ export namespace Prisma {
     idPedido: number
     precoUnitario: Decimal | DecimalJsLike | number | string
     quantidade: number
+    observacaoItem?: string | null
     complementosItem?: PedidoProdutoComplementosUncheckedCreateNestedManyWithoutPedidoProdutoInput
   }
 
   export type PedidoProdutosUpdateInput = {
     precoUnitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     quantidade?: IntFieldUpdateOperationsInput | number
+    observacaoItem?: NullableStringFieldUpdateOperationsInput | string | null
     produtos?: ProdutosUpdateOneRequiredWithoutPedidoProdutosNestedInput
     pedidos?: PedidosUpdateOneRequiredWithoutItensPedidoNestedInput
     complementosItem?: PedidoProdutoComplementosUpdateManyWithoutPedidoProdutoNestedInput
@@ -13823,6 +15035,7 @@ export namespace Prisma {
     idPedido?: IntFieldUpdateOperationsInput | number
     precoUnitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     quantidade?: IntFieldUpdateOperationsInput | number
+    observacaoItem?: NullableStringFieldUpdateOperationsInput | string | null
     complementosItem?: PedidoProdutoComplementosUncheckedUpdateManyWithoutPedidoProdutoNestedInput
   }
 
@@ -13832,11 +15045,13 @@ export namespace Prisma {
     idPedido: number
     precoUnitario: Decimal | DecimalJsLike | number | string
     quantidade: number
+    observacaoItem?: string | null
   }
 
   export type PedidoProdutosUpdateManyMutationInput = {
     precoUnitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     quantidade?: IntFieldUpdateOperationsInput | number
+    observacaoItem?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PedidoProdutosUncheckedUpdateManyInput = {
@@ -13845,6 +15060,7 @@ export namespace Prisma {
     idPedido?: IntFieldUpdateOperationsInput | number
     precoUnitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     quantidade?: IntFieldUpdateOperationsInput | number
+    observacaoItem?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PedidoProdutoComplementosCreateInput = {
@@ -13896,6 +15112,59 @@ export namespace Prisma {
     idProdutoPedido?: IntFieldUpdateOperationsInput | number
     precoUnitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     quantidade?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type TaxasDeEntregaCreateInput = {
+    bairroRegiao: string
+    valor?: Decimal | DecimalJsLike | number | string
+    data_criacao?: Date | string
+    data_alteracao?: Date | string
+  }
+
+  export type TaxasDeEntregaUncheckedCreateInput = {
+    id?: number
+    bairroRegiao: string
+    valor?: Decimal | DecimalJsLike | number | string
+    data_criacao?: Date | string
+    data_alteracao?: Date | string
+  }
+
+  export type TaxasDeEntregaUpdateInput = {
+    bairroRegiao?: StringFieldUpdateOperationsInput | string
+    valor?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TaxasDeEntregaUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    bairroRegiao?: StringFieldUpdateOperationsInput | string
+    valor?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TaxasDeEntregaCreateManyInput = {
+    id?: number
+    bairroRegiao: string
+    valor?: Decimal | DecimalJsLike | number | string
+    data_criacao?: Date | string
+    data_alteracao?: Date | string
+  }
+
+  export type TaxasDeEntregaUpdateManyMutationInput = {
+    bairroRegiao?: StringFieldUpdateOperationsInput | string
+    valor?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TaxasDeEntregaUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    bairroRegiao?: StringFieldUpdateOperationsInput | string
+    valor?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -14530,6 +15799,7 @@ export namespace Prisma {
     idPedido?: SortOrder
     precoUnitario?: SortOrder
     quantidade?: SortOrder
+    observacaoItem?: SortOrder
   }
 
   export type PedidoProdutosAvgOrderByAggregateInput = {
@@ -14546,6 +15816,7 @@ export namespace Prisma {
     idPedido?: SortOrder
     precoUnitario?: SortOrder
     quantidade?: SortOrder
+    observacaoItem?: SortOrder
   }
 
   export type PedidoProdutosMinOrderByAggregateInput = {
@@ -14554,6 +15825,7 @@ export namespace Prisma {
     idPedido?: SortOrder
     precoUnitario?: SortOrder
     quantidade?: SortOrder
+    observacaoItem?: SortOrder
   }
 
   export type PedidoProdutosSumOrderByAggregateInput = {
@@ -14612,6 +15884,40 @@ export namespace Prisma {
     idProdutoPedido?: SortOrder
     precoUnitario?: SortOrder
     quantidade?: SortOrder
+  }
+
+  export type TaxasDeEntregaCountOrderByAggregateInput = {
+    id?: SortOrder
+    bairroRegiao?: SortOrder
+    valor?: SortOrder
+    data_criacao?: SortOrder
+    data_alteracao?: SortOrder
+  }
+
+  export type TaxasDeEntregaAvgOrderByAggregateInput = {
+    id?: SortOrder
+    valor?: SortOrder
+  }
+
+  export type TaxasDeEntregaMaxOrderByAggregateInput = {
+    id?: SortOrder
+    bairroRegiao?: SortOrder
+    valor?: SortOrder
+    data_criacao?: SortOrder
+    data_alteracao?: SortOrder
+  }
+
+  export type TaxasDeEntregaMinOrderByAggregateInput = {
+    id?: SortOrder
+    bairroRegiao?: SortOrder
+    valor?: SortOrder
+    data_criacao?: SortOrder
+    data_alteracao?: SortOrder
+  }
+
+  export type TaxasDeEntregaSumOrderByAggregateInput = {
+    id?: SortOrder
+    valor?: SortOrder
   }
 
   export type PedidosCreateNestedManyWithoutUsuarioInput = {
@@ -15531,6 +16837,7 @@ export namespace Prisma {
   export type PedidoProdutosCreateWithoutProdutosInput = {
     precoUnitario: Decimal | DecimalJsLike | number | string
     quantidade: number
+    observacaoItem?: string | null
     pedidos: PedidosCreateNestedOneWithoutItensPedidoInput
     complementosItem?: PedidoProdutoComplementosCreateNestedManyWithoutPedidoProdutoInput
   }
@@ -15540,6 +16847,7 @@ export namespace Prisma {
     idPedido: number
     precoUnitario: Decimal | DecimalJsLike | number | string
     quantidade: number
+    observacaoItem?: string | null
     complementosItem?: PedidoProdutoComplementosUncheckedCreateNestedManyWithoutPedidoProdutoInput
   }
 
@@ -15631,6 +16939,7 @@ export namespace Prisma {
     idPedido?: IntFilter<"PedidoProdutos"> | number
     precoUnitario?: DecimalFilter<"PedidoProdutos"> | Decimal | DecimalJsLike | number | string
     quantidade?: IntFilter<"PedidoProdutos"> | number
+    observacaoItem?: StringNullableFilter<"PedidoProdutos"> | string | null
   }
 
   export type GrupoComplementosUpsertWithWhereUniqueWithoutProdutosInput = {
@@ -16031,6 +17340,7 @@ export namespace Prisma {
   export type PedidoProdutosCreateWithoutPedidosInput = {
     precoUnitario: Decimal | DecimalJsLike | number | string
     quantidade: number
+    observacaoItem?: string | null
     produtos: ProdutosCreateNestedOneWithoutPedidoProdutosInput
     complementosItem?: PedidoProdutoComplementosCreateNestedManyWithoutPedidoProdutoInput
   }
@@ -16040,6 +17350,7 @@ export namespace Prisma {
     idProduto: number
     precoUnitario: Decimal | DecimalJsLike | number | string
     quantidade: number
+    observacaoItem?: string | null
     complementosItem?: PedidoProdutoComplementosUncheckedCreateNestedManyWithoutPedidoProdutoInput
   }
 
@@ -16339,6 +17650,7 @@ export namespace Prisma {
   export type PedidoProdutosCreateWithoutComplementosItemInput = {
     precoUnitario: Decimal | DecimalJsLike | number | string
     quantidade: number
+    observacaoItem?: string | null
     produtos: ProdutosCreateNestedOneWithoutPedidoProdutosInput
     pedidos: PedidosCreateNestedOneWithoutItensPedidoInput
   }
@@ -16349,6 +17661,7 @@ export namespace Prisma {
     idPedido: number
     precoUnitario: Decimal | DecimalJsLike | number | string
     quantidade: number
+    observacaoItem?: string | null
   }
 
   export type PedidoProdutosCreateOrConnectWithoutComplementosItemInput = {
@@ -16404,6 +17717,7 @@ export namespace Prisma {
   export type PedidoProdutosUpdateWithoutComplementosItemInput = {
     precoUnitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     quantidade?: IntFieldUpdateOperationsInput | number
+    observacaoItem?: NullableStringFieldUpdateOperationsInput | string | null
     produtos?: ProdutosUpdateOneRequiredWithoutPedidoProdutosNestedInput
     pedidos?: PedidosUpdateOneRequiredWithoutItensPedidoNestedInput
   }
@@ -16414,6 +17728,7 @@ export namespace Prisma {
     idPedido?: IntFieldUpdateOperationsInput | number
     precoUnitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     quantidade?: IntFieldUpdateOperationsInput | number
+    observacaoItem?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PedidosCreateManyUsuarioInput = {
@@ -16519,6 +17834,7 @@ export namespace Prisma {
     idPedido: number
     precoUnitario: Decimal | DecimalJsLike | number | string
     quantidade: number
+    observacaoItem?: string | null
   }
 
   export type GrupoComplementosCreateManyProdutosInput = {
@@ -16535,6 +17851,7 @@ export namespace Prisma {
   export type PedidoProdutosUpdateWithoutProdutosInput = {
     precoUnitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     quantidade?: IntFieldUpdateOperationsInput | number
+    observacaoItem?: NullableStringFieldUpdateOperationsInput | string | null
     pedidos?: PedidosUpdateOneRequiredWithoutItensPedidoNestedInput
     complementosItem?: PedidoProdutoComplementosUpdateManyWithoutPedidoProdutoNestedInput
   }
@@ -16544,6 +17861,7 @@ export namespace Prisma {
     idPedido?: IntFieldUpdateOperationsInput | number
     precoUnitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     quantidade?: IntFieldUpdateOperationsInput | number
+    observacaoItem?: NullableStringFieldUpdateOperationsInput | string | null
     complementosItem?: PedidoProdutoComplementosUncheckedUpdateManyWithoutPedidoProdutoNestedInput
   }
 
@@ -16552,6 +17870,7 @@ export namespace Prisma {
     idPedido?: IntFieldUpdateOperationsInput | number
     precoUnitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     quantidade?: IntFieldUpdateOperationsInput | number
+    observacaoItem?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type GrupoComplementosUpdateWithoutProdutosInput = {
@@ -16712,11 +18031,13 @@ export namespace Prisma {
     idProduto: number
     precoUnitario: Decimal | DecimalJsLike | number | string
     quantidade: number
+    observacaoItem?: string | null
   }
 
   export type PedidoProdutosUpdateWithoutPedidosInput = {
     precoUnitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     quantidade?: IntFieldUpdateOperationsInput | number
+    observacaoItem?: NullableStringFieldUpdateOperationsInput | string | null
     produtos?: ProdutosUpdateOneRequiredWithoutPedidoProdutosNestedInput
     complementosItem?: PedidoProdutoComplementosUpdateManyWithoutPedidoProdutoNestedInput
   }
@@ -16726,6 +18047,7 @@ export namespace Prisma {
     idProduto?: IntFieldUpdateOperationsInput | number
     precoUnitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     quantidade?: IntFieldUpdateOperationsInput | number
+    observacaoItem?: NullableStringFieldUpdateOperationsInput | string | null
     complementosItem?: PedidoProdutoComplementosUncheckedUpdateManyWithoutPedidoProdutoNestedInput
   }
 
@@ -16734,6 +18056,7 @@ export namespace Prisma {
     idProduto?: IntFieldUpdateOperationsInput | number
     precoUnitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     quantidade?: IntFieldUpdateOperationsInput | number
+    observacaoItem?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PedidoProdutoComplementosCreateManyPedidoProdutoInput = {

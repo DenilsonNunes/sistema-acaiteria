@@ -11,6 +11,7 @@ export const buildPedidoFromCart = (
     idProduto: item.id,
     precoUnitario: item.precoUnitario,
     quantidade: item.quantidade,
+    observacaoItem: item.observacaoItem,
     complementos: item.complementos?.map((add) => ({
       idComplemento: add.id,
       precoUnitario: add.precoUnitario,

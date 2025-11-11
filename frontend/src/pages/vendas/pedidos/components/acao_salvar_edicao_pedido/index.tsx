@@ -13,8 +13,8 @@ import {
 
 import {  PedidoLocalConsumo as PedidoLocalConsumoEnum } from '@/types/sales/sales_order/salesOrder'
 import { Button } from '@/components/ui/button'
-import { Loader2Icon, Save, } from 'lucide-react'
-import { useState } from 'react'
+import { ChevronRight, Loader2Icon, Save, } from 'lucide-react'
+import { useEffect, useState } from 'react'
 import { usePedidoStore } from '@/stores/usePedidoStore'
 import { buildPedidoFromCart } from '@/utils/cartToSalesOrder'
 import { Input } from '@/components/ui/input'
@@ -38,12 +38,9 @@ const AcaoSalvarEdicaoPedido = () => {
   const navigate = useNavigate();
   const [dataSuccessEditOrder, setDataSuccessEditOrder] = useState({});
 
-
+  const { orderEdit, idPedidoEmEdicao, adicionaLocalConsumoPedido, } = usePedidoStore();
   const [observacao, setObservacao] = useState('');
-  
 
-
-  const { orderEdit, idPedidoEmEdicao, adicionaLocalConsumoPedido } = usePedidoStore();
 
   const { mutateAsync: updateOrder, isPending } = useUpdateOrder();
 
@@ -55,7 +52,11 @@ const AcaoSalvarEdicaoPedido = () => {
 
   
   
-
+  useEffect(() => {
+    if (orderEdit?.observacao) {
+      setObservacao(orderEdit.observacao);
+    }
+  }, [orderEdit]);
 
 
 
@@ -92,6 +93,10 @@ const AcaoSalvarEdicaoPedido = () => {
         setOpenDrawerSuccessOrder(true);
         localStorage.removeItem("@OrderStorage");
 
+          setTimeout(() => {
+            navigate('/vendas/pedidos');
+          }, 2000);
+
       }
 
       // usar o id para redirecionar, abrir modal, etc.
@@ -126,13 +131,18 @@ const AcaoSalvarEdicaoPedido = () => {
 
       {/* Ação salvar pedido MOBILE */}
       {pedidoEmEdicao() && (
-        <div className='md:hidden flex items-center w-full gap-2 fixed bottom-0 left-0 right-0 h-15 bg-white px-4'>
+        <div className='
+            md:hidden flex items-center w-full gap-2 
+            fixed bottom-0 left-0 right-0 
+            h-15 bg-white/80 backdrop-blur-md 
+            px-4 shadow-[0_-4px_10px_rgba(0,0,0,0.1)]
+          '>
 
           <Button 
             variant='destructive' className='w-[50%] text-lg'
             onClick={() => {
-              localStorage.removeItem('@OrderStorage')
               navigate('/vendas/pedidos')
+              localStorage.removeItem('@OrderStorage')
             }}
           >
             Cancelar alteração
@@ -142,10 +152,10 @@ const AcaoSalvarEdicaoPedido = () => {
             onClick={() => {
               setOpenDrawerConfirmarAlteracaoPedido(true); 
             }}
-            className="w-[50%] text-lg bg-green-500 hover:bg-green-400"
+            className="w-[50%] text-lg bg-green-500 hover:bg-green-400 justify-between"
           >
-            <Save style={{ width: "24px", height: "24px", flexShrink: 0 }} />
-            Salvar alteração
+            Avançar
+            <ChevronRight style={{ width: "30px", height: "30px", flexShrink: 0 }} />
           </Button>
 
         </div>
@@ -213,7 +223,7 @@ const AcaoSalvarEdicaoPedido = () => {
             {/* Observação do pedido */}
             <div className='grid gap-2'>
               <Label className='text-md'>Observações</Label>
-              <Textarea 
+              <Textarea
                 value={observacao}
                 onChange={(e) => setObservacao(e.target.value)}                    
               />

@@ -142,8 +142,9 @@ model PedidoProdutos {
   idProduto Int // Chave estrangeira
   idPedido  Int // Chave estrangeira
 
-  precoUnitario Decimal @db.Decimal(10, 4)
-  quantidade    Int
+  precoUnitario  Decimal @db.Decimal(10, 4)
+  quantidade     Int
+  observacaoItem String? @db.VarChar(200)
 
   produtos         Produtos                    @relation(fields: [idProduto], references: [id])
   pedidos          Pedidos                     @relation(fields: [idPedido], references: [id], onDelete: Cascade)
@@ -164,4 +165,19 @@ model PedidoProdutoComplementos {
   pedidoProduto PedidoProdutos @relation(fields: [idProdutoPedido], references: [id], onDelete: Cascade)
 
   @@map("pedido_produto_complementos")
+}
+
+/**
+ * ------------- Configuarações --------------------
+ */
+model TaxasDeEntrega {
+  id Int @id @default(autoincrement())
+
+  bairroRegiao String  @db.VarChar(80)
+  valor        Decimal @default(0) @db.Decimal(10, 2)
+
+  data_criacao   DateTime @default(now())
+  data_alteracao DateTime @default(now())
+
+  @@map("taxas_entrega")
 }

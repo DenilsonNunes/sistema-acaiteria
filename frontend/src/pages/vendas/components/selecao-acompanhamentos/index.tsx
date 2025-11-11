@@ -24,6 +24,7 @@ import { useCartStore } from '@/stores/useCartStore';
 import { usePedidoStore } from '@/stores/usePedidoStore';
 import { pedidoEmEdicao } from '@/utils/pedidoUtils';
 import ResumoCart from '../../carrinho';
+import { v4 as uuidv4 } from "uuid";
 
 
 
@@ -41,6 +42,8 @@ const SelecaoAcompanhamentos = () => {
   const idProduto = useMemo(() => id, [id]);
 
   const [valorTotalComplementos, setValorTotalComplementos] = useState<number>(0);
+  const [observacao, setObservacao] = useState('');
+
 
 
   const {
@@ -82,6 +85,13 @@ const SelecaoAcompanhamentos = () => {
   }, [complementosItemPedido, complementosItemCart])
 
 
+  
+  useEffect(() => {
+    // se estiver editando item, seta a observação dele
+    if (itemCartEditando?.observacaoItem) {
+      setObservacao(itemCartEditando.observacaoItem);
+    }
+  }, [itemCartEditando]);
 
 
   if(isLoading) {
@@ -302,7 +312,11 @@ const SelecaoAcompanhamentos = () => {
           <div className='h-15 sm:h-10 bg-gray-300 flex items-center mb-1'>
             <p className='ml-4 text-lg font-medium'>Observação</p>
           </div>
-          <Textarea placeholder="Ex: Banana cortar em fatias grossas." />
+          <Textarea 
+            placeholder="Ex: Banana cortar em fatias grossas."
+            value={observacao}
+            onChange={(e) => setObservacao(e.target.value)}
+          />
         </div>
 
         <div className='hidden sm:block'>
@@ -312,6 +326,7 @@ const SelecaoAcompanhamentos = () => {
               if (!addOnGroup) return;
               adicionarItemCart({
                 id: addOnGroup.id,
+                uuid: uuidv4(),
                 nomeProduto: addOnGroup.nomeProduto,
                 imagemUrl: addOnGroup.imagemUrl,
                 precoUnitario: Number(addOnGroup.preco),
@@ -350,20 +365,15 @@ const SelecaoAcompanhamentos = () => {
 
                   if (!addOnGroup) return;
 
-                    // Se ti ver um item do pedido em edição
+                    // Se tiver um item do pedido em edição
                     if(itemPedidoEditando){
-
                       salvarEdicaoItem();
-                      
-                    // Se for edição de um item do carrinho
-                    } else if (itemCartEditando) {
-                      salvarEdicaoItemCart()
 
                     // Se for novo pedido
                     } else {
-
                       adicionarItemPedido({
                         id: addOnGroup.id,
+                        uuid: uuidv4(),
                         nomeProduto: addOnGroup.nomeProduto,
                         imagemUrl: addOnGroup.imagemUrl,
                         precoUnitario: Number(addOnGroup.preco),
@@ -400,21 +410,31 @@ const SelecaoAcompanhamentos = () => {
             </div>
 
           ) : (
-            
+          // adicionando no carrinho
             <Button
               className='w-full bg-green-500 hover:bg-green-600 rounded-none cursor-pointer px-6 h-full'
               onClick={() => {
 
                 if (!addOnGroup) return;
+                  // Se for edição de um item do carrinho
+                  if (itemCartEditando) {
+                    
+                    salvarEdicaoItemCart(observacao);
 
-                  adicionarItemCart({
-                    id: addOnGroup.id,
-                    nomeProduto: addOnGroup.nomeProduto,
-                    imagemUrl: addOnGroup.imagemUrl,
-                    precoUnitario: Number(addOnGroup.preco),
-                    quantidade: 1,
-                    complementos: [...complementosItemCart],
-                  });
+                  } else {
+
+                    adicionarItemCart({
+                      id: addOnGroup.id,
+                      uuid: uuidv4(),
+                      nomeProduto: addOnGroup.nomeProduto,
+                      imagemUrl: addOnGroup.imagemUrl,
+                      precoUnitario: Number(addOnGroup.preco),
+                      quantidade: 1,
+                      observacaoItem: observacao,
+                      complementos: [...complementosItemCart],
+                    });
+
+                  }
 
                   navigate('/vendas/carrinho');
                 

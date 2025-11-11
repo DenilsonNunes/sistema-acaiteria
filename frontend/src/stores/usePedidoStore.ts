@@ -58,6 +58,7 @@ export const usePedidoStore = create(
       orderEdit: { 
         cartItemId: '',
         localConsumo: 1,
+        observacao: '',
         valorTotalCart: 0,
         itens: [],
       },
@@ -438,6 +439,7 @@ export const usePedidoStore = create(
           orderEdit: {
             idCliente: order.idCliente ?? undefined,
             nomeCliente: order.nomeCliente ?? undefined,
+            observacao: order.observacao ?? '',
             localConsumo: order.localConsumo,
             valorTotalCart,
             itens,

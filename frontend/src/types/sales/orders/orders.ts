@@ -30,6 +30,7 @@ interface ItensPedido {
   precoUnitario: string,
   produtos: Produtos,
   quantidade: number,
+  observacaoItem: string,
   complementosItem: ComplementosItem[]
 }
 

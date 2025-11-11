@@ -13,6 +13,7 @@ import { produtosRoutes } from "./rotinas/produtos.routes";
 import { cozinhaRoutes } from "./rotinas/cozinha.routes";
 import { clientesRoutes } from "./rotinas/clientes.routes";
 import { financeiroRoutes } from "./rotinas/financeiro.routes";
+import { configuracoesRoutes } from "./rotinas/configuracoes.routes";
 
 
 
@@ -29,7 +30,8 @@ const routes = createBrowserRouter([
           ...financeiroRoutes,
           ...produtosRoutes,
           ...cozinhaRoutes,
-          ...clientesRoutes
+          ...clientesRoutes,
+          ...configuracoesRoutes
         ],
       },
     ],

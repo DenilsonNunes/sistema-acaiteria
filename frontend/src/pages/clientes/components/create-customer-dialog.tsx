@@ -136,14 +136,14 @@ const CreateCustomerDialog = () => {
   return (
 
     <Dialog 
-    open={open}
-      onOpenChange={(o) => {
-        setOpen(o);
-        if (!o) {
-          reset();       // resetar formulário
-          mutateReset(); // resetar mutate
-        }
-      }}
+      open={open}
+        onOpenChange={(o) => {
+          setOpen(o);
+          if (!o) {
+            reset();       // resetar formulário
+            mutateReset(); // resetar mutate
+          }
+        }}
     >
 
       <DialogTrigger asChild>

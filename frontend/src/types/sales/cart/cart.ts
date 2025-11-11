@@ -7,19 +7,22 @@ export interface ComplementoItemCart {
 }
 
 export interface ItemCart {
-  uuid: string;
   id: number;
+  uuid: string;
   nomeProduto: string;
   imagemUrl?: string;
   precoUnitario: number;
   quantidade: number;
+  observacaoItem?: string;
   complementos?: ComplementoItemCart[];
 };
+
 
 export interface Cart {
 
   idCliente?: number;
   nomeCliente?: string;
+  observacao?:string;
 
   localConsumo: number;
 

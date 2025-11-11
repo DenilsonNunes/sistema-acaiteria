@@ -33,9 +33,14 @@ export const useFetchOrderById = (id: number) => {
       const response = await api.get(`/pedidos/${id}`);
       return response.data;
     },
-    enabled: !!id, // só executa se o id for válido
-    retry: false,    // desativa tentativas automáticas
-    refetchOnWindowFocus: false, // evita recarregar ao focar a aba
+    enabled: !!id,
+    retry: false,
+    staleTime: 0,
+    gcTime: 0,
+    refetchOnMount: "always",
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
+    placeholderData: undefined, // 🚨 evita mostrar dados antigos
   });
 
 };

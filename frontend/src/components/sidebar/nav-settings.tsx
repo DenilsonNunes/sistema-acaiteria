@@ -22,11 +22,12 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar"
+import { Link } from "react-router-dom"
 
-export function NavProjects({
-  projects,
+export function NavSettings({
+  settings,
 }: {
-  projects: {
+  settings: {
     name: string
     url: string
     icon: LucideIcon
@@ -36,23 +37,24 @@ export function NavProjects({
 
   return (
     <SidebarGroup className="group-data-[collapsible=icon]:hidden">
-      <SidebarGroupLabel>Projetos</SidebarGroupLabel>
+      <SidebarGroupLabel>Configurações</SidebarGroupLabel>
       <SidebarMenu>
-        {projects.map((item, index) => (
+        {settings.map((item, index) => (
           <SidebarMenuItem key={index}>
+            
             <SidebarMenuButton asChild>
-              <a href={item.url}>
+
+              <Link to={item.url}>
                 <item.icon />
                 <span>{item.name}</span>
-              </a>
+              </Link>
+
             </SidebarMenuButton>
+
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <SidebarMenuAction showOnHover>
-                  <MoreHorizontal />
-                  <span className="sr-only">More</span>
-                </SidebarMenuAction>
               </DropdownMenuTrigger>
+
               <DropdownMenuContent
                 className="w-48 rounded-lg"
                 side={isMobile ? "bottom" : "right"}
@@ -62,6 +64,7 @@ export function NavProjects({
                   <Folder className="text-muted-foreground" />
                   <span>View Project</span>
                 </DropdownMenuItem>
+
                 <DropdownMenuItem>
                   <Forward className="text-muted-foreground" />
                   <span>Share Project</span>
@@ -75,12 +78,14 @@ export function NavProjects({
             </DropdownMenu>
           </SidebarMenuItem>
         ))}
+
         <SidebarMenuItem>
           <SidebarMenuButton className="text-sidebar-foreground/70">
             <MoreHorizontal className="text-sidebar-foreground/70" />
             <span>More</span>
           </SidebarMenuButton>
         </SidebarMenuItem>
+
       </SidebarMenu>
     </SidebarGroup>
   )

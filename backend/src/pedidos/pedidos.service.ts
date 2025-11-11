@@ -85,6 +85,7 @@ export class PedidosService {
               idProduto: produto.idProduto,
               quantidade: produto.quantidade,
               precoUnitario: produto.precoUnitario,
+              observacaoItem: produto.observacaoItem,
               complementosItem: produto.complementos?.length
                 ? // Caso houver complementos nos produtos, insere
                   {
@@ -249,6 +250,7 @@ export class PedidosService {
                 idProduto: item.idProduto,
                 quantidade: item.quantidade,
                 precoUnitario: item.precoUnitario,
+                observacaoItem: item.observacaoItem,
                 complementosItem: item.complementos?.length
                   ? // Caso houver complementos nos produtos, insere
                     {
