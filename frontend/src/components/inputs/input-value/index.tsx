@@ -22,6 +22,7 @@ export const CurrencyInput: React.FC<CurrencyInputProps> = ({
   return (
     <NumericFormat
       className="disabled:opacity-100 disabled:cursor-default" 
+      inputMode="decimal"
       value={value ?? 0}
       disabled={disabled}
       readOnly={readOnly}
@@ -33,7 +34,7 @@ export const CurrencyInput: React.FC<CurrencyInputProps> = ({
       fixedDecimalScale
       placeholder={placeholder}
       onValueChange={(values) => {
-        onChange?.(values.floatValue ?? null);
+        onChange?.(values.floatValue ?? 0);
       }}
     />
   );

@@ -121,7 +121,7 @@ export class TaxasDeEntregaService {
       });
       return {
         success: true,
-        message: 'Taxa de entrega deletado com sucesso.',
+        message: 'Taxa de entrega excluída com sucesso.',
       };
     } catch (err) {
       // Verifica se o erro é uma HttpException

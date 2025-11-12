@@ -19,16 +19,18 @@ import {  Controller, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 
-import { createDeliveryFeeSchema, type CreateDeliveryFeeSchema } from "../schemas/delivery-fee.schema"
-import { Plus, UserRoundPlus } from "lucide-react"
+import {  UserRoundPlus } from "lucide-react"
 import  { CurrencyInput } from "@/components/inputs/input-value"
-import { useCreateCustomer } from "@/hooks/customers/useCustomers"
 import { toast } from "sonner"
 import Loading from "@/components/loading"
 import { useState } from "react"
 import axios from "axios"
 import type { HttpError } from "@/types/api/api"
-import { useCreateDeliveryFee } from "@/hooks/configuracoes/taxas-de-entrega/useTaxasDeEntrega"
+import { EditButton } from "@/components/button/edit-button"
+import { useUpdateDeliveryFee } from "@/hooks/configuracoes/taxas-de-entrega/useTaxasDeEntrega"
+import { createDeliveryFeeSchema, type UpdateDeliveryFeeSchema } from "../schemas/delivery-fee.schema"
+import type { TaxasDeEntrega } from "@/types/configuracoes/taxas-de-entrega/taxasDeEntrega"
+import { useQueryClient } from "@tanstack/react-query"
 
 
 
@@ -36,53 +38,48 @@ import { useCreateDeliveryFee } from "@/hooks/configuracoes/taxas-de-entrega/use
 
 
 
-const CreateDeliveryFeeDialog = () => {
+const EditDeliveryFeeDialog = ({ deliveryFee }: { deliveryFee: TaxasDeEntrega }) => {
 
   const [open, setOpen] = useState(false);
   const [showLoading, setShowLoading] = useState(false);
 
 
-  const {mutateAsync: createDeliveryFee, reset: mutateReset, isError, isPending, isSuccess} = useCreateDeliveryFee();
+  const {mutateAsync: updateDeliveryFee, reset: mutateReset } = useUpdateDeliveryFee(deliveryFee.id);
+  const queryClient = useQueryClient();
 
 
   const {register, handleSubmit, formState: {errors}, reset, watch, control} = useForm({
     resolver: zodResolver(createDeliveryFeeSchema),
     defaultValues: {
-      valor: 0
+      bairroRegiao: deliveryFee.bairroRegiao || '',
+      valor: Number(deliveryFee.valor)
     },
     mode: 'onChange'
   })
   
+
   const bairroRegiao = watch('bairroRegiao');
 
- 
-
-
-
-
-
-
-
 
 
   
 
   
-  const handleCreateDeliveryFee = async (data: CreateDeliveryFeeSchema) => {
+  const handleEditDeliveryFee = async (data: UpdateDeliveryFeeSchema) => {
 
     setShowLoading(true);
 
 
     try {
 
-      const response = await createDeliveryFee(data);
+      const response = await updateDeliveryFee(data);
 
       setTimeout(()=> {
 
         setOpen(false);
         setShowLoading(false);
 
-        toast.success('Cadastro', {
+        toast.success('Edição', {
           description: response.message, 
           richColors: true,
           closeButton: true,
@@ -90,10 +87,10 @@ const CreateDeliveryFeeDialog = () => {
           position: "top-right"
         })
 
-      }, 1000)
-      reset()
-      mutateReset();
 
+      }, 1000)
+
+      queryClient.invalidateQueries({ queryKey: ["deliveryFee"] });
 
     } catch (error) {
 
@@ -131,38 +128,34 @@ const CreateDeliveryFeeDialog = () => {
   return (
 
     <Dialog 
-      open={open}
-        onOpenChange={(o) => {
-          setOpen(o);
-          if (!o) {
-            reset();       // resetar formulário
-            mutateReset(); // resetar mutate
-          }
-        }}
+    open={open}
+      onOpenChange={(o) => {
+        setOpen(o);
+        if (!o) {
+          reset();       // resetar formulário
+          mutateReset(); // resetar mutate
+        }
+      }}
     >
 
       <DialogTrigger asChild>
-        <Button
-          className="flex items-center gap-2 cursor-pointer bg-fuchsia-700 hover:bg-fuchsia-600"
-        >
-          <Plus size={24} strokeWidth={3}/>
-          Cadastrar nova taxa
-        </Button>
+       <EditButton size={25}/>
       </DialogTrigger>
 
-      <DialogContent className="sm:max-w-[200px] lg:max-w-2xl">
+      <DialogContent className="sm:max-w-[425px] lg:max-w-4xl">
 
         <DialogHeader className="mb-4">
 
           <DialogTitle className="flex items-center gap-2 text-gray-500">
-            Nova taxa de entrega
+            <UserRoundPlus />
+            Editar cliente
           </DialogTitle>
           
           <DialogDescription></DialogDescription>                            
 
         </DialogHeader>
 
-        <form onSubmit={handleSubmit(handleCreateDeliveryFee)}>
+        <form onSubmit={handleSubmit(handleEditDeliveryFee)}>
 
           <div className="grid gap-4">
 
@@ -224,7 +217,7 @@ const CreateDeliveryFeeDialog = () => {
   )
 }
 
-export default CreateDeliveryFeeDialog
+export default EditDeliveryFeeDialog
 
 /*
            

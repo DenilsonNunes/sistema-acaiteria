@@ -7,7 +7,8 @@ export const createDeliveryFeeSchema = z.object({
     .nonempty({ message: "O Bairro/região é obrigatório" })
     .max(80, { message: "Não pode ser maior que 80 caracteres" }),
   valor: z
-    .number()
+    .number({ required_error: "O valor  é obrigatório" })
+    .nonnegative({ message: "O valor não pode ser negativo" }),
 });
 
 

@@ -1,38 +1,25 @@
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table";
-import { Button } from "@/components/ui/button";
-import { Edit, Trash } from "lucide-react";
 import CreateDeliveryFeeDialog from "./components/create-delivery-fee-dialog";
 import { EditButton } from "@/components/button/edit-button";
 import { DeleteButton } from "@/components/button/delete-button";
 import { useFetchAllDeliveryFee } from "@/hooks/configuracoes/taxas-de-entrega/useTaxasDeEntrega";
 import { formatarMoedaBRL } from "@/utils/formataMoedaBRL";
+import DeleteDeliveryFeeDialog from "./components/delete-delivery-fee-dialog";
+import EditDeliveryFeeDialog from "./components/edit-delivery-fee-dialog";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Plus } from "lucide-react";
 
-interface DeliveryRate {
-  id: number;
-  region: string;
-  fee: number;
-}
 
-const deliveryRates: DeliveryRate[] = [
-  { id: 1, region: "Centro", fee: 10 },
-  { id: 2, region: "Zona Norte", fee: 15 },
-  { id: 3, region: "Zona Sul", fee: 20 },
-];
 
 export default function TaxasDeEntrega() {
 
 
 
   const {data: deliveryFee} = useFetchAllDeliveryFee();
+
+
   
-
-
-
-
-
-
-
-
 
   return (
 
@@ -40,68 +27,90 @@ export default function TaxasDeEntrega() {
 
       <div className="flex justify-between mb-8">
         <p className="font-medium text-2xl">Taxas de entrega</p>
-        <CreateDeliveryFeeDialog/>
+        {deliveryFee?.length !== 0 && (<CreateDeliveryFeeDialog/>) }
       </div>
 
 
-      {/* --- Desktop Table --- */}
-      <div className="hidden md:block overflow-x-auto border rounded-lg">
-        <Table className="min-w-[400px]">
+      {deliveryFee && deliveryFee.length === 0 ? (
+        <Card className="max-w-md mx-auto mt-10 text-center shadow-lg">
+          <CardHeader>
+            <CardTitle className="text-lg font-semibold">
+              Nenhuma taxa de entrega cadastrada
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4 flex flex-col justify-center">
 
-          <TableHeader className="bg-gray-100">
-            <TableRow>
-              <TableHead className="first:rounded-tl-lg">Bairro/Região</TableHead>
-              <TableHead className="text-right">Valor</TableHead>
-              <TableHead className="text-center last:rounded-tr-lg">Ações</TableHead>
-            </TableRow>
-          </TableHeader>
+            <p className="text-muted-foreground">
+              Você ainda não possui nenhuma taxa cadastrada.
+              <br />
+              Deseja cadastrar uma nova taxa de entrega?
+            </p>
 
-          <TableBody>
-            {deliveryRates.map((rate) => (
-              <TableRow key={rate.id} className="hover:bg-gray-50">
-                <TableCell>{rate.region}</TableCell>
-                <TableCell className="text-right">R$ {rate.fee},00</TableCell>
-                <TableCell className="flex justify-center gap-2">
+            <CreateDeliveryFeeDialog/>
 
-                  <EditButton/>
+          </CardContent>
+        </Card>
+      ) : (
+        <>
+          {/* --- Desktop Table --- */}
+          <div className="hidden md:block overflow-x-auto border rounded-lg">
+            <Table className="min-w-[400px]">
 
-                  <DeleteButton/>
+              <TableHeader className="bg-gray-100">
+                <TableRow>
+                  <TableHead className="first:rounded-tl-lg">Bairro/Região</TableHead>
+                  <TableHead className="text-right">Valor</TableHead>
+                  <TableHead className="text-center last:rounded-tr-lg">Ações</TableHead>
+                </TableRow>
+              </TableHeader>
 
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </div>
+              <TableBody>
+                {deliveryFee && deliveryFee.map((rate, index) => (
+                  <TableRow key={index} className="hover:bg-gray-50">
+                    <TableCell>{rate.bairroRegiao}</TableCell>
+                    <TableCell className="text-right">R$ { formatarMoedaBRL(rate.valor)}</TableCell>
 
-      {/* --- Mobile Card View --- */}
-      <div className="md:hidden flex flex-col gap-3">
-        {deliveryFee && deliveryFee.map((rate, index) => (
-          <div
-            key={index}
-            className="border rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow"
-          >
-            <div className="flex gap-2 mb-2">
-              <span className="font-semibold">Bairro/Região:</span>
-              <span>{rate.bairroRegiao}</span>
-            </div>
-            <div className="flex gap-2 mb-2">
-              <span className="font-semibold">Valor:</span>
-              <span>R$ { formatarMoedaBRL(rate.valor) }</span>
-            </div>
+                    <TableCell className="flex justify-center gap-2">
+                      <DeleteDeliveryFeeDialog deliveryFee={rate}/>
+                      <EditDeliveryFeeDialog deliveryFee={rate}/>
+                    </TableCell>
 
-            <div className="flex justify-end gap-2 mt-2">
-              <DeleteButton size={25}/>
-
-              <EditButton size={25}/>
-
-            </div>
-            
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
           </div>
-        ))}
-      </div>
 
-  
+          {/* --- Mobile Card View --- */}
+          <div className="md:hidden flex flex-col gap-3">
+            {deliveryFee && deliveryFee.map((rate, index) => (
+              <div
+                key={index}
+                className="border rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow"
+              >
+                <div className="flex gap-2 mb-2">
+                  <span className="font-semibold">Bairro/Região:</span>
+                  <span>{rate.bairroRegiao}</span>
+                </div>
+                <div className="flex gap-2 mb-2">
+                  <span className="font-semibold">Valor:</span>
+                  <span>R$ { formatarMoedaBRL(rate.valor) }</span>
+                </div>
+
+                <div className="flex justify-end gap-2 mt-2">
+
+                  <DeleteDeliveryFeeDialog deliveryFee={rate}/>
+
+                  <EditDeliveryFeeDialog deliveryFee={rate}/>
+
+                </div>
+                
+              </div>
+            ))}
+          </div>
+        </>
+      )}
+
 
 
     </section>
