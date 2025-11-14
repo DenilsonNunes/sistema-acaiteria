@@ -23,6 +23,7 @@ import { useCreateOrder } from '@/hooks/sales/useOrders'
 import { useCartStore } from '@/stores/useCartStore'
 import { pedidoEmEdicao } from '@/utils/pedidoUtils'
 import DrawerSucessSaveOrder from '@/pages/vendas/components/drawer_sucess_save_order'
+import { SelecaoLocalDeEntrega } from '@/pages/vendas/components/selecao-local-de-entrega'
 
 
 
@@ -186,7 +187,7 @@ const AcaoSalvarPedido = () => {
 
             </div>
 
-          
+            {/* Seleção local de consumo */}
             <div className='grid gap-2'>
               <Label className='text-md'>Local de consumo</Label>
                 
@@ -213,6 +214,8 @@ const AcaoSalvarPedido = () => {
                 </div>
 
               </RadioGroup>
+
+              <SelecaoLocalDeEntrega/>
 
             </div>
 

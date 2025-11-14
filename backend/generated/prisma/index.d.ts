@@ -8977,7 +8977,9 @@ export namespace Prisma {
     id: number | null
     idCliente: number | null
     idUsuario: number | null
+    valorSubTotal: Decimal | null
     valorTotal: Decimal | null
+    valorTaxaDeEntrega: Decimal | null
     status: number | null
     localConsumo: number | null
   }
@@ -8986,7 +8988,9 @@ export namespace Prisma {
     id: number | null
     idCliente: number | null
     idUsuario: number | null
+    valorSubTotal: Decimal | null
     valorTotal: Decimal | null
+    valorTaxaDeEntrega: Decimal | null
     status: number | null
     localConsumo: number | null
   }
@@ -8997,7 +9001,9 @@ export namespace Prisma {
     idUsuario: number | null
     nomeCliente: string | null
     observacao: string | null
+    valorSubTotal: Decimal | null
     valorTotal: Decimal | null
+    valorTaxaDeEntrega: Decimal | null
     status: number | null
     localConsumo: number | null
     data_criacao: Date | null
@@ -9010,7 +9016,9 @@ export namespace Prisma {
     idUsuario: number | null
     nomeCliente: string | null
     observacao: string | null
+    valorSubTotal: Decimal | null
     valorTotal: Decimal | null
+    valorTaxaDeEntrega: Decimal | null
     status: number | null
     localConsumo: number | null
     data_criacao: Date | null
@@ -9023,7 +9031,9 @@ export namespace Prisma {
     idUsuario: number
     nomeCliente: number
     observacao: number
+    valorSubTotal: number
     valorTotal: number
+    valorTaxaDeEntrega: number
     status: number
     localConsumo: number
     data_criacao: number
@@ -9036,7 +9046,9 @@ export namespace Prisma {
     id?: true
     idCliente?: true
     idUsuario?: true
+    valorSubTotal?: true
     valorTotal?: true
+    valorTaxaDeEntrega?: true
     status?: true
     localConsumo?: true
   }
@@ -9045,7 +9057,9 @@ export namespace Prisma {
     id?: true
     idCliente?: true
     idUsuario?: true
+    valorSubTotal?: true
     valorTotal?: true
+    valorTaxaDeEntrega?: true
     status?: true
     localConsumo?: true
   }
@@ -9056,7 +9070,9 @@ export namespace Prisma {
     idUsuario?: true
     nomeCliente?: true
     observacao?: true
+    valorSubTotal?: true
     valorTotal?: true
+    valorTaxaDeEntrega?: true
     status?: true
     localConsumo?: true
     data_criacao?: true
@@ -9069,7 +9085,9 @@ export namespace Prisma {
     idUsuario?: true
     nomeCliente?: true
     observacao?: true
+    valorSubTotal?: true
     valorTotal?: true
+    valorTaxaDeEntrega?: true
     status?: true
     localConsumo?: true
     data_criacao?: true
@@ -9082,7 +9100,9 @@ export namespace Prisma {
     idUsuario?: true
     nomeCliente?: true
     observacao?: true
+    valorSubTotal?: true
     valorTotal?: true
+    valorTaxaDeEntrega?: true
     status?: true
     localConsumo?: true
     data_criacao?: true
@@ -9182,7 +9202,9 @@ export namespace Prisma {
     idUsuario: number
     nomeCliente: string
     observacao: string | null
+    valorSubTotal: Decimal
     valorTotal: Decimal
+    valorTaxaDeEntrega: Decimal | null
     status: number
     localConsumo: number
     data_criacao: Date
@@ -9214,7 +9236,9 @@ export namespace Prisma {
     idUsuario?: boolean
     nomeCliente?: boolean
     observacao?: boolean
+    valorSubTotal?: boolean
     valorTotal?: boolean
+    valorTaxaDeEntrega?: boolean
     status?: boolean
     localConsumo?: boolean
     data_criacao?: boolean
@@ -9231,7 +9255,9 @@ export namespace Prisma {
     idUsuario?: boolean
     nomeCliente?: boolean
     observacao?: boolean
+    valorSubTotal?: boolean
     valorTotal?: boolean
+    valorTaxaDeEntrega?: boolean
     status?: boolean
     localConsumo?: boolean
     data_criacao?: boolean
@@ -9246,7 +9272,9 @@ export namespace Prisma {
     idUsuario?: boolean
     nomeCliente?: boolean
     observacao?: boolean
+    valorSubTotal?: boolean
     valorTotal?: boolean
+    valorTaxaDeEntrega?: boolean
     status?: boolean
     localConsumo?: boolean
     data_criacao?: boolean
@@ -9261,14 +9289,16 @@ export namespace Prisma {
     idUsuario?: boolean
     nomeCliente?: boolean
     observacao?: boolean
+    valorSubTotal?: boolean
     valorTotal?: boolean
+    valorTaxaDeEntrega?: boolean
     status?: boolean
     localConsumo?: boolean
     data_criacao?: boolean
     data_alteracao?: boolean
   }
 
-  export type PedidosOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "idCliente" | "idUsuario" | "nomeCliente" | "observacao" | "valorTotal" | "status" | "localConsumo" | "data_criacao" | "data_alteracao", ExtArgs["result"]["pedidos"]>
+  export type PedidosOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "idCliente" | "idUsuario" | "nomeCliente" | "observacao" | "valorSubTotal" | "valorTotal" | "valorTaxaDeEntrega" | "status" | "localConsumo" | "data_criacao" | "data_alteracao", ExtArgs["result"]["pedidos"]>
   export type PedidosInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     cliente?: boolean | ClientesDefaultArgs<ExtArgs>
     usuario?: boolean | UsuariosDefaultArgs<ExtArgs>
@@ -9297,7 +9327,9 @@ export namespace Prisma {
       idUsuario: number
       nomeCliente: string
       observacao: string | null
+      valorSubTotal: Prisma.Decimal
       valorTotal: Prisma.Decimal
+      valorTaxaDeEntrega: Prisma.Decimal | null
       status: number
       localConsumo: number
       data_criacao: Date
@@ -9733,7 +9765,9 @@ export namespace Prisma {
     readonly idUsuario: FieldRef<"Pedidos", 'Int'>
     readonly nomeCliente: FieldRef<"Pedidos", 'String'>
     readonly observacao: FieldRef<"Pedidos", 'String'>
+    readonly valorSubTotal: FieldRef<"Pedidos", 'Decimal'>
     readonly valorTotal: FieldRef<"Pedidos", 'Decimal'>
+    readonly valorTaxaDeEntrega: FieldRef<"Pedidos", 'Decimal'>
     readonly status: FieldRef<"Pedidos", 'Int'>
     readonly localConsumo: FieldRef<"Pedidos", 'Int'>
     readonly data_criacao: FieldRef<"Pedidos", 'DateTime'>
@@ -13587,7 +13621,9 @@ export namespace Prisma {
     idUsuario: 'idUsuario',
     nomeCliente: 'nomeCliente',
     observacao: 'observacao',
+    valorSubTotal: 'valorSubTotal',
     valorTotal: 'valorTotal',
+    valorTaxaDeEntrega: 'valorTaxaDeEntrega',
     status: 'status',
     localConsumo: 'localConsumo',
     data_criacao: 'data_criacao',
@@ -14188,7 +14224,9 @@ export namespace Prisma {
     idUsuario?: IntFilter<"Pedidos"> | number
     nomeCliente?: StringFilter<"Pedidos"> | string
     observacao?: StringNullableFilter<"Pedidos"> | string | null
+    valorSubTotal?: DecimalFilter<"Pedidos"> | Decimal | DecimalJsLike | number | string
     valorTotal?: DecimalFilter<"Pedidos"> | Decimal | DecimalJsLike | number | string
+    valorTaxaDeEntrega?: DecimalNullableFilter<"Pedidos"> | Decimal | DecimalJsLike | number | string | null
     status?: IntFilter<"Pedidos"> | number
     localConsumo?: IntFilter<"Pedidos"> | number
     data_criacao?: DateTimeFilter<"Pedidos"> | Date | string
@@ -14204,7 +14242,9 @@ export namespace Prisma {
     idUsuario?: SortOrder
     nomeCliente?: SortOrder
     observacao?: SortOrderInput | SortOrder
+    valorSubTotal?: SortOrder
     valorTotal?: SortOrder
+    valorTaxaDeEntrega?: SortOrderInput | SortOrder
     status?: SortOrder
     localConsumo?: SortOrder
     data_criacao?: SortOrder
@@ -14223,7 +14263,9 @@ export namespace Prisma {
     idUsuario?: IntFilter<"Pedidos"> | number
     nomeCliente?: StringFilter<"Pedidos"> | string
     observacao?: StringNullableFilter<"Pedidos"> | string | null
+    valorSubTotal?: DecimalFilter<"Pedidos"> | Decimal | DecimalJsLike | number | string
     valorTotal?: DecimalFilter<"Pedidos"> | Decimal | DecimalJsLike | number | string
+    valorTaxaDeEntrega?: DecimalNullableFilter<"Pedidos"> | Decimal | DecimalJsLike | number | string | null
     status?: IntFilter<"Pedidos"> | number
     localConsumo?: IntFilter<"Pedidos"> | number
     data_criacao?: DateTimeFilter<"Pedidos"> | Date | string
@@ -14239,7 +14281,9 @@ export namespace Prisma {
     idUsuario?: SortOrder
     nomeCliente?: SortOrder
     observacao?: SortOrderInput | SortOrder
+    valorSubTotal?: SortOrder
     valorTotal?: SortOrder
+    valorTaxaDeEntrega?: SortOrderInput | SortOrder
     status?: SortOrder
     localConsumo?: SortOrder
     data_criacao?: SortOrder
@@ -14260,7 +14304,9 @@ export namespace Prisma {
     idUsuario?: IntWithAggregatesFilter<"Pedidos"> | number
     nomeCliente?: StringWithAggregatesFilter<"Pedidos"> | string
     observacao?: StringNullableWithAggregatesFilter<"Pedidos"> | string | null
+    valorSubTotal?: DecimalWithAggregatesFilter<"Pedidos"> | Decimal | DecimalJsLike | number | string
     valorTotal?: DecimalWithAggregatesFilter<"Pedidos"> | Decimal | DecimalJsLike | number | string
+    valorTaxaDeEntrega?: DecimalNullableWithAggregatesFilter<"Pedidos"> | Decimal | DecimalJsLike | number | string | null
     status?: IntWithAggregatesFilter<"Pedidos"> | number
     localConsumo?: IntWithAggregatesFilter<"Pedidos"> | number
     data_criacao?: DateTimeWithAggregatesFilter<"Pedidos"> | Date | string
@@ -14914,7 +14960,9 @@ export namespace Prisma {
   export type PedidosCreateInput = {
     nomeCliente: string
     observacao?: string | null
+    valorSubTotal?: Decimal | DecimalJsLike | number | string
     valorTotal: Decimal | DecimalJsLike | number | string
+    valorTaxaDeEntrega?: Decimal | DecimalJsLike | number | string | null
     status: number
     localConsumo: number
     data_criacao?: Date | string
@@ -14930,7 +14978,9 @@ export namespace Prisma {
     idUsuario: number
     nomeCliente: string
     observacao?: string | null
+    valorSubTotal?: Decimal | DecimalJsLike | number | string
     valorTotal: Decimal | DecimalJsLike | number | string
+    valorTaxaDeEntrega?: Decimal | DecimalJsLike | number | string | null
     status: number
     localConsumo: number
     data_criacao?: Date | string
@@ -14941,7 +14991,9 @@ export namespace Prisma {
   export type PedidosUpdateInput = {
     nomeCliente?: StringFieldUpdateOperationsInput | string
     observacao?: NullableStringFieldUpdateOperationsInput | string | null
+    valorSubTotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     valorTotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    valorTaxaDeEntrega?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     status?: IntFieldUpdateOperationsInput | number
     localConsumo?: IntFieldUpdateOperationsInput | number
     data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -14957,7 +15009,9 @@ export namespace Prisma {
     idUsuario?: IntFieldUpdateOperationsInput | number
     nomeCliente?: StringFieldUpdateOperationsInput | string
     observacao?: NullableStringFieldUpdateOperationsInput | string | null
+    valorSubTotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     valorTotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    valorTaxaDeEntrega?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     status?: IntFieldUpdateOperationsInput | number
     localConsumo?: IntFieldUpdateOperationsInput | number
     data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -14971,7 +15025,9 @@ export namespace Prisma {
     idUsuario: number
     nomeCliente: string
     observacao?: string | null
+    valorSubTotal?: Decimal | DecimalJsLike | number | string
     valorTotal: Decimal | DecimalJsLike | number | string
+    valorTaxaDeEntrega?: Decimal | DecimalJsLike | number | string | null
     status: number
     localConsumo: number
     data_criacao?: Date | string
@@ -14981,7 +15037,9 @@ export namespace Prisma {
   export type PedidosUpdateManyMutationInput = {
     nomeCliente?: StringFieldUpdateOperationsInput | string
     observacao?: NullableStringFieldUpdateOperationsInput | string | null
+    valorSubTotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     valorTotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    valorTaxaDeEntrega?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     status?: IntFieldUpdateOperationsInput | number
     localConsumo?: IntFieldUpdateOperationsInput | number
     data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -14994,7 +15052,9 @@ export namespace Prisma {
     idUsuario?: IntFieldUpdateOperationsInput | number
     nomeCliente?: StringFieldUpdateOperationsInput | string
     observacao?: NullableStringFieldUpdateOperationsInput | string | null
+    valorSubTotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     valorTotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    valorTaxaDeEntrega?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     status?: IntFieldUpdateOperationsInput | number
     localConsumo?: IntFieldUpdateOperationsInput | number
     data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -15716,6 +15776,17 @@ export namespace Prisma {
     preco?: SortOrder
   }
 
+  export type DecimalNullableFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+  }
+
   export type ClientesScalarRelationFilter = {
     is?: ClientesWhereInput
     isNot?: ClientesWhereInput
@@ -15732,7 +15803,9 @@ export namespace Prisma {
     idUsuario?: SortOrder
     nomeCliente?: SortOrder
     observacao?: SortOrder
+    valorSubTotal?: SortOrder
     valorTotal?: SortOrder
+    valorTaxaDeEntrega?: SortOrder
     status?: SortOrder
     localConsumo?: SortOrder
     data_criacao?: SortOrder
@@ -15743,7 +15816,9 @@ export namespace Prisma {
     id?: SortOrder
     idCliente?: SortOrder
     idUsuario?: SortOrder
+    valorSubTotal?: SortOrder
     valorTotal?: SortOrder
+    valorTaxaDeEntrega?: SortOrder
     status?: SortOrder
     localConsumo?: SortOrder
   }
@@ -15754,7 +15829,9 @@ export namespace Prisma {
     idUsuario?: SortOrder
     nomeCliente?: SortOrder
     observacao?: SortOrder
+    valorSubTotal?: SortOrder
     valorTotal?: SortOrder
+    valorTaxaDeEntrega?: SortOrder
     status?: SortOrder
     localConsumo?: SortOrder
     data_criacao?: SortOrder
@@ -15767,7 +15844,9 @@ export namespace Prisma {
     idUsuario?: SortOrder
     nomeCliente?: SortOrder
     observacao?: SortOrder
+    valorSubTotal?: SortOrder
     valorTotal?: SortOrder
+    valorTaxaDeEntrega?: SortOrder
     status?: SortOrder
     localConsumo?: SortOrder
     data_criacao?: SortOrder
@@ -15778,9 +15857,27 @@ export namespace Prisma {
     id?: SortOrder
     idCliente?: SortOrder
     idUsuario?: SortOrder
+    valorSubTotal?: SortOrder
     valorTotal?: SortOrder
+    valorTaxaDeEntrega?: SortOrder
     status?: SortOrder
     localConsumo?: SortOrder
+  }
+
+  export type DecimalNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedDecimalNullableFilter<$PrismaModel>
+    _sum?: NestedDecimalNullableFilter<$PrismaModel>
+    _min?: NestedDecimalNullableFilter<$PrismaModel>
+    _max?: NestedDecimalNullableFilter<$PrismaModel>
   }
 
   export type ProdutosScalarRelationFilter = {
@@ -16332,6 +16429,14 @@ export namespace Prisma {
     connect?: PedidoProdutosWhereUniqueInput | PedidoProdutosWhereUniqueInput[]
   }
 
+  export type NullableDecimalFieldUpdateOperationsInput = {
+    set?: Decimal | DecimalJsLike | number | string | null
+    increment?: Decimal | DecimalJsLike | number | string
+    decrement?: Decimal | DecimalJsLike | number | string
+    multiply?: Decimal | DecimalJsLike | number | string
+    divide?: Decimal | DecimalJsLike | number | string
+  }
+
   export type ClientesUpdateOneRequiredWithoutPedidosNestedInput = {
     create?: XOR<ClientesCreateWithoutPedidosInput, ClientesUncheckedCreateWithoutPedidosInput>
     connectOrCreate?: ClientesCreateOrConnectWithoutPedidosInput
@@ -16702,10 +16807,39 @@ export namespace Prisma {
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
+  export type NestedDecimalNullableFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type NestedDecimalNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedDecimalNullableFilter<$PrismaModel>
+    _sum?: NestedDecimalNullableFilter<$PrismaModel>
+    _min?: NestedDecimalNullableFilter<$PrismaModel>
+    _max?: NestedDecimalNullableFilter<$PrismaModel>
+  }
+
   export type PedidosCreateWithoutUsuarioInput = {
     nomeCliente: string
     observacao?: string | null
+    valorSubTotal?: Decimal | DecimalJsLike | number | string
     valorTotal: Decimal | DecimalJsLike | number | string
+    valorTaxaDeEntrega?: Decimal | DecimalJsLike | number | string | null
     status: number
     localConsumo: number
     data_criacao?: Date | string
@@ -16719,7 +16853,9 @@ export namespace Prisma {
     idCliente: number
     nomeCliente: string
     observacao?: string | null
+    valorSubTotal?: Decimal | DecimalJsLike | number | string
     valorTotal: Decimal | DecimalJsLike | number | string
+    valorTaxaDeEntrega?: Decimal | DecimalJsLike | number | string | null
     status: number
     localConsumo: number
     data_criacao?: Date | string
@@ -16762,7 +16898,9 @@ export namespace Prisma {
     idUsuario?: IntFilter<"Pedidos"> | number
     nomeCliente?: StringFilter<"Pedidos"> | string
     observacao?: StringNullableFilter<"Pedidos"> | string | null
+    valorSubTotal?: DecimalFilter<"Pedidos"> | Decimal | DecimalJsLike | number | string
     valorTotal?: DecimalFilter<"Pedidos"> | Decimal | DecimalJsLike | number | string
+    valorTaxaDeEntrega?: DecimalNullableFilter<"Pedidos"> | Decimal | DecimalJsLike | number | string | null
     status?: IntFilter<"Pedidos"> | number
     localConsumo?: IntFilter<"Pedidos"> | number
     data_criacao?: DateTimeFilter<"Pedidos"> | Date | string
@@ -16772,7 +16910,9 @@ export namespace Prisma {
   export type PedidosCreateWithoutClienteInput = {
     nomeCliente: string
     observacao?: string | null
+    valorSubTotal?: Decimal | DecimalJsLike | number | string
     valorTotal: Decimal | DecimalJsLike | number | string
+    valorTaxaDeEntrega?: Decimal | DecimalJsLike | number | string | null
     status: number
     localConsumo: number
     data_criacao?: Date | string
@@ -16786,7 +16926,9 @@ export namespace Prisma {
     idUsuario: number
     nomeCliente: string
     observacao?: string | null
+    valorSubTotal?: Decimal | DecimalJsLike | number | string
     valorTotal: Decimal | DecimalJsLike | number | string
+    valorTaxaDeEntrega?: Decimal | DecimalJsLike | number | string | null
     status: number
     localConsumo: number
     data_criacao?: Date | string
@@ -17481,7 +17623,9 @@ export namespace Prisma {
   export type PedidosCreateWithoutItensPedidoInput = {
     nomeCliente: string
     observacao?: string | null
+    valorSubTotal?: Decimal | DecimalJsLike | number | string
     valorTotal: Decimal | DecimalJsLike | number | string
+    valorTaxaDeEntrega?: Decimal | DecimalJsLike | number | string | null
     status: number
     localConsumo: number
     data_criacao?: Date | string
@@ -17496,7 +17640,9 @@ export namespace Prisma {
     idUsuario: number
     nomeCliente: string
     observacao?: string | null
+    valorSubTotal?: Decimal | DecimalJsLike | number | string
     valorTotal: Decimal | DecimalJsLike | number | string
+    valorTaxaDeEntrega?: Decimal | DecimalJsLike | number | string | null
     status: number
     localConsumo: number
     data_criacao?: Date | string
@@ -17581,7 +17727,9 @@ export namespace Prisma {
   export type PedidosUpdateWithoutItensPedidoInput = {
     nomeCliente?: StringFieldUpdateOperationsInput | string
     observacao?: NullableStringFieldUpdateOperationsInput | string | null
+    valorSubTotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     valorTotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    valorTaxaDeEntrega?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     status?: IntFieldUpdateOperationsInput | number
     localConsumo?: IntFieldUpdateOperationsInput | number
     data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -17596,7 +17744,9 @@ export namespace Prisma {
     idUsuario?: IntFieldUpdateOperationsInput | number
     nomeCliente?: StringFieldUpdateOperationsInput | string
     observacao?: NullableStringFieldUpdateOperationsInput | string | null
+    valorSubTotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     valorTotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    valorTaxaDeEntrega?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     status?: IntFieldUpdateOperationsInput | number
     localConsumo?: IntFieldUpdateOperationsInput | number
     data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -17736,7 +17886,9 @@ export namespace Prisma {
     idCliente: number
     nomeCliente: string
     observacao?: string | null
+    valorSubTotal?: Decimal | DecimalJsLike | number | string
     valorTotal: Decimal | DecimalJsLike | number | string
+    valorTaxaDeEntrega?: Decimal | DecimalJsLike | number | string | null
     status: number
     localConsumo: number
     data_criacao?: Date | string
@@ -17746,7 +17898,9 @@ export namespace Prisma {
   export type PedidosUpdateWithoutUsuarioInput = {
     nomeCliente?: StringFieldUpdateOperationsInput | string
     observacao?: NullableStringFieldUpdateOperationsInput | string | null
+    valorSubTotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     valorTotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    valorTaxaDeEntrega?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     status?: IntFieldUpdateOperationsInput | number
     localConsumo?: IntFieldUpdateOperationsInput | number
     data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -17760,7 +17914,9 @@ export namespace Prisma {
     idCliente?: IntFieldUpdateOperationsInput | number
     nomeCliente?: StringFieldUpdateOperationsInput | string
     observacao?: NullableStringFieldUpdateOperationsInput | string | null
+    valorSubTotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     valorTotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    valorTaxaDeEntrega?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     status?: IntFieldUpdateOperationsInput | number
     localConsumo?: IntFieldUpdateOperationsInput | number
     data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -17773,7 +17929,9 @@ export namespace Prisma {
     idCliente?: IntFieldUpdateOperationsInput | number
     nomeCliente?: StringFieldUpdateOperationsInput | string
     observacao?: NullableStringFieldUpdateOperationsInput | string | null
+    valorSubTotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     valorTotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    valorTaxaDeEntrega?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     status?: IntFieldUpdateOperationsInput | number
     localConsumo?: IntFieldUpdateOperationsInput | number
     data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -17785,7 +17943,9 @@ export namespace Prisma {
     idUsuario: number
     nomeCliente: string
     observacao?: string | null
+    valorSubTotal?: Decimal | DecimalJsLike | number | string
     valorTotal: Decimal | DecimalJsLike | number | string
+    valorTaxaDeEntrega?: Decimal | DecimalJsLike | number | string | null
     status: number
     localConsumo: number
     data_criacao?: Date | string
@@ -17795,7 +17955,9 @@ export namespace Prisma {
   export type PedidosUpdateWithoutClienteInput = {
     nomeCliente?: StringFieldUpdateOperationsInput | string
     observacao?: NullableStringFieldUpdateOperationsInput | string | null
+    valorSubTotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     valorTotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    valorTaxaDeEntrega?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     status?: IntFieldUpdateOperationsInput | number
     localConsumo?: IntFieldUpdateOperationsInput | number
     data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -17809,7 +17971,9 @@ export namespace Prisma {
     idUsuario?: IntFieldUpdateOperationsInput | number
     nomeCliente?: StringFieldUpdateOperationsInput | string
     observacao?: NullableStringFieldUpdateOperationsInput | string | null
+    valorSubTotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     valorTotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    valorTaxaDeEntrega?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     status?: IntFieldUpdateOperationsInput | number
     localConsumo?: IntFieldUpdateOperationsInput | number
     data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -17822,7 +17986,9 @@ export namespace Prisma {
     idUsuario?: IntFieldUpdateOperationsInput | number
     nomeCliente?: StringFieldUpdateOperationsInput | string
     observacao?: NullableStringFieldUpdateOperationsInput | string | null
+    valorSubTotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     valorTotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    valorTaxaDeEntrega?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     status?: IntFieldUpdateOperationsInput | number
     localConsumo?: IntFieldUpdateOperationsInput | number
     data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string

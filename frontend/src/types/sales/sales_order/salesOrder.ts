@@ -41,7 +41,11 @@ export interface ItemPedidoVenda {
 export type CreateSalesOrder = {
   idCliente?: number | null;
   nomeCliente?: string;
+  
+  valorSubTotal: number,
   valorTotal: number,
+  valorTaxaDeEntrega?: number,
+
 
   status: PedidoStatus;
   localConsumo: PedidoLocalConsumo;

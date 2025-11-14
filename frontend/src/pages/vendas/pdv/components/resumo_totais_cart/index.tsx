@@ -24,13 +24,16 @@ const ResumoTotaisCart = () => {
 
         <div className="flex justify-between">
           <p>SubTotal</p>
-          <p className="font-medium">R$ {formatarMoedaBRL(cart.valorTotalCart)}</p>
+          <p className="font-medium">R$ {formatarMoedaBRL(cart.valorSubTotalCart)}</p>
         </div>
 
-        <div className="flex items-center justify-between">
-          <p>Desconto</p>
-          <p className="font-medium text-sm text-red-600">- R$ {formatarMoedaBRL(0)}</p>
-        </div>
+        {cart.localEntrega && (
+          <div className="flex justify-between">
+            <p>Taxa de entrega</p>
+            <p className="font-medium">R$ {formatarMoedaBRL(cart.localEntrega.valor)}</p>
+          </div>
+        )}
+
 
       </div>
 

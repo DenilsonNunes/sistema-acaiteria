@@ -235,6 +235,7 @@ export function IdentificarCliente() {
                         }
 
                         setOpen(false)
+                        
                       } else {
                         
                         if(idPedidoEmEdicao){

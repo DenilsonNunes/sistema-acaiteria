@@ -23,7 +23,9 @@ export const buildPedidoFromCart = (
   return {
     idCliente: cart.idCliente,
     nomeCliente: cart.nomeCliente,
-    valorTotal: cart.valorTotalCart,
+    valorTotal: cart.valorTotalCart ?? 0,
+    valorSubTotal: cart.valorSubTotalCart ?? 0,
+    valorTaxaDeEntrega: cart.localEntrega?.valor, 
     status: PedidoStatus.AGUARDANDO_PRODUCAO,
     localConsumo: cart.localConsumo as PedidoLocalConsumo,
     observacao,

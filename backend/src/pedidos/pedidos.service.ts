@@ -76,7 +76,10 @@ export class PedidosService {
           observacao: createPedidoDto.observacao,
           status: createPedidoDto.status,
           localConsumo: createPedidoDto.localConsumo,
+          valorSubTotal: createPedidoDto.valorSubTotal,
           valorTotal: createPedidoDto.valorTotal,
+          valorTaxaDeEntrega: createPedidoDto.valorTaxaDeEntrega,
+
           data_criacao: getLocalDate(),
           data_alteracao: getLocalDate(),
           // Produtos do pedido
@@ -242,9 +245,12 @@ export class PedidosService {
             nomeCliente: updatePedidoDto.nomeCliente,
             idUsuario: payloadParam.user,
             observacao: updatePedidoDto.observacao,
+            valorSubTotal: updatePedidoDto.valorSubTotal,
             valorTotal: updatePedidoDto.valorTotal,
+            valorTaxaDeEntrega: updatePedidoDto.valorTaxaDeEntrega,
             localConsumo: updatePedidoDto.localConsumo,
             data_alteracao: getLocalDate(),
+
             itensPedido: {
               create: itens.map((item) => ({
                 idProduto: item.idProduto,

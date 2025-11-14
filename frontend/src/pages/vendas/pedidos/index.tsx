@@ -316,7 +316,24 @@ const Pedidos = () => {
                 </div>
 
                 <div className="flex gap-2 items-center justify-between">
-                  <span className="text-md text-gray-500">Valor total</span>
+                  <span className="text-md text-gray-500">Valor SubTotal</span>
+                  <span className="font-medium text-md text-fuchsia-700">
+                    R$ {formatarMoedaBRL(order.valorSubTotal)}
+                  </span>
+                </div>
+                
+                {order.valorTaxaDeEntrega && (
+                  <div className="flex gap-2 items-center justify-between">
+                    <span className="text-md text-gray-500">Taxa de entrega</span>
+                    <span className="font-medium text-md text-fuchsia-700">
+                      R$ {formatarMoedaBRL(order.valorTaxaDeEntrega)}
+                    </span>
+                  </div>
+
+                )}
+
+                <div className="flex gap-2 items-center justify-between">
+                  <span className="text-md text-gray-500">Valor Total</span>
                   <span className="font-bold text-lg text-fuchsia-700">
                     R$ {formatarMoedaBRL(order.valorTotal)}
                   </span>

@@ -23,10 +23,19 @@ export interface Cart {
   idCliente?: number;
   nomeCliente?: string;
   observacao?:string;
-
   localConsumo: number;
+  
+  valorSubTotalCart?: number;
+  valorTotalCart?: number;
 
-  valorTotalCart: number;
   itens: ItemCart[]
+  localEntrega?: LocalEntrega;
 
+};
+
+
+export interface LocalEntrega {
+  id: number;
+  bairroRegiao: string;
+  valor: number;
 };

@@ -6,7 +6,10 @@ export interface Orders {
   idCliente: number,
   nomeCliente: string,
   observacao: string | null,
+  valorSubTotal: string,
   valorTotal: string,
+  valorTaxaDeEntrega: string,
+
   cliente: Cliente,
   status: PedidoStatus,
   localConsumo: PedidoLocalConsumo,

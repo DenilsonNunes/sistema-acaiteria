@@ -1,15 +1,10 @@
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table";
 import CreateDeliveryFeeDialog from "./components/create-delivery-fee-dialog";
-import { EditButton } from "@/components/button/edit-button";
-import { DeleteButton } from "@/components/button/delete-button";
 import { useFetchAllDeliveryFee } from "@/hooks/configuracoes/taxas-de-entrega/useTaxasDeEntrega";
 import { formatarMoedaBRL } from "@/utils/formataMoedaBRL";
 import DeleteDeliveryFeeDialog from "./components/delete-delivery-fee-dialog";
 import EditDeliveryFeeDialog from "./components/edit-delivery-fee-dialog";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
-
 
 
 export default function TaxasDeEntrega() {
@@ -110,8 +105,6 @@ export default function TaxasDeEntrega() {
           </div>
         </>
       )}
-
-
 
     </section>
   );

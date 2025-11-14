@@ -1,5 +1,5 @@
 import { Type } from 'class-transformer';
-import { ArrayNotEmpty, IsArray, IsNumber, IsString, ValidateNested } from 'class-validator';
+import { ArrayNotEmpty, IsArray, IsNumber, IsOptional, IsString, ValidateNested } from 'class-validator';
 
 class ComplementosProdutoPedido {
   @IsNumber({}, { message: 'O código do complemento deve ser um numero' })
@@ -43,7 +43,14 @@ export class CreatePedidoDto {
   observacao?: string; // Opcional
 
   @IsNumber()
+  valorSubTotal: number;
+
+  @IsNumber()
   valorTotal: number;
+
+  @IsOptional()
+  @IsNumber({ allowNaN: false, allowInfinity: false }, { message: 'O valor da taxa de entrega deve ser um número' })
+  valorTaxaDeEntrega?: number;
 
   @IsNumber({}, { message: 'O status do pedido deve ser um numero' })
   status: number;
