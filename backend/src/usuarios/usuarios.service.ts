@@ -3,6 +3,7 @@ import { CreateUsuarioDto } from './dto/create-usuario.dto';
 import { UpdateUsuarioDto } from './dto/update-usuario.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { HashingServiceProtocol } from 'src/auth/hash/hashing.service';
+import { RegisterUserDto } from './dto/register-usuario.dto';
 
 @Injectable()
 export class UsuariosService {
@@ -11,19 +12,47 @@ export class UsuariosService {
     private readonly hashingService: HashingServiceProtocol,
   ) {}
 
-  async create(createUsuarioDto: CreateUsuarioDto) {
+  async register(registerUsuarioDto: RegisterUserDto) {
     try {
-      const existingUser = await this.prisma.usuarios.findUnique({
+      const existingEmail = await this.prisma.usuarios.findUnique({
         where: {
-          usuario: createUsuarioDto.usuario,
+          email: registerUsuarioDto.email,
         },
       });
 
-      // Verifica se ja existe um usuário com esse nome
-      if (existingUser) {
-        throw new HttpException('Esse usuário já exite, por favor informe um novo usuário.', HttpStatus.BAD_REQUEST);
+      // Verifica se ja existe o email cadastrado
+      if (existingEmail) {
+        throw new HttpException('O e-mail informado já está em uso. Por favor, utilize um e-mail diferente.', HttpStatus.BAD_REQUEST);
       }
 
+      const senhaHash = await this.hashingService.hash(registerUsuarioDto.senha);
+
+      const user = await this.prisma.usuarios.create({
+        data: {
+          nome: registerUsuarioDto.nome,
+          email: registerUsuarioDto.email,
+          senha: senhaHash,
+          status: registerUsuarioDto.status,
+        },
+        select: {
+          id: true,
+          nome: true,
+          email: true,
+        },
+      });
+
+      return user;
+    } catch (err) {
+      // Verifica se o erro é uma HttpException
+      if (err instanceof HttpException) {
+        throw err; // Propaga a HttpException original
+      }
+      throw new HttpException('Erro ao criar usuário', HttpStatus.BAD_REQUEST, { cause: err });
+    }
+  }
+
+  async create(createUsuarioDto: CreateUsuarioDto) {
+    try {
       const existingEmail = await this.prisma.usuarios.findUnique({
         where: {
           email: createUsuarioDto.email,
@@ -40,7 +69,6 @@ export class UsuariosService {
       const user = await this.prisma.usuarios.create({
         data: {
           nome: createUsuarioDto.nome,
-          usuario: createUsuarioDto.usuario,
           email: createUsuarioDto.email,
           senha: senhaHash,
           status: createUsuarioDto.status,
@@ -48,7 +76,6 @@ export class UsuariosService {
         select: {
           id: true,
           nome: true,
-          usuario: true,
           email: true,
         },
       });
@@ -80,19 +107,24 @@ export class UsuariosService {
   }
 
   async update(id: number, updateUsuarioDto: UpdateUsuarioDto) {
+    /*
+    
+    
+    
+    
     try {
       // Verificar se veio vazio
       if (!updateUsuarioDto || Object.keys(updateUsuarioDto).length === 0) {
         throw new HttpException('Nenhuma informação foi fornecida para atualizar.', HttpStatus.BAD_REQUEST);
       }
       // Verifica se existe um usuário com ID informado
-      const user = await this.prisma.usuarios.findUnique({
+      const findUser = await this.prisma.usuarios.findUnique({
         where: {
           id: id,
         },
       });
       // Se não encontrar o usuário para renomear, retorna uma mensagem
-      if (!user) {
+      if (!findUser) {
         throw new HttpException('Usuário não existe.', HttpStatus.NOT_FOUND);
       }
 
@@ -119,7 +151,6 @@ export class UsuariosService {
         usuario: updateUsuarioDto.usuario ?? user.usuario,
         email: updateUsuarioDto.email ?? user.email,
         status: updateUsuarioDto.status ?? user.status,
-        data_alteracao: new Date(),
       };
 
       // Se tiver senha, gerar o hash e adicionar ao objeto
@@ -130,7 +161,12 @@ export class UsuariosService {
       // Atualizar o usuário
       const updateUser = await this.prisma.usuarios.update({
         where: { id },
-        data: dataUserUpdate,
+        data: {
+          nome: updateUsuarioDto?.nome ? updateUsuarioDto.nome : findCustomer.nome,
+          email: updateClienteDto?.apelido ? updateClienteDto.apelido : findCustomer.apelido,
+          endereco: updateClienteDto?.endereco ? updateClienteDto.endereco : findCustomer.endereco,
+          fone: updateClienteDto?.fone ? updateClienteDto.fone : findCustomer.fone,
+        },
       });
 
       return updateUser;
@@ -141,6 +177,10 @@ export class UsuariosService {
       }
       throw new HttpException('Erro ao alterar usuário', HttpStatus.BAD_REQUEST, { cause: err });
     }
+    
+    
+    
+    */
   }
 
   async remove(id: number) {

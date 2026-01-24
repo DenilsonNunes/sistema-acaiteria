@@ -22,7 +22,7 @@ export class AuthTokenGuard implements CanActivate {
     const path = request.path;
 
     // Ignora a rota de login (POST /auth/login)
-    if (method === 'POST' && path === '/auth/login') {
+    if ((method === 'POST' && path === '/auth/login') || path.startsWith('/usuarios')) {
       return true;
     }
 

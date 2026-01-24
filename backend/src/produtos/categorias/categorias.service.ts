@@ -89,7 +89,7 @@ export class CategoriasService {
       // Busca todas os produtos com essa categoria
       const productSold = await this.prisma.produtos.findMany({
         where: {
-          idCategoria: id,
+          id_categoria: id,
           pedidoProdutos: {
             some: {},
           },

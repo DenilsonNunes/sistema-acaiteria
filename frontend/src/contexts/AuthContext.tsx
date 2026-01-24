@@ -20,7 +20,7 @@ type AuthContextData = {
   user: string | null;
   isAuthenticated: boolean;
   isLoading: boolean;
-  login: (user: string, password: string) => Promise<void>;
+  login: (email: string, password: string) => Promise<void>;
   logout: () => void;
   userData: UserData | null;
 };
@@ -61,12 +61,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
 
-  const login = async (user: string, password: string) => {
+  const login = async (email: string, password: string) => {
     
 
     try {
 
-      const response = await api.post('/auth/login', { user, password });
+      const response = await api.post('/auth/login', { email, password });
 
       const { 
         id:userId,

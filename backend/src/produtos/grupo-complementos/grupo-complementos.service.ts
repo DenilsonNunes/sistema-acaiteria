@@ -2,6 +2,7 @@ import { BadRequestException, HttpException, HttpStatus, Injectable } from '@nes
 import { CreateGrupoComplementoDto } from './dto/create-grupo-complemento.dto';
 import { UpdateGrupoComplementoDto } from './dto/update-grupo-complemento.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { getLocalDate } from 'src/common/utils/date.util';
 
 @Injectable()
 export class GrupoComplementosService {
@@ -88,7 +89,7 @@ export class GrupoComplementosService {
           qtdMinComplemento: updateGrupoComplementoDto?.qtdMinComplemento ? updateGrupoComplementoDto?.qtdMinComplemento : findAddOnGroup.qtdMinComplemento,
           qtdMaxComplemento: updateGrupoComplementoDto.qtdMaxComplemento !== undefined ? updateGrupoComplementoDto.qtdMaxComplemento : findAddOnGroup.qtdMaxComplemento,
           obrigatorio: updateGrupoComplementoDto.obrigatorio !== undefined ? updateGrupoComplementoDto.obrigatorio : findAddOnGroup.obrigatorio,
-          data_alteracao: new Date(),
+          dh_alteracao: getLocalDate(),
         },
       });
       // Retorna o grupod e complementos

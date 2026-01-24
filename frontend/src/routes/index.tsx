@@ -14,6 +14,7 @@ import { cozinhaRoutes } from "./rotinas/cozinha.routes";
 import { clientesRoutes } from "./rotinas/clientes.routes";
 import { financeiroRoutes } from "./rotinas/financeiro.routes";
 import { configuracoesRoutes } from "./rotinas/configuracoes.routes";
+import Register from "@/pages/register";
 
 
 
@@ -38,6 +39,7 @@ const routes = createBrowserRouter([
   },
   // Rota pública
   { path: '/auth/login', element: <Login /> },
+  { path: '/register', element: <Register /> },
   { path: '*', element: <NotFound /> },
 ]);
 

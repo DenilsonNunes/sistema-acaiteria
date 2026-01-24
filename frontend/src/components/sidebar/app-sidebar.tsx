@@ -159,8 +159,8 @@ const data = {
       icon: Frame,
     },
     {
-      name: "Implementação futura...",
-      url: "#",
+      name: "Empresas",
+      url: "configuracoes/empresas",
       icon: PieChart,
     },
     {

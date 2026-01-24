@@ -19,6 +19,21 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  */
 export type Usuarios = $Result.DefaultSelection<Prisma.$UsuariosPayload>
 /**
+ * Model EmpresaUsuarios
+ * 
+ */
+export type EmpresaUsuarios = $Result.DefaultSelection<Prisma.$EmpresaUsuariosPayload>
+/**
+ * Model Empresas
+ * 
+ */
+export type Empresas = $Result.DefaultSelection<Prisma.$EmpresasPayload>
+/**
+ * Model GrupoEmpresas
+ * 
+ */
+export type GrupoEmpresas = $Result.DefaultSelection<Prisma.$GrupoEmpresasPayload>
+/**
  * Model Clientes
  * 
  */
@@ -199,6 +214,36 @@ export class PrismaClient<
     * ```
     */
   get usuarios(): Prisma.UsuariosDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.empresaUsuarios`: Exposes CRUD operations for the **EmpresaUsuarios** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more EmpresaUsuarios
+    * const empresaUsuarios = await prisma.empresaUsuarios.findMany()
+    * ```
+    */
+  get empresaUsuarios(): Prisma.EmpresaUsuariosDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.empresas`: Exposes CRUD operations for the **Empresas** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Empresas
+    * const empresas = await prisma.empresas.findMany()
+    * ```
+    */
+  get empresas(): Prisma.EmpresasDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.grupoEmpresas`: Exposes CRUD operations for the **GrupoEmpresas** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more GrupoEmpresas
+    * const grupoEmpresas = await prisma.grupoEmpresas.findMany()
+    * ```
+    */
+  get grupoEmpresas(): Prisma.GrupoEmpresasDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.clientes`: Exposes CRUD operations for the **Clientes** model.
@@ -730,6 +775,9 @@ export namespace Prisma {
 
   export const ModelName: {
     Usuarios: 'Usuarios',
+    EmpresaUsuarios: 'EmpresaUsuarios',
+    Empresas: 'Empresas',
+    GrupoEmpresas: 'GrupoEmpresas',
     Clientes: 'Clientes',
     Produtos: 'Produtos',
     Categorias: 'Categorias',
@@ -757,7 +805,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "usuarios" | "clientes" | "produtos" | "categorias" | "grupoComplementos" | "complementos" | "pedidos" | "pedidoProdutos" | "pedidoProdutoComplementos" | "taxasDeEntrega"
+      modelProps: "usuarios" | "empresaUsuarios" | "empresas" | "grupoEmpresas" | "clientes" | "produtos" | "categorias" | "grupoComplementos" | "complementos" | "pedidos" | "pedidoProdutos" | "pedidoProdutoComplementos" | "taxasDeEntrega"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -832,6 +880,228 @@ export namespace Prisma {
           count: {
             args: Prisma.UsuariosCountArgs<ExtArgs>
             result: $Utils.Optional<UsuariosCountAggregateOutputType> | number
+          }
+        }
+      }
+      EmpresaUsuarios: {
+        payload: Prisma.$EmpresaUsuariosPayload<ExtArgs>
+        fields: Prisma.EmpresaUsuariosFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.EmpresaUsuariosFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmpresaUsuariosPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.EmpresaUsuariosFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmpresaUsuariosPayload>
+          }
+          findFirst: {
+            args: Prisma.EmpresaUsuariosFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmpresaUsuariosPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.EmpresaUsuariosFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmpresaUsuariosPayload>
+          }
+          findMany: {
+            args: Prisma.EmpresaUsuariosFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmpresaUsuariosPayload>[]
+          }
+          create: {
+            args: Prisma.EmpresaUsuariosCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmpresaUsuariosPayload>
+          }
+          createMany: {
+            args: Prisma.EmpresaUsuariosCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.EmpresaUsuariosCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmpresaUsuariosPayload>[]
+          }
+          delete: {
+            args: Prisma.EmpresaUsuariosDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmpresaUsuariosPayload>
+          }
+          update: {
+            args: Prisma.EmpresaUsuariosUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmpresaUsuariosPayload>
+          }
+          deleteMany: {
+            args: Prisma.EmpresaUsuariosDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.EmpresaUsuariosUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.EmpresaUsuariosUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmpresaUsuariosPayload>[]
+          }
+          upsert: {
+            args: Prisma.EmpresaUsuariosUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmpresaUsuariosPayload>
+          }
+          aggregate: {
+            args: Prisma.EmpresaUsuariosAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateEmpresaUsuarios>
+          }
+          groupBy: {
+            args: Prisma.EmpresaUsuariosGroupByArgs<ExtArgs>
+            result: $Utils.Optional<EmpresaUsuariosGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.EmpresaUsuariosCountArgs<ExtArgs>
+            result: $Utils.Optional<EmpresaUsuariosCountAggregateOutputType> | number
+          }
+        }
+      }
+      Empresas: {
+        payload: Prisma.$EmpresasPayload<ExtArgs>
+        fields: Prisma.EmpresasFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.EmpresasFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmpresasPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.EmpresasFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmpresasPayload>
+          }
+          findFirst: {
+            args: Prisma.EmpresasFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmpresasPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.EmpresasFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmpresasPayload>
+          }
+          findMany: {
+            args: Prisma.EmpresasFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmpresasPayload>[]
+          }
+          create: {
+            args: Prisma.EmpresasCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmpresasPayload>
+          }
+          createMany: {
+            args: Prisma.EmpresasCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.EmpresasCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmpresasPayload>[]
+          }
+          delete: {
+            args: Prisma.EmpresasDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmpresasPayload>
+          }
+          update: {
+            args: Prisma.EmpresasUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmpresasPayload>
+          }
+          deleteMany: {
+            args: Prisma.EmpresasDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.EmpresasUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.EmpresasUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmpresasPayload>[]
+          }
+          upsert: {
+            args: Prisma.EmpresasUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmpresasPayload>
+          }
+          aggregate: {
+            args: Prisma.EmpresasAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateEmpresas>
+          }
+          groupBy: {
+            args: Prisma.EmpresasGroupByArgs<ExtArgs>
+            result: $Utils.Optional<EmpresasGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.EmpresasCountArgs<ExtArgs>
+            result: $Utils.Optional<EmpresasCountAggregateOutputType> | number
+          }
+        }
+      }
+      GrupoEmpresas: {
+        payload: Prisma.$GrupoEmpresasPayload<ExtArgs>
+        fields: Prisma.GrupoEmpresasFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.GrupoEmpresasFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GrupoEmpresasPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.GrupoEmpresasFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GrupoEmpresasPayload>
+          }
+          findFirst: {
+            args: Prisma.GrupoEmpresasFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GrupoEmpresasPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.GrupoEmpresasFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GrupoEmpresasPayload>
+          }
+          findMany: {
+            args: Prisma.GrupoEmpresasFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GrupoEmpresasPayload>[]
+          }
+          create: {
+            args: Prisma.GrupoEmpresasCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GrupoEmpresasPayload>
+          }
+          createMany: {
+            args: Prisma.GrupoEmpresasCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.GrupoEmpresasCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GrupoEmpresasPayload>[]
+          }
+          delete: {
+            args: Prisma.GrupoEmpresasDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GrupoEmpresasPayload>
+          }
+          update: {
+            args: Prisma.GrupoEmpresasUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GrupoEmpresasPayload>
+          }
+          deleteMany: {
+            args: Prisma.GrupoEmpresasDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.GrupoEmpresasUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.GrupoEmpresasUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GrupoEmpresasPayload>[]
+          }
+          upsert: {
+            args: Prisma.GrupoEmpresasUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GrupoEmpresasPayload>
+          }
+          aggregate: {
+            args: Prisma.GrupoEmpresasAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateGrupoEmpresas>
+          }
+          groupBy: {
+            args: Prisma.GrupoEmpresasGroupByArgs<ExtArgs>
+            result: $Utils.Optional<GrupoEmpresasGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.GrupoEmpresasCountArgs<ExtArgs>
+            result: $Utils.Optional<GrupoEmpresasCountAggregateOutputType> | number
           }
         }
       }
@@ -1586,6 +1856,9 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     usuarios?: UsuariosOmit
+    empresaUsuarios?: EmpresaUsuariosOmit
+    empresas?: EmpresasOmit
+    grupoEmpresas?: GrupoEmpresasOmit
     clientes?: ClientesOmit
     produtos?: ProdutosOmit
     categorias?: CategoriasOmit
@@ -1689,11 +1962,13 @@ export namespace Prisma {
    */
 
   export type UsuariosCountOutputType = {
-    Pedidos: number
+    grupoEmpresas: number
+    empresaUsuarios: number
   }
 
   export type UsuariosCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    Pedidos?: boolean | UsuariosCountOutputTypeCountPedidosArgs
+    grupoEmpresas?: boolean | UsuariosCountOutputTypeCountGrupoEmpresasArgs
+    empresaUsuarios?: boolean | UsuariosCountOutputTypeCountEmpresaUsuariosArgs
   }
 
   // Custom InputTypes
@@ -1710,8 +1985,86 @@ export namespace Prisma {
   /**
    * UsuariosCountOutputType without action
    */
-  export type UsuariosCountOutputTypeCountPedidosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UsuariosCountOutputTypeCountGrupoEmpresasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GrupoEmpresasWhereInput
+  }
+
+  /**
+   * UsuariosCountOutputType without action
+   */
+  export type UsuariosCountOutputTypeCountEmpresaUsuariosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EmpresaUsuariosWhereInput
+  }
+
+
+  /**
+   * Count Type EmpresasCountOutputType
+   */
+
+  export type EmpresasCountOutputType = {
+    pedidos: number
+    empresaUsuarios: number
+  }
+
+  export type EmpresasCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    pedidos?: boolean | EmpresasCountOutputTypeCountPedidosArgs
+    empresaUsuarios?: boolean | EmpresasCountOutputTypeCountEmpresaUsuariosArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * EmpresasCountOutputType without action
+   */
+  export type EmpresasCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmpresasCountOutputType
+     */
+    select?: EmpresasCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * EmpresasCountOutputType without action
+   */
+  export type EmpresasCountOutputTypeCountPedidosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: PedidosWhereInput
+  }
+
+  /**
+   * EmpresasCountOutputType without action
+   */
+  export type EmpresasCountOutputTypeCountEmpresaUsuariosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EmpresaUsuariosWhereInput
+  }
+
+
+  /**
+   * Count Type GrupoEmpresasCountOutputType
+   */
+
+  export type GrupoEmpresasCountOutputType = {
+    empresas: number
+  }
+
+  export type GrupoEmpresasCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    empresas?: boolean | GrupoEmpresasCountOutputTypeCountEmpresasArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * GrupoEmpresasCountOutputType without action
+   */
+  export type GrupoEmpresasCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GrupoEmpresasCountOutputType
+     */
+    select?: GrupoEmpresasCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * GrupoEmpresasCountOutputType without action
+   */
+  export type GrupoEmpresasCountOutputTypeCountEmpresasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EmpresasWhereInput
   }
 
 
@@ -1968,34 +2321,34 @@ export namespace Prisma {
   export type UsuariosMinAggregateOutputType = {
     id: number | null
     nome: string | null
-    usuario: string | null
     senha: string | null
     email: string | null
     status: boolean | null
-    data_criacao: Date | null
-    data_alteracao: Date | null
+    dt_nascimento: Date | null
+    dh_criacao: Date | null
+    dh_alteracao: Date | null
   }
 
   export type UsuariosMaxAggregateOutputType = {
     id: number | null
     nome: string | null
-    usuario: string | null
     senha: string | null
     email: string | null
     status: boolean | null
-    data_criacao: Date | null
-    data_alteracao: Date | null
+    dt_nascimento: Date | null
+    dh_criacao: Date | null
+    dh_alteracao: Date | null
   }
 
   export type UsuariosCountAggregateOutputType = {
     id: number
     nome: number
-    usuario: number
     senha: number
     email: number
     status: number
-    data_criacao: number
-    data_alteracao: number
+    dt_nascimento: number
+    dh_criacao: number
+    dh_alteracao: number
     _all: number
   }
 
@@ -2011,34 +2364,34 @@ export namespace Prisma {
   export type UsuariosMinAggregateInputType = {
     id?: true
     nome?: true
-    usuario?: true
     senha?: true
     email?: true
     status?: true
-    data_criacao?: true
-    data_alteracao?: true
+    dt_nascimento?: true
+    dh_criacao?: true
+    dh_alteracao?: true
   }
 
   export type UsuariosMaxAggregateInputType = {
     id?: true
     nome?: true
-    usuario?: true
     senha?: true
     email?: true
     status?: true
-    data_criacao?: true
-    data_alteracao?: true
+    dt_nascimento?: true
+    dh_criacao?: true
+    dh_alteracao?: true
   }
 
   export type UsuariosCountAggregateInputType = {
     id?: true
     nome?: true
-    usuario?: true
     senha?: true
     email?: true
     status?: true
-    data_criacao?: true
-    data_alteracao?: true
+    dt_nascimento?: true
+    dh_criacao?: true
+    dh_alteracao?: true
     _all?: true
   }
 
@@ -2131,12 +2484,12 @@ export namespace Prisma {
   export type UsuariosGroupByOutputType = {
     id: number
     nome: string
-    usuario: string
     senha: string
     email: string
     status: boolean
-    data_criacao: Date
-    data_alteracao: Date
+    dt_nascimento: Date | null
+    dh_criacao: Date
+    dh_alteracao: Date
     _count: UsuariosCountAggregateOutputType | null
     _avg: UsuariosAvgAggregateOutputType | null
     _sum: UsuariosSumAggregateOutputType | null
@@ -2161,52 +2514,54 @@ export namespace Prisma {
   export type UsuariosSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     nome?: boolean
-    usuario?: boolean
     senha?: boolean
     email?: boolean
     status?: boolean
-    data_criacao?: boolean
-    data_alteracao?: boolean
-    Pedidos?: boolean | Usuarios$PedidosArgs<ExtArgs>
+    dt_nascimento?: boolean
+    dh_criacao?: boolean
+    dh_alteracao?: boolean
+    grupoEmpresas?: boolean | Usuarios$grupoEmpresasArgs<ExtArgs>
+    empresaUsuarios?: boolean | Usuarios$empresaUsuariosArgs<ExtArgs>
     _count?: boolean | UsuariosCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["usuarios"]>
 
   export type UsuariosSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     nome?: boolean
-    usuario?: boolean
     senha?: boolean
     email?: boolean
     status?: boolean
-    data_criacao?: boolean
-    data_alteracao?: boolean
+    dt_nascimento?: boolean
+    dh_criacao?: boolean
+    dh_alteracao?: boolean
   }, ExtArgs["result"]["usuarios"]>
 
   export type UsuariosSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     nome?: boolean
-    usuario?: boolean
     senha?: boolean
     email?: boolean
     status?: boolean
-    data_criacao?: boolean
-    data_alteracao?: boolean
+    dt_nascimento?: boolean
+    dh_criacao?: boolean
+    dh_alteracao?: boolean
   }, ExtArgs["result"]["usuarios"]>
 
   export type UsuariosSelectScalar = {
     id?: boolean
     nome?: boolean
-    usuario?: boolean
     senha?: boolean
     email?: boolean
     status?: boolean
-    data_criacao?: boolean
-    data_alteracao?: boolean
+    dt_nascimento?: boolean
+    dh_criacao?: boolean
+    dh_alteracao?: boolean
   }
 
-  export type UsuariosOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nome" | "usuario" | "senha" | "email" | "status" | "data_criacao" | "data_alteracao", ExtArgs["result"]["usuarios"]>
+  export type UsuariosOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nome" | "senha" | "email" | "status" | "dt_nascimento" | "dh_criacao" | "dh_alteracao", ExtArgs["result"]["usuarios"]>
   export type UsuariosInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    Pedidos?: boolean | Usuarios$PedidosArgs<ExtArgs>
+    grupoEmpresas?: boolean | Usuarios$grupoEmpresasArgs<ExtArgs>
+    empresaUsuarios?: boolean | Usuarios$empresaUsuariosArgs<ExtArgs>
     _count?: boolean | UsuariosCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UsuariosIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -2215,17 +2570,18 @@ export namespace Prisma {
   export type $UsuariosPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Usuarios"
     objects: {
-      Pedidos: Prisma.$PedidosPayload<ExtArgs>[]
+      grupoEmpresas: Prisma.$GrupoEmpresasPayload<ExtArgs>[]
+      empresaUsuarios: Prisma.$EmpresaUsuariosPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       nome: string
-      usuario: string
       senha: string
       email: string
       status: boolean
-      data_criacao: Date
-      data_alteracao: Date
+      dt_nascimento: Date | null
+      dh_criacao: Date
+      dh_alteracao: Date
     }, ExtArgs["result"]["usuarios"]>
     composites: {}
   }
@@ -2620,7 +2976,8 @@ export namespace Prisma {
    */
   export interface Prisma__UsuariosClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    Pedidos<T extends Usuarios$PedidosArgs<ExtArgs> = {}>(args?: Subset<T, Usuarios$PedidosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PedidosPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    grupoEmpresas<T extends Usuarios$grupoEmpresasArgs<ExtArgs> = {}>(args?: Subset<T, Usuarios$grupoEmpresasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GrupoEmpresasPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    empresaUsuarios<T extends Usuarios$empresaUsuariosArgs<ExtArgs> = {}>(args?: Subset<T, Usuarios$empresaUsuariosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmpresaUsuariosPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2652,12 +3009,12 @@ export namespace Prisma {
   interface UsuariosFieldRefs {
     readonly id: FieldRef<"Usuarios", 'Int'>
     readonly nome: FieldRef<"Usuarios", 'String'>
-    readonly usuario: FieldRef<"Usuarios", 'String'>
     readonly senha: FieldRef<"Usuarios", 'String'>
     readonly email: FieldRef<"Usuarios", 'String'>
     readonly status: FieldRef<"Usuarios", 'Boolean'>
-    readonly data_criacao: FieldRef<"Usuarios", 'DateTime'>
-    readonly data_alteracao: FieldRef<"Usuarios", 'DateTime'>
+    readonly dt_nascimento: FieldRef<"Usuarios", 'DateTime'>
+    readonly dh_criacao: FieldRef<"Usuarios", 'DateTime'>
+    readonly dh_alteracao: FieldRef<"Usuarios", 'DateTime'>
   }
     
 
@@ -3046,27 +3403,51 @@ export namespace Prisma {
   }
 
   /**
-   * Usuarios.Pedidos
+   * Usuarios.grupoEmpresas
    */
-  export type Usuarios$PedidosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Usuarios$grupoEmpresasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Pedidos
+     * Select specific fields to fetch from the GrupoEmpresas
      */
-    select?: PedidosSelect<ExtArgs> | null
+    select?: GrupoEmpresasSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Pedidos
+     * Omit specific fields from the GrupoEmpresas
      */
-    omit?: PedidosOmit<ExtArgs> | null
+    omit?: GrupoEmpresasOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PedidosInclude<ExtArgs> | null
-    where?: PedidosWhereInput
-    orderBy?: PedidosOrderByWithRelationInput | PedidosOrderByWithRelationInput[]
-    cursor?: PedidosWhereUniqueInput
+    include?: GrupoEmpresasInclude<ExtArgs> | null
+    where?: GrupoEmpresasWhereInput
+    orderBy?: GrupoEmpresasOrderByWithRelationInput | GrupoEmpresasOrderByWithRelationInput[]
+    cursor?: GrupoEmpresasWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: PedidosScalarFieldEnum | PedidosScalarFieldEnum[]
+    distinct?: GrupoEmpresasScalarFieldEnum | GrupoEmpresasScalarFieldEnum[]
+  }
+
+  /**
+   * Usuarios.empresaUsuarios
+   */
+  export type Usuarios$empresaUsuariosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmpresaUsuarios
+     */
+    select?: EmpresaUsuariosSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmpresaUsuarios
+     */
+    omit?: EmpresaUsuariosOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmpresaUsuariosInclude<ExtArgs> | null
+    where?: EmpresaUsuariosWhereInput
+    orderBy?: EmpresaUsuariosOrderByWithRelationInput | EmpresaUsuariosOrderByWithRelationInput[]
+    cursor?: EmpresaUsuariosWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: EmpresaUsuariosScalarFieldEnum | EmpresaUsuariosScalarFieldEnum[]
   }
 
   /**
@@ -3089,6 +3470,3502 @@ export namespace Prisma {
 
 
   /**
+   * Model EmpresaUsuarios
+   */
+
+  export type AggregateEmpresaUsuarios = {
+    _count: EmpresaUsuariosCountAggregateOutputType | null
+    _avg: EmpresaUsuariosAvgAggregateOutputType | null
+    _sum: EmpresaUsuariosSumAggregateOutputType | null
+    _min: EmpresaUsuariosMinAggregateOutputType | null
+    _max: EmpresaUsuariosMaxAggregateOutputType | null
+  }
+
+  export type EmpresaUsuariosAvgAggregateOutputType = {
+    id: number | null
+    id_usuario: number | null
+    id_empresa: number | null
+  }
+
+  export type EmpresaUsuariosSumAggregateOutputType = {
+    id: number | null
+    id_usuario: number | null
+    id_empresa: number | null
+  }
+
+  export type EmpresaUsuariosMinAggregateOutputType = {
+    id: number | null
+    id_usuario: number | null
+    id_empresa: number | null
+    dt_admissao: Date | null
+    perfil: string | null
+    status: boolean | null
+    dh_criacao: Date | null
+    dh_alteracao: Date | null
+  }
+
+  export type EmpresaUsuariosMaxAggregateOutputType = {
+    id: number | null
+    id_usuario: number | null
+    id_empresa: number | null
+    dt_admissao: Date | null
+    perfil: string | null
+    status: boolean | null
+    dh_criacao: Date | null
+    dh_alteracao: Date | null
+  }
+
+  export type EmpresaUsuariosCountAggregateOutputType = {
+    id: number
+    id_usuario: number
+    id_empresa: number
+    dt_admissao: number
+    perfil: number
+    status: number
+    dh_criacao: number
+    dh_alteracao: number
+    _all: number
+  }
+
+
+  export type EmpresaUsuariosAvgAggregateInputType = {
+    id?: true
+    id_usuario?: true
+    id_empresa?: true
+  }
+
+  export type EmpresaUsuariosSumAggregateInputType = {
+    id?: true
+    id_usuario?: true
+    id_empresa?: true
+  }
+
+  export type EmpresaUsuariosMinAggregateInputType = {
+    id?: true
+    id_usuario?: true
+    id_empresa?: true
+    dt_admissao?: true
+    perfil?: true
+    status?: true
+    dh_criacao?: true
+    dh_alteracao?: true
+  }
+
+  export type EmpresaUsuariosMaxAggregateInputType = {
+    id?: true
+    id_usuario?: true
+    id_empresa?: true
+    dt_admissao?: true
+    perfil?: true
+    status?: true
+    dh_criacao?: true
+    dh_alteracao?: true
+  }
+
+  export type EmpresaUsuariosCountAggregateInputType = {
+    id?: true
+    id_usuario?: true
+    id_empresa?: true
+    dt_admissao?: true
+    perfil?: true
+    status?: true
+    dh_criacao?: true
+    dh_alteracao?: true
+    _all?: true
+  }
+
+  export type EmpresaUsuariosAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which EmpresaUsuarios to aggregate.
+     */
+    where?: EmpresaUsuariosWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EmpresaUsuarios to fetch.
+     */
+    orderBy?: EmpresaUsuariosOrderByWithRelationInput | EmpresaUsuariosOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: EmpresaUsuariosWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EmpresaUsuarios from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EmpresaUsuarios.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned EmpresaUsuarios
+    **/
+    _count?: true | EmpresaUsuariosCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: EmpresaUsuariosAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: EmpresaUsuariosSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: EmpresaUsuariosMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: EmpresaUsuariosMaxAggregateInputType
+  }
+
+  export type GetEmpresaUsuariosAggregateType<T extends EmpresaUsuariosAggregateArgs> = {
+        [P in keyof T & keyof AggregateEmpresaUsuarios]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateEmpresaUsuarios[P]>
+      : GetScalarType<T[P], AggregateEmpresaUsuarios[P]>
+  }
+
+
+
+
+  export type EmpresaUsuariosGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EmpresaUsuariosWhereInput
+    orderBy?: EmpresaUsuariosOrderByWithAggregationInput | EmpresaUsuariosOrderByWithAggregationInput[]
+    by: EmpresaUsuariosScalarFieldEnum[] | EmpresaUsuariosScalarFieldEnum
+    having?: EmpresaUsuariosScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: EmpresaUsuariosCountAggregateInputType | true
+    _avg?: EmpresaUsuariosAvgAggregateInputType
+    _sum?: EmpresaUsuariosSumAggregateInputType
+    _min?: EmpresaUsuariosMinAggregateInputType
+    _max?: EmpresaUsuariosMaxAggregateInputType
+  }
+
+  export type EmpresaUsuariosGroupByOutputType = {
+    id: number
+    id_usuario: number
+    id_empresa: number
+    dt_admissao: Date | null
+    perfil: string
+    status: boolean
+    dh_criacao: Date
+    dh_alteracao: Date
+    _count: EmpresaUsuariosCountAggregateOutputType | null
+    _avg: EmpresaUsuariosAvgAggregateOutputType | null
+    _sum: EmpresaUsuariosSumAggregateOutputType | null
+    _min: EmpresaUsuariosMinAggregateOutputType | null
+    _max: EmpresaUsuariosMaxAggregateOutputType | null
+  }
+
+  type GetEmpresaUsuariosGroupByPayload<T extends EmpresaUsuariosGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<EmpresaUsuariosGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof EmpresaUsuariosGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], EmpresaUsuariosGroupByOutputType[P]>
+            : GetScalarType<T[P], EmpresaUsuariosGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type EmpresaUsuariosSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    id_usuario?: boolean
+    id_empresa?: boolean
+    dt_admissao?: boolean
+    perfil?: boolean
+    status?: boolean
+    dh_criacao?: boolean
+    dh_alteracao?: boolean
+    usuario?: boolean | UsuariosDefaultArgs<ExtArgs>
+    empresa?: boolean | EmpresasDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["empresaUsuarios"]>
+
+  export type EmpresaUsuariosSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    id_usuario?: boolean
+    id_empresa?: boolean
+    dt_admissao?: boolean
+    perfil?: boolean
+    status?: boolean
+    dh_criacao?: boolean
+    dh_alteracao?: boolean
+    usuario?: boolean | UsuariosDefaultArgs<ExtArgs>
+    empresa?: boolean | EmpresasDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["empresaUsuarios"]>
+
+  export type EmpresaUsuariosSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    id_usuario?: boolean
+    id_empresa?: boolean
+    dt_admissao?: boolean
+    perfil?: boolean
+    status?: boolean
+    dh_criacao?: boolean
+    dh_alteracao?: boolean
+    usuario?: boolean | UsuariosDefaultArgs<ExtArgs>
+    empresa?: boolean | EmpresasDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["empresaUsuarios"]>
+
+  export type EmpresaUsuariosSelectScalar = {
+    id?: boolean
+    id_usuario?: boolean
+    id_empresa?: boolean
+    dt_admissao?: boolean
+    perfil?: boolean
+    status?: boolean
+    dh_criacao?: boolean
+    dh_alteracao?: boolean
+  }
+
+  export type EmpresaUsuariosOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "id_usuario" | "id_empresa" | "dt_admissao" | "perfil" | "status" | "dh_criacao" | "dh_alteracao", ExtArgs["result"]["empresaUsuarios"]>
+  export type EmpresaUsuariosInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    usuario?: boolean | UsuariosDefaultArgs<ExtArgs>
+    empresa?: boolean | EmpresasDefaultArgs<ExtArgs>
+  }
+  export type EmpresaUsuariosIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    usuario?: boolean | UsuariosDefaultArgs<ExtArgs>
+    empresa?: boolean | EmpresasDefaultArgs<ExtArgs>
+  }
+  export type EmpresaUsuariosIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    usuario?: boolean | UsuariosDefaultArgs<ExtArgs>
+    empresa?: boolean | EmpresasDefaultArgs<ExtArgs>
+  }
+
+  export type $EmpresaUsuariosPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "EmpresaUsuarios"
+    objects: {
+      usuario: Prisma.$UsuariosPayload<ExtArgs>
+      empresa: Prisma.$EmpresasPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      id_usuario: number
+      id_empresa: number
+      dt_admissao: Date | null
+      perfil: string
+      status: boolean
+      dh_criacao: Date
+      dh_alteracao: Date
+    }, ExtArgs["result"]["empresaUsuarios"]>
+    composites: {}
+  }
+
+  type EmpresaUsuariosGetPayload<S extends boolean | null | undefined | EmpresaUsuariosDefaultArgs> = $Result.GetResult<Prisma.$EmpresaUsuariosPayload, S>
+
+  type EmpresaUsuariosCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<EmpresaUsuariosFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: EmpresaUsuariosCountAggregateInputType | true
+    }
+
+  export interface EmpresaUsuariosDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['EmpresaUsuarios'], meta: { name: 'EmpresaUsuarios' } }
+    /**
+     * Find zero or one EmpresaUsuarios that matches the filter.
+     * @param {EmpresaUsuariosFindUniqueArgs} args - Arguments to find a EmpresaUsuarios
+     * @example
+     * // Get one EmpresaUsuarios
+     * const empresaUsuarios = await prisma.empresaUsuarios.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends EmpresaUsuariosFindUniqueArgs>(args: SelectSubset<T, EmpresaUsuariosFindUniqueArgs<ExtArgs>>): Prisma__EmpresaUsuariosClient<$Result.GetResult<Prisma.$EmpresaUsuariosPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one EmpresaUsuarios that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {EmpresaUsuariosFindUniqueOrThrowArgs} args - Arguments to find a EmpresaUsuarios
+     * @example
+     * // Get one EmpresaUsuarios
+     * const empresaUsuarios = await prisma.empresaUsuarios.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends EmpresaUsuariosFindUniqueOrThrowArgs>(args: SelectSubset<T, EmpresaUsuariosFindUniqueOrThrowArgs<ExtArgs>>): Prisma__EmpresaUsuariosClient<$Result.GetResult<Prisma.$EmpresaUsuariosPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first EmpresaUsuarios that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmpresaUsuariosFindFirstArgs} args - Arguments to find a EmpresaUsuarios
+     * @example
+     * // Get one EmpresaUsuarios
+     * const empresaUsuarios = await prisma.empresaUsuarios.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends EmpresaUsuariosFindFirstArgs>(args?: SelectSubset<T, EmpresaUsuariosFindFirstArgs<ExtArgs>>): Prisma__EmpresaUsuariosClient<$Result.GetResult<Prisma.$EmpresaUsuariosPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first EmpresaUsuarios that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmpresaUsuariosFindFirstOrThrowArgs} args - Arguments to find a EmpresaUsuarios
+     * @example
+     * // Get one EmpresaUsuarios
+     * const empresaUsuarios = await prisma.empresaUsuarios.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends EmpresaUsuariosFindFirstOrThrowArgs>(args?: SelectSubset<T, EmpresaUsuariosFindFirstOrThrowArgs<ExtArgs>>): Prisma__EmpresaUsuariosClient<$Result.GetResult<Prisma.$EmpresaUsuariosPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more EmpresaUsuarios that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmpresaUsuariosFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all EmpresaUsuarios
+     * const empresaUsuarios = await prisma.empresaUsuarios.findMany()
+     * 
+     * // Get first 10 EmpresaUsuarios
+     * const empresaUsuarios = await prisma.empresaUsuarios.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const empresaUsuariosWithIdOnly = await prisma.empresaUsuarios.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends EmpresaUsuariosFindManyArgs>(args?: SelectSubset<T, EmpresaUsuariosFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmpresaUsuariosPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a EmpresaUsuarios.
+     * @param {EmpresaUsuariosCreateArgs} args - Arguments to create a EmpresaUsuarios.
+     * @example
+     * // Create one EmpresaUsuarios
+     * const EmpresaUsuarios = await prisma.empresaUsuarios.create({
+     *   data: {
+     *     // ... data to create a EmpresaUsuarios
+     *   }
+     * })
+     * 
+     */
+    create<T extends EmpresaUsuariosCreateArgs>(args: SelectSubset<T, EmpresaUsuariosCreateArgs<ExtArgs>>): Prisma__EmpresaUsuariosClient<$Result.GetResult<Prisma.$EmpresaUsuariosPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many EmpresaUsuarios.
+     * @param {EmpresaUsuariosCreateManyArgs} args - Arguments to create many EmpresaUsuarios.
+     * @example
+     * // Create many EmpresaUsuarios
+     * const empresaUsuarios = await prisma.empresaUsuarios.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends EmpresaUsuariosCreateManyArgs>(args?: SelectSubset<T, EmpresaUsuariosCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many EmpresaUsuarios and returns the data saved in the database.
+     * @param {EmpresaUsuariosCreateManyAndReturnArgs} args - Arguments to create many EmpresaUsuarios.
+     * @example
+     * // Create many EmpresaUsuarios
+     * const empresaUsuarios = await prisma.empresaUsuarios.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many EmpresaUsuarios and only return the `id`
+     * const empresaUsuariosWithIdOnly = await prisma.empresaUsuarios.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends EmpresaUsuariosCreateManyAndReturnArgs>(args?: SelectSubset<T, EmpresaUsuariosCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmpresaUsuariosPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a EmpresaUsuarios.
+     * @param {EmpresaUsuariosDeleteArgs} args - Arguments to delete one EmpresaUsuarios.
+     * @example
+     * // Delete one EmpresaUsuarios
+     * const EmpresaUsuarios = await prisma.empresaUsuarios.delete({
+     *   where: {
+     *     // ... filter to delete one EmpresaUsuarios
+     *   }
+     * })
+     * 
+     */
+    delete<T extends EmpresaUsuariosDeleteArgs>(args: SelectSubset<T, EmpresaUsuariosDeleteArgs<ExtArgs>>): Prisma__EmpresaUsuariosClient<$Result.GetResult<Prisma.$EmpresaUsuariosPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one EmpresaUsuarios.
+     * @param {EmpresaUsuariosUpdateArgs} args - Arguments to update one EmpresaUsuarios.
+     * @example
+     * // Update one EmpresaUsuarios
+     * const empresaUsuarios = await prisma.empresaUsuarios.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends EmpresaUsuariosUpdateArgs>(args: SelectSubset<T, EmpresaUsuariosUpdateArgs<ExtArgs>>): Prisma__EmpresaUsuariosClient<$Result.GetResult<Prisma.$EmpresaUsuariosPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more EmpresaUsuarios.
+     * @param {EmpresaUsuariosDeleteManyArgs} args - Arguments to filter EmpresaUsuarios to delete.
+     * @example
+     * // Delete a few EmpresaUsuarios
+     * const { count } = await prisma.empresaUsuarios.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends EmpresaUsuariosDeleteManyArgs>(args?: SelectSubset<T, EmpresaUsuariosDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more EmpresaUsuarios.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmpresaUsuariosUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many EmpresaUsuarios
+     * const empresaUsuarios = await prisma.empresaUsuarios.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends EmpresaUsuariosUpdateManyArgs>(args: SelectSubset<T, EmpresaUsuariosUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more EmpresaUsuarios and returns the data updated in the database.
+     * @param {EmpresaUsuariosUpdateManyAndReturnArgs} args - Arguments to update many EmpresaUsuarios.
+     * @example
+     * // Update many EmpresaUsuarios
+     * const empresaUsuarios = await prisma.empresaUsuarios.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more EmpresaUsuarios and only return the `id`
+     * const empresaUsuariosWithIdOnly = await prisma.empresaUsuarios.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends EmpresaUsuariosUpdateManyAndReturnArgs>(args: SelectSubset<T, EmpresaUsuariosUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmpresaUsuariosPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one EmpresaUsuarios.
+     * @param {EmpresaUsuariosUpsertArgs} args - Arguments to update or create a EmpresaUsuarios.
+     * @example
+     * // Update or create a EmpresaUsuarios
+     * const empresaUsuarios = await prisma.empresaUsuarios.upsert({
+     *   create: {
+     *     // ... data to create a EmpresaUsuarios
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the EmpresaUsuarios we want to update
+     *   }
+     * })
+     */
+    upsert<T extends EmpresaUsuariosUpsertArgs>(args: SelectSubset<T, EmpresaUsuariosUpsertArgs<ExtArgs>>): Prisma__EmpresaUsuariosClient<$Result.GetResult<Prisma.$EmpresaUsuariosPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of EmpresaUsuarios.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmpresaUsuariosCountArgs} args - Arguments to filter EmpresaUsuarios to count.
+     * @example
+     * // Count the number of EmpresaUsuarios
+     * const count = await prisma.empresaUsuarios.count({
+     *   where: {
+     *     // ... the filter for the EmpresaUsuarios we want to count
+     *   }
+     * })
+    **/
+    count<T extends EmpresaUsuariosCountArgs>(
+      args?: Subset<T, EmpresaUsuariosCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], EmpresaUsuariosCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a EmpresaUsuarios.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmpresaUsuariosAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends EmpresaUsuariosAggregateArgs>(args: Subset<T, EmpresaUsuariosAggregateArgs>): Prisma.PrismaPromise<GetEmpresaUsuariosAggregateType<T>>
+
+    /**
+     * Group by EmpresaUsuarios.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmpresaUsuariosGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends EmpresaUsuariosGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: EmpresaUsuariosGroupByArgs['orderBy'] }
+        : { orderBy?: EmpresaUsuariosGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, EmpresaUsuariosGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetEmpresaUsuariosGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the EmpresaUsuarios model
+   */
+  readonly fields: EmpresaUsuariosFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for EmpresaUsuarios.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__EmpresaUsuariosClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    usuario<T extends UsuariosDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UsuariosDefaultArgs<ExtArgs>>): Prisma__UsuariosClient<$Result.GetResult<Prisma.$UsuariosPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    empresa<T extends EmpresasDefaultArgs<ExtArgs> = {}>(args?: Subset<T, EmpresasDefaultArgs<ExtArgs>>): Prisma__EmpresasClient<$Result.GetResult<Prisma.$EmpresasPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the EmpresaUsuarios model
+   */
+  interface EmpresaUsuariosFieldRefs {
+    readonly id: FieldRef<"EmpresaUsuarios", 'Int'>
+    readonly id_usuario: FieldRef<"EmpresaUsuarios", 'Int'>
+    readonly id_empresa: FieldRef<"EmpresaUsuarios", 'Int'>
+    readonly dt_admissao: FieldRef<"EmpresaUsuarios", 'DateTime'>
+    readonly perfil: FieldRef<"EmpresaUsuarios", 'String'>
+    readonly status: FieldRef<"EmpresaUsuarios", 'Boolean'>
+    readonly dh_criacao: FieldRef<"EmpresaUsuarios", 'DateTime'>
+    readonly dh_alteracao: FieldRef<"EmpresaUsuarios", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * EmpresaUsuarios findUnique
+   */
+  export type EmpresaUsuariosFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmpresaUsuarios
+     */
+    select?: EmpresaUsuariosSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmpresaUsuarios
+     */
+    omit?: EmpresaUsuariosOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmpresaUsuariosInclude<ExtArgs> | null
+    /**
+     * Filter, which EmpresaUsuarios to fetch.
+     */
+    where: EmpresaUsuariosWhereUniqueInput
+  }
+
+  /**
+   * EmpresaUsuarios findUniqueOrThrow
+   */
+  export type EmpresaUsuariosFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmpresaUsuarios
+     */
+    select?: EmpresaUsuariosSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmpresaUsuarios
+     */
+    omit?: EmpresaUsuariosOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmpresaUsuariosInclude<ExtArgs> | null
+    /**
+     * Filter, which EmpresaUsuarios to fetch.
+     */
+    where: EmpresaUsuariosWhereUniqueInput
+  }
+
+  /**
+   * EmpresaUsuarios findFirst
+   */
+  export type EmpresaUsuariosFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmpresaUsuarios
+     */
+    select?: EmpresaUsuariosSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmpresaUsuarios
+     */
+    omit?: EmpresaUsuariosOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmpresaUsuariosInclude<ExtArgs> | null
+    /**
+     * Filter, which EmpresaUsuarios to fetch.
+     */
+    where?: EmpresaUsuariosWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EmpresaUsuarios to fetch.
+     */
+    orderBy?: EmpresaUsuariosOrderByWithRelationInput | EmpresaUsuariosOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for EmpresaUsuarios.
+     */
+    cursor?: EmpresaUsuariosWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EmpresaUsuarios from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EmpresaUsuarios.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of EmpresaUsuarios.
+     */
+    distinct?: EmpresaUsuariosScalarFieldEnum | EmpresaUsuariosScalarFieldEnum[]
+  }
+
+  /**
+   * EmpresaUsuarios findFirstOrThrow
+   */
+  export type EmpresaUsuariosFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmpresaUsuarios
+     */
+    select?: EmpresaUsuariosSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmpresaUsuarios
+     */
+    omit?: EmpresaUsuariosOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmpresaUsuariosInclude<ExtArgs> | null
+    /**
+     * Filter, which EmpresaUsuarios to fetch.
+     */
+    where?: EmpresaUsuariosWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EmpresaUsuarios to fetch.
+     */
+    orderBy?: EmpresaUsuariosOrderByWithRelationInput | EmpresaUsuariosOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for EmpresaUsuarios.
+     */
+    cursor?: EmpresaUsuariosWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EmpresaUsuarios from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EmpresaUsuarios.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of EmpresaUsuarios.
+     */
+    distinct?: EmpresaUsuariosScalarFieldEnum | EmpresaUsuariosScalarFieldEnum[]
+  }
+
+  /**
+   * EmpresaUsuarios findMany
+   */
+  export type EmpresaUsuariosFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmpresaUsuarios
+     */
+    select?: EmpresaUsuariosSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmpresaUsuarios
+     */
+    omit?: EmpresaUsuariosOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmpresaUsuariosInclude<ExtArgs> | null
+    /**
+     * Filter, which EmpresaUsuarios to fetch.
+     */
+    where?: EmpresaUsuariosWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EmpresaUsuarios to fetch.
+     */
+    orderBy?: EmpresaUsuariosOrderByWithRelationInput | EmpresaUsuariosOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing EmpresaUsuarios.
+     */
+    cursor?: EmpresaUsuariosWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EmpresaUsuarios from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EmpresaUsuarios.
+     */
+    skip?: number
+    distinct?: EmpresaUsuariosScalarFieldEnum | EmpresaUsuariosScalarFieldEnum[]
+  }
+
+  /**
+   * EmpresaUsuarios create
+   */
+  export type EmpresaUsuariosCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmpresaUsuarios
+     */
+    select?: EmpresaUsuariosSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmpresaUsuarios
+     */
+    omit?: EmpresaUsuariosOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmpresaUsuariosInclude<ExtArgs> | null
+    /**
+     * The data needed to create a EmpresaUsuarios.
+     */
+    data: XOR<EmpresaUsuariosCreateInput, EmpresaUsuariosUncheckedCreateInput>
+  }
+
+  /**
+   * EmpresaUsuarios createMany
+   */
+  export type EmpresaUsuariosCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many EmpresaUsuarios.
+     */
+    data: EmpresaUsuariosCreateManyInput | EmpresaUsuariosCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * EmpresaUsuarios createManyAndReturn
+   */
+  export type EmpresaUsuariosCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmpresaUsuarios
+     */
+    select?: EmpresaUsuariosSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmpresaUsuarios
+     */
+    omit?: EmpresaUsuariosOmit<ExtArgs> | null
+    /**
+     * The data used to create many EmpresaUsuarios.
+     */
+    data: EmpresaUsuariosCreateManyInput | EmpresaUsuariosCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmpresaUsuariosIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * EmpresaUsuarios update
+   */
+  export type EmpresaUsuariosUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmpresaUsuarios
+     */
+    select?: EmpresaUsuariosSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmpresaUsuarios
+     */
+    omit?: EmpresaUsuariosOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmpresaUsuariosInclude<ExtArgs> | null
+    /**
+     * The data needed to update a EmpresaUsuarios.
+     */
+    data: XOR<EmpresaUsuariosUpdateInput, EmpresaUsuariosUncheckedUpdateInput>
+    /**
+     * Choose, which EmpresaUsuarios to update.
+     */
+    where: EmpresaUsuariosWhereUniqueInput
+  }
+
+  /**
+   * EmpresaUsuarios updateMany
+   */
+  export type EmpresaUsuariosUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update EmpresaUsuarios.
+     */
+    data: XOR<EmpresaUsuariosUpdateManyMutationInput, EmpresaUsuariosUncheckedUpdateManyInput>
+    /**
+     * Filter which EmpresaUsuarios to update
+     */
+    where?: EmpresaUsuariosWhereInput
+    /**
+     * Limit how many EmpresaUsuarios to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * EmpresaUsuarios updateManyAndReturn
+   */
+  export type EmpresaUsuariosUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmpresaUsuarios
+     */
+    select?: EmpresaUsuariosSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmpresaUsuarios
+     */
+    omit?: EmpresaUsuariosOmit<ExtArgs> | null
+    /**
+     * The data used to update EmpresaUsuarios.
+     */
+    data: XOR<EmpresaUsuariosUpdateManyMutationInput, EmpresaUsuariosUncheckedUpdateManyInput>
+    /**
+     * Filter which EmpresaUsuarios to update
+     */
+    where?: EmpresaUsuariosWhereInput
+    /**
+     * Limit how many EmpresaUsuarios to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmpresaUsuariosIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * EmpresaUsuarios upsert
+   */
+  export type EmpresaUsuariosUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmpresaUsuarios
+     */
+    select?: EmpresaUsuariosSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmpresaUsuarios
+     */
+    omit?: EmpresaUsuariosOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmpresaUsuariosInclude<ExtArgs> | null
+    /**
+     * The filter to search for the EmpresaUsuarios to update in case it exists.
+     */
+    where: EmpresaUsuariosWhereUniqueInput
+    /**
+     * In case the EmpresaUsuarios found by the `where` argument doesn't exist, create a new EmpresaUsuarios with this data.
+     */
+    create: XOR<EmpresaUsuariosCreateInput, EmpresaUsuariosUncheckedCreateInput>
+    /**
+     * In case the EmpresaUsuarios was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<EmpresaUsuariosUpdateInput, EmpresaUsuariosUncheckedUpdateInput>
+  }
+
+  /**
+   * EmpresaUsuarios delete
+   */
+  export type EmpresaUsuariosDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmpresaUsuarios
+     */
+    select?: EmpresaUsuariosSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmpresaUsuarios
+     */
+    omit?: EmpresaUsuariosOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmpresaUsuariosInclude<ExtArgs> | null
+    /**
+     * Filter which EmpresaUsuarios to delete.
+     */
+    where: EmpresaUsuariosWhereUniqueInput
+  }
+
+  /**
+   * EmpresaUsuarios deleteMany
+   */
+  export type EmpresaUsuariosDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which EmpresaUsuarios to delete
+     */
+    where?: EmpresaUsuariosWhereInput
+    /**
+     * Limit how many EmpresaUsuarios to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * EmpresaUsuarios without action
+   */
+  export type EmpresaUsuariosDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmpresaUsuarios
+     */
+    select?: EmpresaUsuariosSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmpresaUsuarios
+     */
+    omit?: EmpresaUsuariosOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmpresaUsuariosInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Empresas
+   */
+
+  export type AggregateEmpresas = {
+    _count: EmpresasCountAggregateOutputType | null
+    _avg: EmpresasAvgAggregateOutputType | null
+    _sum: EmpresasSumAggregateOutputType | null
+    _min: EmpresasMinAggregateOutputType | null
+    _max: EmpresasMaxAggregateOutputType | null
+  }
+
+  export type EmpresasAvgAggregateOutputType = {
+    id: number | null
+    id_grupo_empresas: number | null
+    cod_empresa: number | null
+  }
+
+  export type EmpresasSumAggregateOutputType = {
+    id: number | null
+    id_grupo_empresas: number | null
+    cod_empresa: number | null
+  }
+
+  export type EmpresasMinAggregateOutputType = {
+    id: number | null
+    id_grupo_empresas: number | null
+    cod_empresa: number | null
+    cpf_cnpj: string | null
+    xNome: string | null
+    xFant: string | null
+    xLgr: string | null
+    numero: string | null
+    xCpl: string | null
+    fone: string | null
+    status: boolean | null
+    dh_criacao: Date | null
+    dh_alteracao: Date | null
+  }
+
+  export type EmpresasMaxAggregateOutputType = {
+    id: number | null
+    id_grupo_empresas: number | null
+    cod_empresa: number | null
+    cpf_cnpj: string | null
+    xNome: string | null
+    xFant: string | null
+    xLgr: string | null
+    numero: string | null
+    xCpl: string | null
+    fone: string | null
+    status: boolean | null
+    dh_criacao: Date | null
+    dh_alteracao: Date | null
+  }
+
+  export type EmpresasCountAggregateOutputType = {
+    id: number
+    id_grupo_empresas: number
+    cod_empresa: number
+    cpf_cnpj: number
+    xNome: number
+    xFant: number
+    xLgr: number
+    numero: number
+    xCpl: number
+    fone: number
+    status: number
+    dh_criacao: number
+    dh_alteracao: number
+    _all: number
+  }
+
+
+  export type EmpresasAvgAggregateInputType = {
+    id?: true
+    id_grupo_empresas?: true
+    cod_empresa?: true
+  }
+
+  export type EmpresasSumAggregateInputType = {
+    id?: true
+    id_grupo_empresas?: true
+    cod_empresa?: true
+  }
+
+  export type EmpresasMinAggregateInputType = {
+    id?: true
+    id_grupo_empresas?: true
+    cod_empresa?: true
+    cpf_cnpj?: true
+    xNome?: true
+    xFant?: true
+    xLgr?: true
+    numero?: true
+    xCpl?: true
+    fone?: true
+    status?: true
+    dh_criacao?: true
+    dh_alteracao?: true
+  }
+
+  export type EmpresasMaxAggregateInputType = {
+    id?: true
+    id_grupo_empresas?: true
+    cod_empresa?: true
+    cpf_cnpj?: true
+    xNome?: true
+    xFant?: true
+    xLgr?: true
+    numero?: true
+    xCpl?: true
+    fone?: true
+    status?: true
+    dh_criacao?: true
+    dh_alteracao?: true
+  }
+
+  export type EmpresasCountAggregateInputType = {
+    id?: true
+    id_grupo_empresas?: true
+    cod_empresa?: true
+    cpf_cnpj?: true
+    xNome?: true
+    xFant?: true
+    xLgr?: true
+    numero?: true
+    xCpl?: true
+    fone?: true
+    status?: true
+    dh_criacao?: true
+    dh_alteracao?: true
+    _all?: true
+  }
+
+  export type EmpresasAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Empresas to aggregate.
+     */
+    where?: EmpresasWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Empresas to fetch.
+     */
+    orderBy?: EmpresasOrderByWithRelationInput | EmpresasOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: EmpresasWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Empresas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Empresas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Empresas
+    **/
+    _count?: true | EmpresasCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: EmpresasAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: EmpresasSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: EmpresasMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: EmpresasMaxAggregateInputType
+  }
+
+  export type GetEmpresasAggregateType<T extends EmpresasAggregateArgs> = {
+        [P in keyof T & keyof AggregateEmpresas]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateEmpresas[P]>
+      : GetScalarType<T[P], AggregateEmpresas[P]>
+  }
+
+
+
+
+  export type EmpresasGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EmpresasWhereInput
+    orderBy?: EmpresasOrderByWithAggregationInput | EmpresasOrderByWithAggregationInput[]
+    by: EmpresasScalarFieldEnum[] | EmpresasScalarFieldEnum
+    having?: EmpresasScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: EmpresasCountAggregateInputType | true
+    _avg?: EmpresasAvgAggregateInputType
+    _sum?: EmpresasSumAggregateInputType
+    _min?: EmpresasMinAggregateInputType
+    _max?: EmpresasMaxAggregateInputType
+  }
+
+  export type EmpresasGroupByOutputType = {
+    id: number
+    id_grupo_empresas: number
+    cod_empresa: number
+    cpf_cnpj: string
+    xNome: string
+    xFant: string | null
+    xLgr: string | null
+    numero: string | null
+    xCpl: string | null
+    fone: string | null
+    status: boolean
+    dh_criacao: Date
+    dh_alteracao: Date
+    _count: EmpresasCountAggregateOutputType | null
+    _avg: EmpresasAvgAggregateOutputType | null
+    _sum: EmpresasSumAggregateOutputType | null
+    _min: EmpresasMinAggregateOutputType | null
+    _max: EmpresasMaxAggregateOutputType | null
+  }
+
+  type GetEmpresasGroupByPayload<T extends EmpresasGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<EmpresasGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof EmpresasGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], EmpresasGroupByOutputType[P]>
+            : GetScalarType<T[P], EmpresasGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type EmpresasSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    id_grupo_empresas?: boolean
+    cod_empresa?: boolean
+    cpf_cnpj?: boolean
+    xNome?: boolean
+    xFant?: boolean
+    xLgr?: boolean
+    numero?: boolean
+    xCpl?: boolean
+    fone?: boolean
+    status?: boolean
+    dh_criacao?: boolean
+    dh_alteracao?: boolean
+    pedidos?: boolean | Empresas$pedidosArgs<ExtArgs>
+    grupoEmpresas?: boolean | GrupoEmpresasDefaultArgs<ExtArgs>
+    empresaUsuarios?: boolean | Empresas$empresaUsuariosArgs<ExtArgs>
+    _count?: boolean | EmpresasCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["empresas"]>
+
+  export type EmpresasSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    id_grupo_empresas?: boolean
+    cod_empresa?: boolean
+    cpf_cnpj?: boolean
+    xNome?: boolean
+    xFant?: boolean
+    xLgr?: boolean
+    numero?: boolean
+    xCpl?: boolean
+    fone?: boolean
+    status?: boolean
+    dh_criacao?: boolean
+    dh_alteracao?: boolean
+    grupoEmpresas?: boolean | GrupoEmpresasDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["empresas"]>
+
+  export type EmpresasSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    id_grupo_empresas?: boolean
+    cod_empresa?: boolean
+    cpf_cnpj?: boolean
+    xNome?: boolean
+    xFant?: boolean
+    xLgr?: boolean
+    numero?: boolean
+    xCpl?: boolean
+    fone?: boolean
+    status?: boolean
+    dh_criacao?: boolean
+    dh_alteracao?: boolean
+    grupoEmpresas?: boolean | GrupoEmpresasDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["empresas"]>
+
+  export type EmpresasSelectScalar = {
+    id?: boolean
+    id_grupo_empresas?: boolean
+    cod_empresa?: boolean
+    cpf_cnpj?: boolean
+    xNome?: boolean
+    xFant?: boolean
+    xLgr?: boolean
+    numero?: boolean
+    xCpl?: boolean
+    fone?: boolean
+    status?: boolean
+    dh_criacao?: boolean
+    dh_alteracao?: boolean
+  }
+
+  export type EmpresasOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "id_grupo_empresas" | "cod_empresa" | "cpf_cnpj" | "xNome" | "xFant" | "xLgr" | "numero" | "xCpl" | "fone" | "status" | "dh_criacao" | "dh_alteracao", ExtArgs["result"]["empresas"]>
+  export type EmpresasInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    pedidos?: boolean | Empresas$pedidosArgs<ExtArgs>
+    grupoEmpresas?: boolean | GrupoEmpresasDefaultArgs<ExtArgs>
+    empresaUsuarios?: boolean | Empresas$empresaUsuariosArgs<ExtArgs>
+    _count?: boolean | EmpresasCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type EmpresasIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    grupoEmpresas?: boolean | GrupoEmpresasDefaultArgs<ExtArgs>
+  }
+  export type EmpresasIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    grupoEmpresas?: boolean | GrupoEmpresasDefaultArgs<ExtArgs>
+  }
+
+  export type $EmpresasPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Empresas"
+    objects: {
+      pedidos: Prisma.$PedidosPayload<ExtArgs>[]
+      grupoEmpresas: Prisma.$GrupoEmpresasPayload<ExtArgs>
+      empresaUsuarios: Prisma.$EmpresaUsuariosPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      id_grupo_empresas: number
+      cod_empresa: number
+      cpf_cnpj: string
+      xNome: string
+      xFant: string | null
+      xLgr: string | null
+      numero: string | null
+      xCpl: string | null
+      fone: string | null
+      status: boolean
+      dh_criacao: Date
+      dh_alteracao: Date
+    }, ExtArgs["result"]["empresas"]>
+    composites: {}
+  }
+
+  type EmpresasGetPayload<S extends boolean | null | undefined | EmpresasDefaultArgs> = $Result.GetResult<Prisma.$EmpresasPayload, S>
+
+  type EmpresasCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<EmpresasFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: EmpresasCountAggregateInputType | true
+    }
+
+  export interface EmpresasDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Empresas'], meta: { name: 'Empresas' } }
+    /**
+     * Find zero or one Empresas that matches the filter.
+     * @param {EmpresasFindUniqueArgs} args - Arguments to find a Empresas
+     * @example
+     * // Get one Empresas
+     * const empresas = await prisma.empresas.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends EmpresasFindUniqueArgs>(args: SelectSubset<T, EmpresasFindUniqueArgs<ExtArgs>>): Prisma__EmpresasClient<$Result.GetResult<Prisma.$EmpresasPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Empresas that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {EmpresasFindUniqueOrThrowArgs} args - Arguments to find a Empresas
+     * @example
+     * // Get one Empresas
+     * const empresas = await prisma.empresas.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends EmpresasFindUniqueOrThrowArgs>(args: SelectSubset<T, EmpresasFindUniqueOrThrowArgs<ExtArgs>>): Prisma__EmpresasClient<$Result.GetResult<Prisma.$EmpresasPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Empresas that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmpresasFindFirstArgs} args - Arguments to find a Empresas
+     * @example
+     * // Get one Empresas
+     * const empresas = await prisma.empresas.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends EmpresasFindFirstArgs>(args?: SelectSubset<T, EmpresasFindFirstArgs<ExtArgs>>): Prisma__EmpresasClient<$Result.GetResult<Prisma.$EmpresasPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Empresas that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmpresasFindFirstOrThrowArgs} args - Arguments to find a Empresas
+     * @example
+     * // Get one Empresas
+     * const empresas = await prisma.empresas.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends EmpresasFindFirstOrThrowArgs>(args?: SelectSubset<T, EmpresasFindFirstOrThrowArgs<ExtArgs>>): Prisma__EmpresasClient<$Result.GetResult<Prisma.$EmpresasPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Empresas that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmpresasFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Empresas
+     * const empresas = await prisma.empresas.findMany()
+     * 
+     * // Get first 10 Empresas
+     * const empresas = await prisma.empresas.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const empresasWithIdOnly = await prisma.empresas.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends EmpresasFindManyArgs>(args?: SelectSubset<T, EmpresasFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmpresasPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Empresas.
+     * @param {EmpresasCreateArgs} args - Arguments to create a Empresas.
+     * @example
+     * // Create one Empresas
+     * const Empresas = await prisma.empresas.create({
+     *   data: {
+     *     // ... data to create a Empresas
+     *   }
+     * })
+     * 
+     */
+    create<T extends EmpresasCreateArgs>(args: SelectSubset<T, EmpresasCreateArgs<ExtArgs>>): Prisma__EmpresasClient<$Result.GetResult<Prisma.$EmpresasPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Empresas.
+     * @param {EmpresasCreateManyArgs} args - Arguments to create many Empresas.
+     * @example
+     * // Create many Empresas
+     * const empresas = await prisma.empresas.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends EmpresasCreateManyArgs>(args?: SelectSubset<T, EmpresasCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Empresas and returns the data saved in the database.
+     * @param {EmpresasCreateManyAndReturnArgs} args - Arguments to create many Empresas.
+     * @example
+     * // Create many Empresas
+     * const empresas = await prisma.empresas.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Empresas and only return the `id`
+     * const empresasWithIdOnly = await prisma.empresas.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends EmpresasCreateManyAndReturnArgs>(args?: SelectSubset<T, EmpresasCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmpresasPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Empresas.
+     * @param {EmpresasDeleteArgs} args - Arguments to delete one Empresas.
+     * @example
+     * // Delete one Empresas
+     * const Empresas = await prisma.empresas.delete({
+     *   where: {
+     *     // ... filter to delete one Empresas
+     *   }
+     * })
+     * 
+     */
+    delete<T extends EmpresasDeleteArgs>(args: SelectSubset<T, EmpresasDeleteArgs<ExtArgs>>): Prisma__EmpresasClient<$Result.GetResult<Prisma.$EmpresasPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Empresas.
+     * @param {EmpresasUpdateArgs} args - Arguments to update one Empresas.
+     * @example
+     * // Update one Empresas
+     * const empresas = await prisma.empresas.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends EmpresasUpdateArgs>(args: SelectSubset<T, EmpresasUpdateArgs<ExtArgs>>): Prisma__EmpresasClient<$Result.GetResult<Prisma.$EmpresasPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Empresas.
+     * @param {EmpresasDeleteManyArgs} args - Arguments to filter Empresas to delete.
+     * @example
+     * // Delete a few Empresas
+     * const { count } = await prisma.empresas.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends EmpresasDeleteManyArgs>(args?: SelectSubset<T, EmpresasDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Empresas.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmpresasUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Empresas
+     * const empresas = await prisma.empresas.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends EmpresasUpdateManyArgs>(args: SelectSubset<T, EmpresasUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Empresas and returns the data updated in the database.
+     * @param {EmpresasUpdateManyAndReturnArgs} args - Arguments to update many Empresas.
+     * @example
+     * // Update many Empresas
+     * const empresas = await prisma.empresas.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Empresas and only return the `id`
+     * const empresasWithIdOnly = await prisma.empresas.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends EmpresasUpdateManyAndReturnArgs>(args: SelectSubset<T, EmpresasUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmpresasPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Empresas.
+     * @param {EmpresasUpsertArgs} args - Arguments to update or create a Empresas.
+     * @example
+     * // Update or create a Empresas
+     * const empresas = await prisma.empresas.upsert({
+     *   create: {
+     *     // ... data to create a Empresas
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Empresas we want to update
+     *   }
+     * })
+     */
+    upsert<T extends EmpresasUpsertArgs>(args: SelectSubset<T, EmpresasUpsertArgs<ExtArgs>>): Prisma__EmpresasClient<$Result.GetResult<Prisma.$EmpresasPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Empresas.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmpresasCountArgs} args - Arguments to filter Empresas to count.
+     * @example
+     * // Count the number of Empresas
+     * const count = await prisma.empresas.count({
+     *   where: {
+     *     // ... the filter for the Empresas we want to count
+     *   }
+     * })
+    **/
+    count<T extends EmpresasCountArgs>(
+      args?: Subset<T, EmpresasCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], EmpresasCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Empresas.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmpresasAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends EmpresasAggregateArgs>(args: Subset<T, EmpresasAggregateArgs>): Prisma.PrismaPromise<GetEmpresasAggregateType<T>>
+
+    /**
+     * Group by Empresas.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmpresasGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends EmpresasGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: EmpresasGroupByArgs['orderBy'] }
+        : { orderBy?: EmpresasGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, EmpresasGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetEmpresasGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Empresas model
+   */
+  readonly fields: EmpresasFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Empresas.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__EmpresasClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    pedidos<T extends Empresas$pedidosArgs<ExtArgs> = {}>(args?: Subset<T, Empresas$pedidosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PedidosPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    grupoEmpresas<T extends GrupoEmpresasDefaultArgs<ExtArgs> = {}>(args?: Subset<T, GrupoEmpresasDefaultArgs<ExtArgs>>): Prisma__GrupoEmpresasClient<$Result.GetResult<Prisma.$GrupoEmpresasPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    empresaUsuarios<T extends Empresas$empresaUsuariosArgs<ExtArgs> = {}>(args?: Subset<T, Empresas$empresaUsuariosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmpresaUsuariosPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Empresas model
+   */
+  interface EmpresasFieldRefs {
+    readonly id: FieldRef<"Empresas", 'Int'>
+    readonly id_grupo_empresas: FieldRef<"Empresas", 'Int'>
+    readonly cod_empresa: FieldRef<"Empresas", 'Int'>
+    readonly cpf_cnpj: FieldRef<"Empresas", 'String'>
+    readonly xNome: FieldRef<"Empresas", 'String'>
+    readonly xFant: FieldRef<"Empresas", 'String'>
+    readonly xLgr: FieldRef<"Empresas", 'String'>
+    readonly numero: FieldRef<"Empresas", 'String'>
+    readonly xCpl: FieldRef<"Empresas", 'String'>
+    readonly fone: FieldRef<"Empresas", 'String'>
+    readonly status: FieldRef<"Empresas", 'Boolean'>
+    readonly dh_criacao: FieldRef<"Empresas", 'DateTime'>
+    readonly dh_alteracao: FieldRef<"Empresas", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Empresas findUnique
+   */
+  export type EmpresasFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Empresas
+     */
+    select?: EmpresasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Empresas
+     */
+    omit?: EmpresasOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmpresasInclude<ExtArgs> | null
+    /**
+     * Filter, which Empresas to fetch.
+     */
+    where: EmpresasWhereUniqueInput
+  }
+
+  /**
+   * Empresas findUniqueOrThrow
+   */
+  export type EmpresasFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Empresas
+     */
+    select?: EmpresasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Empresas
+     */
+    omit?: EmpresasOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmpresasInclude<ExtArgs> | null
+    /**
+     * Filter, which Empresas to fetch.
+     */
+    where: EmpresasWhereUniqueInput
+  }
+
+  /**
+   * Empresas findFirst
+   */
+  export type EmpresasFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Empresas
+     */
+    select?: EmpresasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Empresas
+     */
+    omit?: EmpresasOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmpresasInclude<ExtArgs> | null
+    /**
+     * Filter, which Empresas to fetch.
+     */
+    where?: EmpresasWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Empresas to fetch.
+     */
+    orderBy?: EmpresasOrderByWithRelationInput | EmpresasOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Empresas.
+     */
+    cursor?: EmpresasWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Empresas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Empresas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Empresas.
+     */
+    distinct?: EmpresasScalarFieldEnum | EmpresasScalarFieldEnum[]
+  }
+
+  /**
+   * Empresas findFirstOrThrow
+   */
+  export type EmpresasFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Empresas
+     */
+    select?: EmpresasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Empresas
+     */
+    omit?: EmpresasOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmpresasInclude<ExtArgs> | null
+    /**
+     * Filter, which Empresas to fetch.
+     */
+    where?: EmpresasWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Empresas to fetch.
+     */
+    orderBy?: EmpresasOrderByWithRelationInput | EmpresasOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Empresas.
+     */
+    cursor?: EmpresasWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Empresas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Empresas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Empresas.
+     */
+    distinct?: EmpresasScalarFieldEnum | EmpresasScalarFieldEnum[]
+  }
+
+  /**
+   * Empresas findMany
+   */
+  export type EmpresasFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Empresas
+     */
+    select?: EmpresasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Empresas
+     */
+    omit?: EmpresasOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmpresasInclude<ExtArgs> | null
+    /**
+     * Filter, which Empresas to fetch.
+     */
+    where?: EmpresasWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Empresas to fetch.
+     */
+    orderBy?: EmpresasOrderByWithRelationInput | EmpresasOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Empresas.
+     */
+    cursor?: EmpresasWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Empresas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Empresas.
+     */
+    skip?: number
+    distinct?: EmpresasScalarFieldEnum | EmpresasScalarFieldEnum[]
+  }
+
+  /**
+   * Empresas create
+   */
+  export type EmpresasCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Empresas
+     */
+    select?: EmpresasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Empresas
+     */
+    omit?: EmpresasOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmpresasInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Empresas.
+     */
+    data: XOR<EmpresasCreateInput, EmpresasUncheckedCreateInput>
+  }
+
+  /**
+   * Empresas createMany
+   */
+  export type EmpresasCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Empresas.
+     */
+    data: EmpresasCreateManyInput | EmpresasCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Empresas createManyAndReturn
+   */
+  export type EmpresasCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Empresas
+     */
+    select?: EmpresasSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Empresas
+     */
+    omit?: EmpresasOmit<ExtArgs> | null
+    /**
+     * The data used to create many Empresas.
+     */
+    data: EmpresasCreateManyInput | EmpresasCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmpresasIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Empresas update
+   */
+  export type EmpresasUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Empresas
+     */
+    select?: EmpresasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Empresas
+     */
+    omit?: EmpresasOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmpresasInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Empresas.
+     */
+    data: XOR<EmpresasUpdateInput, EmpresasUncheckedUpdateInput>
+    /**
+     * Choose, which Empresas to update.
+     */
+    where: EmpresasWhereUniqueInput
+  }
+
+  /**
+   * Empresas updateMany
+   */
+  export type EmpresasUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Empresas.
+     */
+    data: XOR<EmpresasUpdateManyMutationInput, EmpresasUncheckedUpdateManyInput>
+    /**
+     * Filter which Empresas to update
+     */
+    where?: EmpresasWhereInput
+    /**
+     * Limit how many Empresas to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Empresas updateManyAndReturn
+   */
+  export type EmpresasUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Empresas
+     */
+    select?: EmpresasSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Empresas
+     */
+    omit?: EmpresasOmit<ExtArgs> | null
+    /**
+     * The data used to update Empresas.
+     */
+    data: XOR<EmpresasUpdateManyMutationInput, EmpresasUncheckedUpdateManyInput>
+    /**
+     * Filter which Empresas to update
+     */
+    where?: EmpresasWhereInput
+    /**
+     * Limit how many Empresas to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmpresasIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Empresas upsert
+   */
+  export type EmpresasUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Empresas
+     */
+    select?: EmpresasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Empresas
+     */
+    omit?: EmpresasOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmpresasInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Empresas to update in case it exists.
+     */
+    where: EmpresasWhereUniqueInput
+    /**
+     * In case the Empresas found by the `where` argument doesn't exist, create a new Empresas with this data.
+     */
+    create: XOR<EmpresasCreateInput, EmpresasUncheckedCreateInput>
+    /**
+     * In case the Empresas was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<EmpresasUpdateInput, EmpresasUncheckedUpdateInput>
+  }
+
+  /**
+   * Empresas delete
+   */
+  export type EmpresasDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Empresas
+     */
+    select?: EmpresasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Empresas
+     */
+    omit?: EmpresasOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmpresasInclude<ExtArgs> | null
+    /**
+     * Filter which Empresas to delete.
+     */
+    where: EmpresasWhereUniqueInput
+  }
+
+  /**
+   * Empresas deleteMany
+   */
+  export type EmpresasDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Empresas to delete
+     */
+    where?: EmpresasWhereInput
+    /**
+     * Limit how many Empresas to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Empresas.pedidos
+   */
+  export type Empresas$pedidosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Pedidos
+     */
+    select?: PedidosSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Pedidos
+     */
+    omit?: PedidosOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PedidosInclude<ExtArgs> | null
+    where?: PedidosWhereInput
+    orderBy?: PedidosOrderByWithRelationInput | PedidosOrderByWithRelationInput[]
+    cursor?: PedidosWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PedidosScalarFieldEnum | PedidosScalarFieldEnum[]
+  }
+
+  /**
+   * Empresas.empresaUsuarios
+   */
+  export type Empresas$empresaUsuariosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmpresaUsuarios
+     */
+    select?: EmpresaUsuariosSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmpresaUsuarios
+     */
+    omit?: EmpresaUsuariosOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmpresaUsuariosInclude<ExtArgs> | null
+    where?: EmpresaUsuariosWhereInput
+    orderBy?: EmpresaUsuariosOrderByWithRelationInput | EmpresaUsuariosOrderByWithRelationInput[]
+    cursor?: EmpresaUsuariosWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: EmpresaUsuariosScalarFieldEnum | EmpresaUsuariosScalarFieldEnum[]
+  }
+
+  /**
+   * Empresas without action
+   */
+  export type EmpresasDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Empresas
+     */
+    select?: EmpresasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Empresas
+     */
+    omit?: EmpresasOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmpresasInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model GrupoEmpresas
+   */
+
+  export type AggregateGrupoEmpresas = {
+    _count: GrupoEmpresasCountAggregateOutputType | null
+    _avg: GrupoEmpresasAvgAggregateOutputType | null
+    _sum: GrupoEmpresasSumAggregateOutputType | null
+    _min: GrupoEmpresasMinAggregateOutputType | null
+    _max: GrupoEmpresasMaxAggregateOutputType | null
+  }
+
+  export type GrupoEmpresasAvgAggregateOutputType = {
+    id: number | null
+    id_usuario_proprietario: number | null
+  }
+
+  export type GrupoEmpresasSumAggregateOutputType = {
+    id: number | null
+    id_usuario_proprietario: number | null
+  }
+
+  export type GrupoEmpresasMinAggregateOutputType = {
+    id: number | null
+    id_usuario_proprietario: number | null
+  }
+
+  export type GrupoEmpresasMaxAggregateOutputType = {
+    id: number | null
+    id_usuario_proprietario: number | null
+  }
+
+  export type GrupoEmpresasCountAggregateOutputType = {
+    id: number
+    id_usuario_proprietario: number
+    _all: number
+  }
+
+
+  export type GrupoEmpresasAvgAggregateInputType = {
+    id?: true
+    id_usuario_proprietario?: true
+  }
+
+  export type GrupoEmpresasSumAggregateInputType = {
+    id?: true
+    id_usuario_proprietario?: true
+  }
+
+  export type GrupoEmpresasMinAggregateInputType = {
+    id?: true
+    id_usuario_proprietario?: true
+  }
+
+  export type GrupoEmpresasMaxAggregateInputType = {
+    id?: true
+    id_usuario_proprietario?: true
+  }
+
+  export type GrupoEmpresasCountAggregateInputType = {
+    id?: true
+    id_usuario_proprietario?: true
+    _all?: true
+  }
+
+  export type GrupoEmpresasAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which GrupoEmpresas to aggregate.
+     */
+    where?: GrupoEmpresasWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GrupoEmpresas to fetch.
+     */
+    orderBy?: GrupoEmpresasOrderByWithRelationInput | GrupoEmpresasOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: GrupoEmpresasWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GrupoEmpresas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GrupoEmpresas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned GrupoEmpresas
+    **/
+    _count?: true | GrupoEmpresasCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: GrupoEmpresasAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: GrupoEmpresasSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: GrupoEmpresasMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: GrupoEmpresasMaxAggregateInputType
+  }
+
+  export type GetGrupoEmpresasAggregateType<T extends GrupoEmpresasAggregateArgs> = {
+        [P in keyof T & keyof AggregateGrupoEmpresas]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateGrupoEmpresas[P]>
+      : GetScalarType<T[P], AggregateGrupoEmpresas[P]>
+  }
+
+
+
+
+  export type GrupoEmpresasGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GrupoEmpresasWhereInput
+    orderBy?: GrupoEmpresasOrderByWithAggregationInput | GrupoEmpresasOrderByWithAggregationInput[]
+    by: GrupoEmpresasScalarFieldEnum[] | GrupoEmpresasScalarFieldEnum
+    having?: GrupoEmpresasScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: GrupoEmpresasCountAggregateInputType | true
+    _avg?: GrupoEmpresasAvgAggregateInputType
+    _sum?: GrupoEmpresasSumAggregateInputType
+    _min?: GrupoEmpresasMinAggregateInputType
+    _max?: GrupoEmpresasMaxAggregateInputType
+  }
+
+  export type GrupoEmpresasGroupByOutputType = {
+    id: number
+    id_usuario_proprietario: number
+    _count: GrupoEmpresasCountAggregateOutputType | null
+    _avg: GrupoEmpresasAvgAggregateOutputType | null
+    _sum: GrupoEmpresasSumAggregateOutputType | null
+    _min: GrupoEmpresasMinAggregateOutputType | null
+    _max: GrupoEmpresasMaxAggregateOutputType | null
+  }
+
+  type GetGrupoEmpresasGroupByPayload<T extends GrupoEmpresasGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<GrupoEmpresasGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof GrupoEmpresasGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], GrupoEmpresasGroupByOutputType[P]>
+            : GetScalarType<T[P], GrupoEmpresasGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type GrupoEmpresasSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    id_usuario_proprietario?: boolean
+    usuario?: boolean | UsuariosDefaultArgs<ExtArgs>
+    empresas?: boolean | GrupoEmpresas$empresasArgs<ExtArgs>
+    _count?: boolean | GrupoEmpresasCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["grupoEmpresas"]>
+
+  export type GrupoEmpresasSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    id_usuario_proprietario?: boolean
+    usuario?: boolean | UsuariosDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["grupoEmpresas"]>
+
+  export type GrupoEmpresasSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    id_usuario_proprietario?: boolean
+    usuario?: boolean | UsuariosDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["grupoEmpresas"]>
+
+  export type GrupoEmpresasSelectScalar = {
+    id?: boolean
+    id_usuario_proprietario?: boolean
+  }
+
+  export type GrupoEmpresasOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "id_usuario_proprietario", ExtArgs["result"]["grupoEmpresas"]>
+  export type GrupoEmpresasInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    usuario?: boolean | UsuariosDefaultArgs<ExtArgs>
+    empresas?: boolean | GrupoEmpresas$empresasArgs<ExtArgs>
+    _count?: boolean | GrupoEmpresasCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type GrupoEmpresasIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    usuario?: boolean | UsuariosDefaultArgs<ExtArgs>
+  }
+  export type GrupoEmpresasIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    usuario?: boolean | UsuariosDefaultArgs<ExtArgs>
+  }
+
+  export type $GrupoEmpresasPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "GrupoEmpresas"
+    objects: {
+      usuario: Prisma.$UsuariosPayload<ExtArgs>
+      empresas: Prisma.$EmpresasPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      id_usuario_proprietario: number
+    }, ExtArgs["result"]["grupoEmpresas"]>
+    composites: {}
+  }
+
+  type GrupoEmpresasGetPayload<S extends boolean | null | undefined | GrupoEmpresasDefaultArgs> = $Result.GetResult<Prisma.$GrupoEmpresasPayload, S>
+
+  type GrupoEmpresasCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<GrupoEmpresasFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: GrupoEmpresasCountAggregateInputType | true
+    }
+
+  export interface GrupoEmpresasDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['GrupoEmpresas'], meta: { name: 'GrupoEmpresas' } }
+    /**
+     * Find zero or one GrupoEmpresas that matches the filter.
+     * @param {GrupoEmpresasFindUniqueArgs} args - Arguments to find a GrupoEmpresas
+     * @example
+     * // Get one GrupoEmpresas
+     * const grupoEmpresas = await prisma.grupoEmpresas.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends GrupoEmpresasFindUniqueArgs>(args: SelectSubset<T, GrupoEmpresasFindUniqueArgs<ExtArgs>>): Prisma__GrupoEmpresasClient<$Result.GetResult<Prisma.$GrupoEmpresasPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one GrupoEmpresas that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {GrupoEmpresasFindUniqueOrThrowArgs} args - Arguments to find a GrupoEmpresas
+     * @example
+     * // Get one GrupoEmpresas
+     * const grupoEmpresas = await prisma.grupoEmpresas.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends GrupoEmpresasFindUniqueOrThrowArgs>(args: SelectSubset<T, GrupoEmpresasFindUniqueOrThrowArgs<ExtArgs>>): Prisma__GrupoEmpresasClient<$Result.GetResult<Prisma.$GrupoEmpresasPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first GrupoEmpresas that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GrupoEmpresasFindFirstArgs} args - Arguments to find a GrupoEmpresas
+     * @example
+     * // Get one GrupoEmpresas
+     * const grupoEmpresas = await prisma.grupoEmpresas.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends GrupoEmpresasFindFirstArgs>(args?: SelectSubset<T, GrupoEmpresasFindFirstArgs<ExtArgs>>): Prisma__GrupoEmpresasClient<$Result.GetResult<Prisma.$GrupoEmpresasPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first GrupoEmpresas that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GrupoEmpresasFindFirstOrThrowArgs} args - Arguments to find a GrupoEmpresas
+     * @example
+     * // Get one GrupoEmpresas
+     * const grupoEmpresas = await prisma.grupoEmpresas.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends GrupoEmpresasFindFirstOrThrowArgs>(args?: SelectSubset<T, GrupoEmpresasFindFirstOrThrowArgs<ExtArgs>>): Prisma__GrupoEmpresasClient<$Result.GetResult<Prisma.$GrupoEmpresasPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more GrupoEmpresas that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GrupoEmpresasFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all GrupoEmpresas
+     * const grupoEmpresas = await prisma.grupoEmpresas.findMany()
+     * 
+     * // Get first 10 GrupoEmpresas
+     * const grupoEmpresas = await prisma.grupoEmpresas.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const grupoEmpresasWithIdOnly = await prisma.grupoEmpresas.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends GrupoEmpresasFindManyArgs>(args?: SelectSubset<T, GrupoEmpresasFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GrupoEmpresasPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a GrupoEmpresas.
+     * @param {GrupoEmpresasCreateArgs} args - Arguments to create a GrupoEmpresas.
+     * @example
+     * // Create one GrupoEmpresas
+     * const GrupoEmpresas = await prisma.grupoEmpresas.create({
+     *   data: {
+     *     // ... data to create a GrupoEmpresas
+     *   }
+     * })
+     * 
+     */
+    create<T extends GrupoEmpresasCreateArgs>(args: SelectSubset<T, GrupoEmpresasCreateArgs<ExtArgs>>): Prisma__GrupoEmpresasClient<$Result.GetResult<Prisma.$GrupoEmpresasPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many GrupoEmpresas.
+     * @param {GrupoEmpresasCreateManyArgs} args - Arguments to create many GrupoEmpresas.
+     * @example
+     * // Create many GrupoEmpresas
+     * const grupoEmpresas = await prisma.grupoEmpresas.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends GrupoEmpresasCreateManyArgs>(args?: SelectSubset<T, GrupoEmpresasCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many GrupoEmpresas and returns the data saved in the database.
+     * @param {GrupoEmpresasCreateManyAndReturnArgs} args - Arguments to create many GrupoEmpresas.
+     * @example
+     * // Create many GrupoEmpresas
+     * const grupoEmpresas = await prisma.grupoEmpresas.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many GrupoEmpresas and only return the `id`
+     * const grupoEmpresasWithIdOnly = await prisma.grupoEmpresas.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends GrupoEmpresasCreateManyAndReturnArgs>(args?: SelectSubset<T, GrupoEmpresasCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GrupoEmpresasPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a GrupoEmpresas.
+     * @param {GrupoEmpresasDeleteArgs} args - Arguments to delete one GrupoEmpresas.
+     * @example
+     * // Delete one GrupoEmpresas
+     * const GrupoEmpresas = await prisma.grupoEmpresas.delete({
+     *   where: {
+     *     // ... filter to delete one GrupoEmpresas
+     *   }
+     * })
+     * 
+     */
+    delete<T extends GrupoEmpresasDeleteArgs>(args: SelectSubset<T, GrupoEmpresasDeleteArgs<ExtArgs>>): Prisma__GrupoEmpresasClient<$Result.GetResult<Prisma.$GrupoEmpresasPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one GrupoEmpresas.
+     * @param {GrupoEmpresasUpdateArgs} args - Arguments to update one GrupoEmpresas.
+     * @example
+     * // Update one GrupoEmpresas
+     * const grupoEmpresas = await prisma.grupoEmpresas.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends GrupoEmpresasUpdateArgs>(args: SelectSubset<T, GrupoEmpresasUpdateArgs<ExtArgs>>): Prisma__GrupoEmpresasClient<$Result.GetResult<Prisma.$GrupoEmpresasPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more GrupoEmpresas.
+     * @param {GrupoEmpresasDeleteManyArgs} args - Arguments to filter GrupoEmpresas to delete.
+     * @example
+     * // Delete a few GrupoEmpresas
+     * const { count } = await prisma.grupoEmpresas.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends GrupoEmpresasDeleteManyArgs>(args?: SelectSubset<T, GrupoEmpresasDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more GrupoEmpresas.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GrupoEmpresasUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many GrupoEmpresas
+     * const grupoEmpresas = await prisma.grupoEmpresas.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends GrupoEmpresasUpdateManyArgs>(args: SelectSubset<T, GrupoEmpresasUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more GrupoEmpresas and returns the data updated in the database.
+     * @param {GrupoEmpresasUpdateManyAndReturnArgs} args - Arguments to update many GrupoEmpresas.
+     * @example
+     * // Update many GrupoEmpresas
+     * const grupoEmpresas = await prisma.grupoEmpresas.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more GrupoEmpresas and only return the `id`
+     * const grupoEmpresasWithIdOnly = await prisma.grupoEmpresas.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends GrupoEmpresasUpdateManyAndReturnArgs>(args: SelectSubset<T, GrupoEmpresasUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GrupoEmpresasPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one GrupoEmpresas.
+     * @param {GrupoEmpresasUpsertArgs} args - Arguments to update or create a GrupoEmpresas.
+     * @example
+     * // Update or create a GrupoEmpresas
+     * const grupoEmpresas = await prisma.grupoEmpresas.upsert({
+     *   create: {
+     *     // ... data to create a GrupoEmpresas
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the GrupoEmpresas we want to update
+     *   }
+     * })
+     */
+    upsert<T extends GrupoEmpresasUpsertArgs>(args: SelectSubset<T, GrupoEmpresasUpsertArgs<ExtArgs>>): Prisma__GrupoEmpresasClient<$Result.GetResult<Prisma.$GrupoEmpresasPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of GrupoEmpresas.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GrupoEmpresasCountArgs} args - Arguments to filter GrupoEmpresas to count.
+     * @example
+     * // Count the number of GrupoEmpresas
+     * const count = await prisma.grupoEmpresas.count({
+     *   where: {
+     *     // ... the filter for the GrupoEmpresas we want to count
+     *   }
+     * })
+    **/
+    count<T extends GrupoEmpresasCountArgs>(
+      args?: Subset<T, GrupoEmpresasCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], GrupoEmpresasCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a GrupoEmpresas.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GrupoEmpresasAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends GrupoEmpresasAggregateArgs>(args: Subset<T, GrupoEmpresasAggregateArgs>): Prisma.PrismaPromise<GetGrupoEmpresasAggregateType<T>>
+
+    /**
+     * Group by GrupoEmpresas.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GrupoEmpresasGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends GrupoEmpresasGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: GrupoEmpresasGroupByArgs['orderBy'] }
+        : { orderBy?: GrupoEmpresasGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, GrupoEmpresasGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetGrupoEmpresasGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the GrupoEmpresas model
+   */
+  readonly fields: GrupoEmpresasFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for GrupoEmpresas.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__GrupoEmpresasClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    usuario<T extends UsuariosDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UsuariosDefaultArgs<ExtArgs>>): Prisma__UsuariosClient<$Result.GetResult<Prisma.$UsuariosPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    empresas<T extends GrupoEmpresas$empresasArgs<ExtArgs> = {}>(args?: Subset<T, GrupoEmpresas$empresasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmpresasPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the GrupoEmpresas model
+   */
+  interface GrupoEmpresasFieldRefs {
+    readonly id: FieldRef<"GrupoEmpresas", 'Int'>
+    readonly id_usuario_proprietario: FieldRef<"GrupoEmpresas", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * GrupoEmpresas findUnique
+   */
+  export type GrupoEmpresasFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GrupoEmpresas
+     */
+    select?: GrupoEmpresasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GrupoEmpresas
+     */
+    omit?: GrupoEmpresasOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GrupoEmpresasInclude<ExtArgs> | null
+    /**
+     * Filter, which GrupoEmpresas to fetch.
+     */
+    where: GrupoEmpresasWhereUniqueInput
+  }
+
+  /**
+   * GrupoEmpresas findUniqueOrThrow
+   */
+  export type GrupoEmpresasFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GrupoEmpresas
+     */
+    select?: GrupoEmpresasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GrupoEmpresas
+     */
+    omit?: GrupoEmpresasOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GrupoEmpresasInclude<ExtArgs> | null
+    /**
+     * Filter, which GrupoEmpresas to fetch.
+     */
+    where: GrupoEmpresasWhereUniqueInput
+  }
+
+  /**
+   * GrupoEmpresas findFirst
+   */
+  export type GrupoEmpresasFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GrupoEmpresas
+     */
+    select?: GrupoEmpresasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GrupoEmpresas
+     */
+    omit?: GrupoEmpresasOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GrupoEmpresasInclude<ExtArgs> | null
+    /**
+     * Filter, which GrupoEmpresas to fetch.
+     */
+    where?: GrupoEmpresasWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GrupoEmpresas to fetch.
+     */
+    orderBy?: GrupoEmpresasOrderByWithRelationInput | GrupoEmpresasOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for GrupoEmpresas.
+     */
+    cursor?: GrupoEmpresasWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GrupoEmpresas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GrupoEmpresas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GrupoEmpresas.
+     */
+    distinct?: GrupoEmpresasScalarFieldEnum | GrupoEmpresasScalarFieldEnum[]
+  }
+
+  /**
+   * GrupoEmpresas findFirstOrThrow
+   */
+  export type GrupoEmpresasFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GrupoEmpresas
+     */
+    select?: GrupoEmpresasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GrupoEmpresas
+     */
+    omit?: GrupoEmpresasOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GrupoEmpresasInclude<ExtArgs> | null
+    /**
+     * Filter, which GrupoEmpresas to fetch.
+     */
+    where?: GrupoEmpresasWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GrupoEmpresas to fetch.
+     */
+    orderBy?: GrupoEmpresasOrderByWithRelationInput | GrupoEmpresasOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for GrupoEmpresas.
+     */
+    cursor?: GrupoEmpresasWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GrupoEmpresas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GrupoEmpresas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GrupoEmpresas.
+     */
+    distinct?: GrupoEmpresasScalarFieldEnum | GrupoEmpresasScalarFieldEnum[]
+  }
+
+  /**
+   * GrupoEmpresas findMany
+   */
+  export type GrupoEmpresasFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GrupoEmpresas
+     */
+    select?: GrupoEmpresasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GrupoEmpresas
+     */
+    omit?: GrupoEmpresasOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GrupoEmpresasInclude<ExtArgs> | null
+    /**
+     * Filter, which GrupoEmpresas to fetch.
+     */
+    where?: GrupoEmpresasWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GrupoEmpresas to fetch.
+     */
+    orderBy?: GrupoEmpresasOrderByWithRelationInput | GrupoEmpresasOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing GrupoEmpresas.
+     */
+    cursor?: GrupoEmpresasWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GrupoEmpresas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GrupoEmpresas.
+     */
+    skip?: number
+    distinct?: GrupoEmpresasScalarFieldEnum | GrupoEmpresasScalarFieldEnum[]
+  }
+
+  /**
+   * GrupoEmpresas create
+   */
+  export type GrupoEmpresasCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GrupoEmpresas
+     */
+    select?: GrupoEmpresasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GrupoEmpresas
+     */
+    omit?: GrupoEmpresasOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GrupoEmpresasInclude<ExtArgs> | null
+    /**
+     * The data needed to create a GrupoEmpresas.
+     */
+    data: XOR<GrupoEmpresasCreateInput, GrupoEmpresasUncheckedCreateInput>
+  }
+
+  /**
+   * GrupoEmpresas createMany
+   */
+  export type GrupoEmpresasCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many GrupoEmpresas.
+     */
+    data: GrupoEmpresasCreateManyInput | GrupoEmpresasCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * GrupoEmpresas createManyAndReturn
+   */
+  export type GrupoEmpresasCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GrupoEmpresas
+     */
+    select?: GrupoEmpresasSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the GrupoEmpresas
+     */
+    omit?: GrupoEmpresasOmit<ExtArgs> | null
+    /**
+     * The data used to create many GrupoEmpresas.
+     */
+    data: GrupoEmpresasCreateManyInput | GrupoEmpresasCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GrupoEmpresasIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * GrupoEmpresas update
+   */
+  export type GrupoEmpresasUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GrupoEmpresas
+     */
+    select?: GrupoEmpresasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GrupoEmpresas
+     */
+    omit?: GrupoEmpresasOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GrupoEmpresasInclude<ExtArgs> | null
+    /**
+     * The data needed to update a GrupoEmpresas.
+     */
+    data: XOR<GrupoEmpresasUpdateInput, GrupoEmpresasUncheckedUpdateInput>
+    /**
+     * Choose, which GrupoEmpresas to update.
+     */
+    where: GrupoEmpresasWhereUniqueInput
+  }
+
+  /**
+   * GrupoEmpresas updateMany
+   */
+  export type GrupoEmpresasUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update GrupoEmpresas.
+     */
+    data: XOR<GrupoEmpresasUpdateManyMutationInput, GrupoEmpresasUncheckedUpdateManyInput>
+    /**
+     * Filter which GrupoEmpresas to update
+     */
+    where?: GrupoEmpresasWhereInput
+    /**
+     * Limit how many GrupoEmpresas to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * GrupoEmpresas updateManyAndReturn
+   */
+  export type GrupoEmpresasUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GrupoEmpresas
+     */
+    select?: GrupoEmpresasSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the GrupoEmpresas
+     */
+    omit?: GrupoEmpresasOmit<ExtArgs> | null
+    /**
+     * The data used to update GrupoEmpresas.
+     */
+    data: XOR<GrupoEmpresasUpdateManyMutationInput, GrupoEmpresasUncheckedUpdateManyInput>
+    /**
+     * Filter which GrupoEmpresas to update
+     */
+    where?: GrupoEmpresasWhereInput
+    /**
+     * Limit how many GrupoEmpresas to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GrupoEmpresasIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * GrupoEmpresas upsert
+   */
+  export type GrupoEmpresasUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GrupoEmpresas
+     */
+    select?: GrupoEmpresasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GrupoEmpresas
+     */
+    omit?: GrupoEmpresasOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GrupoEmpresasInclude<ExtArgs> | null
+    /**
+     * The filter to search for the GrupoEmpresas to update in case it exists.
+     */
+    where: GrupoEmpresasWhereUniqueInput
+    /**
+     * In case the GrupoEmpresas found by the `where` argument doesn't exist, create a new GrupoEmpresas with this data.
+     */
+    create: XOR<GrupoEmpresasCreateInput, GrupoEmpresasUncheckedCreateInput>
+    /**
+     * In case the GrupoEmpresas was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<GrupoEmpresasUpdateInput, GrupoEmpresasUncheckedUpdateInput>
+  }
+
+  /**
+   * GrupoEmpresas delete
+   */
+  export type GrupoEmpresasDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GrupoEmpresas
+     */
+    select?: GrupoEmpresasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GrupoEmpresas
+     */
+    omit?: GrupoEmpresasOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GrupoEmpresasInclude<ExtArgs> | null
+    /**
+     * Filter which GrupoEmpresas to delete.
+     */
+    where: GrupoEmpresasWhereUniqueInput
+  }
+
+  /**
+   * GrupoEmpresas deleteMany
+   */
+  export type GrupoEmpresasDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which GrupoEmpresas to delete
+     */
+    where?: GrupoEmpresasWhereInput
+    /**
+     * Limit how many GrupoEmpresas to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * GrupoEmpresas.empresas
+   */
+  export type GrupoEmpresas$empresasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Empresas
+     */
+    select?: EmpresasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Empresas
+     */
+    omit?: EmpresasOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmpresasInclude<ExtArgs> | null
+    where?: EmpresasWhereInput
+    orderBy?: EmpresasOrderByWithRelationInput | EmpresasOrderByWithRelationInput[]
+    cursor?: EmpresasWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: EmpresasScalarFieldEnum | EmpresasScalarFieldEnum[]
+  }
+
+  /**
+   * GrupoEmpresas without action
+   */
+  export type GrupoEmpresasDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GrupoEmpresas
+     */
+    select?: GrupoEmpresasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GrupoEmpresas
+     */
+    omit?: GrupoEmpresasOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GrupoEmpresasInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model Clientes
    */
 
@@ -3102,102 +6979,122 @@ export namespace Prisma {
 
   export type ClientesAvgAggregateOutputType = {
     id: number | null
-    limiteCredito: Decimal | null
+    id_empresa: number | null
+    limite_credito: Decimal | null
+    id_usuario_criador: number | null
   }
 
   export type ClientesSumAggregateOutputType = {
     id: number | null
-    limiteCredito: Decimal | null
+    id_empresa: number | null
+    limite_credito: Decimal | null
+    id_usuario_criador: number | null
   }
 
   export type ClientesMinAggregateOutputType = {
     id: number | null
+    id_empresa: number | null
     nome: string | null
     apelido: string | null
     endereco: string | null
     fone: string | null
     status: boolean | null
-    limiteCredito: Decimal | null
+    limite_credito: Decimal | null
     data_nascimento: Date | null
-    data_criacao: Date | null
-    data_alteracao: Date | null
+    id_usuario_criador: number | null
+    dh_criacao: Date | null
+    dh_alteracao: Date | null
   }
 
   export type ClientesMaxAggregateOutputType = {
     id: number | null
+    id_empresa: number | null
     nome: string | null
     apelido: string | null
     endereco: string | null
     fone: string | null
     status: boolean | null
-    limiteCredito: Decimal | null
+    limite_credito: Decimal | null
     data_nascimento: Date | null
-    data_criacao: Date | null
-    data_alteracao: Date | null
+    id_usuario_criador: number | null
+    dh_criacao: Date | null
+    dh_alteracao: Date | null
   }
 
   export type ClientesCountAggregateOutputType = {
     id: number
+    id_empresa: number
     nome: number
     apelido: number
     endereco: number
     fone: number
     status: number
-    limiteCredito: number
+    limite_credito: number
     data_nascimento: number
-    data_criacao: number
-    data_alteracao: number
+    id_usuario_criador: number
+    dh_criacao: number
+    dh_alteracao: number
     _all: number
   }
 
 
   export type ClientesAvgAggregateInputType = {
     id?: true
-    limiteCredito?: true
+    id_empresa?: true
+    limite_credito?: true
+    id_usuario_criador?: true
   }
 
   export type ClientesSumAggregateInputType = {
     id?: true
-    limiteCredito?: true
+    id_empresa?: true
+    limite_credito?: true
+    id_usuario_criador?: true
   }
 
   export type ClientesMinAggregateInputType = {
     id?: true
+    id_empresa?: true
     nome?: true
     apelido?: true
     endereco?: true
     fone?: true
     status?: true
-    limiteCredito?: true
+    limite_credito?: true
     data_nascimento?: true
-    data_criacao?: true
-    data_alteracao?: true
+    id_usuario_criador?: true
+    dh_criacao?: true
+    dh_alteracao?: true
   }
 
   export type ClientesMaxAggregateInputType = {
     id?: true
+    id_empresa?: true
     nome?: true
     apelido?: true
     endereco?: true
     fone?: true
     status?: true
-    limiteCredito?: true
+    limite_credito?: true
     data_nascimento?: true
-    data_criacao?: true
-    data_alteracao?: true
+    id_usuario_criador?: true
+    dh_criacao?: true
+    dh_alteracao?: true
   }
 
   export type ClientesCountAggregateInputType = {
     id?: true
+    id_empresa?: true
     nome?: true
     apelido?: true
     endereco?: true
     fone?: true
     status?: true
-    limiteCredito?: true
+    limite_credito?: true
     data_nascimento?: true
-    data_criacao?: true
-    data_alteracao?: true
+    id_usuario_criador?: true
+    dh_criacao?: true
+    dh_alteracao?: true
     _all?: true
   }
 
@@ -3289,15 +7186,17 @@ export namespace Prisma {
 
   export type ClientesGroupByOutputType = {
     id: number
+    id_empresa: number
     nome: string
     apelido: string | null
     endereco: string | null
     fone: string | null
     status: boolean
-    limiteCredito: Decimal
+    limite_credito: Decimal
     data_nascimento: Date | null
-    data_criacao: Date
-    data_alteracao: Date
+    id_usuario_criador: number
+    dh_criacao: Date
+    dh_alteracao: Date
     _count: ClientesCountAggregateOutputType | null
     _avg: ClientesAvgAggregateOutputType | null
     _sum: ClientesSumAggregateOutputType | null
@@ -3321,59 +7220,67 @@ export namespace Prisma {
 
   export type ClientesSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    id_empresa?: boolean
     nome?: boolean
     apelido?: boolean
     endereco?: boolean
     fone?: boolean
     status?: boolean
-    limiteCredito?: boolean
+    limite_credito?: boolean
     data_nascimento?: boolean
-    data_criacao?: boolean
-    data_alteracao?: boolean
+    id_usuario_criador?: boolean
+    dh_criacao?: boolean
+    dh_alteracao?: boolean
     Pedidos?: boolean | Clientes$PedidosArgs<ExtArgs>
     _count?: boolean | ClientesCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["clientes"]>
 
   export type ClientesSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    id_empresa?: boolean
     nome?: boolean
     apelido?: boolean
     endereco?: boolean
     fone?: boolean
     status?: boolean
-    limiteCredito?: boolean
+    limite_credito?: boolean
     data_nascimento?: boolean
-    data_criacao?: boolean
-    data_alteracao?: boolean
+    id_usuario_criador?: boolean
+    dh_criacao?: boolean
+    dh_alteracao?: boolean
   }, ExtArgs["result"]["clientes"]>
 
   export type ClientesSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    id_empresa?: boolean
     nome?: boolean
     apelido?: boolean
     endereco?: boolean
     fone?: boolean
     status?: boolean
-    limiteCredito?: boolean
+    limite_credito?: boolean
     data_nascimento?: boolean
-    data_criacao?: boolean
-    data_alteracao?: boolean
+    id_usuario_criador?: boolean
+    dh_criacao?: boolean
+    dh_alteracao?: boolean
   }, ExtArgs["result"]["clientes"]>
 
   export type ClientesSelectScalar = {
     id?: boolean
+    id_empresa?: boolean
     nome?: boolean
     apelido?: boolean
     endereco?: boolean
     fone?: boolean
     status?: boolean
-    limiteCredito?: boolean
+    limite_credito?: boolean
     data_nascimento?: boolean
-    data_criacao?: boolean
-    data_alteracao?: boolean
+    id_usuario_criador?: boolean
+    dh_criacao?: boolean
+    dh_alteracao?: boolean
   }
 
-  export type ClientesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nome" | "apelido" | "endereco" | "fone" | "status" | "limiteCredito" | "data_nascimento" | "data_criacao" | "data_alteracao", ExtArgs["result"]["clientes"]>
+  export type ClientesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "id_empresa" | "nome" | "apelido" | "endereco" | "fone" | "status" | "limite_credito" | "data_nascimento" | "id_usuario_criador" | "dh_criacao" | "dh_alteracao", ExtArgs["result"]["clientes"]>
   export type ClientesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     Pedidos?: boolean | Clientes$PedidosArgs<ExtArgs>
     _count?: boolean | ClientesCountOutputTypeDefaultArgs<ExtArgs>
@@ -3388,15 +7295,17 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
+      id_empresa: number
       nome: string
       apelido: string | null
       endereco: string | null
       fone: string | null
       status: boolean
-      limiteCredito: Prisma.Decimal
+      limite_credito: Prisma.Decimal
       data_nascimento: Date | null
-      data_criacao: Date
-      data_alteracao: Date
+      id_usuario_criador: number
+      dh_criacao: Date
+      dh_alteracao: Date
     }, ExtArgs["result"]["clientes"]>
     composites: {}
   }
@@ -3822,15 +7731,17 @@ export namespace Prisma {
    */
   interface ClientesFieldRefs {
     readonly id: FieldRef<"Clientes", 'Int'>
+    readonly id_empresa: FieldRef<"Clientes", 'Int'>
     readonly nome: FieldRef<"Clientes", 'String'>
     readonly apelido: FieldRef<"Clientes", 'String'>
     readonly endereco: FieldRef<"Clientes", 'String'>
     readonly fone: FieldRef<"Clientes", 'String'>
     readonly status: FieldRef<"Clientes", 'Boolean'>
-    readonly limiteCredito: FieldRef<"Clientes", 'Decimal'>
+    readonly limite_credito: FieldRef<"Clientes", 'Decimal'>
     readonly data_nascimento: FieldRef<"Clientes", 'DateTime'>
-    readonly data_criacao: FieldRef<"Clientes", 'DateTime'>
-    readonly data_alteracao: FieldRef<"Clientes", 'DateTime'>
+    readonly id_usuario_criador: FieldRef<"Clientes", 'Int'>
+    readonly dh_criacao: FieldRef<"Clientes", 'DateTime'>
+    readonly dh_alteracao: FieldRef<"Clientes", 'DateTime'>
   }
     
 
@@ -4275,100 +8186,100 @@ export namespace Prisma {
 
   export type ProdutosAvgAggregateOutputType = {
     id: number | null
-    idCategoria: number | null
+    id_categoria: number | null
     preco: Decimal | null
   }
 
   export type ProdutosSumAggregateOutputType = {
     id: number | null
-    idCategoria: number | null
+    id_categoria: number | null
     preco: Decimal | null
   }
 
   export type ProdutosMinAggregateOutputType = {
     id: number | null
-    idCategoria: number | null
+    id_categoria: number | null
     nomeProduto: string | null
     descricao: string | null
     preco: Decimal | null
     status: boolean | null
     imagemUrl: string | null
-    data_criacao: Date | null
-    data_alteracao: Date | null
+    dh_criacao: Date | null
+    dh_alteracao: Date | null
   }
 
   export type ProdutosMaxAggregateOutputType = {
     id: number | null
-    idCategoria: number | null
+    id_categoria: number | null
     nomeProduto: string | null
     descricao: string | null
     preco: Decimal | null
     status: boolean | null
     imagemUrl: string | null
-    data_criacao: Date | null
-    data_alteracao: Date | null
+    dh_criacao: Date | null
+    dh_alteracao: Date | null
   }
 
   export type ProdutosCountAggregateOutputType = {
     id: number
-    idCategoria: number
+    id_categoria: number
     nomeProduto: number
     descricao: number
     preco: number
     status: number
     imagemUrl: number
-    data_criacao: number
-    data_alteracao: number
+    dh_criacao: number
+    dh_alteracao: number
     _all: number
   }
 
 
   export type ProdutosAvgAggregateInputType = {
     id?: true
-    idCategoria?: true
+    id_categoria?: true
     preco?: true
   }
 
   export type ProdutosSumAggregateInputType = {
     id?: true
-    idCategoria?: true
+    id_categoria?: true
     preco?: true
   }
 
   export type ProdutosMinAggregateInputType = {
     id?: true
-    idCategoria?: true
+    id_categoria?: true
     nomeProduto?: true
     descricao?: true
     preco?: true
     status?: true
     imagemUrl?: true
-    data_criacao?: true
-    data_alteracao?: true
+    dh_criacao?: true
+    dh_alteracao?: true
   }
 
   export type ProdutosMaxAggregateInputType = {
     id?: true
-    idCategoria?: true
+    id_categoria?: true
     nomeProduto?: true
     descricao?: true
     preco?: true
     status?: true
     imagemUrl?: true
-    data_criacao?: true
-    data_alteracao?: true
+    dh_criacao?: true
+    dh_alteracao?: true
   }
 
   export type ProdutosCountAggregateInputType = {
     id?: true
-    idCategoria?: true
+    id_categoria?: true
     nomeProduto?: true
     descricao?: true
     preco?: true
     status?: true
     imagemUrl?: true
-    data_criacao?: true
-    data_alteracao?: true
+    dh_criacao?: true
+    dh_alteracao?: true
     _all?: true
   }
 
@@ -4460,14 +8371,14 @@ export namespace Prisma {
 
   export type ProdutosGroupByOutputType = {
     id: number
-    idCategoria: number | null
+    id_categoria: number | null
     nomeProduto: string
     descricao: string | null
     preco: Decimal
     status: boolean
     imagemUrl: string | null
-    data_criacao: Date
-    data_alteracao: Date
+    dh_criacao: Date
+    dh_alteracao: Date
     _count: ProdutosCountAggregateOutputType | null
     _avg: ProdutosAvgAggregateOutputType | null
     _sum: ProdutosSumAggregateOutputType | null
@@ -4491,14 +8402,14 @@ export namespace Prisma {
 
   export type ProdutosSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    idCategoria?: boolean
+    id_categoria?: boolean
     nomeProduto?: boolean
     descricao?: boolean
     preco?: boolean
     status?: boolean
     imagemUrl?: boolean
-    data_criacao?: boolean
-    data_alteracao?: boolean
+    dh_criacao?: boolean
+    dh_alteracao?: boolean
     categoria?: boolean | Produtos$categoriaArgs<ExtArgs>
     pedidoProdutos?: boolean | Produtos$pedidoProdutosArgs<ExtArgs>
     grupoComplementos?: boolean | Produtos$grupoComplementosArgs<ExtArgs>
@@ -4507,43 +8418,43 @@ export namespace Prisma {
 
   export type ProdutosSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    idCategoria?: boolean
+    id_categoria?: boolean
     nomeProduto?: boolean
     descricao?: boolean
     preco?: boolean
     status?: boolean
     imagemUrl?: boolean
-    data_criacao?: boolean
-    data_alteracao?: boolean
+    dh_criacao?: boolean
+    dh_alteracao?: boolean
     categoria?: boolean | Produtos$categoriaArgs<ExtArgs>
   }, ExtArgs["result"]["produtos"]>
 
   export type ProdutosSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    idCategoria?: boolean
+    id_categoria?: boolean
     nomeProduto?: boolean
     descricao?: boolean
     preco?: boolean
     status?: boolean
     imagemUrl?: boolean
-    data_criacao?: boolean
-    data_alteracao?: boolean
+    dh_criacao?: boolean
+    dh_alteracao?: boolean
     categoria?: boolean | Produtos$categoriaArgs<ExtArgs>
   }, ExtArgs["result"]["produtos"]>
 
   export type ProdutosSelectScalar = {
     id?: boolean
-    idCategoria?: boolean
+    id_categoria?: boolean
     nomeProduto?: boolean
     descricao?: boolean
     preco?: boolean
     status?: boolean
     imagemUrl?: boolean
-    data_criacao?: boolean
-    data_alteracao?: boolean
+    dh_criacao?: boolean
+    dh_alteracao?: boolean
   }
 
-  export type ProdutosOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "idCategoria" | "nomeProduto" | "descricao" | "preco" | "status" | "imagemUrl" | "data_criacao" | "data_alteracao", ExtArgs["result"]["produtos"]>
+  export type ProdutosOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "id_categoria" | "nomeProduto" | "descricao" | "preco" | "status" | "imagemUrl" | "dh_criacao" | "dh_alteracao", ExtArgs["result"]["produtos"]>
   export type ProdutosInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     categoria?: boolean | Produtos$categoriaArgs<ExtArgs>
     pedidoProdutos?: boolean | Produtos$pedidoProdutosArgs<ExtArgs>
@@ -4566,14 +8477,14 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
-      idCategoria: number | null
+      id_categoria: number | null
       nomeProduto: string
       descricao: string | null
       preco: Prisma.Decimal
       status: boolean
       imagemUrl: string | null
-      data_criacao: Date
-      data_alteracao: Date
+      dh_criacao: Date
+      dh_alteracao: Date
     }, ExtArgs["result"]["produtos"]>
     composites: {}
   }
@@ -5001,14 +8912,14 @@ export namespace Prisma {
    */
   interface ProdutosFieldRefs {
     readonly id: FieldRef<"Produtos", 'Int'>
-    readonly idCategoria: FieldRef<"Produtos", 'Int'>
+    readonly id_categoria: FieldRef<"Produtos", 'Int'>
     readonly nomeProduto: FieldRef<"Produtos", 'String'>
     readonly descricao: FieldRef<"Produtos", 'String'>
     readonly preco: FieldRef<"Produtos", 'Decimal'>
     readonly status: FieldRef<"Produtos", 'Boolean'>
     readonly imagemUrl: FieldRef<"Produtos", 'String'>
-    readonly data_criacao: FieldRef<"Produtos", 'DateTime'>
-    readonly data_alteracao: FieldRef<"Produtos", 'DateTime'>
+    readonly dh_criacao: FieldRef<"Produtos", 'DateTime'>
+    readonly dh_alteracao: FieldRef<"Produtos", 'DateTime'>
   }
     
 
@@ -6589,8 +10500,8 @@ export namespace Prisma {
     obrigatorio: boolean | null
     qtdMinComplemento: number | null
     qtdMaxComplemento: number | null
-    data_criacao: Date | null
-    data_alteracao: Date | null
+    dh_criacao: Date | null
+    dh_alteracao: Date | null
   }
 
   export type GrupoComplementosMaxAggregateOutputType = {
@@ -6601,8 +10512,8 @@ export namespace Prisma {
     obrigatorio: boolean | null
     qtdMinComplemento: number | null
     qtdMaxComplemento: number | null
-    data_criacao: Date | null
-    data_alteracao: Date | null
+    dh_criacao: Date | null
+    dh_alteracao: Date | null
   }
 
   export type GrupoComplementosCountAggregateOutputType = {
@@ -6613,8 +10524,8 @@ export namespace Prisma {
     obrigatorio: number
     qtdMinComplemento: number
     qtdMaxComplemento: number
-    data_criacao: number
-    data_alteracao: number
+    dh_criacao: number
+    dh_alteracao: number
     _all: number
   }
 
@@ -6641,8 +10552,8 @@ export namespace Prisma {
     obrigatorio?: true
     qtdMinComplemento?: true
     qtdMaxComplemento?: true
-    data_criacao?: true
-    data_alteracao?: true
+    dh_criacao?: true
+    dh_alteracao?: true
   }
 
   export type GrupoComplementosMaxAggregateInputType = {
@@ -6653,8 +10564,8 @@ export namespace Prisma {
     obrigatorio?: true
     qtdMinComplemento?: true
     qtdMaxComplemento?: true
-    data_criacao?: true
-    data_alteracao?: true
+    dh_criacao?: true
+    dh_alteracao?: true
   }
 
   export type GrupoComplementosCountAggregateInputType = {
@@ -6665,8 +10576,8 @@ export namespace Prisma {
     obrigatorio?: true
     qtdMinComplemento?: true
     qtdMaxComplemento?: true
-    data_criacao?: true
-    data_alteracao?: true
+    dh_criacao?: true
+    dh_alteracao?: true
     _all?: true
   }
 
@@ -6764,8 +10675,8 @@ export namespace Prisma {
     obrigatorio: boolean
     qtdMinComplemento: number
     qtdMaxComplemento: number
-    data_criacao: Date
-    data_alteracao: Date
+    dh_criacao: Date
+    dh_alteracao: Date
     _count: GrupoComplementosCountAggregateOutputType | null
     _avg: GrupoComplementosAvgAggregateOutputType | null
     _sum: GrupoComplementosSumAggregateOutputType | null
@@ -6795,8 +10706,8 @@ export namespace Prisma {
     obrigatorio?: boolean
     qtdMinComplemento?: boolean
     qtdMaxComplemento?: boolean
-    data_criacao?: boolean
-    data_alteracao?: boolean
+    dh_criacao?: boolean
+    dh_alteracao?: boolean
     produtos?: boolean | GrupoComplementos$produtosArgs<ExtArgs>
     Complementos?: boolean | GrupoComplementos$ComplementosArgs<ExtArgs>
     _count?: boolean | GrupoComplementosCountOutputTypeDefaultArgs<ExtArgs>
@@ -6810,8 +10721,8 @@ export namespace Prisma {
     obrigatorio?: boolean
     qtdMinComplemento?: boolean
     qtdMaxComplemento?: boolean
-    data_criacao?: boolean
-    data_alteracao?: boolean
+    dh_criacao?: boolean
+    dh_alteracao?: boolean
     produtos?: boolean | GrupoComplementos$produtosArgs<ExtArgs>
   }, ExtArgs["result"]["grupoComplementos"]>
 
@@ -6823,8 +10734,8 @@ export namespace Prisma {
     obrigatorio?: boolean
     qtdMinComplemento?: boolean
     qtdMaxComplemento?: boolean
-    data_criacao?: boolean
-    data_alteracao?: boolean
+    dh_criacao?: boolean
+    dh_alteracao?: boolean
     produtos?: boolean | GrupoComplementos$produtosArgs<ExtArgs>
   }, ExtArgs["result"]["grupoComplementos"]>
 
@@ -6836,11 +10747,11 @@ export namespace Prisma {
     obrigatorio?: boolean
     qtdMinComplemento?: boolean
     qtdMaxComplemento?: boolean
-    data_criacao?: boolean
-    data_alteracao?: boolean
+    dh_criacao?: boolean
+    dh_alteracao?: boolean
   }
 
-  export type GrupoComplementosOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "idProduto" | "nomeGrupoComplementos" | "descricao" | "obrigatorio" | "qtdMinComplemento" | "qtdMaxComplemento" | "data_criacao" | "data_alteracao", ExtArgs["result"]["grupoComplementos"]>
+  export type GrupoComplementosOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "idProduto" | "nomeGrupoComplementos" | "descricao" | "obrigatorio" | "qtdMinComplemento" | "qtdMaxComplemento" | "dh_criacao" | "dh_alteracao", ExtArgs["result"]["grupoComplementos"]>
   export type GrupoComplementosInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     produtos?: boolean | GrupoComplementos$produtosArgs<ExtArgs>
     Complementos?: boolean | GrupoComplementos$ComplementosArgs<ExtArgs>
@@ -6867,8 +10778,8 @@ export namespace Prisma {
       obrigatorio: boolean
       qtdMinComplemento: number
       qtdMaxComplemento: number
-      data_criacao: Date
-      data_alteracao: Date
+      dh_criacao: Date
+      dh_alteracao: Date
     }, ExtArgs["result"]["grupoComplementos"]>
     composites: {}
   }
@@ -7301,8 +11212,8 @@ export namespace Prisma {
     readonly obrigatorio: FieldRef<"GrupoComplementos", 'Boolean'>
     readonly qtdMinComplemento: FieldRef<"GrupoComplementos", 'Int'>
     readonly qtdMaxComplemento: FieldRef<"GrupoComplementos", 'Int'>
-    readonly data_criacao: FieldRef<"GrupoComplementos", 'DateTime'>
-    readonly data_alteracao: FieldRef<"GrupoComplementos", 'DateTime'>
+    readonly dh_criacao: FieldRef<"GrupoComplementos", 'DateTime'>
+    readonly dh_alteracao: FieldRef<"GrupoComplementos", 'DateTime'>
   }
     
 
@@ -7792,8 +11703,8 @@ export namespace Prisma {
     status: boolean | null
     preco: Decimal | null
     imagemUrl: string | null
-    data_criacao: Date | null
-    data_alteracao: Date | null
+    dh_criacao: Date | null
+    dh_alteracao: Date | null
   }
 
   export type ComplementosMaxAggregateOutputType = {
@@ -7804,8 +11715,8 @@ export namespace Prisma {
     status: boolean | null
     preco: Decimal | null
     imagemUrl: string | null
-    data_criacao: Date | null
-    data_alteracao: Date | null
+    dh_criacao: Date | null
+    dh_alteracao: Date | null
   }
 
   export type ComplementosCountAggregateOutputType = {
@@ -7816,8 +11727,8 @@ export namespace Prisma {
     status: number
     preco: number
     imagemUrl: number
-    data_criacao: number
-    data_alteracao: number
+    dh_criacao: number
+    dh_alteracao: number
     _all: number
   }
 
@@ -7842,8 +11753,8 @@ export namespace Prisma {
     status?: true
     preco?: true
     imagemUrl?: true
-    data_criacao?: true
-    data_alteracao?: true
+    dh_criacao?: true
+    dh_alteracao?: true
   }
 
   export type ComplementosMaxAggregateInputType = {
@@ -7854,8 +11765,8 @@ export namespace Prisma {
     status?: true
     preco?: true
     imagemUrl?: true
-    data_criacao?: true
-    data_alteracao?: true
+    dh_criacao?: true
+    dh_alteracao?: true
   }
 
   export type ComplementosCountAggregateInputType = {
@@ -7866,8 +11777,8 @@ export namespace Prisma {
     status?: true
     preco?: true
     imagemUrl?: true
-    data_criacao?: true
-    data_alteracao?: true
+    dh_criacao?: true
+    dh_alteracao?: true
     _all?: true
   }
 
@@ -7965,8 +11876,8 @@ export namespace Prisma {
     status: boolean
     preco: Decimal
     imagemUrl: string | null
-    data_criacao: Date
-    data_alteracao: Date
+    dh_criacao: Date
+    dh_alteracao: Date
     _count: ComplementosCountAggregateOutputType | null
     _avg: ComplementosAvgAggregateOutputType | null
     _sum: ComplementosSumAggregateOutputType | null
@@ -7996,8 +11907,8 @@ export namespace Prisma {
     status?: boolean
     preco?: boolean
     imagemUrl?: boolean
-    data_criacao?: boolean
-    data_alteracao?: boolean
+    dh_criacao?: boolean
+    dh_alteracao?: boolean
     grupoComplementos?: boolean | Complementos$grupoComplementosArgs<ExtArgs>
     PedidoProdutoComplementos?: boolean | Complementos$PedidoProdutoComplementosArgs<ExtArgs>
     _count?: boolean | ComplementosCountOutputTypeDefaultArgs<ExtArgs>
@@ -8011,8 +11922,8 @@ export namespace Prisma {
     status?: boolean
     preco?: boolean
     imagemUrl?: boolean
-    data_criacao?: boolean
-    data_alteracao?: boolean
+    dh_criacao?: boolean
+    dh_alteracao?: boolean
     grupoComplementos?: boolean | Complementos$grupoComplementosArgs<ExtArgs>
   }, ExtArgs["result"]["complementos"]>
 
@@ -8024,8 +11935,8 @@ export namespace Prisma {
     status?: boolean
     preco?: boolean
     imagemUrl?: boolean
-    data_criacao?: boolean
-    data_alteracao?: boolean
+    dh_criacao?: boolean
+    dh_alteracao?: boolean
     grupoComplementos?: boolean | Complementos$grupoComplementosArgs<ExtArgs>
   }, ExtArgs["result"]["complementos"]>
 
@@ -8037,11 +11948,11 @@ export namespace Prisma {
     status?: boolean
     preco?: boolean
     imagemUrl?: boolean
-    data_criacao?: boolean
-    data_alteracao?: boolean
+    dh_criacao?: boolean
+    dh_alteracao?: boolean
   }
 
-  export type ComplementosOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "idGrupoComplementos" | "nomeComplemento" | "descricao" | "status" | "preco" | "imagemUrl" | "data_criacao" | "data_alteracao", ExtArgs["result"]["complementos"]>
+  export type ComplementosOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "idGrupoComplementos" | "nomeComplemento" | "descricao" | "status" | "preco" | "imagemUrl" | "dh_criacao" | "dh_alteracao", ExtArgs["result"]["complementos"]>
   export type ComplementosInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     grupoComplementos?: boolean | Complementos$grupoComplementosArgs<ExtArgs>
     PedidoProdutoComplementos?: boolean | Complementos$PedidoProdutoComplementosArgs<ExtArgs>
@@ -8068,8 +11979,8 @@ export namespace Prisma {
       status: boolean
       preco: Prisma.Decimal
       imagemUrl: string | null
-      data_criacao: Date
-      data_alteracao: Date
+      dh_criacao: Date
+      dh_alteracao: Date
     }, ExtArgs["result"]["complementos"]>
     composites: {}
   }
@@ -8502,8 +12413,8 @@ export namespace Prisma {
     readonly status: FieldRef<"Complementos", 'Boolean'>
     readonly preco: FieldRef<"Complementos", 'Decimal'>
     readonly imagemUrl: FieldRef<"Complementos", 'String'>
-    readonly data_criacao: FieldRef<"Complementos", 'DateTime'>
-    readonly data_alteracao: FieldRef<"Complementos", 'DateTime'>
+    readonly dh_criacao: FieldRef<"Complementos", 'DateTime'>
+    readonly dh_alteracao: FieldRef<"Complementos", 'DateTime'>
   }
     
 
@@ -8975,8 +12886,8 @@ export namespace Prisma {
 
   export type PedidosAvgAggregateOutputType = {
     id: number | null
+    id_empresa: number | null
     idCliente: number | null
-    idUsuario: number | null
     valorSubTotal: Decimal | null
     valorTotal: Decimal | null
     valorTaxaDeEntrega: Decimal | null
@@ -8986,8 +12897,8 @@ export namespace Prisma {
 
   export type PedidosSumAggregateOutputType = {
     id: number | null
+    id_empresa: number | null
     idCliente: number | null
-    idUsuario: number | null
     valorSubTotal: Decimal | null
     valorTotal: Decimal | null
     valorTaxaDeEntrega: Decimal | null
@@ -8997,8 +12908,8 @@ export namespace Prisma {
 
   export type PedidosMinAggregateOutputType = {
     id: number | null
+    id_empresa: number | null
     idCliente: number | null
-    idUsuario: number | null
     nomeCliente: string | null
     observacao: string | null
     valorSubTotal: Decimal | null
@@ -9006,14 +12917,14 @@ export namespace Prisma {
     valorTaxaDeEntrega: Decimal | null
     status: number | null
     localConsumo: number | null
-    data_criacao: Date | null
-    data_alteracao: Date | null
+    dh_criacao: Date | null
+    dh_alteracao: Date | null
   }
 
   export type PedidosMaxAggregateOutputType = {
     id: number | null
+    id_empresa: number | null
     idCliente: number | null
-    idUsuario: number | null
     nomeCliente: string | null
     observacao: string | null
     valorSubTotal: Decimal | null
@@ -9021,14 +12932,14 @@ export namespace Prisma {
     valorTaxaDeEntrega: Decimal | null
     status: number | null
     localConsumo: number | null
-    data_criacao: Date | null
-    data_alteracao: Date | null
+    dh_criacao: Date | null
+    dh_alteracao: Date | null
   }
 
   export type PedidosCountAggregateOutputType = {
     id: number
+    id_empresa: number
     idCliente: number
-    idUsuario: number
     nomeCliente: number
     observacao: number
     valorSubTotal: number
@@ -9036,16 +12947,16 @@ export namespace Prisma {
     valorTaxaDeEntrega: number
     status: number
     localConsumo: number
-    data_criacao: number
-    data_alteracao: number
+    dh_criacao: number
+    dh_alteracao: number
     _all: number
   }
 
 
   export type PedidosAvgAggregateInputType = {
     id?: true
+    id_empresa?: true
     idCliente?: true
-    idUsuario?: true
     valorSubTotal?: true
     valorTotal?: true
     valorTaxaDeEntrega?: true
@@ -9055,8 +12966,8 @@ export namespace Prisma {
 
   export type PedidosSumAggregateInputType = {
     id?: true
+    id_empresa?: true
     idCliente?: true
-    idUsuario?: true
     valorSubTotal?: true
     valorTotal?: true
     valorTaxaDeEntrega?: true
@@ -9066,8 +12977,8 @@ export namespace Prisma {
 
   export type PedidosMinAggregateInputType = {
     id?: true
+    id_empresa?: true
     idCliente?: true
-    idUsuario?: true
     nomeCliente?: true
     observacao?: true
     valorSubTotal?: true
@@ -9075,14 +12986,14 @@ export namespace Prisma {
     valorTaxaDeEntrega?: true
     status?: true
     localConsumo?: true
-    data_criacao?: true
-    data_alteracao?: true
+    dh_criacao?: true
+    dh_alteracao?: true
   }
 
   export type PedidosMaxAggregateInputType = {
     id?: true
+    id_empresa?: true
     idCliente?: true
-    idUsuario?: true
     nomeCliente?: true
     observacao?: true
     valorSubTotal?: true
@@ -9090,14 +13001,14 @@ export namespace Prisma {
     valorTaxaDeEntrega?: true
     status?: true
     localConsumo?: true
-    data_criacao?: true
-    data_alteracao?: true
+    dh_criacao?: true
+    dh_alteracao?: true
   }
 
   export type PedidosCountAggregateInputType = {
     id?: true
+    id_empresa?: true
     idCliente?: true
-    idUsuario?: true
     nomeCliente?: true
     observacao?: true
     valorSubTotal?: true
@@ -9105,8 +13016,8 @@ export namespace Prisma {
     valorTaxaDeEntrega?: true
     status?: true
     localConsumo?: true
-    data_criacao?: true
-    data_alteracao?: true
+    dh_criacao?: true
+    dh_alteracao?: true
     _all?: true
   }
 
@@ -9198,8 +13109,8 @@ export namespace Prisma {
 
   export type PedidosGroupByOutputType = {
     id: number
+    id_empresa: number
     idCliente: number
-    idUsuario: number
     nomeCliente: string
     observacao: string | null
     valorSubTotal: Decimal
@@ -9207,8 +13118,8 @@ export namespace Prisma {
     valorTaxaDeEntrega: Decimal | null
     status: number
     localConsumo: number
-    data_criacao: Date
-    data_alteracao: Date
+    dh_criacao: Date
+    dh_alteracao: Date
     _count: PedidosCountAggregateOutputType | null
     _avg: PedidosAvgAggregateOutputType | null
     _sum: PedidosSumAggregateOutputType | null
@@ -9232,8 +13143,8 @@ export namespace Prisma {
 
   export type PedidosSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    id_empresa?: boolean
     idCliente?: boolean
-    idUsuario?: boolean
     nomeCliente?: boolean
     observacao?: boolean
     valorSubTotal?: boolean
@@ -9241,18 +13152,18 @@ export namespace Prisma {
     valorTaxaDeEntrega?: boolean
     status?: boolean
     localConsumo?: boolean
-    data_criacao?: boolean
-    data_alteracao?: boolean
+    dh_criacao?: boolean
+    dh_alteracao?: boolean
     cliente?: boolean | ClientesDefaultArgs<ExtArgs>
-    usuario?: boolean | UsuariosDefaultArgs<ExtArgs>
+    empresa?: boolean | EmpresasDefaultArgs<ExtArgs>
     itensPedido?: boolean | Pedidos$itensPedidoArgs<ExtArgs>
     _count?: boolean | PedidosCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["pedidos"]>
 
   export type PedidosSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    id_empresa?: boolean
     idCliente?: boolean
-    idUsuario?: boolean
     nomeCliente?: boolean
     observacao?: boolean
     valorSubTotal?: boolean
@@ -9260,16 +13171,16 @@ export namespace Prisma {
     valorTaxaDeEntrega?: boolean
     status?: boolean
     localConsumo?: boolean
-    data_criacao?: boolean
-    data_alteracao?: boolean
+    dh_criacao?: boolean
+    dh_alteracao?: boolean
     cliente?: boolean | ClientesDefaultArgs<ExtArgs>
-    usuario?: boolean | UsuariosDefaultArgs<ExtArgs>
+    empresa?: boolean | EmpresasDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["pedidos"]>
 
   export type PedidosSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    id_empresa?: boolean
     idCliente?: boolean
-    idUsuario?: boolean
     nomeCliente?: boolean
     observacao?: boolean
     valorSubTotal?: boolean
@@ -9277,16 +13188,16 @@ export namespace Prisma {
     valorTaxaDeEntrega?: boolean
     status?: boolean
     localConsumo?: boolean
-    data_criacao?: boolean
-    data_alteracao?: boolean
+    dh_criacao?: boolean
+    dh_alteracao?: boolean
     cliente?: boolean | ClientesDefaultArgs<ExtArgs>
-    usuario?: boolean | UsuariosDefaultArgs<ExtArgs>
+    empresa?: boolean | EmpresasDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["pedidos"]>
 
   export type PedidosSelectScalar = {
     id?: boolean
+    id_empresa?: boolean
     idCliente?: boolean
-    idUsuario?: boolean
     nomeCliente?: boolean
     observacao?: boolean
     valorSubTotal?: boolean
@@ -9294,37 +13205,37 @@ export namespace Prisma {
     valorTaxaDeEntrega?: boolean
     status?: boolean
     localConsumo?: boolean
-    data_criacao?: boolean
-    data_alteracao?: boolean
+    dh_criacao?: boolean
+    dh_alteracao?: boolean
   }
 
-  export type PedidosOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "idCliente" | "idUsuario" | "nomeCliente" | "observacao" | "valorSubTotal" | "valorTotal" | "valorTaxaDeEntrega" | "status" | "localConsumo" | "data_criacao" | "data_alteracao", ExtArgs["result"]["pedidos"]>
+  export type PedidosOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "id_empresa" | "idCliente" | "nomeCliente" | "observacao" | "valorSubTotal" | "valorTotal" | "valorTaxaDeEntrega" | "status" | "localConsumo" | "dh_criacao" | "dh_alteracao", ExtArgs["result"]["pedidos"]>
   export type PedidosInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     cliente?: boolean | ClientesDefaultArgs<ExtArgs>
-    usuario?: boolean | UsuariosDefaultArgs<ExtArgs>
+    empresa?: boolean | EmpresasDefaultArgs<ExtArgs>
     itensPedido?: boolean | Pedidos$itensPedidoArgs<ExtArgs>
     _count?: boolean | PedidosCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type PedidosIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     cliente?: boolean | ClientesDefaultArgs<ExtArgs>
-    usuario?: boolean | UsuariosDefaultArgs<ExtArgs>
+    empresa?: boolean | EmpresasDefaultArgs<ExtArgs>
   }
   export type PedidosIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     cliente?: boolean | ClientesDefaultArgs<ExtArgs>
-    usuario?: boolean | UsuariosDefaultArgs<ExtArgs>
+    empresa?: boolean | EmpresasDefaultArgs<ExtArgs>
   }
 
   export type $PedidosPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Pedidos"
     objects: {
       cliente: Prisma.$ClientesPayload<ExtArgs>
-      usuario: Prisma.$UsuariosPayload<ExtArgs>
+      empresa: Prisma.$EmpresasPayload<ExtArgs>
       itensPedido: Prisma.$PedidoProdutosPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
+      id_empresa: number
       idCliente: number
-      idUsuario: number
       nomeCliente: string
       observacao: string | null
       valorSubTotal: Prisma.Decimal
@@ -9332,8 +13243,8 @@ export namespace Prisma {
       valorTaxaDeEntrega: Prisma.Decimal | null
       status: number
       localConsumo: number
-      data_criacao: Date
-      data_alteracao: Date
+      dh_criacao: Date
+      dh_alteracao: Date
     }, ExtArgs["result"]["pedidos"]>
     composites: {}
   }
@@ -9729,7 +13640,7 @@ export namespace Prisma {
   export interface Prisma__PedidosClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     cliente<T extends ClientesDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ClientesDefaultArgs<ExtArgs>>): Prisma__ClientesClient<$Result.GetResult<Prisma.$ClientesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    usuario<T extends UsuariosDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UsuariosDefaultArgs<ExtArgs>>): Prisma__UsuariosClient<$Result.GetResult<Prisma.$UsuariosPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    empresa<T extends EmpresasDefaultArgs<ExtArgs> = {}>(args?: Subset<T, EmpresasDefaultArgs<ExtArgs>>): Prisma__EmpresasClient<$Result.GetResult<Prisma.$EmpresasPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     itensPedido<T extends Pedidos$itensPedidoArgs<ExtArgs> = {}>(args?: Subset<T, Pedidos$itensPedidoArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PedidoProdutosPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -9761,8 +13672,8 @@ export namespace Prisma {
    */
   interface PedidosFieldRefs {
     readonly id: FieldRef<"Pedidos", 'Int'>
+    readonly id_empresa: FieldRef<"Pedidos", 'Int'>
     readonly idCliente: FieldRef<"Pedidos", 'Int'>
-    readonly idUsuario: FieldRef<"Pedidos", 'Int'>
     readonly nomeCliente: FieldRef<"Pedidos", 'String'>
     readonly observacao: FieldRef<"Pedidos", 'String'>
     readonly valorSubTotal: FieldRef<"Pedidos", 'Decimal'>
@@ -9770,8 +13681,8 @@ export namespace Prisma {
     readonly valorTaxaDeEntrega: FieldRef<"Pedidos", 'Decimal'>
     readonly status: FieldRef<"Pedidos", 'Int'>
     readonly localConsumo: FieldRef<"Pedidos", 'Int'>
-    readonly data_criacao: FieldRef<"Pedidos", 'DateTime'>
-    readonly data_alteracao: FieldRef<"Pedidos", 'DateTime'>
+    readonly dh_criacao: FieldRef<"Pedidos", 'DateTime'>
+    readonly dh_alteracao: FieldRef<"Pedidos", 'DateTime'>
   }
     
 
@@ -10224,24 +14135,24 @@ export namespace Prisma {
 
   export type PedidoProdutosAvgAggregateOutputType = {
     id: number | null
-    idProduto: number | null
-    idPedido: number | null
+    id_produto: number | null
+    id_pedido: number | null
     precoUnitario: Decimal | null
     quantidade: number | null
   }
 
   export type PedidoProdutosSumAggregateOutputType = {
     id: number | null
-    idProduto: number | null
-    idPedido: number | null
+    id_produto: number | null
+    id_pedido: number | null
     precoUnitario: Decimal | null
     quantidade: number | null
   }
 
   export type PedidoProdutosMinAggregateOutputType = {
     id: number | null
-    idProduto: number | null
-    idPedido: number | null
+    id_produto: number | null
+    id_pedido: number | null
     precoUnitario: Decimal | null
     quantidade: number | null
     observacaoItem: string | null
@@ -10249,8 +14160,8 @@ export namespace Prisma {
 
   export type PedidoProdutosMaxAggregateOutputType = {
     id: number | null
-    idProduto: number | null
-    idPedido: number | null
+    id_produto: number | null
+    id_pedido: number | null
     precoUnitario: Decimal | null
     quantidade: number | null
     observacaoItem: string | null
@@ -10258,8 +14169,8 @@ export namespace Prisma {
 
   export type PedidoProdutosCountAggregateOutputType = {
     id: number
-    idProduto: number
-    idPedido: number
+    id_produto: number
+    id_pedido: number
     precoUnitario: number
     quantidade: number
     observacaoItem: number
@@ -10269,24 +14180,24 @@ export namespace Prisma {
 
   export type PedidoProdutosAvgAggregateInputType = {
     id?: true
-    idProduto?: true
-    idPedido?: true
+    id_produto?: true
+    id_pedido?: true
     precoUnitario?: true
     quantidade?: true
   }
 
   export type PedidoProdutosSumAggregateInputType = {
     id?: true
-    idProduto?: true
-    idPedido?: true
+    id_produto?: true
+    id_pedido?: true
     precoUnitario?: true
     quantidade?: true
   }
 
   export type PedidoProdutosMinAggregateInputType = {
     id?: true
-    idProduto?: true
-    idPedido?: true
+    id_produto?: true
+    id_pedido?: true
     precoUnitario?: true
     quantidade?: true
     observacaoItem?: true
@@ -10294,8 +14205,8 @@ export namespace Prisma {
 
   export type PedidoProdutosMaxAggregateInputType = {
     id?: true
-    idProduto?: true
-    idPedido?: true
+    id_produto?: true
+    id_pedido?: true
     precoUnitario?: true
     quantidade?: true
     observacaoItem?: true
@@ -10303,8 +14214,8 @@ export namespace Prisma {
 
   export type PedidoProdutosCountAggregateInputType = {
     id?: true
-    idProduto?: true
-    idPedido?: true
+    id_produto?: true
+    id_pedido?: true
     precoUnitario?: true
     quantidade?: true
     observacaoItem?: true
@@ -10399,8 +14310,8 @@ export namespace Prisma {
 
   export type PedidoProdutosGroupByOutputType = {
     id: number
-    idProduto: number
-    idPedido: number
+    id_produto: number
+    id_pedido: number
     precoUnitario: Decimal
     quantidade: number
     observacaoItem: string | null
@@ -10427,8 +14338,8 @@ export namespace Prisma {
 
   export type PedidoProdutosSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    idProduto?: boolean
-    idPedido?: boolean
+    id_produto?: boolean
+    id_pedido?: boolean
     precoUnitario?: boolean
     quantidade?: boolean
     observacaoItem?: boolean
@@ -10440,8 +14351,8 @@ export namespace Prisma {
 
   export type PedidoProdutosSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    idProduto?: boolean
-    idPedido?: boolean
+    id_produto?: boolean
+    id_pedido?: boolean
     precoUnitario?: boolean
     quantidade?: boolean
     observacaoItem?: boolean
@@ -10451,8 +14362,8 @@ export namespace Prisma {
 
   export type PedidoProdutosSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    idProduto?: boolean
-    idPedido?: boolean
+    id_produto?: boolean
+    id_pedido?: boolean
     precoUnitario?: boolean
     quantidade?: boolean
     observacaoItem?: boolean
@@ -10462,14 +14373,14 @@ export namespace Prisma {
 
   export type PedidoProdutosSelectScalar = {
     id?: boolean
-    idProduto?: boolean
-    idPedido?: boolean
+    id_produto?: boolean
+    id_pedido?: boolean
     precoUnitario?: boolean
     quantidade?: boolean
     observacaoItem?: boolean
   }
 
-  export type PedidoProdutosOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "idProduto" | "idPedido" | "precoUnitario" | "quantidade" | "observacaoItem", ExtArgs["result"]["pedidoProdutos"]>
+  export type PedidoProdutosOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "id_produto" | "id_pedido" | "precoUnitario" | "quantidade" | "observacaoItem", ExtArgs["result"]["pedidoProdutos"]>
   export type PedidoProdutosInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     produtos?: boolean | ProdutosDefaultArgs<ExtArgs>
     pedidos?: boolean | PedidosDefaultArgs<ExtArgs>
@@ -10494,8 +14405,8 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
-      idProduto: number
-      idPedido: number
+      id_produto: number
+      id_pedido: number
       precoUnitario: Prisma.Decimal
       quantidade: number
       observacaoItem: string | null
@@ -10926,8 +14837,8 @@ export namespace Prisma {
    */
   interface PedidoProdutosFieldRefs {
     readonly id: FieldRef<"PedidoProdutos", 'Int'>
-    readonly idProduto: FieldRef<"PedidoProdutos", 'Int'>
-    readonly idPedido: FieldRef<"PedidoProdutos", 'Int'>
+    readonly id_produto: FieldRef<"PedidoProdutos", 'Int'>
+    readonly id_pedido: FieldRef<"PedidoProdutos", 'Int'>
     readonly precoUnitario: FieldRef<"PedidoProdutos", 'Decimal'>
     readonly quantidade: FieldRef<"PedidoProdutos", 'Int'>
     readonly observacaoItem: FieldRef<"PedidoProdutos", 'String'>
@@ -12511,24 +16422,24 @@ export namespace Prisma {
     id: number | null
     bairroRegiao: string | null
     valor: Decimal | null
-    data_criacao: Date | null
-    data_alteracao: Date | null
+    dh_criacao: Date | null
+    dh_alteracao: Date | null
   }
 
   export type TaxasDeEntregaMaxAggregateOutputType = {
     id: number | null
     bairroRegiao: string | null
     valor: Decimal | null
-    data_criacao: Date | null
-    data_alteracao: Date | null
+    dh_criacao: Date | null
+    dh_alteracao: Date | null
   }
 
   export type TaxasDeEntregaCountAggregateOutputType = {
     id: number
     bairroRegiao: number
     valor: number
-    data_criacao: number
-    data_alteracao: number
+    dh_criacao: number
+    dh_alteracao: number
     _all: number
   }
 
@@ -12547,24 +16458,24 @@ export namespace Prisma {
     id?: true
     bairroRegiao?: true
     valor?: true
-    data_criacao?: true
-    data_alteracao?: true
+    dh_criacao?: true
+    dh_alteracao?: true
   }
 
   export type TaxasDeEntregaMaxAggregateInputType = {
     id?: true
     bairroRegiao?: true
     valor?: true
-    data_criacao?: true
-    data_alteracao?: true
+    dh_criacao?: true
+    dh_alteracao?: true
   }
 
   export type TaxasDeEntregaCountAggregateInputType = {
     id?: true
     bairroRegiao?: true
     valor?: true
-    data_criacao?: true
-    data_alteracao?: true
+    dh_criacao?: true
+    dh_alteracao?: true
     _all?: true
   }
 
@@ -12658,8 +16569,8 @@ export namespace Prisma {
     id: number
     bairroRegiao: string
     valor: Decimal
-    data_criacao: Date
-    data_alteracao: Date
+    dh_criacao: Date
+    dh_alteracao: Date
     _count: TaxasDeEntregaCountAggregateOutputType | null
     _avg: TaxasDeEntregaAvgAggregateOutputType | null
     _sum: TaxasDeEntregaSumAggregateOutputType | null
@@ -12685,35 +16596,35 @@ export namespace Prisma {
     id?: boolean
     bairroRegiao?: boolean
     valor?: boolean
-    data_criacao?: boolean
-    data_alteracao?: boolean
+    dh_criacao?: boolean
+    dh_alteracao?: boolean
   }, ExtArgs["result"]["taxasDeEntrega"]>
 
   export type TaxasDeEntregaSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     bairroRegiao?: boolean
     valor?: boolean
-    data_criacao?: boolean
-    data_alteracao?: boolean
+    dh_criacao?: boolean
+    dh_alteracao?: boolean
   }, ExtArgs["result"]["taxasDeEntrega"]>
 
   export type TaxasDeEntregaSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     bairroRegiao?: boolean
     valor?: boolean
-    data_criacao?: boolean
-    data_alteracao?: boolean
+    dh_criacao?: boolean
+    dh_alteracao?: boolean
   }, ExtArgs["result"]["taxasDeEntrega"]>
 
   export type TaxasDeEntregaSelectScalar = {
     id?: boolean
     bairroRegiao?: boolean
     valor?: boolean
-    data_criacao?: boolean
-    data_alteracao?: boolean
+    dh_criacao?: boolean
+    dh_alteracao?: boolean
   }
 
-  export type TaxasDeEntregaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "bairroRegiao" | "valor" | "data_criacao" | "data_alteracao", ExtArgs["result"]["taxasDeEntrega"]>
+  export type TaxasDeEntregaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "bairroRegiao" | "valor" | "dh_criacao" | "dh_alteracao", ExtArgs["result"]["taxasDeEntrega"]>
 
   export type $TaxasDeEntregaPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "TaxasDeEntrega"
@@ -12722,8 +16633,8 @@ export namespace Prisma {
       id: number
       bairroRegiao: string
       valor: Prisma.Decimal
-      data_criacao: Date
-      data_alteracao: Date
+      dh_criacao: Date
+      dh_alteracao: Date
     }, ExtArgs["result"]["taxasDeEntrega"]>
     composites: {}
   }
@@ -13150,8 +17061,8 @@ export namespace Prisma {
     readonly id: FieldRef<"TaxasDeEntrega", 'Int'>
     readonly bairroRegiao: FieldRef<"TaxasDeEntrega", 'String'>
     readonly valor: FieldRef<"TaxasDeEntrega", 'Decimal'>
-    readonly data_criacao: FieldRef<"TaxasDeEntrega", 'DateTime'>
-    readonly data_alteracao: FieldRef<"TaxasDeEntrega", 'DateTime'>
+    readonly dh_criacao: FieldRef<"TaxasDeEntrega", 'DateTime'>
+    readonly dh_alteracao: FieldRef<"TaxasDeEntrega", 'DateTime'>
   }
     
 
@@ -13535,28 +17446,71 @@ export namespace Prisma {
   export const UsuariosScalarFieldEnum: {
     id: 'id',
     nome: 'nome',
-    usuario: 'usuario',
     senha: 'senha',
     email: 'email',
     status: 'status',
-    data_criacao: 'data_criacao',
-    data_alteracao: 'data_alteracao'
+    dt_nascimento: 'dt_nascimento',
+    dh_criacao: 'dh_criacao',
+    dh_alteracao: 'dh_alteracao'
   };
 
   export type UsuariosScalarFieldEnum = (typeof UsuariosScalarFieldEnum)[keyof typeof UsuariosScalarFieldEnum]
 
 
+  export const EmpresaUsuariosScalarFieldEnum: {
+    id: 'id',
+    id_usuario: 'id_usuario',
+    id_empresa: 'id_empresa',
+    dt_admissao: 'dt_admissao',
+    perfil: 'perfil',
+    status: 'status',
+    dh_criacao: 'dh_criacao',
+    dh_alteracao: 'dh_alteracao'
+  };
+
+  export type EmpresaUsuariosScalarFieldEnum = (typeof EmpresaUsuariosScalarFieldEnum)[keyof typeof EmpresaUsuariosScalarFieldEnum]
+
+
+  export const EmpresasScalarFieldEnum: {
+    id: 'id',
+    id_grupo_empresas: 'id_grupo_empresas',
+    cod_empresa: 'cod_empresa',
+    cpf_cnpj: 'cpf_cnpj',
+    xNome: 'xNome',
+    xFant: 'xFant',
+    xLgr: 'xLgr',
+    numero: 'numero',
+    xCpl: 'xCpl',
+    fone: 'fone',
+    status: 'status',
+    dh_criacao: 'dh_criacao',
+    dh_alteracao: 'dh_alteracao'
+  };
+
+  export type EmpresasScalarFieldEnum = (typeof EmpresasScalarFieldEnum)[keyof typeof EmpresasScalarFieldEnum]
+
+
+  export const GrupoEmpresasScalarFieldEnum: {
+    id: 'id',
+    id_usuario_proprietario: 'id_usuario_proprietario'
+  };
+
+  export type GrupoEmpresasScalarFieldEnum = (typeof GrupoEmpresasScalarFieldEnum)[keyof typeof GrupoEmpresasScalarFieldEnum]
+
+
   export const ClientesScalarFieldEnum: {
     id: 'id',
+    id_empresa: 'id_empresa',
     nome: 'nome',
     apelido: 'apelido',
     endereco: 'endereco',
     fone: 'fone',
     status: 'status',
-    limiteCredito: 'limiteCredito',
+    limite_credito: 'limite_credito',
     data_nascimento: 'data_nascimento',
-    data_criacao: 'data_criacao',
-    data_alteracao: 'data_alteracao'
+    id_usuario_criador: 'id_usuario_criador',
+    dh_criacao: 'dh_criacao',
+    dh_alteracao: 'dh_alteracao'
   };
 
   export type ClientesScalarFieldEnum = (typeof ClientesScalarFieldEnum)[keyof typeof ClientesScalarFieldEnum]
@@ -13564,14 +17518,14 @@ export namespace Prisma {
 
   export const ProdutosScalarFieldEnum: {
     id: 'id',
-    idCategoria: 'idCategoria',
+    id_categoria: 'id_categoria',
     nomeProduto: 'nomeProduto',
     descricao: 'descricao',
     preco: 'preco',
     status: 'status',
     imagemUrl: 'imagemUrl',
-    data_criacao: 'data_criacao',
-    data_alteracao: 'data_alteracao'
+    dh_criacao: 'dh_criacao',
+    dh_alteracao: 'dh_alteracao'
   };
 
   export type ProdutosScalarFieldEnum = (typeof ProdutosScalarFieldEnum)[keyof typeof ProdutosScalarFieldEnum]
@@ -13593,8 +17547,8 @@ export namespace Prisma {
     obrigatorio: 'obrigatorio',
     qtdMinComplemento: 'qtdMinComplemento',
     qtdMaxComplemento: 'qtdMaxComplemento',
-    data_criacao: 'data_criacao',
-    data_alteracao: 'data_alteracao'
+    dh_criacao: 'dh_criacao',
+    dh_alteracao: 'dh_alteracao'
   };
 
   export type GrupoComplementosScalarFieldEnum = (typeof GrupoComplementosScalarFieldEnum)[keyof typeof GrupoComplementosScalarFieldEnum]
@@ -13608,8 +17562,8 @@ export namespace Prisma {
     status: 'status',
     preco: 'preco',
     imagemUrl: 'imagemUrl',
-    data_criacao: 'data_criacao',
-    data_alteracao: 'data_alteracao'
+    dh_criacao: 'dh_criacao',
+    dh_alteracao: 'dh_alteracao'
   };
 
   export type ComplementosScalarFieldEnum = (typeof ComplementosScalarFieldEnum)[keyof typeof ComplementosScalarFieldEnum]
@@ -13617,8 +17571,8 @@ export namespace Prisma {
 
   export const PedidosScalarFieldEnum: {
     id: 'id',
+    id_empresa: 'id_empresa',
     idCliente: 'idCliente',
-    idUsuario: 'idUsuario',
     nomeCliente: 'nomeCliente',
     observacao: 'observacao',
     valorSubTotal: 'valorSubTotal',
@@ -13626,8 +17580,8 @@ export namespace Prisma {
     valorTaxaDeEntrega: 'valorTaxaDeEntrega',
     status: 'status',
     localConsumo: 'localConsumo',
-    data_criacao: 'data_criacao',
-    data_alteracao: 'data_alteracao'
+    dh_criacao: 'dh_criacao',
+    dh_alteracao: 'dh_alteracao'
   };
 
   export type PedidosScalarFieldEnum = (typeof PedidosScalarFieldEnum)[keyof typeof PedidosScalarFieldEnum]
@@ -13635,8 +17589,8 @@ export namespace Prisma {
 
   export const PedidoProdutosScalarFieldEnum: {
     id: 'id',
-    idProduto: 'idProduto',
-    idPedido: 'idPedido',
+    id_produto: 'id_produto',
+    id_pedido: 'id_pedido',
     precoUnitario: 'precoUnitario',
     quantidade: 'quantidade',
     observacaoItem: 'observacaoItem'
@@ -13660,8 +17614,8 @@ export namespace Prisma {
     id: 'id',
     bairroRegiao: 'bairroRegiao',
     valor: 'valor',
-    data_criacao: 'data_criacao',
-    data_alteracao: 'data_alteracao'
+    dh_criacao: 'dh_criacao',
+    dh_alteracao: 'dh_alteracao'
   };
 
   export type TaxasDeEntregaScalarFieldEnum = (typeof TaxasDeEntregaScalarFieldEnum)[keyof typeof TaxasDeEntregaScalarFieldEnum]
@@ -13782,30 +17736,31 @@ export namespace Prisma {
     NOT?: UsuariosWhereInput | UsuariosWhereInput[]
     id?: IntFilter<"Usuarios"> | number
     nome?: StringFilter<"Usuarios"> | string
-    usuario?: StringFilter<"Usuarios"> | string
     senha?: StringFilter<"Usuarios"> | string
     email?: StringFilter<"Usuarios"> | string
     status?: BoolFilter<"Usuarios"> | boolean
-    data_criacao?: DateTimeFilter<"Usuarios"> | Date | string
-    data_alteracao?: DateTimeFilter<"Usuarios"> | Date | string
-    Pedidos?: PedidosListRelationFilter
+    dt_nascimento?: DateTimeNullableFilter<"Usuarios"> | Date | string | null
+    dh_criacao?: DateTimeFilter<"Usuarios"> | Date | string
+    dh_alteracao?: DateTimeFilter<"Usuarios"> | Date | string
+    grupoEmpresas?: GrupoEmpresasListRelationFilter
+    empresaUsuarios?: EmpresaUsuariosListRelationFilter
   }
 
   export type UsuariosOrderByWithRelationInput = {
     id?: SortOrder
     nome?: SortOrder
-    usuario?: SortOrder
     senha?: SortOrder
     email?: SortOrder
     status?: SortOrder
-    data_criacao?: SortOrder
-    data_alteracao?: SortOrder
-    Pedidos?: PedidosOrderByRelationAggregateInput
+    dt_nascimento?: SortOrderInput | SortOrder
+    dh_criacao?: SortOrder
+    dh_alteracao?: SortOrder
+    grupoEmpresas?: GrupoEmpresasOrderByRelationAggregateInput
+    empresaUsuarios?: EmpresaUsuariosOrderByRelationAggregateInput
   }
 
   export type UsuariosWhereUniqueInput = Prisma.AtLeast<{
     id?: number
-    usuario?: string
     email?: string
     AND?: UsuariosWhereInput | UsuariosWhereInput[]
     OR?: UsuariosWhereInput[]
@@ -13813,20 +17768,22 @@ export namespace Prisma {
     nome?: StringFilter<"Usuarios"> | string
     senha?: StringFilter<"Usuarios"> | string
     status?: BoolFilter<"Usuarios"> | boolean
-    data_criacao?: DateTimeFilter<"Usuarios"> | Date | string
-    data_alteracao?: DateTimeFilter<"Usuarios"> | Date | string
-    Pedidos?: PedidosListRelationFilter
-  }, "id" | "usuario" | "email">
+    dt_nascimento?: DateTimeNullableFilter<"Usuarios"> | Date | string | null
+    dh_criacao?: DateTimeFilter<"Usuarios"> | Date | string
+    dh_alteracao?: DateTimeFilter<"Usuarios"> | Date | string
+    grupoEmpresas?: GrupoEmpresasListRelationFilter
+    empresaUsuarios?: EmpresaUsuariosListRelationFilter
+  }, "id" | "email">
 
   export type UsuariosOrderByWithAggregationInput = {
     id?: SortOrder
     nome?: SortOrder
-    usuario?: SortOrder
     senha?: SortOrder
     email?: SortOrder
     status?: SortOrder
-    data_criacao?: SortOrder
-    data_alteracao?: SortOrder
+    dt_nascimento?: SortOrderInput | SortOrder
+    dh_criacao?: SortOrder
+    dh_alteracao?: SortOrder
     _count?: UsuariosCountOrderByAggregateInput
     _avg?: UsuariosAvgOrderByAggregateInput
     _max?: UsuariosMaxOrderByAggregateInput
@@ -13840,12 +17797,235 @@ export namespace Prisma {
     NOT?: UsuariosScalarWhereWithAggregatesInput | UsuariosScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Usuarios"> | number
     nome?: StringWithAggregatesFilter<"Usuarios"> | string
-    usuario?: StringWithAggregatesFilter<"Usuarios"> | string
     senha?: StringWithAggregatesFilter<"Usuarios"> | string
     email?: StringWithAggregatesFilter<"Usuarios"> | string
     status?: BoolWithAggregatesFilter<"Usuarios"> | boolean
-    data_criacao?: DateTimeWithAggregatesFilter<"Usuarios"> | Date | string
-    data_alteracao?: DateTimeWithAggregatesFilter<"Usuarios"> | Date | string
+    dt_nascimento?: DateTimeNullableWithAggregatesFilter<"Usuarios"> | Date | string | null
+    dh_criacao?: DateTimeWithAggregatesFilter<"Usuarios"> | Date | string
+    dh_alteracao?: DateTimeWithAggregatesFilter<"Usuarios"> | Date | string
+  }
+
+  export type EmpresaUsuariosWhereInput = {
+    AND?: EmpresaUsuariosWhereInput | EmpresaUsuariosWhereInput[]
+    OR?: EmpresaUsuariosWhereInput[]
+    NOT?: EmpresaUsuariosWhereInput | EmpresaUsuariosWhereInput[]
+    id?: IntFilter<"EmpresaUsuarios"> | number
+    id_usuario?: IntFilter<"EmpresaUsuarios"> | number
+    id_empresa?: IntFilter<"EmpresaUsuarios"> | number
+    dt_admissao?: DateTimeNullableFilter<"EmpresaUsuarios"> | Date | string | null
+    perfil?: StringFilter<"EmpresaUsuarios"> | string
+    status?: BoolFilter<"EmpresaUsuarios"> | boolean
+    dh_criacao?: DateTimeFilter<"EmpresaUsuarios"> | Date | string
+    dh_alteracao?: DateTimeFilter<"EmpresaUsuarios"> | Date | string
+    usuario?: XOR<UsuariosScalarRelationFilter, UsuariosWhereInput>
+    empresa?: XOR<EmpresasScalarRelationFilter, EmpresasWhereInput>
+  }
+
+  export type EmpresaUsuariosOrderByWithRelationInput = {
+    id?: SortOrder
+    id_usuario?: SortOrder
+    id_empresa?: SortOrder
+    dt_admissao?: SortOrderInput | SortOrder
+    perfil?: SortOrder
+    status?: SortOrder
+    dh_criacao?: SortOrder
+    dh_alteracao?: SortOrder
+    usuario?: UsuariosOrderByWithRelationInput
+    empresa?: EmpresasOrderByWithRelationInput
+  }
+
+  export type EmpresaUsuariosWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: EmpresaUsuariosWhereInput | EmpresaUsuariosWhereInput[]
+    OR?: EmpresaUsuariosWhereInput[]
+    NOT?: EmpresaUsuariosWhereInput | EmpresaUsuariosWhereInput[]
+    id_usuario?: IntFilter<"EmpresaUsuarios"> | number
+    id_empresa?: IntFilter<"EmpresaUsuarios"> | number
+    dt_admissao?: DateTimeNullableFilter<"EmpresaUsuarios"> | Date | string | null
+    perfil?: StringFilter<"EmpresaUsuarios"> | string
+    status?: BoolFilter<"EmpresaUsuarios"> | boolean
+    dh_criacao?: DateTimeFilter<"EmpresaUsuarios"> | Date | string
+    dh_alteracao?: DateTimeFilter<"EmpresaUsuarios"> | Date | string
+    usuario?: XOR<UsuariosScalarRelationFilter, UsuariosWhereInput>
+    empresa?: XOR<EmpresasScalarRelationFilter, EmpresasWhereInput>
+  }, "id">
+
+  export type EmpresaUsuariosOrderByWithAggregationInput = {
+    id?: SortOrder
+    id_usuario?: SortOrder
+    id_empresa?: SortOrder
+    dt_admissao?: SortOrderInput | SortOrder
+    perfil?: SortOrder
+    status?: SortOrder
+    dh_criacao?: SortOrder
+    dh_alteracao?: SortOrder
+    _count?: EmpresaUsuariosCountOrderByAggregateInput
+    _avg?: EmpresaUsuariosAvgOrderByAggregateInput
+    _max?: EmpresaUsuariosMaxOrderByAggregateInput
+    _min?: EmpresaUsuariosMinOrderByAggregateInput
+    _sum?: EmpresaUsuariosSumOrderByAggregateInput
+  }
+
+  export type EmpresaUsuariosScalarWhereWithAggregatesInput = {
+    AND?: EmpresaUsuariosScalarWhereWithAggregatesInput | EmpresaUsuariosScalarWhereWithAggregatesInput[]
+    OR?: EmpresaUsuariosScalarWhereWithAggregatesInput[]
+    NOT?: EmpresaUsuariosScalarWhereWithAggregatesInput | EmpresaUsuariosScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"EmpresaUsuarios"> | number
+    id_usuario?: IntWithAggregatesFilter<"EmpresaUsuarios"> | number
+    id_empresa?: IntWithAggregatesFilter<"EmpresaUsuarios"> | number
+    dt_admissao?: DateTimeNullableWithAggregatesFilter<"EmpresaUsuarios"> | Date | string | null
+    perfil?: StringWithAggregatesFilter<"EmpresaUsuarios"> | string
+    status?: BoolWithAggregatesFilter<"EmpresaUsuarios"> | boolean
+    dh_criacao?: DateTimeWithAggregatesFilter<"EmpresaUsuarios"> | Date | string
+    dh_alteracao?: DateTimeWithAggregatesFilter<"EmpresaUsuarios"> | Date | string
+  }
+
+  export type EmpresasWhereInput = {
+    AND?: EmpresasWhereInput | EmpresasWhereInput[]
+    OR?: EmpresasWhereInput[]
+    NOT?: EmpresasWhereInput | EmpresasWhereInput[]
+    id?: IntFilter<"Empresas"> | number
+    id_grupo_empresas?: IntFilter<"Empresas"> | number
+    cod_empresa?: IntFilter<"Empresas"> | number
+    cpf_cnpj?: StringFilter<"Empresas"> | string
+    xNome?: StringFilter<"Empresas"> | string
+    xFant?: StringNullableFilter<"Empresas"> | string | null
+    xLgr?: StringNullableFilter<"Empresas"> | string | null
+    numero?: StringNullableFilter<"Empresas"> | string | null
+    xCpl?: StringNullableFilter<"Empresas"> | string | null
+    fone?: StringNullableFilter<"Empresas"> | string | null
+    status?: BoolFilter<"Empresas"> | boolean
+    dh_criacao?: DateTimeFilter<"Empresas"> | Date | string
+    dh_alteracao?: DateTimeFilter<"Empresas"> | Date | string
+    pedidos?: PedidosListRelationFilter
+    grupoEmpresas?: XOR<GrupoEmpresasScalarRelationFilter, GrupoEmpresasWhereInput>
+    empresaUsuarios?: EmpresaUsuariosListRelationFilter
+  }
+
+  export type EmpresasOrderByWithRelationInput = {
+    id?: SortOrder
+    id_grupo_empresas?: SortOrder
+    cod_empresa?: SortOrder
+    cpf_cnpj?: SortOrder
+    xNome?: SortOrder
+    xFant?: SortOrderInput | SortOrder
+    xLgr?: SortOrderInput | SortOrder
+    numero?: SortOrderInput | SortOrder
+    xCpl?: SortOrderInput | SortOrder
+    fone?: SortOrderInput | SortOrder
+    status?: SortOrder
+    dh_criacao?: SortOrder
+    dh_alteracao?: SortOrder
+    pedidos?: PedidosOrderByRelationAggregateInput
+    grupoEmpresas?: GrupoEmpresasOrderByWithRelationInput
+    empresaUsuarios?: EmpresaUsuariosOrderByRelationAggregateInput
+  }
+
+  export type EmpresasWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: EmpresasWhereInput | EmpresasWhereInput[]
+    OR?: EmpresasWhereInput[]
+    NOT?: EmpresasWhereInput | EmpresasWhereInput[]
+    id_grupo_empresas?: IntFilter<"Empresas"> | number
+    cod_empresa?: IntFilter<"Empresas"> | number
+    cpf_cnpj?: StringFilter<"Empresas"> | string
+    xNome?: StringFilter<"Empresas"> | string
+    xFant?: StringNullableFilter<"Empresas"> | string | null
+    xLgr?: StringNullableFilter<"Empresas"> | string | null
+    numero?: StringNullableFilter<"Empresas"> | string | null
+    xCpl?: StringNullableFilter<"Empresas"> | string | null
+    fone?: StringNullableFilter<"Empresas"> | string | null
+    status?: BoolFilter<"Empresas"> | boolean
+    dh_criacao?: DateTimeFilter<"Empresas"> | Date | string
+    dh_alteracao?: DateTimeFilter<"Empresas"> | Date | string
+    pedidos?: PedidosListRelationFilter
+    grupoEmpresas?: XOR<GrupoEmpresasScalarRelationFilter, GrupoEmpresasWhereInput>
+    empresaUsuarios?: EmpresaUsuariosListRelationFilter
+  }, "id">
+
+  export type EmpresasOrderByWithAggregationInput = {
+    id?: SortOrder
+    id_grupo_empresas?: SortOrder
+    cod_empresa?: SortOrder
+    cpf_cnpj?: SortOrder
+    xNome?: SortOrder
+    xFant?: SortOrderInput | SortOrder
+    xLgr?: SortOrderInput | SortOrder
+    numero?: SortOrderInput | SortOrder
+    xCpl?: SortOrderInput | SortOrder
+    fone?: SortOrderInput | SortOrder
+    status?: SortOrder
+    dh_criacao?: SortOrder
+    dh_alteracao?: SortOrder
+    _count?: EmpresasCountOrderByAggregateInput
+    _avg?: EmpresasAvgOrderByAggregateInput
+    _max?: EmpresasMaxOrderByAggregateInput
+    _min?: EmpresasMinOrderByAggregateInput
+    _sum?: EmpresasSumOrderByAggregateInput
+  }
+
+  export type EmpresasScalarWhereWithAggregatesInput = {
+    AND?: EmpresasScalarWhereWithAggregatesInput | EmpresasScalarWhereWithAggregatesInput[]
+    OR?: EmpresasScalarWhereWithAggregatesInput[]
+    NOT?: EmpresasScalarWhereWithAggregatesInput | EmpresasScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Empresas"> | number
+    id_grupo_empresas?: IntWithAggregatesFilter<"Empresas"> | number
+    cod_empresa?: IntWithAggregatesFilter<"Empresas"> | number
+    cpf_cnpj?: StringWithAggregatesFilter<"Empresas"> | string
+    xNome?: StringWithAggregatesFilter<"Empresas"> | string
+    xFant?: StringNullableWithAggregatesFilter<"Empresas"> | string | null
+    xLgr?: StringNullableWithAggregatesFilter<"Empresas"> | string | null
+    numero?: StringNullableWithAggregatesFilter<"Empresas"> | string | null
+    xCpl?: StringNullableWithAggregatesFilter<"Empresas"> | string | null
+    fone?: StringNullableWithAggregatesFilter<"Empresas"> | string | null
+    status?: BoolWithAggregatesFilter<"Empresas"> | boolean
+    dh_criacao?: DateTimeWithAggregatesFilter<"Empresas"> | Date | string
+    dh_alteracao?: DateTimeWithAggregatesFilter<"Empresas"> | Date | string
+  }
+
+  export type GrupoEmpresasWhereInput = {
+    AND?: GrupoEmpresasWhereInput | GrupoEmpresasWhereInput[]
+    OR?: GrupoEmpresasWhereInput[]
+    NOT?: GrupoEmpresasWhereInput | GrupoEmpresasWhereInput[]
+    id?: IntFilter<"GrupoEmpresas"> | number
+    id_usuario_proprietario?: IntFilter<"GrupoEmpresas"> | number
+    usuario?: XOR<UsuariosScalarRelationFilter, UsuariosWhereInput>
+    empresas?: EmpresasListRelationFilter
+  }
+
+  export type GrupoEmpresasOrderByWithRelationInput = {
+    id?: SortOrder
+    id_usuario_proprietario?: SortOrder
+    usuario?: UsuariosOrderByWithRelationInput
+    empresas?: EmpresasOrderByRelationAggregateInput
+  }
+
+  export type GrupoEmpresasWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: GrupoEmpresasWhereInput | GrupoEmpresasWhereInput[]
+    OR?: GrupoEmpresasWhereInput[]
+    NOT?: GrupoEmpresasWhereInput | GrupoEmpresasWhereInput[]
+    id_usuario_proprietario?: IntFilter<"GrupoEmpresas"> | number
+    usuario?: XOR<UsuariosScalarRelationFilter, UsuariosWhereInput>
+    empresas?: EmpresasListRelationFilter
+  }, "id">
+
+  export type GrupoEmpresasOrderByWithAggregationInput = {
+    id?: SortOrder
+    id_usuario_proprietario?: SortOrder
+    _count?: GrupoEmpresasCountOrderByAggregateInput
+    _avg?: GrupoEmpresasAvgOrderByAggregateInput
+    _max?: GrupoEmpresasMaxOrderByAggregateInput
+    _min?: GrupoEmpresasMinOrderByAggregateInput
+    _sum?: GrupoEmpresasSumOrderByAggregateInput
+  }
+
+  export type GrupoEmpresasScalarWhereWithAggregatesInput = {
+    AND?: GrupoEmpresasScalarWhereWithAggregatesInput | GrupoEmpresasScalarWhereWithAggregatesInput[]
+    OR?: GrupoEmpresasScalarWhereWithAggregatesInput[]
+    NOT?: GrupoEmpresasScalarWhereWithAggregatesInput | GrupoEmpresasScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"GrupoEmpresas"> | number
+    id_usuario_proprietario?: IntWithAggregatesFilter<"GrupoEmpresas"> | number
   }
 
   export type ClientesWhereInput = {
@@ -13853,29 +18033,33 @@ export namespace Prisma {
     OR?: ClientesWhereInput[]
     NOT?: ClientesWhereInput | ClientesWhereInput[]
     id?: IntFilter<"Clientes"> | number
+    id_empresa?: IntFilter<"Clientes"> | number
     nome?: StringFilter<"Clientes"> | string
     apelido?: StringNullableFilter<"Clientes"> | string | null
     endereco?: StringNullableFilter<"Clientes"> | string | null
     fone?: StringNullableFilter<"Clientes"> | string | null
     status?: BoolFilter<"Clientes"> | boolean
-    limiteCredito?: DecimalFilter<"Clientes"> | Decimal | DecimalJsLike | number | string
+    limite_credito?: DecimalFilter<"Clientes"> | Decimal | DecimalJsLike | number | string
     data_nascimento?: DateTimeNullableFilter<"Clientes"> | Date | string | null
-    data_criacao?: DateTimeFilter<"Clientes"> | Date | string
-    data_alteracao?: DateTimeFilter<"Clientes"> | Date | string
+    id_usuario_criador?: IntFilter<"Clientes"> | number
+    dh_criacao?: DateTimeFilter<"Clientes"> | Date | string
+    dh_alteracao?: DateTimeFilter<"Clientes"> | Date | string
     Pedidos?: PedidosListRelationFilter
   }
 
   export type ClientesOrderByWithRelationInput = {
     id?: SortOrder
+    id_empresa?: SortOrder
     nome?: SortOrder
     apelido?: SortOrderInput | SortOrder
     endereco?: SortOrderInput | SortOrder
     fone?: SortOrderInput | SortOrder
     status?: SortOrder
-    limiteCredito?: SortOrder
+    limite_credito?: SortOrder
     data_nascimento?: SortOrderInput | SortOrder
-    data_criacao?: SortOrder
-    data_alteracao?: SortOrder
+    id_usuario_criador?: SortOrder
+    dh_criacao?: SortOrder
+    dh_alteracao?: SortOrder
     Pedidos?: PedidosOrderByRelationAggregateInput
   }
 
@@ -13884,29 +18068,33 @@ export namespace Prisma {
     AND?: ClientesWhereInput | ClientesWhereInput[]
     OR?: ClientesWhereInput[]
     NOT?: ClientesWhereInput | ClientesWhereInput[]
+    id_empresa?: IntFilter<"Clientes"> | number
     nome?: StringFilter<"Clientes"> | string
     apelido?: StringNullableFilter<"Clientes"> | string | null
     endereco?: StringNullableFilter<"Clientes"> | string | null
     fone?: StringNullableFilter<"Clientes"> | string | null
     status?: BoolFilter<"Clientes"> | boolean
-    limiteCredito?: DecimalFilter<"Clientes"> | Decimal | DecimalJsLike | number | string
+    limite_credito?: DecimalFilter<"Clientes"> | Decimal | DecimalJsLike | number | string
     data_nascimento?: DateTimeNullableFilter<"Clientes"> | Date | string | null
-    data_criacao?: DateTimeFilter<"Clientes"> | Date | string
-    data_alteracao?: DateTimeFilter<"Clientes"> | Date | string
+    id_usuario_criador?: IntFilter<"Clientes"> | number
+    dh_criacao?: DateTimeFilter<"Clientes"> | Date | string
+    dh_alteracao?: DateTimeFilter<"Clientes"> | Date | string
     Pedidos?: PedidosListRelationFilter
   }, "id">
 
   export type ClientesOrderByWithAggregationInput = {
     id?: SortOrder
+    id_empresa?: SortOrder
     nome?: SortOrder
     apelido?: SortOrderInput | SortOrder
     endereco?: SortOrderInput | SortOrder
     fone?: SortOrderInput | SortOrder
     status?: SortOrder
-    limiteCredito?: SortOrder
+    limite_credito?: SortOrder
     data_nascimento?: SortOrderInput | SortOrder
-    data_criacao?: SortOrder
-    data_alteracao?: SortOrder
+    id_usuario_criador?: SortOrder
+    dh_criacao?: SortOrder
+    dh_alteracao?: SortOrder
     _count?: ClientesCountOrderByAggregateInput
     _avg?: ClientesAvgOrderByAggregateInput
     _max?: ClientesMaxOrderByAggregateInput
@@ -13919,15 +18107,17 @@ export namespace Prisma {
     OR?: ClientesScalarWhereWithAggregatesInput[]
     NOT?: ClientesScalarWhereWithAggregatesInput | ClientesScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Clientes"> | number
+    id_empresa?: IntWithAggregatesFilter<"Clientes"> | number
     nome?: StringWithAggregatesFilter<"Clientes"> | string
     apelido?: StringNullableWithAggregatesFilter<"Clientes"> | string | null
     endereco?: StringNullableWithAggregatesFilter<"Clientes"> | string | null
     fone?: StringNullableWithAggregatesFilter<"Clientes"> | string | null
     status?: BoolWithAggregatesFilter<"Clientes"> | boolean
-    limiteCredito?: DecimalWithAggregatesFilter<"Clientes"> | Decimal | DecimalJsLike | number | string
+    limite_credito?: DecimalWithAggregatesFilter<"Clientes"> | Decimal | DecimalJsLike | number | string
     data_nascimento?: DateTimeNullableWithAggregatesFilter<"Clientes"> | Date | string | null
-    data_criacao?: DateTimeWithAggregatesFilter<"Clientes"> | Date | string
-    data_alteracao?: DateTimeWithAggregatesFilter<"Clientes"> | Date | string
+    id_usuario_criador?: IntWithAggregatesFilter<"Clientes"> | number
+    dh_criacao?: DateTimeWithAggregatesFilter<"Clientes"> | Date | string
+    dh_alteracao?: DateTimeWithAggregatesFilter<"Clientes"> | Date | string
   }
 
   export type ProdutosWhereInput = {
@@ -13935,14 +18125,14 @@ export namespace Prisma {
     OR?: ProdutosWhereInput[]
     NOT?: ProdutosWhereInput | ProdutosWhereInput[]
     id?: IntFilter<"Produtos"> | number
-    idCategoria?: IntNullableFilter<"Produtos"> | number | null
+    id_categoria?: IntNullableFilter<"Produtos"> | number | null
     nomeProduto?: StringFilter<"Produtos"> | string
     descricao?: StringNullableFilter<"Produtos"> | string | null
     preco?: DecimalFilter<"Produtos"> | Decimal | DecimalJsLike | number | string
     status?: BoolFilter<"Produtos"> | boolean
     imagemUrl?: StringNullableFilter<"Produtos"> | string | null
-    data_criacao?: DateTimeFilter<"Produtos"> | Date | string
-    data_alteracao?: DateTimeFilter<"Produtos"> | Date | string
+    dh_criacao?: DateTimeFilter<"Produtos"> | Date | string
+    dh_alteracao?: DateTimeFilter<"Produtos"> | Date | string
     categoria?: XOR<CategoriasNullableScalarRelationFilter, CategoriasWhereInput> | null
     pedidoProdutos?: PedidoProdutosListRelationFilter
     grupoComplementos?: GrupoComplementosListRelationFilter
@@ -13950,14 +18140,14 @@ export namespace Prisma {
 
   export type ProdutosOrderByWithRelationInput = {
     id?: SortOrder
-    idCategoria?: SortOrderInput | SortOrder
+    id_categoria?: SortOrderInput | SortOrder
     nomeProduto?: SortOrder
     descricao?: SortOrderInput | SortOrder
     preco?: SortOrder
     status?: SortOrder
     imagemUrl?: SortOrderInput | SortOrder
-    data_criacao?: SortOrder
-    data_alteracao?: SortOrder
+    dh_criacao?: SortOrder
+    dh_alteracao?: SortOrder
     categoria?: CategoriasOrderByWithRelationInput
     pedidoProdutos?: PedidoProdutosOrderByRelationAggregateInput
     grupoComplementos?: GrupoComplementosOrderByRelationAggregateInput
@@ -13968,14 +18158,14 @@ export namespace Prisma {
     AND?: ProdutosWhereInput | ProdutosWhereInput[]
     OR?: ProdutosWhereInput[]
     NOT?: ProdutosWhereInput | ProdutosWhereInput[]
-    idCategoria?: IntNullableFilter<"Produtos"> | number | null
+    id_categoria?: IntNullableFilter<"Produtos"> | number | null
     nomeProduto?: StringFilter<"Produtos"> | string
     descricao?: StringNullableFilter<"Produtos"> | string | null
     preco?: DecimalFilter<"Produtos"> | Decimal | DecimalJsLike | number | string
     status?: BoolFilter<"Produtos"> | boolean
     imagemUrl?: StringNullableFilter<"Produtos"> | string | null
-    data_criacao?: DateTimeFilter<"Produtos"> | Date | string
-    data_alteracao?: DateTimeFilter<"Produtos"> | Date | string
+    dh_criacao?: DateTimeFilter<"Produtos"> | Date | string
+    dh_alteracao?: DateTimeFilter<"Produtos"> | Date | string
     categoria?: XOR<CategoriasNullableScalarRelationFilter, CategoriasWhereInput> | null
     pedidoProdutos?: PedidoProdutosListRelationFilter
     grupoComplementos?: GrupoComplementosListRelationFilter
@@ -13983,14 +18173,14 @@ export namespace Prisma {
 
   export type ProdutosOrderByWithAggregationInput = {
     id?: SortOrder
-    idCategoria?: SortOrderInput | SortOrder
+    id_categoria?: SortOrderInput | SortOrder
     nomeProduto?: SortOrder
     descricao?: SortOrderInput | SortOrder
     preco?: SortOrder
     status?: SortOrder
     imagemUrl?: SortOrderInput | SortOrder
-    data_criacao?: SortOrder
-    data_alteracao?: SortOrder
+    dh_criacao?: SortOrder
+    dh_alteracao?: SortOrder
     _count?: ProdutosCountOrderByAggregateInput
     _avg?: ProdutosAvgOrderByAggregateInput
     _max?: ProdutosMaxOrderByAggregateInput
@@ -14003,14 +18193,14 @@ export namespace Prisma {
     OR?: ProdutosScalarWhereWithAggregatesInput[]
     NOT?: ProdutosScalarWhereWithAggregatesInput | ProdutosScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Produtos"> | number
-    idCategoria?: IntNullableWithAggregatesFilter<"Produtos"> | number | null
+    id_categoria?: IntNullableWithAggregatesFilter<"Produtos"> | number | null
     nomeProduto?: StringWithAggregatesFilter<"Produtos"> | string
     descricao?: StringNullableWithAggregatesFilter<"Produtos"> | string | null
     preco?: DecimalWithAggregatesFilter<"Produtos"> | Decimal | DecimalJsLike | number | string
     status?: BoolWithAggregatesFilter<"Produtos"> | boolean
     imagemUrl?: StringNullableWithAggregatesFilter<"Produtos"> | string | null
-    data_criacao?: DateTimeWithAggregatesFilter<"Produtos"> | Date | string
-    data_alteracao?: DateTimeWithAggregatesFilter<"Produtos"> | Date | string
+    dh_criacao?: DateTimeWithAggregatesFilter<"Produtos"> | Date | string
+    dh_alteracao?: DateTimeWithAggregatesFilter<"Produtos"> | Date | string
   }
 
   export type CategoriasWhereInput = {
@@ -14066,8 +18256,8 @@ export namespace Prisma {
     obrigatorio?: BoolFilter<"GrupoComplementos"> | boolean
     qtdMinComplemento?: IntFilter<"GrupoComplementos"> | number
     qtdMaxComplemento?: IntFilter<"GrupoComplementos"> | number
-    data_criacao?: DateTimeFilter<"GrupoComplementos"> | Date | string
-    data_alteracao?: DateTimeFilter<"GrupoComplementos"> | Date | string
+    dh_criacao?: DateTimeFilter<"GrupoComplementos"> | Date | string
+    dh_alteracao?: DateTimeFilter<"GrupoComplementos"> | Date | string
     produtos?: XOR<ProdutosNullableScalarRelationFilter, ProdutosWhereInput> | null
     Complementos?: ComplementosListRelationFilter
   }
@@ -14080,8 +18270,8 @@ export namespace Prisma {
     obrigatorio?: SortOrder
     qtdMinComplemento?: SortOrder
     qtdMaxComplemento?: SortOrder
-    data_criacao?: SortOrder
-    data_alteracao?: SortOrder
+    dh_criacao?: SortOrder
+    dh_alteracao?: SortOrder
     produtos?: ProdutosOrderByWithRelationInput
     Complementos?: ComplementosOrderByRelationAggregateInput
   }
@@ -14097,8 +18287,8 @@ export namespace Prisma {
     obrigatorio?: BoolFilter<"GrupoComplementos"> | boolean
     qtdMinComplemento?: IntFilter<"GrupoComplementos"> | number
     qtdMaxComplemento?: IntFilter<"GrupoComplementos"> | number
-    data_criacao?: DateTimeFilter<"GrupoComplementos"> | Date | string
-    data_alteracao?: DateTimeFilter<"GrupoComplementos"> | Date | string
+    dh_criacao?: DateTimeFilter<"GrupoComplementos"> | Date | string
+    dh_alteracao?: DateTimeFilter<"GrupoComplementos"> | Date | string
     produtos?: XOR<ProdutosNullableScalarRelationFilter, ProdutosWhereInput> | null
     Complementos?: ComplementosListRelationFilter
   }, "id">
@@ -14111,8 +18301,8 @@ export namespace Prisma {
     obrigatorio?: SortOrder
     qtdMinComplemento?: SortOrder
     qtdMaxComplemento?: SortOrder
-    data_criacao?: SortOrder
-    data_alteracao?: SortOrder
+    dh_criacao?: SortOrder
+    dh_alteracao?: SortOrder
     _count?: GrupoComplementosCountOrderByAggregateInput
     _avg?: GrupoComplementosAvgOrderByAggregateInput
     _max?: GrupoComplementosMaxOrderByAggregateInput
@@ -14131,8 +18321,8 @@ export namespace Prisma {
     obrigatorio?: BoolWithAggregatesFilter<"GrupoComplementos"> | boolean
     qtdMinComplemento?: IntWithAggregatesFilter<"GrupoComplementos"> | number
     qtdMaxComplemento?: IntWithAggregatesFilter<"GrupoComplementos"> | number
-    data_criacao?: DateTimeWithAggregatesFilter<"GrupoComplementos"> | Date | string
-    data_alteracao?: DateTimeWithAggregatesFilter<"GrupoComplementos"> | Date | string
+    dh_criacao?: DateTimeWithAggregatesFilter<"GrupoComplementos"> | Date | string
+    dh_alteracao?: DateTimeWithAggregatesFilter<"GrupoComplementos"> | Date | string
   }
 
   export type ComplementosWhereInput = {
@@ -14146,8 +18336,8 @@ export namespace Prisma {
     status?: BoolFilter<"Complementos"> | boolean
     preco?: DecimalFilter<"Complementos"> | Decimal | DecimalJsLike | number | string
     imagemUrl?: StringNullableFilter<"Complementos"> | string | null
-    data_criacao?: DateTimeFilter<"Complementos"> | Date | string
-    data_alteracao?: DateTimeFilter<"Complementos"> | Date | string
+    dh_criacao?: DateTimeFilter<"Complementos"> | Date | string
+    dh_alteracao?: DateTimeFilter<"Complementos"> | Date | string
     grupoComplementos?: XOR<GrupoComplementosNullableScalarRelationFilter, GrupoComplementosWhereInput> | null
     PedidoProdutoComplementos?: PedidoProdutoComplementosListRelationFilter
   }
@@ -14160,8 +18350,8 @@ export namespace Prisma {
     status?: SortOrder
     preco?: SortOrder
     imagemUrl?: SortOrderInput | SortOrder
-    data_criacao?: SortOrder
-    data_alteracao?: SortOrder
+    dh_criacao?: SortOrder
+    dh_alteracao?: SortOrder
     grupoComplementos?: GrupoComplementosOrderByWithRelationInput
     PedidoProdutoComplementos?: PedidoProdutoComplementosOrderByRelationAggregateInput
   }
@@ -14177,8 +18367,8 @@ export namespace Prisma {
     status?: BoolFilter<"Complementos"> | boolean
     preco?: DecimalFilter<"Complementos"> | Decimal | DecimalJsLike | number | string
     imagemUrl?: StringNullableFilter<"Complementos"> | string | null
-    data_criacao?: DateTimeFilter<"Complementos"> | Date | string
-    data_alteracao?: DateTimeFilter<"Complementos"> | Date | string
+    dh_criacao?: DateTimeFilter<"Complementos"> | Date | string
+    dh_alteracao?: DateTimeFilter<"Complementos"> | Date | string
     grupoComplementos?: XOR<GrupoComplementosNullableScalarRelationFilter, GrupoComplementosWhereInput> | null
     PedidoProdutoComplementos?: PedidoProdutoComplementosListRelationFilter
   }, "id">
@@ -14191,8 +18381,8 @@ export namespace Prisma {
     status?: SortOrder
     preco?: SortOrder
     imagemUrl?: SortOrderInput | SortOrder
-    data_criacao?: SortOrder
-    data_alteracao?: SortOrder
+    dh_criacao?: SortOrder
+    dh_alteracao?: SortOrder
     _count?: ComplementosCountOrderByAggregateInput
     _avg?: ComplementosAvgOrderByAggregateInput
     _max?: ComplementosMaxOrderByAggregateInput
@@ -14211,8 +18401,8 @@ export namespace Prisma {
     status?: BoolWithAggregatesFilter<"Complementos"> | boolean
     preco?: DecimalWithAggregatesFilter<"Complementos"> | Decimal | DecimalJsLike | number | string
     imagemUrl?: StringNullableWithAggregatesFilter<"Complementos"> | string | null
-    data_criacao?: DateTimeWithAggregatesFilter<"Complementos"> | Date | string
-    data_alteracao?: DateTimeWithAggregatesFilter<"Complementos"> | Date | string
+    dh_criacao?: DateTimeWithAggregatesFilter<"Complementos"> | Date | string
+    dh_alteracao?: DateTimeWithAggregatesFilter<"Complementos"> | Date | string
   }
 
   export type PedidosWhereInput = {
@@ -14220,8 +18410,8 @@ export namespace Prisma {
     OR?: PedidosWhereInput[]
     NOT?: PedidosWhereInput | PedidosWhereInput[]
     id?: IntFilter<"Pedidos"> | number
+    id_empresa?: IntFilter<"Pedidos"> | number
     idCliente?: IntFilter<"Pedidos"> | number
-    idUsuario?: IntFilter<"Pedidos"> | number
     nomeCliente?: StringFilter<"Pedidos"> | string
     observacao?: StringNullableFilter<"Pedidos"> | string | null
     valorSubTotal?: DecimalFilter<"Pedidos"> | Decimal | DecimalJsLike | number | string
@@ -14229,17 +18419,17 @@ export namespace Prisma {
     valorTaxaDeEntrega?: DecimalNullableFilter<"Pedidos"> | Decimal | DecimalJsLike | number | string | null
     status?: IntFilter<"Pedidos"> | number
     localConsumo?: IntFilter<"Pedidos"> | number
-    data_criacao?: DateTimeFilter<"Pedidos"> | Date | string
-    data_alteracao?: DateTimeFilter<"Pedidos"> | Date | string
+    dh_criacao?: DateTimeFilter<"Pedidos"> | Date | string
+    dh_alteracao?: DateTimeFilter<"Pedidos"> | Date | string
     cliente?: XOR<ClientesScalarRelationFilter, ClientesWhereInput>
-    usuario?: XOR<UsuariosScalarRelationFilter, UsuariosWhereInput>
+    empresa?: XOR<EmpresasScalarRelationFilter, EmpresasWhereInput>
     itensPedido?: PedidoProdutosListRelationFilter
   }
 
   export type PedidosOrderByWithRelationInput = {
     id?: SortOrder
+    id_empresa?: SortOrder
     idCliente?: SortOrder
-    idUsuario?: SortOrder
     nomeCliente?: SortOrder
     observacao?: SortOrderInput | SortOrder
     valorSubTotal?: SortOrder
@@ -14247,10 +18437,10 @@ export namespace Prisma {
     valorTaxaDeEntrega?: SortOrderInput | SortOrder
     status?: SortOrder
     localConsumo?: SortOrder
-    data_criacao?: SortOrder
-    data_alteracao?: SortOrder
+    dh_criacao?: SortOrder
+    dh_alteracao?: SortOrder
     cliente?: ClientesOrderByWithRelationInput
-    usuario?: UsuariosOrderByWithRelationInput
+    empresa?: EmpresasOrderByWithRelationInput
     itensPedido?: PedidoProdutosOrderByRelationAggregateInput
   }
 
@@ -14259,8 +18449,8 @@ export namespace Prisma {
     AND?: PedidosWhereInput | PedidosWhereInput[]
     OR?: PedidosWhereInput[]
     NOT?: PedidosWhereInput | PedidosWhereInput[]
+    id_empresa?: IntFilter<"Pedidos"> | number
     idCliente?: IntFilter<"Pedidos"> | number
-    idUsuario?: IntFilter<"Pedidos"> | number
     nomeCliente?: StringFilter<"Pedidos"> | string
     observacao?: StringNullableFilter<"Pedidos"> | string | null
     valorSubTotal?: DecimalFilter<"Pedidos"> | Decimal | DecimalJsLike | number | string
@@ -14268,17 +18458,17 @@ export namespace Prisma {
     valorTaxaDeEntrega?: DecimalNullableFilter<"Pedidos"> | Decimal | DecimalJsLike | number | string | null
     status?: IntFilter<"Pedidos"> | number
     localConsumo?: IntFilter<"Pedidos"> | number
-    data_criacao?: DateTimeFilter<"Pedidos"> | Date | string
-    data_alteracao?: DateTimeFilter<"Pedidos"> | Date | string
+    dh_criacao?: DateTimeFilter<"Pedidos"> | Date | string
+    dh_alteracao?: DateTimeFilter<"Pedidos"> | Date | string
     cliente?: XOR<ClientesScalarRelationFilter, ClientesWhereInput>
-    usuario?: XOR<UsuariosScalarRelationFilter, UsuariosWhereInput>
+    empresa?: XOR<EmpresasScalarRelationFilter, EmpresasWhereInput>
     itensPedido?: PedidoProdutosListRelationFilter
   }, "id">
 
   export type PedidosOrderByWithAggregationInput = {
     id?: SortOrder
+    id_empresa?: SortOrder
     idCliente?: SortOrder
-    idUsuario?: SortOrder
     nomeCliente?: SortOrder
     observacao?: SortOrderInput | SortOrder
     valorSubTotal?: SortOrder
@@ -14286,8 +18476,8 @@ export namespace Prisma {
     valorTaxaDeEntrega?: SortOrderInput | SortOrder
     status?: SortOrder
     localConsumo?: SortOrder
-    data_criacao?: SortOrder
-    data_alteracao?: SortOrder
+    dh_criacao?: SortOrder
+    dh_alteracao?: SortOrder
     _count?: PedidosCountOrderByAggregateInput
     _avg?: PedidosAvgOrderByAggregateInput
     _max?: PedidosMaxOrderByAggregateInput
@@ -14300,8 +18490,8 @@ export namespace Prisma {
     OR?: PedidosScalarWhereWithAggregatesInput[]
     NOT?: PedidosScalarWhereWithAggregatesInput | PedidosScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Pedidos"> | number
+    id_empresa?: IntWithAggregatesFilter<"Pedidos"> | number
     idCliente?: IntWithAggregatesFilter<"Pedidos"> | number
-    idUsuario?: IntWithAggregatesFilter<"Pedidos"> | number
     nomeCliente?: StringWithAggregatesFilter<"Pedidos"> | string
     observacao?: StringNullableWithAggregatesFilter<"Pedidos"> | string | null
     valorSubTotal?: DecimalWithAggregatesFilter<"Pedidos"> | Decimal | DecimalJsLike | number | string
@@ -14309,8 +18499,8 @@ export namespace Prisma {
     valorTaxaDeEntrega?: DecimalNullableWithAggregatesFilter<"Pedidos"> | Decimal | DecimalJsLike | number | string | null
     status?: IntWithAggregatesFilter<"Pedidos"> | number
     localConsumo?: IntWithAggregatesFilter<"Pedidos"> | number
-    data_criacao?: DateTimeWithAggregatesFilter<"Pedidos"> | Date | string
-    data_alteracao?: DateTimeWithAggregatesFilter<"Pedidos"> | Date | string
+    dh_criacao?: DateTimeWithAggregatesFilter<"Pedidos"> | Date | string
+    dh_alteracao?: DateTimeWithAggregatesFilter<"Pedidos"> | Date | string
   }
 
   export type PedidoProdutosWhereInput = {
@@ -14318,8 +18508,8 @@ export namespace Prisma {
     OR?: PedidoProdutosWhereInput[]
     NOT?: PedidoProdutosWhereInput | PedidoProdutosWhereInput[]
     id?: IntFilter<"PedidoProdutos"> | number
-    idProduto?: IntFilter<"PedidoProdutos"> | number
-    idPedido?: IntFilter<"PedidoProdutos"> | number
+    id_produto?: IntFilter<"PedidoProdutos"> | number
+    id_pedido?: IntFilter<"PedidoProdutos"> | number
     precoUnitario?: DecimalFilter<"PedidoProdutos"> | Decimal | DecimalJsLike | number | string
     quantidade?: IntFilter<"PedidoProdutos"> | number
     observacaoItem?: StringNullableFilter<"PedidoProdutos"> | string | null
@@ -14330,8 +18520,8 @@ export namespace Prisma {
 
   export type PedidoProdutosOrderByWithRelationInput = {
     id?: SortOrder
-    idProduto?: SortOrder
-    idPedido?: SortOrder
+    id_produto?: SortOrder
+    id_pedido?: SortOrder
     precoUnitario?: SortOrder
     quantidade?: SortOrder
     observacaoItem?: SortOrderInput | SortOrder
@@ -14345,8 +18535,8 @@ export namespace Prisma {
     AND?: PedidoProdutosWhereInput | PedidoProdutosWhereInput[]
     OR?: PedidoProdutosWhereInput[]
     NOT?: PedidoProdutosWhereInput | PedidoProdutosWhereInput[]
-    idProduto?: IntFilter<"PedidoProdutos"> | number
-    idPedido?: IntFilter<"PedidoProdutos"> | number
+    id_produto?: IntFilter<"PedidoProdutos"> | number
+    id_pedido?: IntFilter<"PedidoProdutos"> | number
     precoUnitario?: DecimalFilter<"PedidoProdutos"> | Decimal | DecimalJsLike | number | string
     quantidade?: IntFilter<"PedidoProdutos"> | number
     observacaoItem?: StringNullableFilter<"PedidoProdutos"> | string | null
@@ -14357,8 +18547,8 @@ export namespace Prisma {
 
   export type PedidoProdutosOrderByWithAggregationInput = {
     id?: SortOrder
-    idProduto?: SortOrder
-    idPedido?: SortOrder
+    id_produto?: SortOrder
+    id_pedido?: SortOrder
     precoUnitario?: SortOrder
     quantidade?: SortOrder
     observacaoItem?: SortOrderInput | SortOrder
@@ -14374,8 +18564,8 @@ export namespace Prisma {
     OR?: PedidoProdutosScalarWhereWithAggregatesInput[]
     NOT?: PedidoProdutosScalarWhereWithAggregatesInput | PedidoProdutosScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"PedidoProdutos"> | number
-    idProduto?: IntWithAggregatesFilter<"PedidoProdutos"> | number
-    idPedido?: IntWithAggregatesFilter<"PedidoProdutos"> | number
+    id_produto?: IntWithAggregatesFilter<"PedidoProdutos"> | number
+    id_pedido?: IntWithAggregatesFilter<"PedidoProdutos"> | number
     precoUnitario?: DecimalWithAggregatesFilter<"PedidoProdutos"> | Decimal | DecimalJsLike | number | string
     quantidade?: IntWithAggregatesFilter<"PedidoProdutos"> | number
     observacaoItem?: StringNullableWithAggregatesFilter<"PedidoProdutos"> | string | null
@@ -14448,16 +18638,16 @@ export namespace Prisma {
     id?: IntFilter<"TaxasDeEntrega"> | number
     bairroRegiao?: StringFilter<"TaxasDeEntrega"> | string
     valor?: DecimalFilter<"TaxasDeEntrega"> | Decimal | DecimalJsLike | number | string
-    data_criacao?: DateTimeFilter<"TaxasDeEntrega"> | Date | string
-    data_alteracao?: DateTimeFilter<"TaxasDeEntrega"> | Date | string
+    dh_criacao?: DateTimeFilter<"TaxasDeEntrega"> | Date | string
+    dh_alteracao?: DateTimeFilter<"TaxasDeEntrega"> | Date | string
   }
 
   export type TaxasDeEntregaOrderByWithRelationInput = {
     id?: SortOrder
     bairroRegiao?: SortOrder
     valor?: SortOrder
-    data_criacao?: SortOrder
-    data_alteracao?: SortOrder
+    dh_criacao?: SortOrder
+    dh_alteracao?: SortOrder
   }
 
   export type TaxasDeEntregaWhereUniqueInput = Prisma.AtLeast<{
@@ -14467,16 +18657,16 @@ export namespace Prisma {
     NOT?: TaxasDeEntregaWhereInput | TaxasDeEntregaWhereInput[]
     bairroRegiao?: StringFilter<"TaxasDeEntrega"> | string
     valor?: DecimalFilter<"TaxasDeEntrega"> | Decimal | DecimalJsLike | number | string
-    data_criacao?: DateTimeFilter<"TaxasDeEntrega"> | Date | string
-    data_alteracao?: DateTimeFilter<"TaxasDeEntrega"> | Date | string
+    dh_criacao?: DateTimeFilter<"TaxasDeEntrega"> | Date | string
+    dh_alteracao?: DateTimeFilter<"TaxasDeEntrega"> | Date | string
   }, "id">
 
   export type TaxasDeEntregaOrderByWithAggregationInput = {
     id?: SortOrder
     bairroRegiao?: SortOrder
     valor?: SortOrder
-    data_criacao?: SortOrder
-    data_alteracao?: SortOrder
+    dh_criacao?: SortOrder
+    dh_alteracao?: SortOrder
     _count?: TaxasDeEntregaCountOrderByAggregateInput
     _avg?: TaxasDeEntregaAvgOrderByAggregateInput
     _max?: TaxasDeEntregaMaxOrderByAggregateInput
@@ -14491,178 +18681,420 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"TaxasDeEntrega"> | number
     bairroRegiao?: StringWithAggregatesFilter<"TaxasDeEntrega"> | string
     valor?: DecimalWithAggregatesFilter<"TaxasDeEntrega"> | Decimal | DecimalJsLike | number | string
-    data_criacao?: DateTimeWithAggregatesFilter<"TaxasDeEntrega"> | Date | string
-    data_alteracao?: DateTimeWithAggregatesFilter<"TaxasDeEntrega"> | Date | string
+    dh_criacao?: DateTimeWithAggregatesFilter<"TaxasDeEntrega"> | Date | string
+    dh_alteracao?: DateTimeWithAggregatesFilter<"TaxasDeEntrega"> | Date | string
   }
 
   export type UsuariosCreateInput = {
     nome: string
-    usuario: string
     senha: string
     email: string
     status?: boolean
-    data_criacao?: Date | string
-    data_alteracao?: Date | string
-    Pedidos?: PedidosCreateNestedManyWithoutUsuarioInput
+    dt_nascimento?: Date | string | null
+    dh_criacao?: Date | string
+    dh_alteracao?: Date | string
+    grupoEmpresas?: GrupoEmpresasCreateNestedManyWithoutUsuarioInput
+    empresaUsuarios?: EmpresaUsuariosCreateNestedManyWithoutUsuarioInput
   }
 
   export type UsuariosUncheckedCreateInput = {
     id?: number
     nome: string
-    usuario: string
     senha: string
     email: string
     status?: boolean
-    data_criacao?: Date | string
-    data_alteracao?: Date | string
-    Pedidos?: PedidosUncheckedCreateNestedManyWithoutUsuarioInput
+    dt_nascimento?: Date | string | null
+    dh_criacao?: Date | string
+    dh_alteracao?: Date | string
+    grupoEmpresas?: GrupoEmpresasUncheckedCreateNestedManyWithoutUsuarioInput
+    empresaUsuarios?: EmpresaUsuariosUncheckedCreateNestedManyWithoutUsuarioInput
   }
 
   export type UsuariosUpdateInput = {
     nome?: StringFieldUpdateOperationsInput | string
-    usuario?: StringFieldUpdateOperationsInput | string
     senha?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     status?: BoolFieldUpdateOperationsInput | boolean
-    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
-    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
-    Pedidos?: PedidosUpdateManyWithoutUsuarioNestedInput
+    dt_nascimento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    grupoEmpresas?: GrupoEmpresasUpdateManyWithoutUsuarioNestedInput
+    empresaUsuarios?: EmpresaUsuariosUpdateManyWithoutUsuarioNestedInput
   }
 
   export type UsuariosUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     nome?: StringFieldUpdateOperationsInput | string
-    usuario?: StringFieldUpdateOperationsInput | string
     senha?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     status?: BoolFieldUpdateOperationsInput | boolean
-    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
-    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
-    Pedidos?: PedidosUncheckedUpdateManyWithoutUsuarioNestedInput
+    dt_nascimento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    grupoEmpresas?: GrupoEmpresasUncheckedUpdateManyWithoutUsuarioNestedInput
+    empresaUsuarios?: EmpresaUsuariosUncheckedUpdateManyWithoutUsuarioNestedInput
   }
 
   export type UsuariosCreateManyInput = {
     id?: number
     nome: string
-    usuario: string
     senha: string
     email: string
     status?: boolean
-    data_criacao?: Date | string
-    data_alteracao?: Date | string
+    dt_nascimento?: Date | string | null
+    dh_criacao?: Date | string
+    dh_alteracao?: Date | string
   }
 
   export type UsuariosUpdateManyMutationInput = {
     nome?: StringFieldUpdateOperationsInput | string
-    usuario?: StringFieldUpdateOperationsInput | string
     senha?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     status?: BoolFieldUpdateOperationsInput | boolean
-    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
-    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dt_nascimento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UsuariosUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     nome?: StringFieldUpdateOperationsInput | string
-    usuario?: StringFieldUpdateOperationsInput | string
     senha?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     status?: BoolFieldUpdateOperationsInput | boolean
-    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
-    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dt_nascimento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EmpresaUsuariosCreateInput = {
+    dt_admissao?: Date | string | null
+    perfil: string
+    status?: boolean
+    dh_criacao?: Date | string
+    dh_alteracao?: Date | string
+    usuario: UsuariosCreateNestedOneWithoutEmpresaUsuariosInput
+    empresa: EmpresasCreateNestedOneWithoutEmpresaUsuariosInput
+  }
+
+  export type EmpresaUsuariosUncheckedCreateInput = {
+    id?: number
+    id_usuario: number
+    id_empresa: number
+    dt_admissao?: Date | string | null
+    perfil: string
+    status?: boolean
+    dh_criacao?: Date | string
+    dh_alteracao?: Date | string
+  }
+
+  export type EmpresaUsuariosUpdateInput = {
+    dt_admissao?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    perfil?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    usuario?: UsuariosUpdateOneRequiredWithoutEmpresaUsuariosNestedInput
+    empresa?: EmpresasUpdateOneRequiredWithoutEmpresaUsuariosNestedInput
+  }
+
+  export type EmpresaUsuariosUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    id_usuario?: IntFieldUpdateOperationsInput | number
+    id_empresa?: IntFieldUpdateOperationsInput | number
+    dt_admissao?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    perfil?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EmpresaUsuariosCreateManyInput = {
+    id?: number
+    id_usuario: number
+    id_empresa: number
+    dt_admissao?: Date | string | null
+    perfil: string
+    status?: boolean
+    dh_criacao?: Date | string
+    dh_alteracao?: Date | string
+  }
+
+  export type EmpresaUsuariosUpdateManyMutationInput = {
+    dt_admissao?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    perfil?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EmpresaUsuariosUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    id_usuario?: IntFieldUpdateOperationsInput | number
+    id_empresa?: IntFieldUpdateOperationsInput | number
+    dt_admissao?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    perfil?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EmpresasCreateInput = {
+    cod_empresa: number
+    cpf_cnpj: string
+    xNome: string
+    xFant?: string | null
+    xLgr?: string | null
+    numero?: string | null
+    xCpl?: string | null
+    fone?: string | null
+    status?: boolean
+    dh_criacao?: Date | string
+    dh_alteracao?: Date | string
+    pedidos?: PedidosCreateNestedManyWithoutEmpresaInput
+    grupoEmpresas: GrupoEmpresasCreateNestedOneWithoutEmpresasInput
+    empresaUsuarios?: EmpresaUsuariosCreateNestedManyWithoutEmpresaInput
+  }
+
+  export type EmpresasUncheckedCreateInput = {
+    id?: number
+    id_grupo_empresas: number
+    cod_empresa: number
+    cpf_cnpj: string
+    xNome: string
+    xFant?: string | null
+    xLgr?: string | null
+    numero?: string | null
+    xCpl?: string | null
+    fone?: string | null
+    status?: boolean
+    dh_criacao?: Date | string
+    dh_alteracao?: Date | string
+    pedidos?: PedidosUncheckedCreateNestedManyWithoutEmpresaInput
+    empresaUsuarios?: EmpresaUsuariosUncheckedCreateNestedManyWithoutEmpresaInput
+  }
+
+  export type EmpresasUpdateInput = {
+    cod_empresa?: IntFieldUpdateOperationsInput | number
+    cpf_cnpj?: StringFieldUpdateOperationsInput | string
+    xNome?: StringFieldUpdateOperationsInput | string
+    xFant?: NullableStringFieldUpdateOperationsInput | string | null
+    xLgr?: NullableStringFieldUpdateOperationsInput | string | null
+    numero?: NullableStringFieldUpdateOperationsInput | string | null
+    xCpl?: NullableStringFieldUpdateOperationsInput | string | null
+    fone?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: BoolFieldUpdateOperationsInput | boolean
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    pedidos?: PedidosUpdateManyWithoutEmpresaNestedInput
+    grupoEmpresas?: GrupoEmpresasUpdateOneRequiredWithoutEmpresasNestedInput
+    empresaUsuarios?: EmpresaUsuariosUpdateManyWithoutEmpresaNestedInput
+  }
+
+  export type EmpresasUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    id_grupo_empresas?: IntFieldUpdateOperationsInput | number
+    cod_empresa?: IntFieldUpdateOperationsInput | number
+    cpf_cnpj?: StringFieldUpdateOperationsInput | string
+    xNome?: StringFieldUpdateOperationsInput | string
+    xFant?: NullableStringFieldUpdateOperationsInput | string | null
+    xLgr?: NullableStringFieldUpdateOperationsInput | string | null
+    numero?: NullableStringFieldUpdateOperationsInput | string | null
+    xCpl?: NullableStringFieldUpdateOperationsInput | string | null
+    fone?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: BoolFieldUpdateOperationsInput | boolean
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    pedidos?: PedidosUncheckedUpdateManyWithoutEmpresaNestedInput
+    empresaUsuarios?: EmpresaUsuariosUncheckedUpdateManyWithoutEmpresaNestedInput
+  }
+
+  export type EmpresasCreateManyInput = {
+    id?: number
+    id_grupo_empresas: number
+    cod_empresa: number
+    cpf_cnpj: string
+    xNome: string
+    xFant?: string | null
+    xLgr?: string | null
+    numero?: string | null
+    xCpl?: string | null
+    fone?: string | null
+    status?: boolean
+    dh_criacao?: Date | string
+    dh_alteracao?: Date | string
+  }
+
+  export type EmpresasUpdateManyMutationInput = {
+    cod_empresa?: IntFieldUpdateOperationsInput | number
+    cpf_cnpj?: StringFieldUpdateOperationsInput | string
+    xNome?: StringFieldUpdateOperationsInput | string
+    xFant?: NullableStringFieldUpdateOperationsInput | string | null
+    xLgr?: NullableStringFieldUpdateOperationsInput | string | null
+    numero?: NullableStringFieldUpdateOperationsInput | string | null
+    xCpl?: NullableStringFieldUpdateOperationsInput | string | null
+    fone?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: BoolFieldUpdateOperationsInput | boolean
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EmpresasUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    id_grupo_empresas?: IntFieldUpdateOperationsInput | number
+    cod_empresa?: IntFieldUpdateOperationsInput | number
+    cpf_cnpj?: StringFieldUpdateOperationsInput | string
+    xNome?: StringFieldUpdateOperationsInput | string
+    xFant?: NullableStringFieldUpdateOperationsInput | string | null
+    xLgr?: NullableStringFieldUpdateOperationsInput | string | null
+    numero?: NullableStringFieldUpdateOperationsInput | string | null
+    xCpl?: NullableStringFieldUpdateOperationsInput | string | null
+    fone?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: BoolFieldUpdateOperationsInput | boolean
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GrupoEmpresasCreateInput = {
+    usuario: UsuariosCreateNestedOneWithoutGrupoEmpresasInput
+    empresas?: EmpresasCreateNestedManyWithoutGrupoEmpresasInput
+  }
+
+  export type GrupoEmpresasUncheckedCreateInput = {
+    id?: number
+    id_usuario_proprietario: number
+    empresas?: EmpresasUncheckedCreateNestedManyWithoutGrupoEmpresasInput
+  }
+
+  export type GrupoEmpresasUpdateInput = {
+    usuario?: UsuariosUpdateOneRequiredWithoutGrupoEmpresasNestedInput
+    empresas?: EmpresasUpdateManyWithoutGrupoEmpresasNestedInput
+  }
+
+  export type GrupoEmpresasUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    id_usuario_proprietario?: IntFieldUpdateOperationsInput | number
+    empresas?: EmpresasUncheckedUpdateManyWithoutGrupoEmpresasNestedInput
+  }
+
+  export type GrupoEmpresasCreateManyInput = {
+    id?: number
+    id_usuario_proprietario: number
+  }
+
+  export type GrupoEmpresasUpdateManyMutationInput = {
+
+  }
+
+  export type GrupoEmpresasUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    id_usuario_proprietario?: IntFieldUpdateOperationsInput | number
   }
 
   export type ClientesCreateInput = {
+    id_empresa: number
     nome: string
     apelido?: string | null
     endereco?: string | null
     fone?: string | null
     status?: boolean
-    limiteCredito?: Decimal | DecimalJsLike | number | string
+    limite_credito?: Decimal | DecimalJsLike | number | string
     data_nascimento?: Date | string | null
-    data_criacao?: Date | string
-    data_alteracao?: Date | string
+    id_usuario_criador: number
+    dh_criacao?: Date | string
+    dh_alteracao?: Date | string
     Pedidos?: PedidosCreateNestedManyWithoutClienteInput
   }
 
   export type ClientesUncheckedCreateInput = {
     id?: number
+    id_empresa: number
     nome: string
     apelido?: string | null
     endereco?: string | null
     fone?: string | null
     status?: boolean
-    limiteCredito?: Decimal | DecimalJsLike | number | string
+    limite_credito?: Decimal | DecimalJsLike | number | string
     data_nascimento?: Date | string | null
-    data_criacao?: Date | string
-    data_alteracao?: Date | string
+    id_usuario_criador: number
+    dh_criacao?: Date | string
+    dh_alteracao?: Date | string
     Pedidos?: PedidosUncheckedCreateNestedManyWithoutClienteInput
   }
 
   export type ClientesUpdateInput = {
+    id_empresa?: IntFieldUpdateOperationsInput | number
     nome?: StringFieldUpdateOperationsInput | string
     apelido?: NullableStringFieldUpdateOperationsInput | string | null
     endereco?: NullableStringFieldUpdateOperationsInput | string | null
     fone?: NullableStringFieldUpdateOperationsInput | string | null
     status?: BoolFieldUpdateOperationsInput | boolean
-    limiteCredito?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    limite_credito?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     data_nascimento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
-    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    id_usuario_criador?: IntFieldUpdateOperationsInput | number
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
     Pedidos?: PedidosUpdateManyWithoutClienteNestedInput
   }
 
   export type ClientesUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
+    id_empresa?: IntFieldUpdateOperationsInput | number
     nome?: StringFieldUpdateOperationsInput | string
     apelido?: NullableStringFieldUpdateOperationsInput | string | null
     endereco?: NullableStringFieldUpdateOperationsInput | string | null
     fone?: NullableStringFieldUpdateOperationsInput | string | null
     status?: BoolFieldUpdateOperationsInput | boolean
-    limiteCredito?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    limite_credito?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     data_nascimento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
-    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    id_usuario_criador?: IntFieldUpdateOperationsInput | number
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
     Pedidos?: PedidosUncheckedUpdateManyWithoutClienteNestedInput
   }
 
   export type ClientesCreateManyInput = {
     id?: number
+    id_empresa: number
     nome: string
     apelido?: string | null
     endereco?: string | null
     fone?: string | null
     status?: boolean
-    limiteCredito?: Decimal | DecimalJsLike | number | string
+    limite_credito?: Decimal | DecimalJsLike | number | string
     data_nascimento?: Date | string | null
-    data_criacao?: Date | string
-    data_alteracao?: Date | string
+    id_usuario_criador: number
+    dh_criacao?: Date | string
+    dh_alteracao?: Date | string
   }
 
   export type ClientesUpdateManyMutationInput = {
+    id_empresa?: IntFieldUpdateOperationsInput | number
     nome?: StringFieldUpdateOperationsInput | string
     apelido?: NullableStringFieldUpdateOperationsInput | string | null
     endereco?: NullableStringFieldUpdateOperationsInput | string | null
     fone?: NullableStringFieldUpdateOperationsInput | string | null
     status?: BoolFieldUpdateOperationsInput | boolean
-    limiteCredito?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    limite_credito?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     data_nascimento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
-    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    id_usuario_criador?: IntFieldUpdateOperationsInput | number
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ClientesUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
+    id_empresa?: IntFieldUpdateOperationsInput | number
     nome?: StringFieldUpdateOperationsInput | string
     apelido?: NullableStringFieldUpdateOperationsInput | string | null
     endereco?: NullableStringFieldUpdateOperationsInput | string | null
     fone?: NullableStringFieldUpdateOperationsInput | string | null
     status?: BoolFieldUpdateOperationsInput | boolean
-    limiteCredito?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    limite_credito?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     data_nascimento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
-    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    id_usuario_criador?: IntFieldUpdateOperationsInput | number
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ProdutosCreateInput = {
@@ -14671,8 +19103,8 @@ export namespace Prisma {
     preco?: Decimal | DecimalJsLike | number | string
     status?: boolean
     imagemUrl?: string | null
-    data_criacao?: Date | string
-    data_alteracao?: Date | string
+    dh_criacao?: Date | string
+    dh_alteracao?: Date | string
     categoria?: CategoriasCreateNestedOneWithoutProdutosInput
     pedidoProdutos?: PedidoProdutosCreateNestedManyWithoutProdutosInput
     grupoComplementos?: GrupoComplementosCreateNestedManyWithoutProdutosInput
@@ -14680,14 +19112,14 @@ export namespace Prisma {
 
   export type ProdutosUncheckedCreateInput = {
     id?: number
-    idCategoria?: number | null
+    id_categoria?: number | null
     nomeProduto: string
     descricao?: string | null
     preco?: Decimal | DecimalJsLike | number | string
     status?: boolean
     imagemUrl?: string | null
-    data_criacao?: Date | string
-    data_alteracao?: Date | string
+    dh_criacao?: Date | string
+    dh_alteracao?: Date | string
     pedidoProdutos?: PedidoProdutosUncheckedCreateNestedManyWithoutProdutosInput
     grupoComplementos?: GrupoComplementosUncheckedCreateNestedManyWithoutProdutosInput
   }
@@ -14698,8 +19130,8 @@ export namespace Prisma {
     preco?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: BoolFieldUpdateOperationsInput | boolean
     imagemUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
-    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
     categoria?: CategoriasUpdateOneWithoutProdutosNestedInput
     pedidoProdutos?: PedidoProdutosUpdateManyWithoutProdutosNestedInput
     grupoComplementos?: GrupoComplementosUpdateManyWithoutProdutosNestedInput
@@ -14707,28 +19139,28 @@ export namespace Prisma {
 
   export type ProdutosUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
-    idCategoria?: NullableIntFieldUpdateOperationsInput | number | null
+    id_categoria?: NullableIntFieldUpdateOperationsInput | number | null
     nomeProduto?: StringFieldUpdateOperationsInput | string
     descricao?: NullableStringFieldUpdateOperationsInput | string | null
     preco?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: BoolFieldUpdateOperationsInput | boolean
     imagemUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
-    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
     pedidoProdutos?: PedidoProdutosUncheckedUpdateManyWithoutProdutosNestedInput
     grupoComplementos?: GrupoComplementosUncheckedUpdateManyWithoutProdutosNestedInput
   }
 
   export type ProdutosCreateManyInput = {
     id?: number
-    idCategoria?: number | null
+    id_categoria?: number | null
     nomeProduto: string
     descricao?: string | null
     preco?: Decimal | DecimalJsLike | number | string
     status?: boolean
     imagemUrl?: string | null
-    data_criacao?: Date | string
-    data_alteracao?: Date | string
+    dh_criacao?: Date | string
+    dh_alteracao?: Date | string
   }
 
   export type ProdutosUpdateManyMutationInput = {
@@ -14737,20 +19169,20 @@ export namespace Prisma {
     preco?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: BoolFieldUpdateOperationsInput | boolean
     imagemUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
-    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ProdutosUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
-    idCategoria?: NullableIntFieldUpdateOperationsInput | number | null
+    id_categoria?: NullableIntFieldUpdateOperationsInput | number | null
     nomeProduto?: StringFieldUpdateOperationsInput | string
     descricao?: NullableStringFieldUpdateOperationsInput | string | null
     preco?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: BoolFieldUpdateOperationsInput | boolean
     imagemUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
-    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CategoriasCreateInput = {
@@ -14795,8 +19227,8 @@ export namespace Prisma {
     obrigatorio: boolean
     qtdMinComplemento: number
     qtdMaxComplemento: number
-    data_criacao?: Date | string
-    data_alteracao?: Date | string
+    dh_criacao?: Date | string
+    dh_alteracao?: Date | string
     produtos?: ProdutosCreateNestedOneWithoutGrupoComplementosInput
     Complementos?: ComplementosCreateNestedManyWithoutGrupoComplementosInput
   }
@@ -14809,8 +19241,8 @@ export namespace Prisma {
     obrigatorio: boolean
     qtdMinComplemento: number
     qtdMaxComplemento: number
-    data_criacao?: Date | string
-    data_alteracao?: Date | string
+    dh_criacao?: Date | string
+    dh_alteracao?: Date | string
     Complementos?: ComplementosUncheckedCreateNestedManyWithoutGrupoComplementosInput
   }
 
@@ -14820,8 +19252,8 @@ export namespace Prisma {
     obrigatorio?: BoolFieldUpdateOperationsInput | boolean
     qtdMinComplemento?: IntFieldUpdateOperationsInput | number
     qtdMaxComplemento?: IntFieldUpdateOperationsInput | number
-    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
-    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
     produtos?: ProdutosUpdateOneWithoutGrupoComplementosNestedInput
     Complementos?: ComplementosUpdateManyWithoutGrupoComplementosNestedInput
   }
@@ -14834,8 +19266,8 @@ export namespace Prisma {
     obrigatorio?: BoolFieldUpdateOperationsInput | boolean
     qtdMinComplemento?: IntFieldUpdateOperationsInput | number
     qtdMaxComplemento?: IntFieldUpdateOperationsInput | number
-    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
-    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
     Complementos?: ComplementosUncheckedUpdateManyWithoutGrupoComplementosNestedInput
   }
 
@@ -14847,8 +19279,8 @@ export namespace Prisma {
     obrigatorio: boolean
     qtdMinComplemento: number
     qtdMaxComplemento: number
-    data_criacao?: Date | string
-    data_alteracao?: Date | string
+    dh_criacao?: Date | string
+    dh_alteracao?: Date | string
   }
 
   export type GrupoComplementosUpdateManyMutationInput = {
@@ -14857,8 +19289,8 @@ export namespace Prisma {
     obrigatorio?: BoolFieldUpdateOperationsInput | boolean
     qtdMinComplemento?: IntFieldUpdateOperationsInput | number
     qtdMaxComplemento?: IntFieldUpdateOperationsInput | number
-    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
-    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type GrupoComplementosUncheckedUpdateManyInput = {
@@ -14869,8 +19301,8 @@ export namespace Prisma {
     obrigatorio?: BoolFieldUpdateOperationsInput | boolean
     qtdMinComplemento?: IntFieldUpdateOperationsInput | number
     qtdMaxComplemento?: IntFieldUpdateOperationsInput | number
-    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
-    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ComplementosCreateInput = {
@@ -14879,8 +19311,8 @@ export namespace Prisma {
     status?: boolean
     preco?: Decimal | DecimalJsLike | number | string
     imagemUrl?: string | null
-    data_criacao?: Date | string
-    data_alteracao?: Date | string
+    dh_criacao?: Date | string
+    dh_alteracao?: Date | string
     grupoComplementos?: GrupoComplementosCreateNestedOneWithoutComplementosInput
     PedidoProdutoComplementos?: PedidoProdutoComplementosCreateNestedManyWithoutComplementosInput
   }
@@ -14893,8 +19325,8 @@ export namespace Prisma {
     status?: boolean
     preco?: Decimal | DecimalJsLike | number | string
     imagemUrl?: string | null
-    data_criacao?: Date | string
-    data_alteracao?: Date | string
+    dh_criacao?: Date | string
+    dh_alteracao?: Date | string
     PedidoProdutoComplementos?: PedidoProdutoComplementosUncheckedCreateNestedManyWithoutComplementosInput
   }
 
@@ -14904,8 +19336,8 @@ export namespace Prisma {
     status?: BoolFieldUpdateOperationsInput | boolean
     preco?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     imagemUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
-    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
     grupoComplementos?: GrupoComplementosUpdateOneWithoutComplementosNestedInput
     PedidoProdutoComplementos?: PedidoProdutoComplementosUpdateManyWithoutComplementosNestedInput
   }
@@ -14918,8 +19350,8 @@ export namespace Prisma {
     status?: BoolFieldUpdateOperationsInput | boolean
     preco?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     imagemUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
-    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
     PedidoProdutoComplementos?: PedidoProdutoComplementosUncheckedUpdateManyWithoutComplementosNestedInput
   }
 
@@ -14931,8 +19363,8 @@ export namespace Prisma {
     status?: boolean
     preco?: Decimal | DecimalJsLike | number | string
     imagemUrl?: string | null
-    data_criacao?: Date | string
-    data_alteracao?: Date | string
+    dh_criacao?: Date | string
+    dh_alteracao?: Date | string
   }
 
   export type ComplementosUpdateManyMutationInput = {
@@ -14941,8 +19373,8 @@ export namespace Prisma {
     status?: BoolFieldUpdateOperationsInput | boolean
     preco?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     imagemUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
-    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ComplementosUncheckedUpdateManyInput = {
@@ -14953,8 +19385,8 @@ export namespace Prisma {
     status?: BoolFieldUpdateOperationsInput | boolean
     preco?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     imagemUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
-    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type PedidosCreateInput = {
@@ -14965,17 +19397,17 @@ export namespace Prisma {
     valorTaxaDeEntrega?: Decimal | DecimalJsLike | number | string | null
     status: number
     localConsumo: number
-    data_criacao?: Date | string
-    data_alteracao?: Date | string
+    dh_criacao?: Date | string
+    dh_alteracao?: Date | string
     cliente: ClientesCreateNestedOneWithoutPedidosInput
-    usuario: UsuariosCreateNestedOneWithoutPedidosInput
+    empresa: EmpresasCreateNestedOneWithoutPedidosInput
     itensPedido?: PedidoProdutosCreateNestedManyWithoutPedidosInput
   }
 
   export type PedidosUncheckedCreateInput = {
     id?: number
+    id_empresa: number
     idCliente: number
-    idUsuario: number
     nomeCliente: string
     observacao?: string | null
     valorSubTotal?: Decimal | DecimalJsLike | number | string
@@ -14983,8 +19415,8 @@ export namespace Prisma {
     valorTaxaDeEntrega?: Decimal | DecimalJsLike | number | string | null
     status: number
     localConsumo: number
-    data_criacao?: Date | string
-    data_alteracao?: Date | string
+    dh_criacao?: Date | string
+    dh_alteracao?: Date | string
     itensPedido?: PedidoProdutosUncheckedCreateNestedManyWithoutPedidosInput
   }
 
@@ -14996,17 +19428,17 @@ export namespace Prisma {
     valorTaxaDeEntrega?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     status?: IntFieldUpdateOperationsInput | number
     localConsumo?: IntFieldUpdateOperationsInput | number
-    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
-    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
     cliente?: ClientesUpdateOneRequiredWithoutPedidosNestedInput
-    usuario?: UsuariosUpdateOneRequiredWithoutPedidosNestedInput
+    empresa?: EmpresasUpdateOneRequiredWithoutPedidosNestedInput
     itensPedido?: PedidoProdutosUpdateManyWithoutPedidosNestedInput
   }
 
   export type PedidosUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
+    id_empresa?: IntFieldUpdateOperationsInput | number
     idCliente?: IntFieldUpdateOperationsInput | number
-    idUsuario?: IntFieldUpdateOperationsInput | number
     nomeCliente?: StringFieldUpdateOperationsInput | string
     observacao?: NullableStringFieldUpdateOperationsInput | string | null
     valorSubTotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -15014,15 +19446,15 @@ export namespace Prisma {
     valorTaxaDeEntrega?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     status?: IntFieldUpdateOperationsInput | number
     localConsumo?: IntFieldUpdateOperationsInput | number
-    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
-    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
     itensPedido?: PedidoProdutosUncheckedUpdateManyWithoutPedidosNestedInput
   }
 
   export type PedidosCreateManyInput = {
     id?: number
+    id_empresa: number
     idCliente: number
-    idUsuario: number
     nomeCliente: string
     observacao?: string | null
     valorSubTotal?: Decimal | DecimalJsLike | number | string
@@ -15030,8 +19462,8 @@ export namespace Prisma {
     valorTaxaDeEntrega?: Decimal | DecimalJsLike | number | string | null
     status: number
     localConsumo: number
-    data_criacao?: Date | string
-    data_alteracao?: Date | string
+    dh_criacao?: Date | string
+    dh_alteracao?: Date | string
   }
 
   export type PedidosUpdateManyMutationInput = {
@@ -15042,14 +19474,14 @@ export namespace Prisma {
     valorTaxaDeEntrega?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     status?: IntFieldUpdateOperationsInput | number
     localConsumo?: IntFieldUpdateOperationsInput | number
-    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
-    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type PedidosUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
+    id_empresa?: IntFieldUpdateOperationsInput | number
     idCliente?: IntFieldUpdateOperationsInput | number
-    idUsuario?: IntFieldUpdateOperationsInput | number
     nomeCliente?: StringFieldUpdateOperationsInput | string
     observacao?: NullableStringFieldUpdateOperationsInput | string | null
     valorSubTotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -15057,8 +19489,8 @@ export namespace Prisma {
     valorTaxaDeEntrega?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     status?: IntFieldUpdateOperationsInput | number
     localConsumo?: IntFieldUpdateOperationsInput | number
-    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
-    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type PedidoProdutosCreateInput = {
@@ -15072,8 +19504,8 @@ export namespace Prisma {
 
   export type PedidoProdutosUncheckedCreateInput = {
     id?: number
-    idProduto: number
-    idPedido: number
+    id_produto: number
+    id_pedido: number
     precoUnitario: Decimal | DecimalJsLike | number | string
     quantidade: number
     observacaoItem?: string | null
@@ -15091,8 +19523,8 @@ export namespace Prisma {
 
   export type PedidoProdutosUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
-    idProduto?: IntFieldUpdateOperationsInput | number
-    idPedido?: IntFieldUpdateOperationsInput | number
+    id_produto?: IntFieldUpdateOperationsInput | number
+    id_pedido?: IntFieldUpdateOperationsInput | number
     precoUnitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     quantidade?: IntFieldUpdateOperationsInput | number
     observacaoItem?: NullableStringFieldUpdateOperationsInput | string | null
@@ -15101,8 +19533,8 @@ export namespace Prisma {
 
   export type PedidoProdutosCreateManyInput = {
     id?: number
-    idProduto: number
-    idPedido: number
+    id_produto: number
+    id_pedido: number
     precoUnitario: Decimal | DecimalJsLike | number | string
     quantidade: number
     observacaoItem?: string | null
@@ -15116,8 +19548,8 @@ export namespace Prisma {
 
   export type PedidoProdutosUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
-    idProduto?: IntFieldUpdateOperationsInput | number
-    idPedido?: IntFieldUpdateOperationsInput | number
+    id_produto?: IntFieldUpdateOperationsInput | number
+    id_pedido?: IntFieldUpdateOperationsInput | number
     precoUnitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     quantidade?: IntFieldUpdateOperationsInput | number
     observacaoItem?: NullableStringFieldUpdateOperationsInput | string | null
@@ -15177,54 +19609,54 @@ export namespace Prisma {
   export type TaxasDeEntregaCreateInput = {
     bairroRegiao: string
     valor?: Decimal | DecimalJsLike | number | string
-    data_criacao?: Date | string
-    data_alteracao?: Date | string
+    dh_criacao?: Date | string
+    dh_alteracao?: Date | string
   }
 
   export type TaxasDeEntregaUncheckedCreateInput = {
     id?: number
     bairroRegiao: string
     valor?: Decimal | DecimalJsLike | number | string
-    data_criacao?: Date | string
-    data_alteracao?: Date | string
+    dh_criacao?: Date | string
+    dh_alteracao?: Date | string
   }
 
   export type TaxasDeEntregaUpdateInput = {
     bairroRegiao?: StringFieldUpdateOperationsInput | string
     valor?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
-    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type TaxasDeEntregaUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     bairroRegiao?: StringFieldUpdateOperationsInput | string
     valor?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
-    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type TaxasDeEntregaCreateManyInput = {
     id?: number
     bairroRegiao: string
     valor?: Decimal | DecimalJsLike | number | string
-    data_criacao?: Date | string
-    data_alteracao?: Date | string
+    dh_criacao?: Date | string
+    dh_alteracao?: Date | string
   }
 
   export type TaxasDeEntregaUpdateManyMutationInput = {
     bairroRegiao?: StringFieldUpdateOperationsInput | string
     valor?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
-    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type TaxasDeEntregaUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     bairroRegiao?: StringFieldUpdateOperationsInput | string
     valor?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
-    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -15258,6 +19690,17 @@ export namespace Prisma {
     not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type DateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -15269,25 +19712,40 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
-  export type PedidosListRelationFilter = {
-    every?: PedidosWhereInput
-    some?: PedidosWhereInput
-    none?: PedidosWhereInput
+  export type GrupoEmpresasListRelationFilter = {
+    every?: GrupoEmpresasWhereInput
+    some?: GrupoEmpresasWhereInput
+    none?: GrupoEmpresasWhereInput
   }
 
-  export type PedidosOrderByRelationAggregateInput = {
+  export type EmpresaUsuariosListRelationFilter = {
+    every?: EmpresaUsuariosWhereInput
+    some?: EmpresaUsuariosWhereInput
+    none?: EmpresaUsuariosWhereInput
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
+  }
+
+  export type GrupoEmpresasOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type EmpresaUsuariosOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
   export type UsuariosCountOrderByAggregateInput = {
     id?: SortOrder
     nome?: SortOrder
-    usuario?: SortOrder
     senha?: SortOrder
     email?: SortOrder
     status?: SortOrder
-    data_criacao?: SortOrder
-    data_alteracao?: SortOrder
+    dt_nascimento?: SortOrder
+    dh_criacao?: SortOrder
+    dh_alteracao?: SortOrder
   }
 
   export type UsuariosAvgOrderByAggregateInput = {
@@ -15297,23 +19755,23 @@ export namespace Prisma {
   export type UsuariosMaxOrderByAggregateInput = {
     id?: SortOrder
     nome?: SortOrder
-    usuario?: SortOrder
     senha?: SortOrder
     email?: SortOrder
     status?: SortOrder
-    data_criacao?: SortOrder
-    data_alteracao?: SortOrder
+    dt_nascimento?: SortOrder
+    dh_criacao?: SortOrder
+    dh_alteracao?: SortOrder
   }
 
   export type UsuariosMinOrderByAggregateInput = {
     id?: SortOrder
     nome?: SortOrder
-    usuario?: SortOrder
     senha?: SortOrder
     email?: SortOrder
     status?: SortOrder
-    data_criacao?: SortOrder
-    data_alteracao?: SortOrder
+    dt_nascimento?: SortOrder
+    dh_criacao?: SortOrder
+    dh_alteracao?: SortOrder
   }
 
   export type UsuariosSumOrderByAggregateInput = {
@@ -15362,6 +19820,20 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -15374,6 +19846,61 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type UsuariosScalarRelationFilter = {
+    is?: UsuariosWhereInput
+    isNot?: UsuariosWhereInput
+  }
+
+  export type EmpresasScalarRelationFilter = {
+    is?: EmpresasWhereInput
+    isNot?: EmpresasWhereInput
+  }
+
+  export type EmpresaUsuariosCountOrderByAggregateInput = {
+    id?: SortOrder
+    id_usuario?: SortOrder
+    id_empresa?: SortOrder
+    dt_admissao?: SortOrder
+    perfil?: SortOrder
+    status?: SortOrder
+    dh_criacao?: SortOrder
+    dh_alteracao?: SortOrder
+  }
+
+  export type EmpresaUsuariosAvgOrderByAggregateInput = {
+    id?: SortOrder
+    id_usuario?: SortOrder
+    id_empresa?: SortOrder
+  }
+
+  export type EmpresaUsuariosMaxOrderByAggregateInput = {
+    id?: SortOrder
+    id_usuario?: SortOrder
+    id_empresa?: SortOrder
+    dt_admissao?: SortOrder
+    perfil?: SortOrder
+    status?: SortOrder
+    dh_criacao?: SortOrder
+    dh_alteracao?: SortOrder
+  }
+
+  export type EmpresaUsuariosMinOrderByAggregateInput = {
+    id?: SortOrder
+    id_usuario?: SortOrder
+    id_empresa?: SortOrder
+    dt_admissao?: SortOrder
+    perfil?: SortOrder
+    status?: SortOrder
+    dh_criacao?: SortOrder
+    dh_alteracao?: SortOrder
+  }
+
+  export type EmpresaUsuariosSumOrderByAggregateInput = {
+    id?: SortOrder
+    id_usuario?: SortOrder
+    id_empresa?: SortOrder
   }
 
   export type StringNullableFilter<$PrismaModel = never> = {
@@ -15391,80 +19918,79 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
-  export type DecimalFilter<$PrismaModel = never> = {
-    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+  export type PedidosListRelationFilter = {
+    every?: PedidosWhereInput
+    some?: PedidosWhereInput
+    none?: PedidosWhereInput
   }
 
-  export type DateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  export type GrupoEmpresasScalarRelationFilter = {
+    is?: GrupoEmpresasWhereInput
+    isNot?: GrupoEmpresasWhereInput
   }
 
-  export type SortOrderInput = {
-    sort: SortOrder
-    nulls?: NullsOrder
+  export type PedidosOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
-  export type ClientesCountOrderByAggregateInput = {
+  export type EmpresasCountOrderByAggregateInput = {
     id?: SortOrder
-    nome?: SortOrder
-    apelido?: SortOrder
-    endereco?: SortOrder
+    id_grupo_empresas?: SortOrder
+    cod_empresa?: SortOrder
+    cpf_cnpj?: SortOrder
+    xNome?: SortOrder
+    xFant?: SortOrder
+    xLgr?: SortOrder
+    numero?: SortOrder
+    xCpl?: SortOrder
     fone?: SortOrder
     status?: SortOrder
-    limiteCredito?: SortOrder
-    data_nascimento?: SortOrder
-    data_criacao?: SortOrder
-    data_alteracao?: SortOrder
+    dh_criacao?: SortOrder
+    dh_alteracao?: SortOrder
   }
 
-  export type ClientesAvgOrderByAggregateInput = {
+  export type EmpresasAvgOrderByAggregateInput = {
     id?: SortOrder
-    limiteCredito?: SortOrder
+    id_grupo_empresas?: SortOrder
+    cod_empresa?: SortOrder
   }
 
-  export type ClientesMaxOrderByAggregateInput = {
+  export type EmpresasMaxOrderByAggregateInput = {
     id?: SortOrder
-    nome?: SortOrder
-    apelido?: SortOrder
-    endereco?: SortOrder
+    id_grupo_empresas?: SortOrder
+    cod_empresa?: SortOrder
+    cpf_cnpj?: SortOrder
+    xNome?: SortOrder
+    xFant?: SortOrder
+    xLgr?: SortOrder
+    numero?: SortOrder
+    xCpl?: SortOrder
     fone?: SortOrder
     status?: SortOrder
-    limiteCredito?: SortOrder
-    data_nascimento?: SortOrder
-    data_criacao?: SortOrder
-    data_alteracao?: SortOrder
+    dh_criacao?: SortOrder
+    dh_alteracao?: SortOrder
   }
 
-  export type ClientesMinOrderByAggregateInput = {
+  export type EmpresasMinOrderByAggregateInput = {
     id?: SortOrder
-    nome?: SortOrder
-    apelido?: SortOrder
-    endereco?: SortOrder
+    id_grupo_empresas?: SortOrder
+    cod_empresa?: SortOrder
+    cpf_cnpj?: SortOrder
+    xNome?: SortOrder
+    xFant?: SortOrder
+    xLgr?: SortOrder
+    numero?: SortOrder
+    xCpl?: SortOrder
     fone?: SortOrder
     status?: SortOrder
-    limiteCredito?: SortOrder
-    data_nascimento?: SortOrder
-    data_criacao?: SortOrder
-    data_alteracao?: SortOrder
+    dh_criacao?: SortOrder
+    dh_alteracao?: SortOrder
   }
 
-  export type ClientesSumOrderByAggregateInput = {
+  export type EmpresasSumOrderByAggregateInput = {
     id?: SortOrder
-    limiteCredito?: SortOrder
+    id_grupo_empresas?: SortOrder
+    cod_empresa?: SortOrder
   }
 
   export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -15485,6 +20011,111 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
+  export type EmpresasListRelationFilter = {
+    every?: EmpresasWhereInput
+    some?: EmpresasWhereInput
+    none?: EmpresasWhereInput
+  }
+
+  export type EmpresasOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type GrupoEmpresasCountOrderByAggregateInput = {
+    id?: SortOrder
+    id_usuario_proprietario?: SortOrder
+  }
+
+  export type GrupoEmpresasAvgOrderByAggregateInput = {
+    id?: SortOrder
+    id_usuario_proprietario?: SortOrder
+  }
+
+  export type GrupoEmpresasMaxOrderByAggregateInput = {
+    id?: SortOrder
+    id_usuario_proprietario?: SortOrder
+  }
+
+  export type GrupoEmpresasMinOrderByAggregateInput = {
+    id?: SortOrder
+    id_usuario_proprietario?: SortOrder
+  }
+
+  export type GrupoEmpresasSumOrderByAggregateInput = {
+    id?: SortOrder
+    id_usuario_proprietario?: SortOrder
+  }
+
+  export type DecimalFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+  }
+
+  export type ClientesCountOrderByAggregateInput = {
+    id?: SortOrder
+    id_empresa?: SortOrder
+    nome?: SortOrder
+    apelido?: SortOrder
+    endereco?: SortOrder
+    fone?: SortOrder
+    status?: SortOrder
+    limite_credito?: SortOrder
+    data_nascimento?: SortOrder
+    id_usuario_criador?: SortOrder
+    dh_criacao?: SortOrder
+    dh_alteracao?: SortOrder
+  }
+
+  export type ClientesAvgOrderByAggregateInput = {
+    id?: SortOrder
+    id_empresa?: SortOrder
+    limite_credito?: SortOrder
+    id_usuario_criador?: SortOrder
+  }
+
+  export type ClientesMaxOrderByAggregateInput = {
+    id?: SortOrder
+    id_empresa?: SortOrder
+    nome?: SortOrder
+    apelido?: SortOrder
+    endereco?: SortOrder
+    fone?: SortOrder
+    status?: SortOrder
+    limite_credito?: SortOrder
+    data_nascimento?: SortOrder
+    id_usuario_criador?: SortOrder
+    dh_criacao?: SortOrder
+    dh_alteracao?: SortOrder
+  }
+
+  export type ClientesMinOrderByAggregateInput = {
+    id?: SortOrder
+    id_empresa?: SortOrder
+    nome?: SortOrder
+    apelido?: SortOrder
+    endereco?: SortOrder
+    fone?: SortOrder
+    status?: SortOrder
+    limite_credito?: SortOrder
+    data_nascimento?: SortOrder
+    id_usuario_criador?: SortOrder
+    dh_criacao?: SortOrder
+    dh_alteracao?: SortOrder
+  }
+
+  export type ClientesSumOrderByAggregateInput = {
+    id?: SortOrder
+    id_empresa?: SortOrder
+    limite_credito?: SortOrder
+    id_usuario_criador?: SortOrder
+  }
+
   export type DecimalWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
@@ -15499,20 +20130,6 @@ export namespace Prisma {
     _sum?: NestedDecimalFilter<$PrismaModel>
     _min?: NestedDecimalFilter<$PrismaModel>
     _max?: NestedDecimalFilter<$PrismaModel>
-  }
-
-  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type IntNullableFilter<$PrismaModel = never> = {
@@ -15553,49 +20170,49 @@ export namespace Prisma {
 
   export type ProdutosCountOrderByAggregateInput = {
     id?: SortOrder
-    idCategoria?: SortOrder
+    id_categoria?: SortOrder
     nomeProduto?: SortOrder
     descricao?: SortOrder
     preco?: SortOrder
     status?: SortOrder
     imagemUrl?: SortOrder
-    data_criacao?: SortOrder
-    data_alteracao?: SortOrder
+    dh_criacao?: SortOrder
+    dh_alteracao?: SortOrder
   }
 
   export type ProdutosAvgOrderByAggregateInput = {
     id?: SortOrder
-    idCategoria?: SortOrder
+    id_categoria?: SortOrder
     preco?: SortOrder
   }
 
   export type ProdutosMaxOrderByAggregateInput = {
     id?: SortOrder
-    idCategoria?: SortOrder
+    id_categoria?: SortOrder
     nomeProduto?: SortOrder
     descricao?: SortOrder
     preco?: SortOrder
     status?: SortOrder
     imagemUrl?: SortOrder
-    data_criacao?: SortOrder
-    data_alteracao?: SortOrder
+    dh_criacao?: SortOrder
+    dh_alteracao?: SortOrder
   }
 
   export type ProdutosMinOrderByAggregateInput = {
     id?: SortOrder
-    idCategoria?: SortOrder
+    id_categoria?: SortOrder
     nomeProduto?: SortOrder
     descricao?: SortOrder
     preco?: SortOrder
     status?: SortOrder
     imagemUrl?: SortOrder
-    data_criacao?: SortOrder
-    data_alteracao?: SortOrder
+    dh_criacao?: SortOrder
+    dh_alteracao?: SortOrder
   }
 
   export type ProdutosSumOrderByAggregateInput = {
     id?: SortOrder
-    idCategoria?: SortOrder
+    id_categoria?: SortOrder
     preco?: SortOrder
   }
 
@@ -15671,8 +20288,8 @@ export namespace Prisma {
     obrigatorio?: SortOrder
     qtdMinComplemento?: SortOrder
     qtdMaxComplemento?: SortOrder
-    data_criacao?: SortOrder
-    data_alteracao?: SortOrder
+    dh_criacao?: SortOrder
+    dh_alteracao?: SortOrder
   }
 
   export type GrupoComplementosAvgOrderByAggregateInput = {
@@ -15690,8 +20307,8 @@ export namespace Prisma {
     obrigatorio?: SortOrder
     qtdMinComplemento?: SortOrder
     qtdMaxComplemento?: SortOrder
-    data_criacao?: SortOrder
-    data_alteracao?: SortOrder
+    dh_criacao?: SortOrder
+    dh_alteracao?: SortOrder
   }
 
   export type GrupoComplementosMinOrderByAggregateInput = {
@@ -15702,8 +20319,8 @@ export namespace Prisma {
     obrigatorio?: SortOrder
     qtdMinComplemento?: SortOrder
     qtdMaxComplemento?: SortOrder
-    data_criacao?: SortOrder
-    data_alteracao?: SortOrder
+    dh_criacao?: SortOrder
+    dh_alteracao?: SortOrder
   }
 
   export type GrupoComplementosSumOrderByAggregateInput = {
@@ -15736,8 +20353,8 @@ export namespace Prisma {
     status?: SortOrder
     preco?: SortOrder
     imagemUrl?: SortOrder
-    data_criacao?: SortOrder
-    data_alteracao?: SortOrder
+    dh_criacao?: SortOrder
+    dh_alteracao?: SortOrder
   }
 
   export type ComplementosAvgOrderByAggregateInput = {
@@ -15754,8 +20371,8 @@ export namespace Prisma {
     status?: SortOrder
     preco?: SortOrder
     imagemUrl?: SortOrder
-    data_criacao?: SortOrder
-    data_alteracao?: SortOrder
+    dh_criacao?: SortOrder
+    dh_alteracao?: SortOrder
   }
 
   export type ComplementosMinOrderByAggregateInput = {
@@ -15766,8 +20383,8 @@ export namespace Prisma {
     status?: SortOrder
     preco?: SortOrder
     imagemUrl?: SortOrder
-    data_criacao?: SortOrder
-    data_alteracao?: SortOrder
+    dh_criacao?: SortOrder
+    dh_alteracao?: SortOrder
   }
 
   export type ComplementosSumOrderByAggregateInput = {
@@ -15792,15 +20409,10 @@ export namespace Prisma {
     isNot?: ClientesWhereInput
   }
 
-  export type UsuariosScalarRelationFilter = {
-    is?: UsuariosWhereInput
-    isNot?: UsuariosWhereInput
-  }
-
   export type PedidosCountOrderByAggregateInput = {
     id?: SortOrder
+    id_empresa?: SortOrder
     idCliente?: SortOrder
-    idUsuario?: SortOrder
     nomeCliente?: SortOrder
     observacao?: SortOrder
     valorSubTotal?: SortOrder
@@ -15808,14 +20420,14 @@ export namespace Prisma {
     valorTaxaDeEntrega?: SortOrder
     status?: SortOrder
     localConsumo?: SortOrder
-    data_criacao?: SortOrder
-    data_alteracao?: SortOrder
+    dh_criacao?: SortOrder
+    dh_alteracao?: SortOrder
   }
 
   export type PedidosAvgOrderByAggregateInput = {
     id?: SortOrder
+    id_empresa?: SortOrder
     idCliente?: SortOrder
-    idUsuario?: SortOrder
     valorSubTotal?: SortOrder
     valorTotal?: SortOrder
     valorTaxaDeEntrega?: SortOrder
@@ -15825,8 +20437,8 @@ export namespace Prisma {
 
   export type PedidosMaxOrderByAggregateInput = {
     id?: SortOrder
+    id_empresa?: SortOrder
     idCliente?: SortOrder
-    idUsuario?: SortOrder
     nomeCliente?: SortOrder
     observacao?: SortOrder
     valorSubTotal?: SortOrder
@@ -15834,14 +20446,14 @@ export namespace Prisma {
     valorTaxaDeEntrega?: SortOrder
     status?: SortOrder
     localConsumo?: SortOrder
-    data_criacao?: SortOrder
-    data_alteracao?: SortOrder
+    dh_criacao?: SortOrder
+    dh_alteracao?: SortOrder
   }
 
   export type PedidosMinOrderByAggregateInput = {
     id?: SortOrder
+    id_empresa?: SortOrder
     idCliente?: SortOrder
-    idUsuario?: SortOrder
     nomeCliente?: SortOrder
     observacao?: SortOrder
     valorSubTotal?: SortOrder
@@ -15849,14 +20461,14 @@ export namespace Prisma {
     valorTaxaDeEntrega?: SortOrder
     status?: SortOrder
     localConsumo?: SortOrder
-    data_criacao?: SortOrder
-    data_alteracao?: SortOrder
+    dh_criacao?: SortOrder
+    dh_alteracao?: SortOrder
   }
 
   export type PedidosSumOrderByAggregateInput = {
     id?: SortOrder
+    id_empresa?: SortOrder
     idCliente?: SortOrder
-    idUsuario?: SortOrder
     valorSubTotal?: SortOrder
     valorTotal?: SortOrder
     valorTaxaDeEntrega?: SortOrder
@@ -15892,8 +20504,8 @@ export namespace Prisma {
 
   export type PedidoProdutosCountOrderByAggregateInput = {
     id?: SortOrder
-    idProduto?: SortOrder
-    idPedido?: SortOrder
+    id_produto?: SortOrder
+    id_pedido?: SortOrder
     precoUnitario?: SortOrder
     quantidade?: SortOrder
     observacaoItem?: SortOrder
@@ -15901,16 +20513,16 @@ export namespace Prisma {
 
   export type PedidoProdutosAvgOrderByAggregateInput = {
     id?: SortOrder
-    idProduto?: SortOrder
-    idPedido?: SortOrder
+    id_produto?: SortOrder
+    id_pedido?: SortOrder
     precoUnitario?: SortOrder
     quantidade?: SortOrder
   }
 
   export type PedidoProdutosMaxOrderByAggregateInput = {
     id?: SortOrder
-    idProduto?: SortOrder
-    idPedido?: SortOrder
+    id_produto?: SortOrder
+    id_pedido?: SortOrder
     precoUnitario?: SortOrder
     quantidade?: SortOrder
     observacaoItem?: SortOrder
@@ -15918,8 +20530,8 @@ export namespace Prisma {
 
   export type PedidoProdutosMinOrderByAggregateInput = {
     id?: SortOrder
-    idProduto?: SortOrder
-    idPedido?: SortOrder
+    id_produto?: SortOrder
+    id_pedido?: SortOrder
     precoUnitario?: SortOrder
     quantidade?: SortOrder
     observacaoItem?: SortOrder
@@ -15927,8 +20539,8 @@ export namespace Prisma {
 
   export type PedidoProdutosSumOrderByAggregateInput = {
     id?: SortOrder
-    idProduto?: SortOrder
-    idPedido?: SortOrder
+    id_produto?: SortOrder
+    id_pedido?: SortOrder
     precoUnitario?: SortOrder
     quantidade?: SortOrder
   }
@@ -15987,8 +20599,8 @@ export namespace Prisma {
     id?: SortOrder
     bairroRegiao?: SortOrder
     valor?: SortOrder
-    data_criacao?: SortOrder
-    data_alteracao?: SortOrder
+    dh_criacao?: SortOrder
+    dh_alteracao?: SortOrder
   }
 
   export type TaxasDeEntregaAvgOrderByAggregateInput = {
@@ -16000,16 +20612,16 @@ export namespace Prisma {
     id?: SortOrder
     bairroRegiao?: SortOrder
     valor?: SortOrder
-    data_criacao?: SortOrder
-    data_alteracao?: SortOrder
+    dh_criacao?: SortOrder
+    dh_alteracao?: SortOrder
   }
 
   export type TaxasDeEntregaMinOrderByAggregateInput = {
     id?: SortOrder
     bairroRegiao?: SortOrder
     valor?: SortOrder
-    data_criacao?: SortOrder
-    data_alteracao?: SortOrder
+    dh_criacao?: SortOrder
+    dh_alteracao?: SortOrder
   }
 
   export type TaxasDeEntregaSumOrderByAggregateInput = {
@@ -16017,18 +20629,32 @@ export namespace Prisma {
     valor?: SortOrder
   }
 
-  export type PedidosCreateNestedManyWithoutUsuarioInput = {
-    create?: XOR<PedidosCreateWithoutUsuarioInput, PedidosUncheckedCreateWithoutUsuarioInput> | PedidosCreateWithoutUsuarioInput[] | PedidosUncheckedCreateWithoutUsuarioInput[]
-    connectOrCreate?: PedidosCreateOrConnectWithoutUsuarioInput | PedidosCreateOrConnectWithoutUsuarioInput[]
-    createMany?: PedidosCreateManyUsuarioInputEnvelope
-    connect?: PedidosWhereUniqueInput | PedidosWhereUniqueInput[]
+  export type GrupoEmpresasCreateNestedManyWithoutUsuarioInput = {
+    create?: XOR<GrupoEmpresasCreateWithoutUsuarioInput, GrupoEmpresasUncheckedCreateWithoutUsuarioInput> | GrupoEmpresasCreateWithoutUsuarioInput[] | GrupoEmpresasUncheckedCreateWithoutUsuarioInput[]
+    connectOrCreate?: GrupoEmpresasCreateOrConnectWithoutUsuarioInput | GrupoEmpresasCreateOrConnectWithoutUsuarioInput[]
+    createMany?: GrupoEmpresasCreateManyUsuarioInputEnvelope
+    connect?: GrupoEmpresasWhereUniqueInput | GrupoEmpresasWhereUniqueInput[]
   }
 
-  export type PedidosUncheckedCreateNestedManyWithoutUsuarioInput = {
-    create?: XOR<PedidosCreateWithoutUsuarioInput, PedidosUncheckedCreateWithoutUsuarioInput> | PedidosCreateWithoutUsuarioInput[] | PedidosUncheckedCreateWithoutUsuarioInput[]
-    connectOrCreate?: PedidosCreateOrConnectWithoutUsuarioInput | PedidosCreateOrConnectWithoutUsuarioInput[]
-    createMany?: PedidosCreateManyUsuarioInputEnvelope
-    connect?: PedidosWhereUniqueInput | PedidosWhereUniqueInput[]
+  export type EmpresaUsuariosCreateNestedManyWithoutUsuarioInput = {
+    create?: XOR<EmpresaUsuariosCreateWithoutUsuarioInput, EmpresaUsuariosUncheckedCreateWithoutUsuarioInput> | EmpresaUsuariosCreateWithoutUsuarioInput[] | EmpresaUsuariosUncheckedCreateWithoutUsuarioInput[]
+    connectOrCreate?: EmpresaUsuariosCreateOrConnectWithoutUsuarioInput | EmpresaUsuariosCreateOrConnectWithoutUsuarioInput[]
+    createMany?: EmpresaUsuariosCreateManyUsuarioInputEnvelope
+    connect?: EmpresaUsuariosWhereUniqueInput | EmpresaUsuariosWhereUniqueInput[]
+  }
+
+  export type GrupoEmpresasUncheckedCreateNestedManyWithoutUsuarioInput = {
+    create?: XOR<GrupoEmpresasCreateWithoutUsuarioInput, GrupoEmpresasUncheckedCreateWithoutUsuarioInput> | GrupoEmpresasCreateWithoutUsuarioInput[] | GrupoEmpresasUncheckedCreateWithoutUsuarioInput[]
+    connectOrCreate?: GrupoEmpresasCreateOrConnectWithoutUsuarioInput | GrupoEmpresasCreateOrConnectWithoutUsuarioInput[]
+    createMany?: GrupoEmpresasCreateManyUsuarioInputEnvelope
+    connect?: GrupoEmpresasWhereUniqueInput | GrupoEmpresasWhereUniqueInput[]
+  }
+
+  export type EmpresaUsuariosUncheckedCreateNestedManyWithoutUsuarioInput = {
+    create?: XOR<EmpresaUsuariosCreateWithoutUsuarioInput, EmpresaUsuariosUncheckedCreateWithoutUsuarioInput> | EmpresaUsuariosCreateWithoutUsuarioInput[] | EmpresaUsuariosUncheckedCreateWithoutUsuarioInput[]
+    connectOrCreate?: EmpresaUsuariosCreateOrConnectWithoutUsuarioInput | EmpresaUsuariosCreateOrConnectWithoutUsuarioInput[]
+    createMany?: EmpresaUsuariosCreateManyUsuarioInputEnvelope
+    connect?: EmpresaUsuariosWhereUniqueInput | EmpresaUsuariosWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -16039,22 +20665,40 @@ export namespace Prisma {
     set?: boolean
   }
 
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
+  }
+
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
   }
 
-  export type PedidosUpdateManyWithoutUsuarioNestedInput = {
-    create?: XOR<PedidosCreateWithoutUsuarioInput, PedidosUncheckedCreateWithoutUsuarioInput> | PedidosCreateWithoutUsuarioInput[] | PedidosUncheckedCreateWithoutUsuarioInput[]
-    connectOrCreate?: PedidosCreateOrConnectWithoutUsuarioInput | PedidosCreateOrConnectWithoutUsuarioInput[]
-    upsert?: PedidosUpsertWithWhereUniqueWithoutUsuarioInput | PedidosUpsertWithWhereUniqueWithoutUsuarioInput[]
-    createMany?: PedidosCreateManyUsuarioInputEnvelope
-    set?: PedidosWhereUniqueInput | PedidosWhereUniqueInput[]
-    disconnect?: PedidosWhereUniqueInput | PedidosWhereUniqueInput[]
-    delete?: PedidosWhereUniqueInput | PedidosWhereUniqueInput[]
-    connect?: PedidosWhereUniqueInput | PedidosWhereUniqueInput[]
-    update?: PedidosUpdateWithWhereUniqueWithoutUsuarioInput | PedidosUpdateWithWhereUniqueWithoutUsuarioInput[]
-    updateMany?: PedidosUpdateManyWithWhereWithoutUsuarioInput | PedidosUpdateManyWithWhereWithoutUsuarioInput[]
-    deleteMany?: PedidosScalarWhereInput | PedidosScalarWhereInput[]
+  export type GrupoEmpresasUpdateManyWithoutUsuarioNestedInput = {
+    create?: XOR<GrupoEmpresasCreateWithoutUsuarioInput, GrupoEmpresasUncheckedCreateWithoutUsuarioInput> | GrupoEmpresasCreateWithoutUsuarioInput[] | GrupoEmpresasUncheckedCreateWithoutUsuarioInput[]
+    connectOrCreate?: GrupoEmpresasCreateOrConnectWithoutUsuarioInput | GrupoEmpresasCreateOrConnectWithoutUsuarioInput[]
+    upsert?: GrupoEmpresasUpsertWithWhereUniqueWithoutUsuarioInput | GrupoEmpresasUpsertWithWhereUniqueWithoutUsuarioInput[]
+    createMany?: GrupoEmpresasCreateManyUsuarioInputEnvelope
+    set?: GrupoEmpresasWhereUniqueInput | GrupoEmpresasWhereUniqueInput[]
+    disconnect?: GrupoEmpresasWhereUniqueInput | GrupoEmpresasWhereUniqueInput[]
+    delete?: GrupoEmpresasWhereUniqueInput | GrupoEmpresasWhereUniqueInput[]
+    connect?: GrupoEmpresasWhereUniqueInput | GrupoEmpresasWhereUniqueInput[]
+    update?: GrupoEmpresasUpdateWithWhereUniqueWithoutUsuarioInput | GrupoEmpresasUpdateWithWhereUniqueWithoutUsuarioInput[]
+    updateMany?: GrupoEmpresasUpdateManyWithWhereWithoutUsuarioInput | GrupoEmpresasUpdateManyWithWhereWithoutUsuarioInput[]
+    deleteMany?: GrupoEmpresasScalarWhereInput | GrupoEmpresasScalarWhereInput[]
+  }
+
+  export type EmpresaUsuariosUpdateManyWithoutUsuarioNestedInput = {
+    create?: XOR<EmpresaUsuariosCreateWithoutUsuarioInput, EmpresaUsuariosUncheckedCreateWithoutUsuarioInput> | EmpresaUsuariosCreateWithoutUsuarioInput[] | EmpresaUsuariosUncheckedCreateWithoutUsuarioInput[]
+    connectOrCreate?: EmpresaUsuariosCreateOrConnectWithoutUsuarioInput | EmpresaUsuariosCreateOrConnectWithoutUsuarioInput[]
+    upsert?: EmpresaUsuariosUpsertWithWhereUniqueWithoutUsuarioInput | EmpresaUsuariosUpsertWithWhereUniqueWithoutUsuarioInput[]
+    createMany?: EmpresaUsuariosCreateManyUsuarioInputEnvelope
+    set?: EmpresaUsuariosWhereUniqueInput | EmpresaUsuariosWhereUniqueInput[]
+    disconnect?: EmpresaUsuariosWhereUniqueInput | EmpresaUsuariosWhereUniqueInput[]
+    delete?: EmpresaUsuariosWhereUniqueInput | EmpresaUsuariosWhereUniqueInput[]
+    connect?: EmpresaUsuariosWhereUniqueInput | EmpresaUsuariosWhereUniqueInput[]
+    update?: EmpresaUsuariosUpdateWithWhereUniqueWithoutUsuarioInput | EmpresaUsuariosUpdateWithWhereUniqueWithoutUsuarioInput[]
+    updateMany?: EmpresaUsuariosUpdateManyWithWhereWithoutUsuarioInput | EmpresaUsuariosUpdateManyWithWhereWithoutUsuarioInput[]
+    deleteMany?: EmpresaUsuariosScalarWhereInput | EmpresaUsuariosScalarWhereInput[]
   }
 
   export type IntFieldUpdateOperationsInput = {
@@ -16065,18 +20709,218 @@ export namespace Prisma {
     divide?: number
   }
 
-  export type PedidosUncheckedUpdateManyWithoutUsuarioNestedInput = {
-    create?: XOR<PedidosCreateWithoutUsuarioInput, PedidosUncheckedCreateWithoutUsuarioInput> | PedidosCreateWithoutUsuarioInput[] | PedidosUncheckedCreateWithoutUsuarioInput[]
-    connectOrCreate?: PedidosCreateOrConnectWithoutUsuarioInput | PedidosCreateOrConnectWithoutUsuarioInput[]
-    upsert?: PedidosUpsertWithWhereUniqueWithoutUsuarioInput | PedidosUpsertWithWhereUniqueWithoutUsuarioInput[]
-    createMany?: PedidosCreateManyUsuarioInputEnvelope
+  export type GrupoEmpresasUncheckedUpdateManyWithoutUsuarioNestedInput = {
+    create?: XOR<GrupoEmpresasCreateWithoutUsuarioInput, GrupoEmpresasUncheckedCreateWithoutUsuarioInput> | GrupoEmpresasCreateWithoutUsuarioInput[] | GrupoEmpresasUncheckedCreateWithoutUsuarioInput[]
+    connectOrCreate?: GrupoEmpresasCreateOrConnectWithoutUsuarioInput | GrupoEmpresasCreateOrConnectWithoutUsuarioInput[]
+    upsert?: GrupoEmpresasUpsertWithWhereUniqueWithoutUsuarioInput | GrupoEmpresasUpsertWithWhereUniqueWithoutUsuarioInput[]
+    createMany?: GrupoEmpresasCreateManyUsuarioInputEnvelope
+    set?: GrupoEmpresasWhereUniqueInput | GrupoEmpresasWhereUniqueInput[]
+    disconnect?: GrupoEmpresasWhereUniqueInput | GrupoEmpresasWhereUniqueInput[]
+    delete?: GrupoEmpresasWhereUniqueInput | GrupoEmpresasWhereUniqueInput[]
+    connect?: GrupoEmpresasWhereUniqueInput | GrupoEmpresasWhereUniqueInput[]
+    update?: GrupoEmpresasUpdateWithWhereUniqueWithoutUsuarioInput | GrupoEmpresasUpdateWithWhereUniqueWithoutUsuarioInput[]
+    updateMany?: GrupoEmpresasUpdateManyWithWhereWithoutUsuarioInput | GrupoEmpresasUpdateManyWithWhereWithoutUsuarioInput[]
+    deleteMany?: GrupoEmpresasScalarWhereInput | GrupoEmpresasScalarWhereInput[]
+  }
+
+  export type EmpresaUsuariosUncheckedUpdateManyWithoutUsuarioNestedInput = {
+    create?: XOR<EmpresaUsuariosCreateWithoutUsuarioInput, EmpresaUsuariosUncheckedCreateWithoutUsuarioInput> | EmpresaUsuariosCreateWithoutUsuarioInput[] | EmpresaUsuariosUncheckedCreateWithoutUsuarioInput[]
+    connectOrCreate?: EmpresaUsuariosCreateOrConnectWithoutUsuarioInput | EmpresaUsuariosCreateOrConnectWithoutUsuarioInput[]
+    upsert?: EmpresaUsuariosUpsertWithWhereUniqueWithoutUsuarioInput | EmpresaUsuariosUpsertWithWhereUniqueWithoutUsuarioInput[]
+    createMany?: EmpresaUsuariosCreateManyUsuarioInputEnvelope
+    set?: EmpresaUsuariosWhereUniqueInput | EmpresaUsuariosWhereUniqueInput[]
+    disconnect?: EmpresaUsuariosWhereUniqueInput | EmpresaUsuariosWhereUniqueInput[]
+    delete?: EmpresaUsuariosWhereUniqueInput | EmpresaUsuariosWhereUniqueInput[]
+    connect?: EmpresaUsuariosWhereUniqueInput | EmpresaUsuariosWhereUniqueInput[]
+    update?: EmpresaUsuariosUpdateWithWhereUniqueWithoutUsuarioInput | EmpresaUsuariosUpdateWithWhereUniqueWithoutUsuarioInput[]
+    updateMany?: EmpresaUsuariosUpdateManyWithWhereWithoutUsuarioInput | EmpresaUsuariosUpdateManyWithWhereWithoutUsuarioInput[]
+    deleteMany?: EmpresaUsuariosScalarWhereInput | EmpresaUsuariosScalarWhereInput[]
+  }
+
+  export type UsuariosCreateNestedOneWithoutEmpresaUsuariosInput = {
+    create?: XOR<UsuariosCreateWithoutEmpresaUsuariosInput, UsuariosUncheckedCreateWithoutEmpresaUsuariosInput>
+    connectOrCreate?: UsuariosCreateOrConnectWithoutEmpresaUsuariosInput
+    connect?: UsuariosWhereUniqueInput
+  }
+
+  export type EmpresasCreateNestedOneWithoutEmpresaUsuariosInput = {
+    create?: XOR<EmpresasCreateWithoutEmpresaUsuariosInput, EmpresasUncheckedCreateWithoutEmpresaUsuariosInput>
+    connectOrCreate?: EmpresasCreateOrConnectWithoutEmpresaUsuariosInput
+    connect?: EmpresasWhereUniqueInput
+  }
+
+  export type UsuariosUpdateOneRequiredWithoutEmpresaUsuariosNestedInput = {
+    create?: XOR<UsuariosCreateWithoutEmpresaUsuariosInput, UsuariosUncheckedCreateWithoutEmpresaUsuariosInput>
+    connectOrCreate?: UsuariosCreateOrConnectWithoutEmpresaUsuariosInput
+    upsert?: UsuariosUpsertWithoutEmpresaUsuariosInput
+    connect?: UsuariosWhereUniqueInput
+    update?: XOR<XOR<UsuariosUpdateToOneWithWhereWithoutEmpresaUsuariosInput, UsuariosUpdateWithoutEmpresaUsuariosInput>, UsuariosUncheckedUpdateWithoutEmpresaUsuariosInput>
+  }
+
+  export type EmpresasUpdateOneRequiredWithoutEmpresaUsuariosNestedInput = {
+    create?: XOR<EmpresasCreateWithoutEmpresaUsuariosInput, EmpresasUncheckedCreateWithoutEmpresaUsuariosInput>
+    connectOrCreate?: EmpresasCreateOrConnectWithoutEmpresaUsuariosInput
+    upsert?: EmpresasUpsertWithoutEmpresaUsuariosInput
+    connect?: EmpresasWhereUniqueInput
+    update?: XOR<XOR<EmpresasUpdateToOneWithWhereWithoutEmpresaUsuariosInput, EmpresasUpdateWithoutEmpresaUsuariosInput>, EmpresasUncheckedUpdateWithoutEmpresaUsuariosInput>
+  }
+
+  export type PedidosCreateNestedManyWithoutEmpresaInput = {
+    create?: XOR<PedidosCreateWithoutEmpresaInput, PedidosUncheckedCreateWithoutEmpresaInput> | PedidosCreateWithoutEmpresaInput[] | PedidosUncheckedCreateWithoutEmpresaInput[]
+    connectOrCreate?: PedidosCreateOrConnectWithoutEmpresaInput | PedidosCreateOrConnectWithoutEmpresaInput[]
+    createMany?: PedidosCreateManyEmpresaInputEnvelope
+    connect?: PedidosWhereUniqueInput | PedidosWhereUniqueInput[]
+  }
+
+  export type GrupoEmpresasCreateNestedOneWithoutEmpresasInput = {
+    create?: XOR<GrupoEmpresasCreateWithoutEmpresasInput, GrupoEmpresasUncheckedCreateWithoutEmpresasInput>
+    connectOrCreate?: GrupoEmpresasCreateOrConnectWithoutEmpresasInput
+    connect?: GrupoEmpresasWhereUniqueInput
+  }
+
+  export type EmpresaUsuariosCreateNestedManyWithoutEmpresaInput = {
+    create?: XOR<EmpresaUsuariosCreateWithoutEmpresaInput, EmpresaUsuariosUncheckedCreateWithoutEmpresaInput> | EmpresaUsuariosCreateWithoutEmpresaInput[] | EmpresaUsuariosUncheckedCreateWithoutEmpresaInput[]
+    connectOrCreate?: EmpresaUsuariosCreateOrConnectWithoutEmpresaInput | EmpresaUsuariosCreateOrConnectWithoutEmpresaInput[]
+    createMany?: EmpresaUsuariosCreateManyEmpresaInputEnvelope
+    connect?: EmpresaUsuariosWhereUniqueInput | EmpresaUsuariosWhereUniqueInput[]
+  }
+
+  export type PedidosUncheckedCreateNestedManyWithoutEmpresaInput = {
+    create?: XOR<PedidosCreateWithoutEmpresaInput, PedidosUncheckedCreateWithoutEmpresaInput> | PedidosCreateWithoutEmpresaInput[] | PedidosUncheckedCreateWithoutEmpresaInput[]
+    connectOrCreate?: PedidosCreateOrConnectWithoutEmpresaInput | PedidosCreateOrConnectWithoutEmpresaInput[]
+    createMany?: PedidosCreateManyEmpresaInputEnvelope
+    connect?: PedidosWhereUniqueInput | PedidosWhereUniqueInput[]
+  }
+
+  export type EmpresaUsuariosUncheckedCreateNestedManyWithoutEmpresaInput = {
+    create?: XOR<EmpresaUsuariosCreateWithoutEmpresaInput, EmpresaUsuariosUncheckedCreateWithoutEmpresaInput> | EmpresaUsuariosCreateWithoutEmpresaInput[] | EmpresaUsuariosUncheckedCreateWithoutEmpresaInput[]
+    connectOrCreate?: EmpresaUsuariosCreateOrConnectWithoutEmpresaInput | EmpresaUsuariosCreateOrConnectWithoutEmpresaInput[]
+    createMany?: EmpresaUsuariosCreateManyEmpresaInputEnvelope
+    connect?: EmpresaUsuariosWhereUniqueInput | EmpresaUsuariosWhereUniqueInput[]
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
+  export type PedidosUpdateManyWithoutEmpresaNestedInput = {
+    create?: XOR<PedidosCreateWithoutEmpresaInput, PedidosUncheckedCreateWithoutEmpresaInput> | PedidosCreateWithoutEmpresaInput[] | PedidosUncheckedCreateWithoutEmpresaInput[]
+    connectOrCreate?: PedidosCreateOrConnectWithoutEmpresaInput | PedidosCreateOrConnectWithoutEmpresaInput[]
+    upsert?: PedidosUpsertWithWhereUniqueWithoutEmpresaInput | PedidosUpsertWithWhereUniqueWithoutEmpresaInput[]
+    createMany?: PedidosCreateManyEmpresaInputEnvelope
     set?: PedidosWhereUniqueInput | PedidosWhereUniqueInput[]
     disconnect?: PedidosWhereUniqueInput | PedidosWhereUniqueInput[]
     delete?: PedidosWhereUniqueInput | PedidosWhereUniqueInput[]
     connect?: PedidosWhereUniqueInput | PedidosWhereUniqueInput[]
-    update?: PedidosUpdateWithWhereUniqueWithoutUsuarioInput | PedidosUpdateWithWhereUniqueWithoutUsuarioInput[]
-    updateMany?: PedidosUpdateManyWithWhereWithoutUsuarioInput | PedidosUpdateManyWithWhereWithoutUsuarioInput[]
+    update?: PedidosUpdateWithWhereUniqueWithoutEmpresaInput | PedidosUpdateWithWhereUniqueWithoutEmpresaInput[]
+    updateMany?: PedidosUpdateManyWithWhereWithoutEmpresaInput | PedidosUpdateManyWithWhereWithoutEmpresaInput[]
     deleteMany?: PedidosScalarWhereInput | PedidosScalarWhereInput[]
+  }
+
+  export type GrupoEmpresasUpdateOneRequiredWithoutEmpresasNestedInput = {
+    create?: XOR<GrupoEmpresasCreateWithoutEmpresasInput, GrupoEmpresasUncheckedCreateWithoutEmpresasInput>
+    connectOrCreate?: GrupoEmpresasCreateOrConnectWithoutEmpresasInput
+    upsert?: GrupoEmpresasUpsertWithoutEmpresasInput
+    connect?: GrupoEmpresasWhereUniqueInput
+    update?: XOR<XOR<GrupoEmpresasUpdateToOneWithWhereWithoutEmpresasInput, GrupoEmpresasUpdateWithoutEmpresasInput>, GrupoEmpresasUncheckedUpdateWithoutEmpresasInput>
+  }
+
+  export type EmpresaUsuariosUpdateManyWithoutEmpresaNestedInput = {
+    create?: XOR<EmpresaUsuariosCreateWithoutEmpresaInput, EmpresaUsuariosUncheckedCreateWithoutEmpresaInput> | EmpresaUsuariosCreateWithoutEmpresaInput[] | EmpresaUsuariosUncheckedCreateWithoutEmpresaInput[]
+    connectOrCreate?: EmpresaUsuariosCreateOrConnectWithoutEmpresaInput | EmpresaUsuariosCreateOrConnectWithoutEmpresaInput[]
+    upsert?: EmpresaUsuariosUpsertWithWhereUniqueWithoutEmpresaInput | EmpresaUsuariosUpsertWithWhereUniqueWithoutEmpresaInput[]
+    createMany?: EmpresaUsuariosCreateManyEmpresaInputEnvelope
+    set?: EmpresaUsuariosWhereUniqueInput | EmpresaUsuariosWhereUniqueInput[]
+    disconnect?: EmpresaUsuariosWhereUniqueInput | EmpresaUsuariosWhereUniqueInput[]
+    delete?: EmpresaUsuariosWhereUniqueInput | EmpresaUsuariosWhereUniqueInput[]
+    connect?: EmpresaUsuariosWhereUniqueInput | EmpresaUsuariosWhereUniqueInput[]
+    update?: EmpresaUsuariosUpdateWithWhereUniqueWithoutEmpresaInput | EmpresaUsuariosUpdateWithWhereUniqueWithoutEmpresaInput[]
+    updateMany?: EmpresaUsuariosUpdateManyWithWhereWithoutEmpresaInput | EmpresaUsuariosUpdateManyWithWhereWithoutEmpresaInput[]
+    deleteMany?: EmpresaUsuariosScalarWhereInput | EmpresaUsuariosScalarWhereInput[]
+  }
+
+  export type PedidosUncheckedUpdateManyWithoutEmpresaNestedInput = {
+    create?: XOR<PedidosCreateWithoutEmpresaInput, PedidosUncheckedCreateWithoutEmpresaInput> | PedidosCreateWithoutEmpresaInput[] | PedidosUncheckedCreateWithoutEmpresaInput[]
+    connectOrCreate?: PedidosCreateOrConnectWithoutEmpresaInput | PedidosCreateOrConnectWithoutEmpresaInput[]
+    upsert?: PedidosUpsertWithWhereUniqueWithoutEmpresaInput | PedidosUpsertWithWhereUniqueWithoutEmpresaInput[]
+    createMany?: PedidosCreateManyEmpresaInputEnvelope
+    set?: PedidosWhereUniqueInput | PedidosWhereUniqueInput[]
+    disconnect?: PedidosWhereUniqueInput | PedidosWhereUniqueInput[]
+    delete?: PedidosWhereUniqueInput | PedidosWhereUniqueInput[]
+    connect?: PedidosWhereUniqueInput | PedidosWhereUniqueInput[]
+    update?: PedidosUpdateWithWhereUniqueWithoutEmpresaInput | PedidosUpdateWithWhereUniqueWithoutEmpresaInput[]
+    updateMany?: PedidosUpdateManyWithWhereWithoutEmpresaInput | PedidosUpdateManyWithWhereWithoutEmpresaInput[]
+    deleteMany?: PedidosScalarWhereInput | PedidosScalarWhereInput[]
+  }
+
+  export type EmpresaUsuariosUncheckedUpdateManyWithoutEmpresaNestedInput = {
+    create?: XOR<EmpresaUsuariosCreateWithoutEmpresaInput, EmpresaUsuariosUncheckedCreateWithoutEmpresaInput> | EmpresaUsuariosCreateWithoutEmpresaInput[] | EmpresaUsuariosUncheckedCreateWithoutEmpresaInput[]
+    connectOrCreate?: EmpresaUsuariosCreateOrConnectWithoutEmpresaInput | EmpresaUsuariosCreateOrConnectWithoutEmpresaInput[]
+    upsert?: EmpresaUsuariosUpsertWithWhereUniqueWithoutEmpresaInput | EmpresaUsuariosUpsertWithWhereUniqueWithoutEmpresaInput[]
+    createMany?: EmpresaUsuariosCreateManyEmpresaInputEnvelope
+    set?: EmpresaUsuariosWhereUniqueInput | EmpresaUsuariosWhereUniqueInput[]
+    disconnect?: EmpresaUsuariosWhereUniqueInput | EmpresaUsuariosWhereUniqueInput[]
+    delete?: EmpresaUsuariosWhereUniqueInput | EmpresaUsuariosWhereUniqueInput[]
+    connect?: EmpresaUsuariosWhereUniqueInput | EmpresaUsuariosWhereUniqueInput[]
+    update?: EmpresaUsuariosUpdateWithWhereUniqueWithoutEmpresaInput | EmpresaUsuariosUpdateWithWhereUniqueWithoutEmpresaInput[]
+    updateMany?: EmpresaUsuariosUpdateManyWithWhereWithoutEmpresaInput | EmpresaUsuariosUpdateManyWithWhereWithoutEmpresaInput[]
+    deleteMany?: EmpresaUsuariosScalarWhereInput | EmpresaUsuariosScalarWhereInput[]
+  }
+
+  export type UsuariosCreateNestedOneWithoutGrupoEmpresasInput = {
+    create?: XOR<UsuariosCreateWithoutGrupoEmpresasInput, UsuariosUncheckedCreateWithoutGrupoEmpresasInput>
+    connectOrCreate?: UsuariosCreateOrConnectWithoutGrupoEmpresasInput
+    connect?: UsuariosWhereUniqueInput
+  }
+
+  export type EmpresasCreateNestedManyWithoutGrupoEmpresasInput = {
+    create?: XOR<EmpresasCreateWithoutGrupoEmpresasInput, EmpresasUncheckedCreateWithoutGrupoEmpresasInput> | EmpresasCreateWithoutGrupoEmpresasInput[] | EmpresasUncheckedCreateWithoutGrupoEmpresasInput[]
+    connectOrCreate?: EmpresasCreateOrConnectWithoutGrupoEmpresasInput | EmpresasCreateOrConnectWithoutGrupoEmpresasInput[]
+    createMany?: EmpresasCreateManyGrupoEmpresasInputEnvelope
+    connect?: EmpresasWhereUniqueInput | EmpresasWhereUniqueInput[]
+  }
+
+  export type EmpresasUncheckedCreateNestedManyWithoutGrupoEmpresasInput = {
+    create?: XOR<EmpresasCreateWithoutGrupoEmpresasInput, EmpresasUncheckedCreateWithoutGrupoEmpresasInput> | EmpresasCreateWithoutGrupoEmpresasInput[] | EmpresasUncheckedCreateWithoutGrupoEmpresasInput[]
+    connectOrCreate?: EmpresasCreateOrConnectWithoutGrupoEmpresasInput | EmpresasCreateOrConnectWithoutGrupoEmpresasInput[]
+    createMany?: EmpresasCreateManyGrupoEmpresasInputEnvelope
+    connect?: EmpresasWhereUniqueInput | EmpresasWhereUniqueInput[]
+  }
+
+  export type UsuariosUpdateOneRequiredWithoutGrupoEmpresasNestedInput = {
+    create?: XOR<UsuariosCreateWithoutGrupoEmpresasInput, UsuariosUncheckedCreateWithoutGrupoEmpresasInput>
+    connectOrCreate?: UsuariosCreateOrConnectWithoutGrupoEmpresasInput
+    upsert?: UsuariosUpsertWithoutGrupoEmpresasInput
+    connect?: UsuariosWhereUniqueInput
+    update?: XOR<XOR<UsuariosUpdateToOneWithWhereWithoutGrupoEmpresasInput, UsuariosUpdateWithoutGrupoEmpresasInput>, UsuariosUncheckedUpdateWithoutGrupoEmpresasInput>
+  }
+
+  export type EmpresasUpdateManyWithoutGrupoEmpresasNestedInput = {
+    create?: XOR<EmpresasCreateWithoutGrupoEmpresasInput, EmpresasUncheckedCreateWithoutGrupoEmpresasInput> | EmpresasCreateWithoutGrupoEmpresasInput[] | EmpresasUncheckedCreateWithoutGrupoEmpresasInput[]
+    connectOrCreate?: EmpresasCreateOrConnectWithoutGrupoEmpresasInput | EmpresasCreateOrConnectWithoutGrupoEmpresasInput[]
+    upsert?: EmpresasUpsertWithWhereUniqueWithoutGrupoEmpresasInput | EmpresasUpsertWithWhereUniqueWithoutGrupoEmpresasInput[]
+    createMany?: EmpresasCreateManyGrupoEmpresasInputEnvelope
+    set?: EmpresasWhereUniqueInput | EmpresasWhereUniqueInput[]
+    disconnect?: EmpresasWhereUniqueInput | EmpresasWhereUniqueInput[]
+    delete?: EmpresasWhereUniqueInput | EmpresasWhereUniqueInput[]
+    connect?: EmpresasWhereUniqueInput | EmpresasWhereUniqueInput[]
+    update?: EmpresasUpdateWithWhereUniqueWithoutGrupoEmpresasInput | EmpresasUpdateWithWhereUniqueWithoutGrupoEmpresasInput[]
+    updateMany?: EmpresasUpdateManyWithWhereWithoutGrupoEmpresasInput | EmpresasUpdateManyWithWhereWithoutGrupoEmpresasInput[]
+    deleteMany?: EmpresasScalarWhereInput | EmpresasScalarWhereInput[]
+  }
+
+  export type EmpresasUncheckedUpdateManyWithoutGrupoEmpresasNestedInput = {
+    create?: XOR<EmpresasCreateWithoutGrupoEmpresasInput, EmpresasUncheckedCreateWithoutGrupoEmpresasInput> | EmpresasCreateWithoutGrupoEmpresasInput[] | EmpresasUncheckedCreateWithoutGrupoEmpresasInput[]
+    connectOrCreate?: EmpresasCreateOrConnectWithoutGrupoEmpresasInput | EmpresasCreateOrConnectWithoutGrupoEmpresasInput[]
+    upsert?: EmpresasUpsertWithWhereUniqueWithoutGrupoEmpresasInput | EmpresasUpsertWithWhereUniqueWithoutGrupoEmpresasInput[]
+    createMany?: EmpresasCreateManyGrupoEmpresasInputEnvelope
+    set?: EmpresasWhereUniqueInput | EmpresasWhereUniqueInput[]
+    disconnect?: EmpresasWhereUniqueInput | EmpresasWhereUniqueInput[]
+    delete?: EmpresasWhereUniqueInput | EmpresasWhereUniqueInput[]
+    connect?: EmpresasWhereUniqueInput | EmpresasWhereUniqueInput[]
+    update?: EmpresasUpdateWithWhereUniqueWithoutGrupoEmpresasInput | EmpresasUpdateWithWhereUniqueWithoutGrupoEmpresasInput[]
+    updateMany?: EmpresasUpdateManyWithWhereWithoutGrupoEmpresasInput | EmpresasUpdateManyWithWhereWithoutGrupoEmpresasInput[]
+    deleteMany?: EmpresasScalarWhereInput | EmpresasScalarWhereInput[]
   }
 
   export type PedidosCreateNestedManyWithoutClienteInput = {
@@ -16093,20 +20937,12 @@ export namespace Prisma {
     connect?: PedidosWhereUniqueInput | PedidosWhereUniqueInput[]
   }
 
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
-  }
-
   export type DecimalFieldUpdateOperationsInput = {
     set?: Decimal | DecimalJsLike | number | string
     increment?: Decimal | DecimalJsLike | number | string
     decrement?: Decimal | DecimalJsLike | number | string
     multiply?: Decimal | DecimalJsLike | number | string
     divide?: Decimal | DecimalJsLike | number | string
-  }
-
-  export type NullableDateTimeFieldUpdateOperationsInput = {
-    set?: Date | string | null
   }
 
   export type PedidosUpdateManyWithoutClienteNestedInput = {
@@ -16409,10 +21245,10 @@ export namespace Prisma {
     connect?: ClientesWhereUniqueInput
   }
 
-  export type UsuariosCreateNestedOneWithoutPedidosInput = {
-    create?: XOR<UsuariosCreateWithoutPedidosInput, UsuariosUncheckedCreateWithoutPedidosInput>
-    connectOrCreate?: UsuariosCreateOrConnectWithoutPedidosInput
-    connect?: UsuariosWhereUniqueInput
+  export type EmpresasCreateNestedOneWithoutPedidosInput = {
+    create?: XOR<EmpresasCreateWithoutPedidosInput, EmpresasUncheckedCreateWithoutPedidosInput>
+    connectOrCreate?: EmpresasCreateOrConnectWithoutPedidosInput
+    connect?: EmpresasWhereUniqueInput
   }
 
   export type PedidoProdutosCreateNestedManyWithoutPedidosInput = {
@@ -16445,12 +21281,12 @@ export namespace Prisma {
     update?: XOR<XOR<ClientesUpdateToOneWithWhereWithoutPedidosInput, ClientesUpdateWithoutPedidosInput>, ClientesUncheckedUpdateWithoutPedidosInput>
   }
 
-  export type UsuariosUpdateOneRequiredWithoutPedidosNestedInput = {
-    create?: XOR<UsuariosCreateWithoutPedidosInput, UsuariosUncheckedCreateWithoutPedidosInput>
-    connectOrCreate?: UsuariosCreateOrConnectWithoutPedidosInput
-    upsert?: UsuariosUpsertWithoutPedidosInput
-    connect?: UsuariosWhereUniqueInput
-    update?: XOR<XOR<UsuariosUpdateToOneWithWhereWithoutPedidosInput, UsuariosUpdateWithoutPedidosInput>, UsuariosUncheckedUpdateWithoutPedidosInput>
+  export type EmpresasUpdateOneRequiredWithoutPedidosNestedInput = {
+    create?: XOR<EmpresasCreateWithoutPedidosInput, EmpresasUncheckedCreateWithoutPedidosInput>
+    connectOrCreate?: EmpresasCreateOrConnectWithoutPedidosInput
+    upsert?: EmpresasUpsertWithoutPedidosInput
+    connect?: EmpresasWhereUniqueInput
+    update?: XOR<XOR<EmpresasUpdateToOneWithWhereWithoutPedidosInput, EmpresasUpdateWithoutPedidosInput>, EmpresasUncheckedUpdateWithoutPedidosInput>
   }
 
   export type PedidoProdutosUpdateManyWithoutPedidosNestedInput = {
@@ -16609,6 +21445,17 @@ export namespace Prisma {
     not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type NestedDateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -16672,6 +21519,31 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -16700,28 +21572,6 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
-  export type NestedDecimalFilter<$PrismaModel = never> = {
-    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
-  }
-
-  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-  }
-
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -16739,15 +21589,15 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
-  export type NestedIntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  export type NestedDecimalFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
   }
 
   export type NestedDecimalWithAggregatesFilter<$PrismaModel = never> = {
@@ -16764,20 +21614,6 @@ export namespace Prisma {
     _sum?: NestedDecimalFilter<$PrismaModel>
     _min?: NestedDecimalFilter<$PrismaModel>
     _max?: NestedDecimalFilter<$PrismaModel>
-  }
-
-  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -16834,7 +21670,253 @@ export namespace Prisma {
     _max?: NestedDecimalNullableFilter<$PrismaModel>
   }
 
-  export type PedidosCreateWithoutUsuarioInput = {
+  export type GrupoEmpresasCreateWithoutUsuarioInput = {
+    empresas?: EmpresasCreateNestedManyWithoutGrupoEmpresasInput
+  }
+
+  export type GrupoEmpresasUncheckedCreateWithoutUsuarioInput = {
+    id?: number
+    empresas?: EmpresasUncheckedCreateNestedManyWithoutGrupoEmpresasInput
+  }
+
+  export type GrupoEmpresasCreateOrConnectWithoutUsuarioInput = {
+    where: GrupoEmpresasWhereUniqueInput
+    create: XOR<GrupoEmpresasCreateWithoutUsuarioInput, GrupoEmpresasUncheckedCreateWithoutUsuarioInput>
+  }
+
+  export type GrupoEmpresasCreateManyUsuarioInputEnvelope = {
+    data: GrupoEmpresasCreateManyUsuarioInput | GrupoEmpresasCreateManyUsuarioInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type EmpresaUsuariosCreateWithoutUsuarioInput = {
+    dt_admissao?: Date | string | null
+    perfil: string
+    status?: boolean
+    dh_criacao?: Date | string
+    dh_alteracao?: Date | string
+    empresa: EmpresasCreateNestedOneWithoutEmpresaUsuariosInput
+  }
+
+  export type EmpresaUsuariosUncheckedCreateWithoutUsuarioInput = {
+    id?: number
+    id_empresa: number
+    dt_admissao?: Date | string | null
+    perfil: string
+    status?: boolean
+    dh_criacao?: Date | string
+    dh_alteracao?: Date | string
+  }
+
+  export type EmpresaUsuariosCreateOrConnectWithoutUsuarioInput = {
+    where: EmpresaUsuariosWhereUniqueInput
+    create: XOR<EmpresaUsuariosCreateWithoutUsuarioInput, EmpresaUsuariosUncheckedCreateWithoutUsuarioInput>
+  }
+
+  export type EmpresaUsuariosCreateManyUsuarioInputEnvelope = {
+    data: EmpresaUsuariosCreateManyUsuarioInput | EmpresaUsuariosCreateManyUsuarioInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type GrupoEmpresasUpsertWithWhereUniqueWithoutUsuarioInput = {
+    where: GrupoEmpresasWhereUniqueInput
+    update: XOR<GrupoEmpresasUpdateWithoutUsuarioInput, GrupoEmpresasUncheckedUpdateWithoutUsuarioInput>
+    create: XOR<GrupoEmpresasCreateWithoutUsuarioInput, GrupoEmpresasUncheckedCreateWithoutUsuarioInput>
+  }
+
+  export type GrupoEmpresasUpdateWithWhereUniqueWithoutUsuarioInput = {
+    where: GrupoEmpresasWhereUniqueInput
+    data: XOR<GrupoEmpresasUpdateWithoutUsuarioInput, GrupoEmpresasUncheckedUpdateWithoutUsuarioInput>
+  }
+
+  export type GrupoEmpresasUpdateManyWithWhereWithoutUsuarioInput = {
+    where: GrupoEmpresasScalarWhereInput
+    data: XOR<GrupoEmpresasUpdateManyMutationInput, GrupoEmpresasUncheckedUpdateManyWithoutUsuarioInput>
+  }
+
+  export type GrupoEmpresasScalarWhereInput = {
+    AND?: GrupoEmpresasScalarWhereInput | GrupoEmpresasScalarWhereInput[]
+    OR?: GrupoEmpresasScalarWhereInput[]
+    NOT?: GrupoEmpresasScalarWhereInput | GrupoEmpresasScalarWhereInput[]
+    id?: IntFilter<"GrupoEmpresas"> | number
+    id_usuario_proprietario?: IntFilter<"GrupoEmpresas"> | number
+  }
+
+  export type EmpresaUsuariosUpsertWithWhereUniqueWithoutUsuarioInput = {
+    where: EmpresaUsuariosWhereUniqueInput
+    update: XOR<EmpresaUsuariosUpdateWithoutUsuarioInput, EmpresaUsuariosUncheckedUpdateWithoutUsuarioInput>
+    create: XOR<EmpresaUsuariosCreateWithoutUsuarioInput, EmpresaUsuariosUncheckedCreateWithoutUsuarioInput>
+  }
+
+  export type EmpresaUsuariosUpdateWithWhereUniqueWithoutUsuarioInput = {
+    where: EmpresaUsuariosWhereUniqueInput
+    data: XOR<EmpresaUsuariosUpdateWithoutUsuarioInput, EmpresaUsuariosUncheckedUpdateWithoutUsuarioInput>
+  }
+
+  export type EmpresaUsuariosUpdateManyWithWhereWithoutUsuarioInput = {
+    where: EmpresaUsuariosScalarWhereInput
+    data: XOR<EmpresaUsuariosUpdateManyMutationInput, EmpresaUsuariosUncheckedUpdateManyWithoutUsuarioInput>
+  }
+
+  export type EmpresaUsuariosScalarWhereInput = {
+    AND?: EmpresaUsuariosScalarWhereInput | EmpresaUsuariosScalarWhereInput[]
+    OR?: EmpresaUsuariosScalarWhereInput[]
+    NOT?: EmpresaUsuariosScalarWhereInput | EmpresaUsuariosScalarWhereInput[]
+    id?: IntFilter<"EmpresaUsuarios"> | number
+    id_usuario?: IntFilter<"EmpresaUsuarios"> | number
+    id_empresa?: IntFilter<"EmpresaUsuarios"> | number
+    dt_admissao?: DateTimeNullableFilter<"EmpresaUsuarios"> | Date | string | null
+    perfil?: StringFilter<"EmpresaUsuarios"> | string
+    status?: BoolFilter<"EmpresaUsuarios"> | boolean
+    dh_criacao?: DateTimeFilter<"EmpresaUsuarios"> | Date | string
+    dh_alteracao?: DateTimeFilter<"EmpresaUsuarios"> | Date | string
+  }
+
+  export type UsuariosCreateWithoutEmpresaUsuariosInput = {
+    nome: string
+    senha: string
+    email: string
+    status?: boolean
+    dt_nascimento?: Date | string | null
+    dh_criacao?: Date | string
+    dh_alteracao?: Date | string
+    grupoEmpresas?: GrupoEmpresasCreateNestedManyWithoutUsuarioInput
+  }
+
+  export type UsuariosUncheckedCreateWithoutEmpresaUsuariosInput = {
+    id?: number
+    nome: string
+    senha: string
+    email: string
+    status?: boolean
+    dt_nascimento?: Date | string | null
+    dh_criacao?: Date | string
+    dh_alteracao?: Date | string
+    grupoEmpresas?: GrupoEmpresasUncheckedCreateNestedManyWithoutUsuarioInput
+  }
+
+  export type UsuariosCreateOrConnectWithoutEmpresaUsuariosInput = {
+    where: UsuariosWhereUniqueInput
+    create: XOR<UsuariosCreateWithoutEmpresaUsuariosInput, UsuariosUncheckedCreateWithoutEmpresaUsuariosInput>
+  }
+
+  export type EmpresasCreateWithoutEmpresaUsuariosInput = {
+    cod_empresa: number
+    cpf_cnpj: string
+    xNome: string
+    xFant?: string | null
+    xLgr?: string | null
+    numero?: string | null
+    xCpl?: string | null
+    fone?: string | null
+    status?: boolean
+    dh_criacao?: Date | string
+    dh_alteracao?: Date | string
+    pedidos?: PedidosCreateNestedManyWithoutEmpresaInput
+    grupoEmpresas: GrupoEmpresasCreateNestedOneWithoutEmpresasInput
+  }
+
+  export type EmpresasUncheckedCreateWithoutEmpresaUsuariosInput = {
+    id?: number
+    id_grupo_empresas: number
+    cod_empresa: number
+    cpf_cnpj: string
+    xNome: string
+    xFant?: string | null
+    xLgr?: string | null
+    numero?: string | null
+    xCpl?: string | null
+    fone?: string | null
+    status?: boolean
+    dh_criacao?: Date | string
+    dh_alteracao?: Date | string
+    pedidos?: PedidosUncheckedCreateNestedManyWithoutEmpresaInput
+  }
+
+  export type EmpresasCreateOrConnectWithoutEmpresaUsuariosInput = {
+    where: EmpresasWhereUniqueInput
+    create: XOR<EmpresasCreateWithoutEmpresaUsuariosInput, EmpresasUncheckedCreateWithoutEmpresaUsuariosInput>
+  }
+
+  export type UsuariosUpsertWithoutEmpresaUsuariosInput = {
+    update: XOR<UsuariosUpdateWithoutEmpresaUsuariosInput, UsuariosUncheckedUpdateWithoutEmpresaUsuariosInput>
+    create: XOR<UsuariosCreateWithoutEmpresaUsuariosInput, UsuariosUncheckedCreateWithoutEmpresaUsuariosInput>
+    where?: UsuariosWhereInput
+  }
+
+  export type UsuariosUpdateToOneWithWhereWithoutEmpresaUsuariosInput = {
+    where?: UsuariosWhereInput
+    data: XOR<UsuariosUpdateWithoutEmpresaUsuariosInput, UsuariosUncheckedUpdateWithoutEmpresaUsuariosInput>
+  }
+
+  export type UsuariosUpdateWithoutEmpresaUsuariosInput = {
+    nome?: StringFieldUpdateOperationsInput | string
+    senha?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
+    dt_nascimento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    grupoEmpresas?: GrupoEmpresasUpdateManyWithoutUsuarioNestedInput
+  }
+
+  export type UsuariosUncheckedUpdateWithoutEmpresaUsuariosInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    nome?: StringFieldUpdateOperationsInput | string
+    senha?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
+    dt_nascimento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    grupoEmpresas?: GrupoEmpresasUncheckedUpdateManyWithoutUsuarioNestedInput
+  }
+
+  export type EmpresasUpsertWithoutEmpresaUsuariosInput = {
+    update: XOR<EmpresasUpdateWithoutEmpresaUsuariosInput, EmpresasUncheckedUpdateWithoutEmpresaUsuariosInput>
+    create: XOR<EmpresasCreateWithoutEmpresaUsuariosInput, EmpresasUncheckedCreateWithoutEmpresaUsuariosInput>
+    where?: EmpresasWhereInput
+  }
+
+  export type EmpresasUpdateToOneWithWhereWithoutEmpresaUsuariosInput = {
+    where?: EmpresasWhereInput
+    data: XOR<EmpresasUpdateWithoutEmpresaUsuariosInput, EmpresasUncheckedUpdateWithoutEmpresaUsuariosInput>
+  }
+
+  export type EmpresasUpdateWithoutEmpresaUsuariosInput = {
+    cod_empresa?: IntFieldUpdateOperationsInput | number
+    cpf_cnpj?: StringFieldUpdateOperationsInput | string
+    xNome?: StringFieldUpdateOperationsInput | string
+    xFant?: NullableStringFieldUpdateOperationsInput | string | null
+    xLgr?: NullableStringFieldUpdateOperationsInput | string | null
+    numero?: NullableStringFieldUpdateOperationsInput | string | null
+    xCpl?: NullableStringFieldUpdateOperationsInput | string | null
+    fone?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: BoolFieldUpdateOperationsInput | boolean
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    pedidos?: PedidosUpdateManyWithoutEmpresaNestedInput
+    grupoEmpresas?: GrupoEmpresasUpdateOneRequiredWithoutEmpresasNestedInput
+  }
+
+  export type EmpresasUncheckedUpdateWithoutEmpresaUsuariosInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    id_grupo_empresas?: IntFieldUpdateOperationsInput | number
+    cod_empresa?: IntFieldUpdateOperationsInput | number
+    cpf_cnpj?: StringFieldUpdateOperationsInput | string
+    xNome?: StringFieldUpdateOperationsInput | string
+    xFant?: NullableStringFieldUpdateOperationsInput | string | null
+    xLgr?: NullableStringFieldUpdateOperationsInput | string | null
+    numero?: NullableStringFieldUpdateOperationsInput | string | null
+    xCpl?: NullableStringFieldUpdateOperationsInput | string | null
+    fone?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: BoolFieldUpdateOperationsInput | boolean
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    pedidos?: PedidosUncheckedUpdateManyWithoutEmpresaNestedInput
+  }
+
+  export type PedidosCreateWithoutEmpresaInput = {
     nomeCliente: string
     observacao?: string | null
     valorSubTotal?: Decimal | DecimalJsLike | number | string
@@ -16842,13 +21924,13 @@ export namespace Prisma {
     valorTaxaDeEntrega?: Decimal | DecimalJsLike | number | string | null
     status: number
     localConsumo: number
-    data_criacao?: Date | string
-    data_alteracao?: Date | string
+    dh_criacao?: Date | string
+    dh_alteracao?: Date | string
     cliente: ClientesCreateNestedOneWithoutPedidosInput
     itensPedido?: PedidoProdutosCreateNestedManyWithoutPedidosInput
   }
 
-  export type PedidosUncheckedCreateWithoutUsuarioInput = {
+  export type PedidosUncheckedCreateWithoutEmpresaInput = {
     id?: number
     idCliente: number
     nomeCliente: string
@@ -16858,35 +21940,78 @@ export namespace Prisma {
     valorTaxaDeEntrega?: Decimal | DecimalJsLike | number | string | null
     status: number
     localConsumo: number
-    data_criacao?: Date | string
-    data_alteracao?: Date | string
+    dh_criacao?: Date | string
+    dh_alteracao?: Date | string
     itensPedido?: PedidoProdutosUncheckedCreateNestedManyWithoutPedidosInput
   }
 
-  export type PedidosCreateOrConnectWithoutUsuarioInput = {
+  export type PedidosCreateOrConnectWithoutEmpresaInput = {
     where: PedidosWhereUniqueInput
-    create: XOR<PedidosCreateWithoutUsuarioInput, PedidosUncheckedCreateWithoutUsuarioInput>
+    create: XOR<PedidosCreateWithoutEmpresaInput, PedidosUncheckedCreateWithoutEmpresaInput>
   }
 
-  export type PedidosCreateManyUsuarioInputEnvelope = {
-    data: PedidosCreateManyUsuarioInput | PedidosCreateManyUsuarioInput[]
+  export type PedidosCreateManyEmpresaInputEnvelope = {
+    data: PedidosCreateManyEmpresaInput | PedidosCreateManyEmpresaInput[]
     skipDuplicates?: boolean
   }
 
-  export type PedidosUpsertWithWhereUniqueWithoutUsuarioInput = {
-    where: PedidosWhereUniqueInput
-    update: XOR<PedidosUpdateWithoutUsuarioInput, PedidosUncheckedUpdateWithoutUsuarioInput>
-    create: XOR<PedidosCreateWithoutUsuarioInput, PedidosUncheckedCreateWithoutUsuarioInput>
+  export type GrupoEmpresasCreateWithoutEmpresasInput = {
+    usuario: UsuariosCreateNestedOneWithoutGrupoEmpresasInput
   }
 
-  export type PedidosUpdateWithWhereUniqueWithoutUsuarioInput = {
-    where: PedidosWhereUniqueInput
-    data: XOR<PedidosUpdateWithoutUsuarioInput, PedidosUncheckedUpdateWithoutUsuarioInput>
+  export type GrupoEmpresasUncheckedCreateWithoutEmpresasInput = {
+    id?: number
+    id_usuario_proprietario: number
   }
 
-  export type PedidosUpdateManyWithWhereWithoutUsuarioInput = {
+  export type GrupoEmpresasCreateOrConnectWithoutEmpresasInput = {
+    where: GrupoEmpresasWhereUniqueInput
+    create: XOR<GrupoEmpresasCreateWithoutEmpresasInput, GrupoEmpresasUncheckedCreateWithoutEmpresasInput>
+  }
+
+  export type EmpresaUsuariosCreateWithoutEmpresaInput = {
+    dt_admissao?: Date | string | null
+    perfil: string
+    status?: boolean
+    dh_criacao?: Date | string
+    dh_alteracao?: Date | string
+    usuario: UsuariosCreateNestedOneWithoutEmpresaUsuariosInput
+  }
+
+  export type EmpresaUsuariosUncheckedCreateWithoutEmpresaInput = {
+    id?: number
+    id_usuario: number
+    dt_admissao?: Date | string | null
+    perfil: string
+    status?: boolean
+    dh_criacao?: Date | string
+    dh_alteracao?: Date | string
+  }
+
+  export type EmpresaUsuariosCreateOrConnectWithoutEmpresaInput = {
+    where: EmpresaUsuariosWhereUniqueInput
+    create: XOR<EmpresaUsuariosCreateWithoutEmpresaInput, EmpresaUsuariosUncheckedCreateWithoutEmpresaInput>
+  }
+
+  export type EmpresaUsuariosCreateManyEmpresaInputEnvelope = {
+    data: EmpresaUsuariosCreateManyEmpresaInput | EmpresaUsuariosCreateManyEmpresaInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PedidosUpsertWithWhereUniqueWithoutEmpresaInput = {
+    where: PedidosWhereUniqueInput
+    update: XOR<PedidosUpdateWithoutEmpresaInput, PedidosUncheckedUpdateWithoutEmpresaInput>
+    create: XOR<PedidosCreateWithoutEmpresaInput, PedidosUncheckedCreateWithoutEmpresaInput>
+  }
+
+  export type PedidosUpdateWithWhereUniqueWithoutEmpresaInput = {
+    where: PedidosWhereUniqueInput
+    data: XOR<PedidosUpdateWithoutEmpresaInput, PedidosUncheckedUpdateWithoutEmpresaInput>
+  }
+
+  export type PedidosUpdateManyWithWhereWithoutEmpresaInput = {
     where: PedidosScalarWhereInput
-    data: XOR<PedidosUpdateManyMutationInput, PedidosUncheckedUpdateManyWithoutUsuarioInput>
+    data: XOR<PedidosUpdateManyMutationInput, PedidosUncheckedUpdateManyWithoutEmpresaInput>
   }
 
   export type PedidosScalarWhereInput = {
@@ -16894,8 +22019,8 @@ export namespace Prisma {
     OR?: PedidosScalarWhereInput[]
     NOT?: PedidosScalarWhereInput | PedidosScalarWhereInput[]
     id?: IntFilter<"Pedidos"> | number
+    id_empresa?: IntFilter<"Pedidos"> | number
     idCliente?: IntFilter<"Pedidos"> | number
-    idUsuario?: IntFilter<"Pedidos"> | number
     nomeCliente?: StringFilter<"Pedidos"> | string
     observacao?: StringNullableFilter<"Pedidos"> | string | null
     valorSubTotal?: DecimalFilter<"Pedidos"> | Decimal | DecimalJsLike | number | string
@@ -16903,8 +22028,184 @@ export namespace Prisma {
     valorTaxaDeEntrega?: DecimalNullableFilter<"Pedidos"> | Decimal | DecimalJsLike | number | string | null
     status?: IntFilter<"Pedidos"> | number
     localConsumo?: IntFilter<"Pedidos"> | number
-    data_criacao?: DateTimeFilter<"Pedidos"> | Date | string
-    data_alteracao?: DateTimeFilter<"Pedidos"> | Date | string
+    dh_criacao?: DateTimeFilter<"Pedidos"> | Date | string
+    dh_alteracao?: DateTimeFilter<"Pedidos"> | Date | string
+  }
+
+  export type GrupoEmpresasUpsertWithoutEmpresasInput = {
+    update: XOR<GrupoEmpresasUpdateWithoutEmpresasInput, GrupoEmpresasUncheckedUpdateWithoutEmpresasInput>
+    create: XOR<GrupoEmpresasCreateWithoutEmpresasInput, GrupoEmpresasUncheckedCreateWithoutEmpresasInput>
+    where?: GrupoEmpresasWhereInput
+  }
+
+  export type GrupoEmpresasUpdateToOneWithWhereWithoutEmpresasInput = {
+    where?: GrupoEmpresasWhereInput
+    data: XOR<GrupoEmpresasUpdateWithoutEmpresasInput, GrupoEmpresasUncheckedUpdateWithoutEmpresasInput>
+  }
+
+  export type GrupoEmpresasUpdateWithoutEmpresasInput = {
+    usuario?: UsuariosUpdateOneRequiredWithoutGrupoEmpresasNestedInput
+  }
+
+  export type GrupoEmpresasUncheckedUpdateWithoutEmpresasInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    id_usuario_proprietario?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type EmpresaUsuariosUpsertWithWhereUniqueWithoutEmpresaInput = {
+    where: EmpresaUsuariosWhereUniqueInput
+    update: XOR<EmpresaUsuariosUpdateWithoutEmpresaInput, EmpresaUsuariosUncheckedUpdateWithoutEmpresaInput>
+    create: XOR<EmpresaUsuariosCreateWithoutEmpresaInput, EmpresaUsuariosUncheckedCreateWithoutEmpresaInput>
+  }
+
+  export type EmpresaUsuariosUpdateWithWhereUniqueWithoutEmpresaInput = {
+    where: EmpresaUsuariosWhereUniqueInput
+    data: XOR<EmpresaUsuariosUpdateWithoutEmpresaInput, EmpresaUsuariosUncheckedUpdateWithoutEmpresaInput>
+  }
+
+  export type EmpresaUsuariosUpdateManyWithWhereWithoutEmpresaInput = {
+    where: EmpresaUsuariosScalarWhereInput
+    data: XOR<EmpresaUsuariosUpdateManyMutationInput, EmpresaUsuariosUncheckedUpdateManyWithoutEmpresaInput>
+  }
+
+  export type UsuariosCreateWithoutGrupoEmpresasInput = {
+    nome: string
+    senha: string
+    email: string
+    status?: boolean
+    dt_nascimento?: Date | string | null
+    dh_criacao?: Date | string
+    dh_alteracao?: Date | string
+    empresaUsuarios?: EmpresaUsuariosCreateNestedManyWithoutUsuarioInput
+  }
+
+  export type UsuariosUncheckedCreateWithoutGrupoEmpresasInput = {
+    id?: number
+    nome: string
+    senha: string
+    email: string
+    status?: boolean
+    dt_nascimento?: Date | string | null
+    dh_criacao?: Date | string
+    dh_alteracao?: Date | string
+    empresaUsuarios?: EmpresaUsuariosUncheckedCreateNestedManyWithoutUsuarioInput
+  }
+
+  export type UsuariosCreateOrConnectWithoutGrupoEmpresasInput = {
+    where: UsuariosWhereUniqueInput
+    create: XOR<UsuariosCreateWithoutGrupoEmpresasInput, UsuariosUncheckedCreateWithoutGrupoEmpresasInput>
+  }
+
+  export type EmpresasCreateWithoutGrupoEmpresasInput = {
+    cod_empresa: number
+    cpf_cnpj: string
+    xNome: string
+    xFant?: string | null
+    xLgr?: string | null
+    numero?: string | null
+    xCpl?: string | null
+    fone?: string | null
+    status?: boolean
+    dh_criacao?: Date | string
+    dh_alteracao?: Date | string
+    pedidos?: PedidosCreateNestedManyWithoutEmpresaInput
+    empresaUsuarios?: EmpresaUsuariosCreateNestedManyWithoutEmpresaInput
+  }
+
+  export type EmpresasUncheckedCreateWithoutGrupoEmpresasInput = {
+    id?: number
+    cod_empresa: number
+    cpf_cnpj: string
+    xNome: string
+    xFant?: string | null
+    xLgr?: string | null
+    numero?: string | null
+    xCpl?: string | null
+    fone?: string | null
+    status?: boolean
+    dh_criacao?: Date | string
+    dh_alteracao?: Date | string
+    pedidos?: PedidosUncheckedCreateNestedManyWithoutEmpresaInput
+    empresaUsuarios?: EmpresaUsuariosUncheckedCreateNestedManyWithoutEmpresaInput
+  }
+
+  export type EmpresasCreateOrConnectWithoutGrupoEmpresasInput = {
+    where: EmpresasWhereUniqueInput
+    create: XOR<EmpresasCreateWithoutGrupoEmpresasInput, EmpresasUncheckedCreateWithoutGrupoEmpresasInput>
+  }
+
+  export type EmpresasCreateManyGrupoEmpresasInputEnvelope = {
+    data: EmpresasCreateManyGrupoEmpresasInput | EmpresasCreateManyGrupoEmpresasInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UsuariosUpsertWithoutGrupoEmpresasInput = {
+    update: XOR<UsuariosUpdateWithoutGrupoEmpresasInput, UsuariosUncheckedUpdateWithoutGrupoEmpresasInput>
+    create: XOR<UsuariosCreateWithoutGrupoEmpresasInput, UsuariosUncheckedCreateWithoutGrupoEmpresasInput>
+    where?: UsuariosWhereInput
+  }
+
+  export type UsuariosUpdateToOneWithWhereWithoutGrupoEmpresasInput = {
+    where?: UsuariosWhereInput
+    data: XOR<UsuariosUpdateWithoutGrupoEmpresasInput, UsuariosUncheckedUpdateWithoutGrupoEmpresasInput>
+  }
+
+  export type UsuariosUpdateWithoutGrupoEmpresasInput = {
+    nome?: StringFieldUpdateOperationsInput | string
+    senha?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
+    dt_nascimento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    empresaUsuarios?: EmpresaUsuariosUpdateManyWithoutUsuarioNestedInput
+  }
+
+  export type UsuariosUncheckedUpdateWithoutGrupoEmpresasInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    nome?: StringFieldUpdateOperationsInput | string
+    senha?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
+    dt_nascimento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    empresaUsuarios?: EmpresaUsuariosUncheckedUpdateManyWithoutUsuarioNestedInput
+  }
+
+  export type EmpresasUpsertWithWhereUniqueWithoutGrupoEmpresasInput = {
+    where: EmpresasWhereUniqueInput
+    update: XOR<EmpresasUpdateWithoutGrupoEmpresasInput, EmpresasUncheckedUpdateWithoutGrupoEmpresasInput>
+    create: XOR<EmpresasCreateWithoutGrupoEmpresasInput, EmpresasUncheckedCreateWithoutGrupoEmpresasInput>
+  }
+
+  export type EmpresasUpdateWithWhereUniqueWithoutGrupoEmpresasInput = {
+    where: EmpresasWhereUniqueInput
+    data: XOR<EmpresasUpdateWithoutGrupoEmpresasInput, EmpresasUncheckedUpdateWithoutGrupoEmpresasInput>
+  }
+
+  export type EmpresasUpdateManyWithWhereWithoutGrupoEmpresasInput = {
+    where: EmpresasScalarWhereInput
+    data: XOR<EmpresasUpdateManyMutationInput, EmpresasUncheckedUpdateManyWithoutGrupoEmpresasInput>
+  }
+
+  export type EmpresasScalarWhereInput = {
+    AND?: EmpresasScalarWhereInput | EmpresasScalarWhereInput[]
+    OR?: EmpresasScalarWhereInput[]
+    NOT?: EmpresasScalarWhereInput | EmpresasScalarWhereInput[]
+    id?: IntFilter<"Empresas"> | number
+    id_grupo_empresas?: IntFilter<"Empresas"> | number
+    cod_empresa?: IntFilter<"Empresas"> | number
+    cpf_cnpj?: StringFilter<"Empresas"> | string
+    xNome?: StringFilter<"Empresas"> | string
+    xFant?: StringNullableFilter<"Empresas"> | string | null
+    xLgr?: StringNullableFilter<"Empresas"> | string | null
+    numero?: StringNullableFilter<"Empresas"> | string | null
+    xCpl?: StringNullableFilter<"Empresas"> | string | null
+    fone?: StringNullableFilter<"Empresas"> | string | null
+    status?: BoolFilter<"Empresas"> | boolean
+    dh_criacao?: DateTimeFilter<"Empresas"> | Date | string
+    dh_alteracao?: DateTimeFilter<"Empresas"> | Date | string
   }
 
   export type PedidosCreateWithoutClienteInput = {
@@ -16915,15 +22216,15 @@ export namespace Prisma {
     valorTaxaDeEntrega?: Decimal | DecimalJsLike | number | string | null
     status: number
     localConsumo: number
-    data_criacao?: Date | string
-    data_alteracao?: Date | string
-    usuario: UsuariosCreateNestedOneWithoutPedidosInput
+    dh_criacao?: Date | string
+    dh_alteracao?: Date | string
+    empresa: EmpresasCreateNestedOneWithoutPedidosInput
     itensPedido?: PedidoProdutosCreateNestedManyWithoutPedidosInput
   }
 
   export type PedidosUncheckedCreateWithoutClienteInput = {
     id?: number
-    idUsuario: number
+    id_empresa: number
     nomeCliente: string
     observacao?: string | null
     valorSubTotal?: Decimal | DecimalJsLike | number | string
@@ -16931,8 +22232,8 @@ export namespace Prisma {
     valorTaxaDeEntrega?: Decimal | DecimalJsLike | number | string | null
     status: number
     localConsumo: number
-    data_criacao?: Date | string
-    data_alteracao?: Date | string
+    dh_criacao?: Date | string
+    dh_alteracao?: Date | string
     itensPedido?: PedidoProdutosUncheckedCreateNestedManyWithoutPedidosInput
   }
 
@@ -16986,7 +22287,7 @@ export namespace Prisma {
 
   export type PedidoProdutosUncheckedCreateWithoutProdutosInput = {
     id?: number
-    idPedido: number
+    id_pedido: number
     precoUnitario: Decimal | DecimalJsLike | number | string
     quantidade: number
     observacaoItem?: string | null
@@ -17009,8 +22310,8 @@ export namespace Prisma {
     obrigatorio: boolean
     qtdMinComplemento: number
     qtdMaxComplemento: number
-    data_criacao?: Date | string
-    data_alteracao?: Date | string
+    dh_criacao?: Date | string
+    dh_alteracao?: Date | string
     Complementos?: ComplementosCreateNestedManyWithoutGrupoComplementosInput
   }
 
@@ -17021,8 +22322,8 @@ export namespace Prisma {
     obrigatorio: boolean
     qtdMinComplemento: number
     qtdMaxComplemento: number
-    data_criacao?: Date | string
-    data_alteracao?: Date | string
+    dh_criacao?: Date | string
+    dh_alteracao?: Date | string
     Complementos?: ComplementosUncheckedCreateNestedManyWithoutGrupoComplementosInput
   }
 
@@ -17077,8 +22378,8 @@ export namespace Prisma {
     OR?: PedidoProdutosScalarWhereInput[]
     NOT?: PedidoProdutosScalarWhereInput | PedidoProdutosScalarWhereInput[]
     id?: IntFilter<"PedidoProdutos"> | number
-    idProduto?: IntFilter<"PedidoProdutos"> | number
-    idPedido?: IntFilter<"PedidoProdutos"> | number
+    id_produto?: IntFilter<"PedidoProdutos"> | number
+    id_pedido?: IntFilter<"PedidoProdutos"> | number
     precoUnitario?: DecimalFilter<"PedidoProdutos"> | Decimal | DecimalJsLike | number | string
     quantidade?: IntFilter<"PedidoProdutos"> | number
     observacaoItem?: StringNullableFilter<"PedidoProdutos"> | string | null
@@ -17111,8 +22412,8 @@ export namespace Prisma {
     obrigatorio?: BoolFilter<"GrupoComplementos"> | boolean
     qtdMinComplemento?: IntFilter<"GrupoComplementos"> | number
     qtdMaxComplemento?: IntFilter<"GrupoComplementos"> | number
-    data_criacao?: DateTimeFilter<"GrupoComplementos"> | Date | string
-    data_alteracao?: DateTimeFilter<"GrupoComplementos"> | Date | string
+    dh_criacao?: DateTimeFilter<"GrupoComplementos"> | Date | string
+    dh_alteracao?: DateTimeFilter<"GrupoComplementos"> | Date | string
   }
 
   export type ProdutosCreateWithoutCategoriaInput = {
@@ -17121,8 +22422,8 @@ export namespace Prisma {
     preco?: Decimal | DecimalJsLike | number | string
     status?: boolean
     imagemUrl?: string | null
-    data_criacao?: Date | string
-    data_alteracao?: Date | string
+    dh_criacao?: Date | string
+    dh_alteracao?: Date | string
     pedidoProdutos?: PedidoProdutosCreateNestedManyWithoutProdutosInput
     grupoComplementos?: GrupoComplementosCreateNestedManyWithoutProdutosInput
   }
@@ -17134,8 +22435,8 @@ export namespace Prisma {
     preco?: Decimal | DecimalJsLike | number | string
     status?: boolean
     imagemUrl?: string | null
-    data_criacao?: Date | string
-    data_alteracao?: Date | string
+    dh_criacao?: Date | string
+    dh_alteracao?: Date | string
     pedidoProdutos?: PedidoProdutosUncheckedCreateNestedManyWithoutProdutosInput
     grupoComplementos?: GrupoComplementosUncheckedCreateNestedManyWithoutProdutosInput
   }
@@ -17171,14 +22472,14 @@ export namespace Prisma {
     OR?: ProdutosScalarWhereInput[]
     NOT?: ProdutosScalarWhereInput | ProdutosScalarWhereInput[]
     id?: IntFilter<"Produtos"> | number
-    idCategoria?: IntNullableFilter<"Produtos"> | number | null
+    id_categoria?: IntNullableFilter<"Produtos"> | number | null
     nomeProduto?: StringFilter<"Produtos"> | string
     descricao?: StringNullableFilter<"Produtos"> | string | null
     preco?: DecimalFilter<"Produtos"> | Decimal | DecimalJsLike | number | string
     status?: BoolFilter<"Produtos"> | boolean
     imagemUrl?: StringNullableFilter<"Produtos"> | string | null
-    data_criacao?: DateTimeFilter<"Produtos"> | Date | string
-    data_alteracao?: DateTimeFilter<"Produtos"> | Date | string
+    dh_criacao?: DateTimeFilter<"Produtos"> | Date | string
+    dh_alteracao?: DateTimeFilter<"Produtos"> | Date | string
   }
 
   export type ProdutosCreateWithoutGrupoComplementosInput = {
@@ -17187,22 +22488,22 @@ export namespace Prisma {
     preco?: Decimal | DecimalJsLike | number | string
     status?: boolean
     imagemUrl?: string | null
-    data_criacao?: Date | string
-    data_alteracao?: Date | string
+    dh_criacao?: Date | string
+    dh_alteracao?: Date | string
     categoria?: CategoriasCreateNestedOneWithoutProdutosInput
     pedidoProdutos?: PedidoProdutosCreateNestedManyWithoutProdutosInput
   }
 
   export type ProdutosUncheckedCreateWithoutGrupoComplementosInput = {
     id?: number
-    idCategoria?: number | null
+    id_categoria?: number | null
     nomeProduto: string
     descricao?: string | null
     preco?: Decimal | DecimalJsLike | number | string
     status?: boolean
     imagemUrl?: string | null
-    data_criacao?: Date | string
-    data_alteracao?: Date | string
+    dh_criacao?: Date | string
+    dh_alteracao?: Date | string
     pedidoProdutos?: PedidoProdutosUncheckedCreateNestedManyWithoutProdutosInput
   }
 
@@ -17217,8 +22518,8 @@ export namespace Prisma {
     status?: boolean
     preco?: Decimal | DecimalJsLike | number | string
     imagemUrl?: string | null
-    data_criacao?: Date | string
-    data_alteracao?: Date | string
+    dh_criacao?: Date | string
+    dh_alteracao?: Date | string
     PedidoProdutoComplementos?: PedidoProdutoComplementosCreateNestedManyWithoutComplementosInput
   }
 
@@ -17229,8 +22530,8 @@ export namespace Prisma {
     status?: boolean
     preco?: Decimal | DecimalJsLike | number | string
     imagemUrl?: string | null
-    data_criacao?: Date | string
-    data_alteracao?: Date | string
+    dh_criacao?: Date | string
+    dh_alteracao?: Date | string
     PedidoProdutoComplementos?: PedidoProdutoComplementosUncheckedCreateNestedManyWithoutComplementosInput
   }
 
@@ -17261,22 +22562,22 @@ export namespace Prisma {
     preco?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: BoolFieldUpdateOperationsInput | boolean
     imagemUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
-    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
     categoria?: CategoriasUpdateOneWithoutProdutosNestedInput
     pedidoProdutos?: PedidoProdutosUpdateManyWithoutProdutosNestedInput
   }
 
   export type ProdutosUncheckedUpdateWithoutGrupoComplementosInput = {
     id?: IntFieldUpdateOperationsInput | number
-    idCategoria?: NullableIntFieldUpdateOperationsInput | number | null
+    id_categoria?: NullableIntFieldUpdateOperationsInput | number | null
     nomeProduto?: StringFieldUpdateOperationsInput | string
     descricao?: NullableStringFieldUpdateOperationsInput | string | null
     preco?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: BoolFieldUpdateOperationsInput | boolean
     imagemUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
-    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
     pedidoProdutos?: PedidoProdutosUncheckedUpdateManyWithoutProdutosNestedInput
   }
 
@@ -17307,8 +22608,8 @@ export namespace Prisma {
     status?: BoolFilter<"Complementos"> | boolean
     preco?: DecimalFilter<"Complementos"> | Decimal | DecimalJsLike | number | string
     imagemUrl?: StringNullableFilter<"Complementos"> | string | null
-    data_criacao?: DateTimeFilter<"Complementos"> | Date | string
-    data_alteracao?: DateTimeFilter<"Complementos"> | Date | string
+    dh_criacao?: DateTimeFilter<"Complementos"> | Date | string
+    dh_alteracao?: DateTimeFilter<"Complementos"> | Date | string
   }
 
   export type GrupoComplementosCreateWithoutComplementosInput = {
@@ -17317,8 +22618,8 @@ export namespace Prisma {
     obrigatorio: boolean
     qtdMinComplemento: number
     qtdMaxComplemento: number
-    data_criacao?: Date | string
-    data_alteracao?: Date | string
+    dh_criacao?: Date | string
+    dh_alteracao?: Date | string
     produtos?: ProdutosCreateNestedOneWithoutGrupoComplementosInput
   }
 
@@ -17330,8 +22631,8 @@ export namespace Prisma {
     obrigatorio: boolean
     qtdMinComplemento: number
     qtdMaxComplemento: number
-    data_criacao?: Date | string
-    data_alteracao?: Date | string
+    dh_criacao?: Date | string
+    dh_alteracao?: Date | string
   }
 
   export type GrupoComplementosCreateOrConnectWithoutComplementosInput = {
@@ -17379,8 +22680,8 @@ export namespace Prisma {
     obrigatorio?: BoolFieldUpdateOperationsInput | boolean
     qtdMinComplemento?: IntFieldUpdateOperationsInput | number
     qtdMaxComplemento?: IntFieldUpdateOperationsInput | number
-    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
-    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
     produtos?: ProdutosUpdateOneWithoutGrupoComplementosNestedInput
   }
 
@@ -17392,8 +22693,8 @@ export namespace Prisma {
     obrigatorio?: BoolFieldUpdateOperationsInput | boolean
     qtdMinComplemento?: IntFieldUpdateOperationsInput | number
     qtdMaxComplemento?: IntFieldUpdateOperationsInput | number
-    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
-    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type PedidoProdutoComplementosUpsertWithWhereUniqueWithoutComplementosInput = {
@@ -17424,28 +22725,32 @@ export namespace Prisma {
   }
 
   export type ClientesCreateWithoutPedidosInput = {
+    id_empresa: number
     nome: string
     apelido?: string | null
     endereco?: string | null
     fone?: string | null
     status?: boolean
-    limiteCredito?: Decimal | DecimalJsLike | number | string
+    limite_credito?: Decimal | DecimalJsLike | number | string
     data_nascimento?: Date | string | null
-    data_criacao?: Date | string
-    data_alteracao?: Date | string
+    id_usuario_criador: number
+    dh_criacao?: Date | string
+    dh_alteracao?: Date | string
   }
 
   export type ClientesUncheckedCreateWithoutPedidosInput = {
     id?: number
+    id_empresa: number
     nome: string
     apelido?: string | null
     endereco?: string | null
     fone?: string | null
     status?: boolean
-    limiteCredito?: Decimal | DecimalJsLike | number | string
+    limite_credito?: Decimal | DecimalJsLike | number | string
     data_nascimento?: Date | string | null
-    data_criacao?: Date | string
-    data_alteracao?: Date | string
+    id_usuario_criador: number
+    dh_criacao?: Date | string
+    dh_alteracao?: Date | string
   }
 
   export type ClientesCreateOrConnectWithoutPedidosInput = {
@@ -17453,30 +22758,42 @@ export namespace Prisma {
     create: XOR<ClientesCreateWithoutPedidosInput, ClientesUncheckedCreateWithoutPedidosInput>
   }
 
-  export type UsuariosCreateWithoutPedidosInput = {
-    nome: string
-    usuario: string
-    senha: string
-    email: string
+  export type EmpresasCreateWithoutPedidosInput = {
+    cod_empresa: number
+    cpf_cnpj: string
+    xNome: string
+    xFant?: string | null
+    xLgr?: string | null
+    numero?: string | null
+    xCpl?: string | null
+    fone?: string | null
     status?: boolean
-    data_criacao?: Date | string
-    data_alteracao?: Date | string
+    dh_criacao?: Date | string
+    dh_alteracao?: Date | string
+    grupoEmpresas: GrupoEmpresasCreateNestedOneWithoutEmpresasInput
+    empresaUsuarios?: EmpresaUsuariosCreateNestedManyWithoutEmpresaInput
   }
 
-  export type UsuariosUncheckedCreateWithoutPedidosInput = {
+  export type EmpresasUncheckedCreateWithoutPedidosInput = {
     id?: number
-    nome: string
-    usuario: string
-    senha: string
-    email: string
+    id_grupo_empresas: number
+    cod_empresa: number
+    cpf_cnpj: string
+    xNome: string
+    xFant?: string | null
+    xLgr?: string | null
+    numero?: string | null
+    xCpl?: string | null
+    fone?: string | null
     status?: boolean
-    data_criacao?: Date | string
-    data_alteracao?: Date | string
+    dh_criacao?: Date | string
+    dh_alteracao?: Date | string
+    empresaUsuarios?: EmpresaUsuariosUncheckedCreateNestedManyWithoutEmpresaInput
   }
 
-  export type UsuariosCreateOrConnectWithoutPedidosInput = {
-    where: UsuariosWhereUniqueInput
-    create: XOR<UsuariosCreateWithoutPedidosInput, UsuariosUncheckedCreateWithoutPedidosInput>
+  export type EmpresasCreateOrConnectWithoutPedidosInput = {
+    where: EmpresasWhereUniqueInput
+    create: XOR<EmpresasCreateWithoutPedidosInput, EmpresasUncheckedCreateWithoutPedidosInput>
   }
 
   export type PedidoProdutosCreateWithoutPedidosInput = {
@@ -17489,7 +22806,7 @@ export namespace Prisma {
 
   export type PedidoProdutosUncheckedCreateWithoutPedidosInput = {
     id?: number
-    idProduto: number
+    id_produto: number
     precoUnitario: Decimal | DecimalJsLike | number | string
     quantidade: number
     observacaoItem?: string | null
@@ -17518,60 +22835,76 @@ export namespace Prisma {
   }
 
   export type ClientesUpdateWithoutPedidosInput = {
+    id_empresa?: IntFieldUpdateOperationsInput | number
     nome?: StringFieldUpdateOperationsInput | string
     apelido?: NullableStringFieldUpdateOperationsInput | string | null
     endereco?: NullableStringFieldUpdateOperationsInput | string | null
     fone?: NullableStringFieldUpdateOperationsInput | string | null
     status?: BoolFieldUpdateOperationsInput | boolean
-    limiteCredito?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    limite_credito?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     data_nascimento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
-    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    id_usuario_criador?: IntFieldUpdateOperationsInput | number
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ClientesUncheckedUpdateWithoutPedidosInput = {
     id?: IntFieldUpdateOperationsInput | number
+    id_empresa?: IntFieldUpdateOperationsInput | number
     nome?: StringFieldUpdateOperationsInput | string
     apelido?: NullableStringFieldUpdateOperationsInput | string | null
     endereco?: NullableStringFieldUpdateOperationsInput | string | null
     fone?: NullableStringFieldUpdateOperationsInput | string | null
     status?: BoolFieldUpdateOperationsInput | boolean
-    limiteCredito?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    limite_credito?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     data_nascimento?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
-    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    id_usuario_criador?: IntFieldUpdateOperationsInput | number
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type UsuariosUpsertWithoutPedidosInput = {
-    update: XOR<UsuariosUpdateWithoutPedidosInput, UsuariosUncheckedUpdateWithoutPedidosInput>
-    create: XOR<UsuariosCreateWithoutPedidosInput, UsuariosUncheckedCreateWithoutPedidosInput>
-    where?: UsuariosWhereInput
+  export type EmpresasUpsertWithoutPedidosInput = {
+    update: XOR<EmpresasUpdateWithoutPedidosInput, EmpresasUncheckedUpdateWithoutPedidosInput>
+    create: XOR<EmpresasCreateWithoutPedidosInput, EmpresasUncheckedCreateWithoutPedidosInput>
+    where?: EmpresasWhereInput
   }
 
-  export type UsuariosUpdateToOneWithWhereWithoutPedidosInput = {
-    where?: UsuariosWhereInput
-    data: XOR<UsuariosUpdateWithoutPedidosInput, UsuariosUncheckedUpdateWithoutPedidosInput>
+  export type EmpresasUpdateToOneWithWhereWithoutPedidosInput = {
+    where?: EmpresasWhereInput
+    data: XOR<EmpresasUpdateWithoutPedidosInput, EmpresasUncheckedUpdateWithoutPedidosInput>
   }
 
-  export type UsuariosUpdateWithoutPedidosInput = {
-    nome?: StringFieldUpdateOperationsInput | string
-    usuario?: StringFieldUpdateOperationsInput | string
-    senha?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
+  export type EmpresasUpdateWithoutPedidosInput = {
+    cod_empresa?: IntFieldUpdateOperationsInput | number
+    cpf_cnpj?: StringFieldUpdateOperationsInput | string
+    xNome?: StringFieldUpdateOperationsInput | string
+    xFant?: NullableStringFieldUpdateOperationsInput | string | null
+    xLgr?: NullableStringFieldUpdateOperationsInput | string | null
+    numero?: NullableStringFieldUpdateOperationsInput | string | null
+    xCpl?: NullableStringFieldUpdateOperationsInput | string | null
+    fone?: NullableStringFieldUpdateOperationsInput | string | null
     status?: BoolFieldUpdateOperationsInput | boolean
-    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
-    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    grupoEmpresas?: GrupoEmpresasUpdateOneRequiredWithoutEmpresasNestedInput
+    empresaUsuarios?: EmpresaUsuariosUpdateManyWithoutEmpresaNestedInput
   }
 
-  export type UsuariosUncheckedUpdateWithoutPedidosInput = {
+  export type EmpresasUncheckedUpdateWithoutPedidosInput = {
     id?: IntFieldUpdateOperationsInput | number
-    nome?: StringFieldUpdateOperationsInput | string
-    usuario?: StringFieldUpdateOperationsInput | string
-    senha?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
+    id_grupo_empresas?: IntFieldUpdateOperationsInput | number
+    cod_empresa?: IntFieldUpdateOperationsInput | number
+    cpf_cnpj?: StringFieldUpdateOperationsInput | string
+    xNome?: StringFieldUpdateOperationsInput | string
+    xFant?: NullableStringFieldUpdateOperationsInput | string | null
+    xLgr?: NullableStringFieldUpdateOperationsInput | string | null
+    numero?: NullableStringFieldUpdateOperationsInput | string | null
+    xCpl?: NullableStringFieldUpdateOperationsInput | string | null
+    fone?: NullableStringFieldUpdateOperationsInput | string | null
     status?: BoolFieldUpdateOperationsInput | boolean
-    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
-    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    empresaUsuarios?: EmpresaUsuariosUncheckedUpdateManyWithoutEmpresaNestedInput
   }
 
   export type PedidoProdutosUpsertWithWhereUniqueWithoutPedidosInput = {
@@ -17596,22 +22929,22 @@ export namespace Prisma {
     preco?: Decimal | DecimalJsLike | number | string
     status?: boolean
     imagemUrl?: string | null
-    data_criacao?: Date | string
-    data_alteracao?: Date | string
+    dh_criacao?: Date | string
+    dh_alteracao?: Date | string
     categoria?: CategoriasCreateNestedOneWithoutProdutosInput
     grupoComplementos?: GrupoComplementosCreateNestedManyWithoutProdutosInput
   }
 
   export type ProdutosUncheckedCreateWithoutPedidoProdutosInput = {
     id?: number
-    idCategoria?: number | null
+    id_categoria?: number | null
     nomeProduto: string
     descricao?: string | null
     preco?: Decimal | DecimalJsLike | number | string
     status?: boolean
     imagemUrl?: string | null
-    data_criacao?: Date | string
-    data_alteracao?: Date | string
+    dh_criacao?: Date | string
+    dh_alteracao?: Date | string
     grupoComplementos?: GrupoComplementosUncheckedCreateNestedManyWithoutProdutosInput
   }
 
@@ -17628,16 +22961,16 @@ export namespace Prisma {
     valorTaxaDeEntrega?: Decimal | DecimalJsLike | number | string | null
     status: number
     localConsumo: number
-    data_criacao?: Date | string
-    data_alteracao?: Date | string
+    dh_criacao?: Date | string
+    dh_alteracao?: Date | string
     cliente: ClientesCreateNestedOneWithoutPedidosInput
-    usuario: UsuariosCreateNestedOneWithoutPedidosInput
+    empresa: EmpresasCreateNestedOneWithoutPedidosInput
   }
 
   export type PedidosUncheckedCreateWithoutItensPedidoInput = {
     id?: number
+    id_empresa: number
     idCliente: number
-    idUsuario: number
     nomeCliente: string
     observacao?: string | null
     valorSubTotal?: Decimal | DecimalJsLike | number | string
@@ -17645,8 +22978,8 @@ export namespace Prisma {
     valorTaxaDeEntrega?: Decimal | DecimalJsLike | number | string | null
     status: number
     localConsumo: number
-    data_criacao?: Date | string
-    data_alteracao?: Date | string
+    dh_criacao?: Date | string
+    dh_alteracao?: Date | string
   }
 
   export type PedidosCreateOrConnectWithoutItensPedidoInput = {
@@ -17694,22 +23027,22 @@ export namespace Prisma {
     preco?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: BoolFieldUpdateOperationsInput | boolean
     imagemUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
-    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
     categoria?: CategoriasUpdateOneWithoutProdutosNestedInput
     grupoComplementos?: GrupoComplementosUpdateManyWithoutProdutosNestedInput
   }
 
   export type ProdutosUncheckedUpdateWithoutPedidoProdutosInput = {
     id?: IntFieldUpdateOperationsInput | number
-    idCategoria?: NullableIntFieldUpdateOperationsInput | number | null
+    id_categoria?: NullableIntFieldUpdateOperationsInput | number | null
     nomeProduto?: StringFieldUpdateOperationsInput | string
     descricao?: NullableStringFieldUpdateOperationsInput | string | null
     preco?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: BoolFieldUpdateOperationsInput | boolean
     imagemUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
-    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
     grupoComplementos?: GrupoComplementosUncheckedUpdateManyWithoutProdutosNestedInput
   }
 
@@ -17732,16 +23065,16 @@ export namespace Prisma {
     valorTaxaDeEntrega?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     status?: IntFieldUpdateOperationsInput | number
     localConsumo?: IntFieldUpdateOperationsInput | number
-    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
-    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
     cliente?: ClientesUpdateOneRequiredWithoutPedidosNestedInput
-    usuario?: UsuariosUpdateOneRequiredWithoutPedidosNestedInput
+    empresa?: EmpresasUpdateOneRequiredWithoutPedidosNestedInput
   }
 
   export type PedidosUncheckedUpdateWithoutItensPedidoInput = {
     id?: IntFieldUpdateOperationsInput | number
+    id_empresa?: IntFieldUpdateOperationsInput | number
     idCliente?: IntFieldUpdateOperationsInput | number
-    idUsuario?: IntFieldUpdateOperationsInput | number
     nomeCliente?: StringFieldUpdateOperationsInput | string
     observacao?: NullableStringFieldUpdateOperationsInput | string | null
     valorSubTotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -17749,8 +23082,8 @@ export namespace Prisma {
     valorTaxaDeEntrega?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     status?: IntFieldUpdateOperationsInput | number
     localConsumo?: IntFieldUpdateOperationsInput | number
-    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
-    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type PedidoProdutoComplementosUpsertWithWhereUniqueWithoutPedidoProdutoInput = {
@@ -17775,8 +23108,8 @@ export namespace Prisma {
     status?: boolean
     preco?: Decimal | DecimalJsLike | number | string
     imagemUrl?: string | null
-    data_criacao?: Date | string
-    data_alteracao?: Date | string
+    dh_criacao?: Date | string
+    dh_alteracao?: Date | string
     grupoComplementos?: GrupoComplementosCreateNestedOneWithoutComplementosInput
   }
 
@@ -17788,8 +23121,8 @@ export namespace Prisma {
     status?: boolean
     preco?: Decimal | DecimalJsLike | number | string
     imagemUrl?: string | null
-    data_criacao?: Date | string
-    data_alteracao?: Date | string
+    dh_criacao?: Date | string
+    dh_alteracao?: Date | string
   }
 
   export type ComplementosCreateOrConnectWithoutPedidoProdutoComplementosInput = {
@@ -17807,8 +23140,8 @@ export namespace Prisma {
 
   export type PedidoProdutosUncheckedCreateWithoutComplementosItemInput = {
     id?: number
-    idProduto: number
-    idPedido: number
+    id_produto: number
+    id_pedido: number
     precoUnitario: Decimal | DecimalJsLike | number | string
     quantidade: number
     observacaoItem?: string | null
@@ -17836,8 +23169,8 @@ export namespace Prisma {
     status?: BoolFieldUpdateOperationsInput | boolean
     preco?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     imagemUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
-    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
     grupoComplementos?: GrupoComplementosUpdateOneWithoutComplementosNestedInput
   }
 
@@ -17849,8 +23182,8 @@ export namespace Prisma {
     status?: BoolFieldUpdateOperationsInput | boolean
     preco?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     imagemUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
-    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type PedidoProdutosUpsertWithoutComplementosItemInput = {
@@ -17874,14 +23207,70 @@ export namespace Prisma {
 
   export type PedidoProdutosUncheckedUpdateWithoutComplementosItemInput = {
     id?: IntFieldUpdateOperationsInput | number
-    idProduto?: IntFieldUpdateOperationsInput | number
-    idPedido?: IntFieldUpdateOperationsInput | number
+    id_produto?: IntFieldUpdateOperationsInput | number
+    id_pedido?: IntFieldUpdateOperationsInput | number
     precoUnitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     quantidade?: IntFieldUpdateOperationsInput | number
     observacaoItem?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
-  export type PedidosCreateManyUsuarioInput = {
+  export type GrupoEmpresasCreateManyUsuarioInput = {
+    id?: number
+  }
+
+  export type EmpresaUsuariosCreateManyUsuarioInput = {
+    id?: number
+    id_empresa: number
+    dt_admissao?: Date | string | null
+    perfil: string
+    status?: boolean
+    dh_criacao?: Date | string
+    dh_alteracao?: Date | string
+  }
+
+  export type GrupoEmpresasUpdateWithoutUsuarioInput = {
+    empresas?: EmpresasUpdateManyWithoutGrupoEmpresasNestedInput
+  }
+
+  export type GrupoEmpresasUncheckedUpdateWithoutUsuarioInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    empresas?: EmpresasUncheckedUpdateManyWithoutGrupoEmpresasNestedInput
+  }
+
+  export type GrupoEmpresasUncheckedUpdateManyWithoutUsuarioInput = {
+    id?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type EmpresaUsuariosUpdateWithoutUsuarioInput = {
+    dt_admissao?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    perfil?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    empresa?: EmpresasUpdateOneRequiredWithoutEmpresaUsuariosNestedInput
+  }
+
+  export type EmpresaUsuariosUncheckedUpdateWithoutUsuarioInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    id_empresa?: IntFieldUpdateOperationsInput | number
+    dt_admissao?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    perfil?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EmpresaUsuariosUncheckedUpdateManyWithoutUsuarioInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    id_empresa?: IntFieldUpdateOperationsInput | number
+    dt_admissao?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    perfil?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PedidosCreateManyEmpresaInput = {
     id?: number
     idCliente: number
     nomeCliente: string
@@ -17891,11 +23280,21 @@ export namespace Prisma {
     valorTaxaDeEntrega?: Decimal | DecimalJsLike | number | string | null
     status: number
     localConsumo: number
-    data_criacao?: Date | string
-    data_alteracao?: Date | string
+    dh_criacao?: Date | string
+    dh_alteracao?: Date | string
   }
 
-  export type PedidosUpdateWithoutUsuarioInput = {
+  export type EmpresaUsuariosCreateManyEmpresaInput = {
+    id?: number
+    id_usuario: number
+    dt_admissao?: Date | string | null
+    perfil: string
+    status?: boolean
+    dh_criacao?: Date | string
+    dh_alteracao?: Date | string
+  }
+
+  export type PedidosUpdateWithoutEmpresaInput = {
     nomeCliente?: StringFieldUpdateOperationsInput | string
     observacao?: NullableStringFieldUpdateOperationsInput | string | null
     valorSubTotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -17903,13 +23302,13 @@ export namespace Prisma {
     valorTaxaDeEntrega?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     status?: IntFieldUpdateOperationsInput | number
     localConsumo?: IntFieldUpdateOperationsInput | number
-    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
-    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
     cliente?: ClientesUpdateOneRequiredWithoutPedidosNestedInput
     itensPedido?: PedidoProdutosUpdateManyWithoutPedidosNestedInput
   }
 
-  export type PedidosUncheckedUpdateWithoutUsuarioInput = {
+  export type PedidosUncheckedUpdateWithoutEmpresaInput = {
     id?: IntFieldUpdateOperationsInput | number
     idCliente?: IntFieldUpdateOperationsInput | number
     nomeCliente?: StringFieldUpdateOperationsInput | string
@@ -17919,12 +23318,12 @@ export namespace Prisma {
     valorTaxaDeEntrega?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     status?: IntFieldUpdateOperationsInput | number
     localConsumo?: IntFieldUpdateOperationsInput | number
-    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
-    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
     itensPedido?: PedidoProdutosUncheckedUpdateManyWithoutPedidosNestedInput
   }
 
-  export type PedidosUncheckedUpdateManyWithoutUsuarioInput = {
+  export type PedidosUncheckedUpdateManyWithoutEmpresaInput = {
     id?: IntFieldUpdateOperationsInput | number
     idCliente?: IntFieldUpdateOperationsInput | number
     nomeCliente?: StringFieldUpdateOperationsInput | string
@@ -17934,13 +23333,105 @@ export namespace Prisma {
     valorTaxaDeEntrega?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     status?: IntFieldUpdateOperationsInput | number
     localConsumo?: IntFieldUpdateOperationsInput | number
-    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
-    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EmpresaUsuariosUpdateWithoutEmpresaInput = {
+    dt_admissao?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    perfil?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    usuario?: UsuariosUpdateOneRequiredWithoutEmpresaUsuariosNestedInput
+  }
+
+  export type EmpresaUsuariosUncheckedUpdateWithoutEmpresaInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    id_usuario?: IntFieldUpdateOperationsInput | number
+    dt_admissao?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    perfil?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EmpresaUsuariosUncheckedUpdateManyWithoutEmpresaInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    id_usuario?: IntFieldUpdateOperationsInput | number
+    dt_admissao?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    perfil?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EmpresasCreateManyGrupoEmpresasInput = {
+    id?: number
+    cod_empresa: number
+    cpf_cnpj: string
+    xNome: string
+    xFant?: string | null
+    xLgr?: string | null
+    numero?: string | null
+    xCpl?: string | null
+    fone?: string | null
+    status?: boolean
+    dh_criacao?: Date | string
+    dh_alteracao?: Date | string
+  }
+
+  export type EmpresasUpdateWithoutGrupoEmpresasInput = {
+    cod_empresa?: IntFieldUpdateOperationsInput | number
+    cpf_cnpj?: StringFieldUpdateOperationsInput | string
+    xNome?: StringFieldUpdateOperationsInput | string
+    xFant?: NullableStringFieldUpdateOperationsInput | string | null
+    xLgr?: NullableStringFieldUpdateOperationsInput | string | null
+    numero?: NullableStringFieldUpdateOperationsInput | string | null
+    xCpl?: NullableStringFieldUpdateOperationsInput | string | null
+    fone?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: BoolFieldUpdateOperationsInput | boolean
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    pedidos?: PedidosUpdateManyWithoutEmpresaNestedInput
+    empresaUsuarios?: EmpresaUsuariosUpdateManyWithoutEmpresaNestedInput
+  }
+
+  export type EmpresasUncheckedUpdateWithoutGrupoEmpresasInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    cod_empresa?: IntFieldUpdateOperationsInput | number
+    cpf_cnpj?: StringFieldUpdateOperationsInput | string
+    xNome?: StringFieldUpdateOperationsInput | string
+    xFant?: NullableStringFieldUpdateOperationsInput | string | null
+    xLgr?: NullableStringFieldUpdateOperationsInput | string | null
+    numero?: NullableStringFieldUpdateOperationsInput | string | null
+    xCpl?: NullableStringFieldUpdateOperationsInput | string | null
+    fone?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: BoolFieldUpdateOperationsInput | boolean
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    pedidos?: PedidosUncheckedUpdateManyWithoutEmpresaNestedInput
+    empresaUsuarios?: EmpresaUsuariosUncheckedUpdateManyWithoutEmpresaNestedInput
+  }
+
+  export type EmpresasUncheckedUpdateManyWithoutGrupoEmpresasInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    cod_empresa?: IntFieldUpdateOperationsInput | number
+    cpf_cnpj?: StringFieldUpdateOperationsInput | string
+    xNome?: StringFieldUpdateOperationsInput | string
+    xFant?: NullableStringFieldUpdateOperationsInput | string | null
+    xLgr?: NullableStringFieldUpdateOperationsInput | string | null
+    numero?: NullableStringFieldUpdateOperationsInput | string | null
+    xCpl?: NullableStringFieldUpdateOperationsInput | string | null
+    fone?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: BoolFieldUpdateOperationsInput | boolean
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type PedidosCreateManyClienteInput = {
     id?: number
-    idUsuario: number
+    id_empresa: number
     nomeCliente: string
     observacao?: string | null
     valorSubTotal?: Decimal | DecimalJsLike | number | string
@@ -17948,8 +23439,8 @@ export namespace Prisma {
     valorTaxaDeEntrega?: Decimal | DecimalJsLike | number | string | null
     status: number
     localConsumo: number
-    data_criacao?: Date | string
-    data_alteracao?: Date | string
+    dh_criacao?: Date | string
+    dh_alteracao?: Date | string
   }
 
   export type PedidosUpdateWithoutClienteInput = {
@@ -17960,15 +23451,15 @@ export namespace Prisma {
     valorTaxaDeEntrega?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     status?: IntFieldUpdateOperationsInput | number
     localConsumo?: IntFieldUpdateOperationsInput | number
-    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
-    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
-    usuario?: UsuariosUpdateOneRequiredWithoutPedidosNestedInput
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    empresa?: EmpresasUpdateOneRequiredWithoutPedidosNestedInput
     itensPedido?: PedidoProdutosUpdateManyWithoutPedidosNestedInput
   }
 
   export type PedidosUncheckedUpdateWithoutClienteInput = {
     id?: IntFieldUpdateOperationsInput | number
-    idUsuario?: IntFieldUpdateOperationsInput | number
+    id_empresa?: IntFieldUpdateOperationsInput | number
     nomeCliente?: StringFieldUpdateOperationsInput | string
     observacao?: NullableStringFieldUpdateOperationsInput | string | null
     valorSubTotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -17976,14 +23467,14 @@ export namespace Prisma {
     valorTaxaDeEntrega?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     status?: IntFieldUpdateOperationsInput | number
     localConsumo?: IntFieldUpdateOperationsInput | number
-    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
-    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
     itensPedido?: PedidoProdutosUncheckedUpdateManyWithoutPedidosNestedInput
   }
 
   export type PedidosUncheckedUpdateManyWithoutClienteInput = {
     id?: IntFieldUpdateOperationsInput | number
-    idUsuario?: IntFieldUpdateOperationsInput | number
+    id_empresa?: IntFieldUpdateOperationsInput | number
     nomeCliente?: StringFieldUpdateOperationsInput | string
     observacao?: NullableStringFieldUpdateOperationsInput | string | null
     valorSubTotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -17991,13 +23482,13 @@ export namespace Prisma {
     valorTaxaDeEntrega?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     status?: IntFieldUpdateOperationsInput | number
     localConsumo?: IntFieldUpdateOperationsInput | number
-    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
-    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type PedidoProdutosCreateManyProdutosInput = {
     id?: number
-    idPedido: number
+    id_pedido: number
     precoUnitario: Decimal | DecimalJsLike | number | string
     quantidade: number
     observacaoItem?: string | null
@@ -18010,8 +23501,8 @@ export namespace Prisma {
     obrigatorio: boolean
     qtdMinComplemento: number
     qtdMaxComplemento: number
-    data_criacao?: Date | string
-    data_alteracao?: Date | string
+    dh_criacao?: Date | string
+    dh_alteracao?: Date | string
   }
 
   export type PedidoProdutosUpdateWithoutProdutosInput = {
@@ -18024,7 +23515,7 @@ export namespace Prisma {
 
   export type PedidoProdutosUncheckedUpdateWithoutProdutosInput = {
     id?: IntFieldUpdateOperationsInput | number
-    idPedido?: IntFieldUpdateOperationsInput | number
+    id_pedido?: IntFieldUpdateOperationsInput | number
     precoUnitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     quantidade?: IntFieldUpdateOperationsInput | number
     observacaoItem?: NullableStringFieldUpdateOperationsInput | string | null
@@ -18033,7 +23524,7 @@ export namespace Prisma {
 
   export type PedidoProdutosUncheckedUpdateManyWithoutProdutosInput = {
     id?: IntFieldUpdateOperationsInput | number
-    idPedido?: IntFieldUpdateOperationsInput | number
+    id_pedido?: IntFieldUpdateOperationsInput | number
     precoUnitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     quantidade?: IntFieldUpdateOperationsInput | number
     observacaoItem?: NullableStringFieldUpdateOperationsInput | string | null
@@ -18045,8 +23536,8 @@ export namespace Prisma {
     obrigatorio?: BoolFieldUpdateOperationsInput | boolean
     qtdMinComplemento?: IntFieldUpdateOperationsInput | number
     qtdMaxComplemento?: IntFieldUpdateOperationsInput | number
-    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
-    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
     Complementos?: ComplementosUpdateManyWithoutGrupoComplementosNestedInput
   }
 
@@ -18057,8 +23548,8 @@ export namespace Prisma {
     obrigatorio?: BoolFieldUpdateOperationsInput | boolean
     qtdMinComplemento?: IntFieldUpdateOperationsInput | number
     qtdMaxComplemento?: IntFieldUpdateOperationsInput | number
-    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
-    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
     Complementos?: ComplementosUncheckedUpdateManyWithoutGrupoComplementosNestedInput
   }
 
@@ -18069,8 +23560,8 @@ export namespace Prisma {
     obrigatorio?: BoolFieldUpdateOperationsInput | boolean
     qtdMinComplemento?: IntFieldUpdateOperationsInput | number
     qtdMaxComplemento?: IntFieldUpdateOperationsInput | number
-    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
-    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ProdutosCreateManyCategoriaInput = {
@@ -18080,8 +23571,8 @@ export namespace Prisma {
     preco?: Decimal | DecimalJsLike | number | string
     status?: boolean
     imagemUrl?: string | null
-    data_criacao?: Date | string
-    data_alteracao?: Date | string
+    dh_criacao?: Date | string
+    dh_alteracao?: Date | string
   }
 
   export type ProdutosUpdateWithoutCategoriaInput = {
@@ -18090,8 +23581,8 @@ export namespace Prisma {
     preco?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: BoolFieldUpdateOperationsInput | boolean
     imagemUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
-    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
     pedidoProdutos?: PedidoProdutosUpdateManyWithoutProdutosNestedInput
     grupoComplementos?: GrupoComplementosUpdateManyWithoutProdutosNestedInput
   }
@@ -18103,8 +23594,8 @@ export namespace Prisma {
     preco?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: BoolFieldUpdateOperationsInput | boolean
     imagemUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
-    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
     pedidoProdutos?: PedidoProdutosUncheckedUpdateManyWithoutProdutosNestedInput
     grupoComplementos?: GrupoComplementosUncheckedUpdateManyWithoutProdutosNestedInput
   }
@@ -18116,8 +23607,8 @@ export namespace Prisma {
     preco?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: BoolFieldUpdateOperationsInput | boolean
     imagemUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
-    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ComplementosCreateManyGrupoComplementosInput = {
@@ -18127,8 +23618,8 @@ export namespace Prisma {
     status?: boolean
     preco?: Decimal | DecimalJsLike | number | string
     imagemUrl?: string | null
-    data_criacao?: Date | string
-    data_alteracao?: Date | string
+    dh_criacao?: Date | string
+    dh_alteracao?: Date | string
   }
 
   export type ComplementosUpdateWithoutGrupoComplementosInput = {
@@ -18137,8 +23628,8 @@ export namespace Prisma {
     status?: BoolFieldUpdateOperationsInput | boolean
     preco?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     imagemUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
-    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
     PedidoProdutoComplementos?: PedidoProdutoComplementosUpdateManyWithoutComplementosNestedInput
   }
 
@@ -18149,8 +23640,8 @@ export namespace Prisma {
     status?: BoolFieldUpdateOperationsInput | boolean
     preco?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     imagemUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
-    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
     PedidoProdutoComplementos?: PedidoProdutoComplementosUncheckedUpdateManyWithoutComplementosNestedInput
   }
 
@@ -18161,8 +23652,8 @@ export namespace Prisma {
     status?: BoolFieldUpdateOperationsInput | boolean
     preco?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     imagemUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    data_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
-    data_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_criacao?: DateTimeFieldUpdateOperationsInput | Date | string
+    dh_alteracao?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type PedidoProdutoComplementosCreateManyComplementosInput = {
@@ -18194,7 +23685,7 @@ export namespace Prisma {
 
   export type PedidoProdutosCreateManyPedidosInput = {
     id?: number
-    idProduto: number
+    id_produto: number
     precoUnitario: Decimal | DecimalJsLike | number | string
     quantidade: number
     observacaoItem?: string | null
@@ -18210,7 +23701,7 @@ export namespace Prisma {
 
   export type PedidoProdutosUncheckedUpdateWithoutPedidosInput = {
     id?: IntFieldUpdateOperationsInput | number
-    idProduto?: IntFieldUpdateOperationsInput | number
+    id_produto?: IntFieldUpdateOperationsInput | number
     precoUnitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     quantidade?: IntFieldUpdateOperationsInput | number
     observacaoItem?: NullableStringFieldUpdateOperationsInput | string | null
@@ -18219,7 +23710,7 @@ export namespace Prisma {
 
   export type PedidoProdutosUncheckedUpdateManyWithoutPedidosInput = {
     id?: IntFieldUpdateOperationsInput | number
-    idProduto?: IntFieldUpdateOperationsInput | number
+    id_produto?: IntFieldUpdateOperationsInput | number
     precoUnitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     quantidade?: IntFieldUpdateOperationsInput | number
     observacaoItem?: NullableStringFieldUpdateOperationsInput | string | null

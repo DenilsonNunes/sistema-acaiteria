@@ -17,9 +17,13 @@ import { ComplementosModule } from 'src/produtos/complementos/complementos.modul
 import { PrinterModule } from 'src/printer/printer.module';
 import { TefModule } from 'src/tef/tef.module';
 import { TaxasDeEntregaModule } from 'src/configuracoes/taxas-de-entrega/taxas-de-entrega.module';
+import { EmpresasModule } from 'src/empresas/empresas.module';
+import { EmpresasUsuariosModule } from 'src/empresas-usuarios/empresas-usuarios.module';
 
 @Module({
   imports: [
+    EmpresasModule,
+    EmpresasUsuariosModule,
     /*----------Produtos--------- */
     ProdutosModule,
     CategoriasModule,

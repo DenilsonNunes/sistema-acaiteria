@@ -123,37 +123,71 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
 exports.Prisma.UsuariosScalarFieldEnum = {
   id: 'id',
   nome: 'nome',
-  usuario: 'usuario',
   senha: 'senha',
   email: 'email',
   status: 'status',
-  data_criacao: 'data_criacao',
-  data_alteracao: 'data_alteracao'
+  dt_nascimento: 'dt_nascimento',
+  dh_criacao: 'dh_criacao',
+  dh_alteracao: 'dh_alteracao'
+};
+
+exports.Prisma.EmpresaUsuariosScalarFieldEnum = {
+  id: 'id',
+  id_usuario: 'id_usuario',
+  id_empresa: 'id_empresa',
+  dt_admissao: 'dt_admissao',
+  perfil: 'perfil',
+  status: 'status',
+  dh_criacao: 'dh_criacao',
+  dh_alteracao: 'dh_alteracao'
+};
+
+exports.Prisma.EmpresasScalarFieldEnum = {
+  id: 'id',
+  id_grupo_empresas: 'id_grupo_empresas',
+  cod_empresa: 'cod_empresa',
+  cpf_cnpj: 'cpf_cnpj',
+  xNome: 'xNome',
+  xFant: 'xFant',
+  xLgr: 'xLgr',
+  numero: 'numero',
+  xCpl: 'xCpl',
+  fone: 'fone',
+  status: 'status',
+  dh_criacao: 'dh_criacao',
+  dh_alteracao: 'dh_alteracao'
+};
+
+exports.Prisma.GrupoEmpresasScalarFieldEnum = {
+  id: 'id',
+  id_usuario_proprietario: 'id_usuario_proprietario'
 };
 
 exports.Prisma.ClientesScalarFieldEnum = {
   id: 'id',
+  id_empresa: 'id_empresa',
   nome: 'nome',
   apelido: 'apelido',
   endereco: 'endereco',
   fone: 'fone',
   status: 'status',
-  limiteCredito: 'limiteCredito',
+  limite_credito: 'limite_credito',
   data_nascimento: 'data_nascimento',
-  data_criacao: 'data_criacao',
-  data_alteracao: 'data_alteracao'
+  id_usuario_criador: 'id_usuario_criador',
+  dh_criacao: 'dh_criacao',
+  dh_alteracao: 'dh_alteracao'
 };
 
 exports.Prisma.ProdutosScalarFieldEnum = {
   id: 'id',
-  idCategoria: 'idCategoria',
+  id_categoria: 'id_categoria',
   nomeProduto: 'nomeProduto',
   descricao: 'descricao',
   preco: 'preco',
   status: 'status',
   imagemUrl: 'imagemUrl',
-  data_criacao: 'data_criacao',
-  data_alteracao: 'data_alteracao'
+  dh_criacao: 'dh_criacao',
+  dh_alteracao: 'dh_alteracao'
 };
 
 exports.Prisma.CategoriasScalarFieldEnum = {
@@ -169,8 +203,8 @@ exports.Prisma.GrupoComplementosScalarFieldEnum = {
   obrigatorio: 'obrigatorio',
   qtdMinComplemento: 'qtdMinComplemento',
   qtdMaxComplemento: 'qtdMaxComplemento',
-  data_criacao: 'data_criacao',
-  data_alteracao: 'data_alteracao'
+  dh_criacao: 'dh_criacao',
+  dh_alteracao: 'dh_alteracao'
 };
 
 exports.Prisma.ComplementosScalarFieldEnum = {
@@ -181,14 +215,14 @@ exports.Prisma.ComplementosScalarFieldEnum = {
   status: 'status',
   preco: 'preco',
   imagemUrl: 'imagemUrl',
-  data_criacao: 'data_criacao',
-  data_alteracao: 'data_alteracao'
+  dh_criacao: 'dh_criacao',
+  dh_alteracao: 'dh_alteracao'
 };
 
 exports.Prisma.PedidosScalarFieldEnum = {
   id: 'id',
+  id_empresa: 'id_empresa',
   idCliente: 'idCliente',
-  idUsuario: 'idUsuario',
   nomeCliente: 'nomeCliente',
   observacao: 'observacao',
   valorSubTotal: 'valorSubTotal',
@@ -196,14 +230,14 @@ exports.Prisma.PedidosScalarFieldEnum = {
   valorTaxaDeEntrega: 'valorTaxaDeEntrega',
   status: 'status',
   localConsumo: 'localConsumo',
-  data_criacao: 'data_criacao',
-  data_alteracao: 'data_alteracao'
+  dh_criacao: 'dh_criacao',
+  dh_alteracao: 'dh_alteracao'
 };
 
 exports.Prisma.PedidoProdutosScalarFieldEnum = {
   id: 'id',
-  idProduto: 'idProduto',
-  idPedido: 'idPedido',
+  id_produto: 'id_produto',
+  id_pedido: 'id_pedido',
   precoUnitario: 'precoUnitario',
   quantidade: 'quantidade',
   observacaoItem: 'observacaoItem'
@@ -221,8 +255,8 @@ exports.Prisma.TaxasDeEntregaScalarFieldEnum = {
   id: 'id',
   bairroRegiao: 'bairroRegiao',
   valor: 'valor',
-  data_criacao: 'data_criacao',
-  data_alteracao: 'data_alteracao'
+  dh_criacao: 'dh_criacao',
+  dh_alteracao: 'dh_alteracao'
 };
 
 exports.Prisma.SortOrder = {
@@ -243,6 +277,9 @@ exports.Prisma.NullsOrder = {
 
 exports.Prisma.ModelName = {
   Usuarios: 'Usuarios',
+  EmpresaUsuarios: 'EmpresaUsuarios',
+  Empresas: 'Empresas',
+  GrupoEmpresas: 'GrupoEmpresas',
   Clientes: 'Clientes',
   Produtos: 'Produtos',
   Categorias: 'Categorias',

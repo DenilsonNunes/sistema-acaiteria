@@ -15,50 +15,106 @@ datasource db {
 }
 
 model Usuarios {
-  id      Int     @id @default(autoincrement())
-  nome    String  @db.VarChar(120)
-  usuario String  @unique @db.VarChar(15)
-  senha   String
-  email   String  @unique
-  status  Boolean @default(true)
+  id     Int     @id @default(autoincrement())
+  nome   String  @db.VarChar(120)
+  senha  String
+  email  String  @unique
+  status Boolean @default(true)
 
-  data_criacao   DateTime  @default(now())
-  data_alteracao DateTime  @default(now())
-  Pedidos        Pedidos[]
+  dt_nascimento DateTime? @db.Date
+
+  dh_criacao      DateTime          @default(now())
+  dh_alteracao    DateTime          @default(now())
+  grupoEmpresas   GrupoEmpresas[]
+  empresaUsuarios EmpresaUsuarios[]
 
   @@map("usuarios")
 }
 
-model Clientes {
-  id              Int       @id @default(autoincrement())
-  nome            String    @db.VarChar(120)
-  apelido         String?   @db.VarChar(120)
-  endereco        String?   @db.VarChar(250)
-  fone            String?   @db.VarChar(15)
-  status          Boolean   @default(true)
-  limiteCredito   Decimal   @default(0) @db.Decimal(10, 4)
-  data_nascimento DateTime? @db.Date
+model EmpresaUsuarios {
+  id          Int       @id @default(autoincrement())
+  id_usuario  Int
+  id_empresa  Int
+  dt_admissao DateTime? @db.Date
+  perfil      String    @db.VarChar(11)
+  status      Boolean   @default(true)
 
-  data_criacao   DateTime  @default(now())
-  data_alteracao DateTime  @default(now())
-  Pedidos        Pedidos[]
+  dh_criacao   DateTime @default(now())
+  dh_alteracao DateTime @default(now())
+
+  usuario Usuarios @relation(fields: [id_usuario], references: [id])
+  empresa Empresas @relation(fields: [id_empresa], references: [id])
+
+  @@map("empresa_usuarios")
+}
+
+model Empresas {
+  id                Int @id @default(autoincrement())
+  id_grupo_empresas Int
+  cod_empresa       Int
+
+  cpf_cnpj String  @db.VarChar(14)
+  xNome    String  @db.VarChar(60)
+  xFant    String? @db.VarChar(60)
+  xLgr     String? @db.VarChar(60)
+  numero   String? @db.VarChar(60)
+  xCpl     String? @db.VarChar(60)
+  fone     String? @db.VarChar(15)
+
+  status Boolean @default(true)
+
+  dh_criacao   DateTime @default(now())
+  dh_alteracao DateTime @default(now())
+
+  pedidos         Pedidos[]
+  grupoEmpresas   GrupoEmpresas     @relation(fields: [id_grupo_empresas], references: [id])
+  empresaUsuarios EmpresaUsuarios[]
+
+  @@map("empresas")
+}
+
+model GrupoEmpresas {
+  id                      Int @id @default(autoincrement())
+  id_usuario_proprietario Int
+
+  usuario  Usuarios   @relation(fields: [id_usuario_proprietario], references: [id])
+  empresas Empresas[]
+
+  @@map("grupo_empresas")
+}
+
+model Clientes {
+  id                 Int       @id @default(autoincrement())
+  id_empresa         Int
+  nome               String    @db.VarChar(120)
+  apelido            String?   @db.VarChar(120)
+  endereco           String?   @db.VarChar(250)
+  fone               String?   @db.VarChar(15)
+  status             Boolean   @default(true)
+  limite_credito     Decimal   @default(0) @db.Decimal(10, 4)
+  data_nascimento    DateTime? @db.Date
+  id_usuario_criador Int
+
+  dh_criacao   DateTime  @default(now())
+  dh_alteracao DateTime  @default(now())
+  Pedidos      Pedidos[]
 
   @@map("clientes")
 }
 
 model Produtos {
-  id          Int  @id @default(autoincrement())
-  idCategoria Int? // Chave estrangeira ?-> não obrigatório.
+  id           Int  @id @default(autoincrement())
+  id_categoria Int? // Chave estrangeira ?-> não obrigatório.
 
-  nomeProduto    String   @db.VarChar(80)
-  descricao      String?  @db.VarChar(1000)
-  preco          Decimal  @default(0) @db.Decimal(10, 4)
-  status         Boolean  @default(true)
-  imagemUrl      String?
-  data_criacao   DateTime @default(now())
-  data_alteracao DateTime @default(now())
+  nomeProduto  String   @db.VarChar(80)
+  descricao    String?  @db.VarChar(1000)
+  preco        Decimal  @default(0) @db.Decimal(10, 4)
+  status       Boolean  @default(true)
+  imagemUrl    String?
+  dh_criacao   DateTime @default(now())
+  dh_alteracao DateTime @default(now())
 
-  categoria Categorias? @relation(fields: [idCategoria], references: [id])
+  categoria Categorias? @relation(fields: [id_categoria], references: [id])
 
   pedidoProdutos    PedidoProdutos[]
   grupoComplementos GrupoComplementos[]
@@ -87,8 +143,8 @@ model GrupoComplementos {
 
   produtos Produtos? @relation(fields: [idProduto], references: [id])
 
-  data_criacao   DateTime @default(now())
-  data_alteracao DateTime @default(now())
+  dh_criacao   DateTime @default(now())
+  dh_alteracao DateTime @default(now())
 
   Complementos Complementos[]
 
@@ -107,30 +163,34 @@ model Complementos {
 
   grupoComplementos GrupoComplementos? @relation(fields: [idGrupoComplementos], references: [id])
 
-  data_criacao              DateTime                    @default(now())
-  data_alteracao            DateTime                    @default(now())
+  dh_criacao                DateTime                    @default(now())
+  dh_alteracao              DateTime                    @default(now())
   PedidoProdutoComplementos PedidoProdutoComplementos[]
 
   @@map("complementos") // Força nome minúsculo na migration
 }
 
 model Pedidos {
-  id          Int    @id @default(autoincrement())
-  idCliente   Int
-  idUsuario   Int
+  id         Int @id @default(autoincrement())
+  id_empresa Int
+  idCliente  Int
+
   nomeCliente String @db.VarChar(120)
 
   observacao String? @db.VarChar(250)
-  valorTotal Decimal @db.Decimal(10, 4)
+
+  valorSubTotal      Decimal  @default(0) @db.Decimal(10, 4)
+  valorTotal         Decimal  @db.Decimal(10, 4)
+  valorTaxaDeEntrega Decimal? @db.Decimal(10, 4)
 
   status       Int
   localConsumo Int
 
-  data_criacao   DateTime @default(now())
-  data_alteracao DateTime @default(now())
+  dh_criacao   DateTime @default(now())
+  dh_alteracao DateTime @default(now())
 
   cliente Clientes @relation(fields: [idCliente], references: [id])
-  usuario Usuarios @relation(fields: [idUsuario], references: [id])
+  empresa Empresas @relation(fields: [id_empresa], references: [id])
 
   itensPedido PedidoProdutos[]
 
@@ -138,16 +198,16 @@ model Pedidos {
 }
 
 model PedidoProdutos {
-  id        Int @id @default(autoincrement())
-  idProduto Int // Chave estrangeira
-  idPedido  Int // Chave estrangeira
+  id         Int @id @default(autoincrement())
+  id_produto Int // Chave estrangeira
+  id_pedido  Int // Chave estrangeira
 
   precoUnitario  Decimal @db.Decimal(10, 4)
   quantidade     Int
   observacaoItem String? @db.VarChar(200)
 
-  produtos         Produtos                    @relation(fields: [idProduto], references: [id])
-  pedidos          Pedidos                     @relation(fields: [idPedido], references: [id], onDelete: Cascade)
+  produtos         Produtos                    @relation(fields: [id_produto], references: [id])
+  pedidos          Pedidos                     @relation(fields: [id_pedido], references: [id], onDelete: Cascade)
   complementosItem PedidoProdutoComplementos[]
 
   @@map("pedido_produtos") // Força nome minúsculo na migration
@@ -176,8 +236,8 @@ model TaxasDeEntrega {
   bairroRegiao String  @db.VarChar(80)
   valor        Decimal @default(0) @db.Decimal(10, 2)
 
-  data_criacao   DateTime @default(now())
-  data_alteracao DateTime @default(now())
+  dh_criacao   DateTime @default(now())
+  dh_alteracao DateTime @default(now())
 
   @@map("taxas_entrega")
 }

@@ -4,6 +4,7 @@ import { UpdateProdutoDto } from './dto/update-produto.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import * as path from 'node:path';
 import * as fs from 'node:fs/promises';
+import { getLocalDate } from 'src/common/utils/date.util';
 
 @Injectable()
 export class ProdutosService {
@@ -125,8 +126,8 @@ export class ProdutosService {
           descricao: updateProdutoDto?.descricao ? updateProdutoDto?.descricao : findProduct.descricao,
           preco: updateProdutoDto?.preco ? updateProdutoDto?.preco : findProduct.preco,
           status: updateProdutoDto.status !== undefined ? updateProdutoDto.status : findProduct.status,
-          idCategoria: updateProdutoDto.idCategoria ? updateProdutoDto.idCategoria : findProduct.idCategoria,
-          data_alteracao: new Date(),
+          id_categoria: updateProdutoDto.id_categoria ? updateProdutoDto.id_categoria : findProduct.id_categoria,
+          dh_alteracao: getLocalDate(),
         },
       });
       // Retorna o produto
@@ -157,13 +158,13 @@ export class ProdutosService {
       // Verificar se o produto ja foi vendido
       const productSold = await this.prisma.pedidoProdutos.findMany({
         where: {
-          idProduto: id,
+          id_produto: id,
         },
       });
 
       // Se encontrar o produto o produto, retorna mensagem
       if (productSold.length > 0) {
-        throw new HttpException(`Não é possível deletar o produto pois ele já foi vendido, [PEDIDO]: ${productSold[0].idPedido}`, HttpStatus.CONFLICT);
+        throw new HttpException(`Não é possível deletar o produto pois ele já foi vendido, [PEDIDO]: ${productSold[0].id_pedido}`, HttpStatus.CONFLICT);
       }
 
       // Verificar se o produto esta em um grupo de complementos
@@ -226,12 +227,12 @@ export class ProdutosService {
         throw new HttpException(`Já existe um produto cadastrado com este mesmo nome`, HttpStatus.CONFLICT);
       }
 
-      const { idCategoria, status, preco, descricao, imagemUrl, grupoComplementos } = productOrig;
+      const { id_categoria, status, preco, descricao, imagemUrl, grupoComplementos } = productOrig;
 
       const newProduct = await this.prisma.produtos.create({
         data: {
           nomeProduto: nomeProduct,
-          idCategoria: idCategoria,
+          id_categoria: id_categoria,
           descricao: descricao,
           preco: preco,
           status: status,

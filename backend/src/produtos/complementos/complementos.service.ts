@@ -4,6 +4,7 @@ import { UpdateComplementoDto } from './dto/update-complemento.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import * as path from 'node:path';
 import * as fs from 'node:fs/promises';
+import { getLocalDate } from 'src/common/utils/date.util';
 
 @Injectable()
 export class ComplementosService {
@@ -119,7 +120,7 @@ export class ComplementosService {
           preco: updateComplementoDto?.preco ? updateComplementoDto?.preco : findComplement.preco,
           status: updateComplementoDto.status !== undefined ? updateComplementoDto.status : findComplement.status,
           idGrupoComplementos: updateComplementoDto.idGrupoComplementos ? updateComplementoDto.idGrupoComplementos : findComplement.idGrupoComplementos,
-          data_alteracao: new Date(),
+          dh_alteracao: getLocalDate(),
         },
       });
 

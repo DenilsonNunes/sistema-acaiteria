@@ -21,12 +21,12 @@ export class AuthService {
     // Verificar se usuário existe e esta ativo
     const user = await this.prisma.usuarios.findUnique({
       where: {
-        usuario: signInDTO.user,
+        email: signInDTO.email,
       },
     });
 
     if (!user) {
-      throw new HttpException('Usuário/Senha incorretos', HttpStatus.UNAUTHORIZED);
+      throw new HttpException('Email/Senha incorretos', HttpStatus.UNAUTHORIZED);
     }
 
     if (user.status === false) {
@@ -55,7 +55,6 @@ export class AuthService {
 
     return {
       id: user.id,
-      usuario: user.usuario,
       nome: user.nome,
       email: user.email,
       token: token,

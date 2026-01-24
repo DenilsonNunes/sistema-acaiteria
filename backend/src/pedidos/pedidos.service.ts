@@ -71,7 +71,7 @@ export class PedidosService {
       const order = await this.prisma.pedidos.create({
         data: {
           idCliente: createPedidoDto.idCliente,
-          idUsuario: payloadParam.user,
+          id_empresa: createPedidoDto.id_empresa,
           nomeCliente: createPedidoDto.nomeCliente,
           observacao: createPedidoDto.observacao,
           status: createPedidoDto.status,
@@ -80,12 +80,12 @@ export class PedidosService {
           valorTotal: createPedidoDto.valorTotal,
           valorTaxaDeEntrega: createPedidoDto.valorTaxaDeEntrega,
 
-          data_criacao: getLocalDate(),
-          data_alteracao: getLocalDate(),
+          dh_criacao: getLocalDate(),
+          dh_alteracao: getLocalDate(),
           // Produtos do pedido
           itensPedido: {
             create: createPedidoDto.itensPedido.map((produto) => ({
-              idProduto: produto.idProduto,
+              id_produto: produto.idProduto,
               quantidade: produto.quantidade,
               precoUnitario: produto.precoUnitario,
               observacaoItem: produto.observacaoItem,
@@ -229,7 +229,7 @@ export class PedidosService {
         // Deletar todos itens do pedido
         await tx.pedidoProdutos.deleteMany({
           where: {
-            idPedido: id,
+            id_pedido: id,
           },
         });
 
@@ -242,18 +242,18 @@ export class PedidosService {
           },
           data: {
             idCliente: updatePedidoDto.idCliente,
+            id_empresa: updatePedidoDto.id_empresa,
             nomeCliente: updatePedidoDto.nomeCliente,
-            idUsuario: payloadParam.user,
             observacao: updatePedidoDto.observacao,
             valorSubTotal: updatePedidoDto.valorSubTotal,
             valorTotal: updatePedidoDto.valorTotal,
             valorTaxaDeEntrega: updatePedidoDto.valorTaxaDeEntrega,
             localConsumo: updatePedidoDto.localConsumo,
-            data_alteracao: getLocalDate(),
+            dh_alteracao: getLocalDate(),
 
             itensPedido: {
               create: itens.map((item) => ({
-                idProduto: item.idProduto,
+                id_produto: item.idProduto,
                 quantidade: item.quantidade,
                 precoUnitario: item.precoUnitario,
                 observacaoItem: item.observacaoItem,
@@ -345,8 +345,7 @@ export class PedidosService {
         },
         data: {
           status,
-          idUsuario: payloadParam.user,
-          data_alteracao: getLocalDate(),
+          dh_alteracao: getLocalDate(),
         },
       });
 

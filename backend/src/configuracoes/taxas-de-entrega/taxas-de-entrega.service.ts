@@ -27,8 +27,8 @@ export class TaxasDeEntregaService {
           bairroRegiao: createTaxasDeEntregaDto.bairroRegiao,
           valor: createTaxasDeEntregaDto.valor,
 
-          data_criacao: getLocalDate(),
-          data_alteracao: getLocalDate(),
+          dh_criacao: getLocalDate(),
+          dh_alteracao: getLocalDate(),
         },
       });
 
@@ -83,7 +83,7 @@ export class TaxasDeEntregaService {
         data: {
           bairroRegiao: updateTaxasDeEntregaDto?.bairroRegiao ? updateTaxasDeEntregaDto?.bairroRegiao : findTaxaDeEntrega.bairroRegiao,
           valor: updateTaxasDeEntregaDto?.valor ? updateTaxasDeEntregaDto.valor : findTaxaDeEntrega.valor,
-          data_alteracao: getLocalDate(),
+          dh_alteracao: getLocalDate(),
         },
       });
 

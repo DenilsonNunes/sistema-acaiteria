@@ -4,7 +4,7 @@ import { Transform, Type } from 'class-transformer';
 export class CreateProdutoDto {
   @IsOptional()
   @Type(() => Number)
-  idCategoria?: number;
+  id_categoria?: number;
 
   @IsOptional()
   @Type(() => Number)

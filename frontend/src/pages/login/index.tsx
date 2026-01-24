@@ -16,7 +16,7 @@ import { useContext, useState } from "react"
 
 const signInSchema = z.object({
 
-  user: z.string().nonempty('O campo usuário é obrigatório'),
+  email: z.string().nonempty('O campo email é obrigatório'),
   password: z.string().nonempty('O campo senha é obrigatório')
 
 })
@@ -53,7 +53,7 @@ const Login = () => {
 
     try {
 
-      await login(data.user, data.password);
+      await login(data.email, data.password);
 
       toast.success("Login realizado com sucesso!", {
         richColors: true,
@@ -100,15 +100,15 @@ const Login = () => {
         <h1 className="text-4xl font-medium text-center text-fuchsia-700">Login</h1>
 
         <div className="w-full">
-          <Label className="text-lg mb-0.5">Usuario</Label>
+          <Label className="text-lg mb-0.5">Email</Label>
           <Input 
             disabled={isLoading}
             className="bg-white" 
-            type="text" 
-            placeholder="Digite o usuario..." 
-            {...register('user')}
+            type="email" 
+            placeholder="Digite o email..." 
+            {...register('email')}
           />
-          {errors.user && <span className="text-red-500 text-sm">{errors.user.message}</span>}
+          {errors.email && <span className="text-red-500 text-sm">{errors.email.message}</span>}
 
         </div>
 

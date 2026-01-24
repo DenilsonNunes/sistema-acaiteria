@@ -36,6 +36,9 @@ export class CreatePedidoDto {
   @IsNumber({}, { message: 'O código do cliente deve ser um numero' })
   idCliente: number;
 
+  @IsNumber({}, { message: 'O ID da empresa deve ser um número' })
+  id_empresa: number;
+
   @IsString({ message: 'O nome do cliente é obrigatório' })
   nomeCliente: string;
 

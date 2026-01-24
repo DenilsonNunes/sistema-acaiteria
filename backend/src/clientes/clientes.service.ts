@@ -14,14 +14,16 @@ export class ClientesService {
       await this.prisma.clientes.create({
         data: {
           nome: createClienteDto.nome,
+          id_usuario_criador: 1,
+          id_empresa: 1,
           apelido: createClienteDto.apelido,
           endereco: createClienteDto.endereco,
           fone: createClienteDto.fone,
           status: createClienteDto.status,
-          limiteCredito: createClienteDto.limiteCredito,
+          limite_credito: createClienteDto.limiteCredito,
           data_nascimento: createClienteDto.data_nascimento ? new Date(createClienteDto.data_nascimento) : null,
-          data_criacao: getLocalDate(),
-          data_alteracao: getLocalDate(),
+          dh_criacao: getLocalDate(),
+          dh_alteracao: getLocalDate(),
         },
       });
 
@@ -41,7 +43,7 @@ export class ClientesService {
       take: limit,
       skip: offset,
       orderBy: {
-        data_criacao: 'desc',
+        dh_criacao: 'desc',
       },
     });
   }
@@ -114,11 +116,11 @@ export class ClientesService {
           endereco: updateClienteDto?.endereco ? updateClienteDto.endereco : findCustomer.endereco,
           fone: updateClienteDto?.fone ? updateClienteDto.fone : findCustomer.fone,
           status: updateClienteDto?.status !== undefined ? updateClienteDto.status : findCustomer.status,
-          limiteCredito: updateClienteDto?.limiteCredito ? updateClienteDto.limiteCredito : findCustomer.limiteCredito,
+          limite_credito: updateClienteDto?.limiteCredito ? updateClienteDto.limiteCredito : findCustomer.limite_credito,
           ...(updateClienteDto.data_nascimento && {
             data_nascimento: new Date(updateClienteDto.data_nascimento),
           }),
-          data_alteracao: new Date(),
+          dh_alteracao: new Date(),
         },
       });
 
